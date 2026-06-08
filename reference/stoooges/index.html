@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"><link rel="preload" as="font" href="/web/fonts/AvenirNextLTProBold.e7de87af.otf" crossorigin><link rel="preload" as="font" href="/web/fonts/HelveticaNowText.96477e49.OTF" crossorigin><link rel="preload" as="font" href="/web/fonts/Lobster.75cde7a9.otf" crossorigin><link rel="preload" as="font" href="/web/fonts/OPPOSans-B.9f6ed9a4.ttf" crossorigin><link rel="preload" as="font" href="/web/fonts/OPPOSans-M.8a567f4b.ttf" crossorigin><title>ä¸å£«æ¸¡æè²</title><style>*{
+        margin: 0;
+        padding: 0;
+      }
+      .full_box{
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        width: 100vw;
+        height: 100vh;
+        background-color: #F9FAFC;
+      }
+      .fx_l,.fx_r{
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        background-color: #F9FAFC;
+        z-index: 1000;
+        top: 0;
+      }
+      .garyBg{
+        background-color: #fffcfc;
+        /* background-color: #eee; */
+      }
+      .fx_l{
+        left: 0;
+      }
+      .fxlImg{
+        position: absolute;
+        height: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0;
+      }
+      .fx_r{
+        right: 0;
+      }
+      .fxrImg{
+        position: absolute;
+        height: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+      }
+      .fontdv{
+        position: absolute;
+        z-index: 1111;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        text-align: center;
+      }
+      .imgbox{
+        position: relative;
+        width: 110px;
+        height: 110px;
+        overflow: hidden;
+      }
+      .hidebox{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        height: 0%;
+        width: 110px;
+        overflow: hidden;
+      }
+      .imglogo{
+        display: block;
+        width: 110px;
+        height: 110px;
+        /* top: 0;
+        left: 50%;
+        transform: translateX(-50%); */
+      }
+      .imglogo_g{
+        z-index: 4;
+      }
+      /* .txtdv{
+        font-size: 50px;
+        position: absolute;
+        top: 150px;
+        left: 50%;
+        transform: translateX(-50%);
+        background:#EAEDF3 -webkit-linear-gradient(left, #1230B8, #1230B8) no-repeat 0 0;
+        -webkit-text-fill-color:transparent;
+        -webkit-background-clip:text;
+        background-size:0 100%;
+      } */
+      @keyframes small {
+        0%{
+          width: 50%;
+        }
+        100%{
+          width: 0;
+        }
+      }
+      .animatedv{
+        animation: small 1s ease;
+        animation-fill-mode: forwards;
+        animation-delay: .33s;
+      }
+      @keyframes hidedom {
+        0%{
+          opacity: 1;
+        }
+        100%{
+          opacity: 0;
+        }
+      }
+      .animatehide{
+        animation: hidedom .66s ease;
+        animation-fill-mode: forwards;
+      }</style><link href="/web/css/app.f66070be.css" rel="preload" as="style"><link href="/web/css/chunk-vendors.27ce7ec3.css" rel="preload" as="style"><link href="/web/js/app.bacfa7bc.js" rel="preload" as="script"><link href="/web/js/chunk-vendors.71f0250d.js" rel="preload" as="script"><link href="/web/css/chunk-vendors.27ce7ec3.css" rel="stylesheet"><link href="/web/css/app.f66070be.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but maze_veglibary doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div><div class="full_box"><div class="fx_l"><img class="fxlImg" src="https://test.stoooges.cn/localfile/fin_l.svg"></div><div class="fx_r"><img class="fxrImg" src="https://test.stoooges.cn/localfile/fin_r.svg"></div><div class="fontdv"><div class="imgbox"><div class="hidebox"><img class="imglogo" src="https://test.stoooges.cn/localfile/logo_b.svg"></div><img class="imglogo" src="https://test.stoooges.cn/localfile/logo_g.svg"></div></div></div><script src="/web/js/chunk-vendors.71f0250d.js"></script><script src="/web/js/app.bacfa7bc.js"></script></body></html>
