@@ -1,0 +1,71 @@
+  <!-- ===== 留资表单 ===== -->
+  <section class="section consult" id="consult">
+    <div class="consult__card reveal">
+      <div class="consult__copy">
+        <p class="eyebrow">免费评估</p>
+        <h2>留下信息，<br/>导师第一时间联系你</h2>
+        <p class="lead">填写下方表单，我们的资深导师会在 24 小时内与你联系，提供一次免费的留学定位评估。</p>
+        <ul class="consult__pts">
+          <li>1 对 1 背景诊断</li>
+          <li>专属选校建议</li>
+          <li>无任何隐性收费</li>
+        </ul>
+      </div>
+
+      <form class="form" id="leadForm" novalidate>
+        <div class="field">
+          <label>姓名 <i>必填</i></label>
+          <input type="text" name="uname" placeholder="您的称呼" autocomplete="name" />
+          <small class="err" data-for="uname"></small>
+        </div>
+
+        <div class="field">
+          <label>咨询方向 <i>必填</i></label>
+          <select name="type">
+            <option value="">请选择咨询方向</option>
+            <option>美国本科</option>
+            <option>研究生</option>
+            <option>转学</option>
+            <option>英欧加港本科</option>
+            <option>单项服务</option>
+            <option>商务合作</option>
+          </select>
+          <small class="err" data-for="type"></small>
+        </div>
+
+        <div class="field">
+          <label>电话 <i>必填</i></label>
+          <input type="tel" name="phone" placeholder="手机号码" inputmode="numeric" autocomplete="tel" />
+          <small class="err" data-for="phone"></small>
+        </div>
+
+        <div class="field">
+          <label>微信 <i class="opt">选填</i></label>
+          <input type="text" name="wechat" placeholder="微信号" />
+        </div>
+
+        <div class="field">
+          <label>居住城市 <i class="opt">选填</i></label>
+          <input type="text" name="city" placeholder="如：上海" />
+        </div>
+
+        <div class="field field--full">
+          <label>所在学校 <i class="opt">选填</i></label>
+          <input type="text" name="school" placeholder="您目前就读的学校" />
+        </div>
+
+        <div class="field field--full">
+          <label>更多信息 <i class="opt">选填</i></label>
+          <textarea name="more" rows="2" placeholder="关于你的目标、年级或其他想告诉我们的"></textarea>
+        </div>
+
+        <label class="agree field--full">
+          <input type="checkbox" name="agree" />
+          <span>我已阅读并同意<a href="#" id="policyLink">《途策留学用户协议及隐私政策》</a>，我们将依法保护您的个人信息。</span>
+        </label>
+
+        <button type="submit" class="btn btn--solid btn--lg field--full" id="submitBtn">提交，预约免费评估</button>
+        <p class="form__note field--full" id="formNote" hidden></p>
+      </form>
+    </div>
+  </section>

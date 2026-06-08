@@ -1,0 +1,15 @@
+  <!-- ===== 内页页头（面包屑 + 标题 + 引导语）===== -->
+  <header class="pagehead">
+    <div class="pagehead__inner">
+      {% if crumbs %}
+      <nav class="crumbs" aria-label="面包屑">
+        {% for name, url in crumbs %}
+        {% if not loop.last %}<a href="{{ url }}">{{ name }}</a><span class="crumbs__sep">/</span>{% else %}<span aria-current="page">{{ name }}</span>{% endif %}
+        {% endfor %}
+      </nav>
+      {% endif %}
+      <p class="eyebrow">{{ ph_eyebrow }}</p>
+      <h1 class="pagehead__title">{{ ph_title }}</h1>
+      {% if ph_lead %}<p class="pagehead__lead">{{ ph_lead }}</p>{% endif %}
+    </div>
+  </header>

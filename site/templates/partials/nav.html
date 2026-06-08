@@ -1,0 +1,27 @@
+  <!-- ===== 顶部导航 ===== -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="brand" href="/" aria-label="{{ site.brand.name_cn }}">
+        <span class="brand__badge"><img id="brandLogo" src="{{ site.brand.logo_dark }}" alt="{{ site.brand.name_cn }}" class="brand__logo" data-logo-light="{{ site.brand.logo_dark }}" data-logo-dark="{{ site.brand.logo_dark }}" /></span>
+        <span class="brand__text">
+          <b>{{ site.brand.name_cn }}</b>
+          <i>{{ site.brand.name_en | replace(" ", "&nbsp;") | safe }}</i>
+        </span>
+      </a>
+      <nav class="nav__links">
+        {% for item in site.nav %}
+        <a href="{{ item.url }}"{% if page_url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a>
+        {% endfor %}
+      </nav>
+      <a href="/#consult" class="btn btn--ghost nav__cta">免费评估</a>
+      <button class="nav__burger" id="burger" aria-label="菜单">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__drawer" id="drawer">
+      {% for item in site.nav %}
+      <a href="{{ item.url }}">{{ item.label }}</a>
+      {% endfor %}
+      <a href="/#consult" class="btn btn--solid">免费评估</a>
+    </div>
+  </header>

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% set ph_eyebrow = "MENTORS" %}
+{% set ph_title = "师资团队" %}
+{% set ph_lead = "藤校背景的规划、文书与个性化导师团队，1v1 陪你打磨每一处申请细节。" %}
+{% block content %}
+  {% include "partials/page_header.html" %}
+
+  <section class="section">
+    <div class="mentors__grid">
+      {% for m in team %}
+      <a class="mentor reveal" href="/team/{{ m.slug }}/">
+        <img class="mentor__avatar" loading="lazy" src="{{ m.avatar }}" alt="{{ m.title }}" />
+        <h3>{{ m.title }}</h3>
+        <p>{{ m.edu }} · {{ m.field }}</p>
+        <span class="card__more">查看简介 ›</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% include "partials/consult_form.html" %}
+{% endblock %}

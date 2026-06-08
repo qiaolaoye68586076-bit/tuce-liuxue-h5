@@ -1,0 +1,45 @@
+# 成功案例数据源（生成 /cases/ 总览 + 每案例子页 + Review/ItemList Schema）
+# ⚠️ 以下为占位示例，正式上线前必须替换为「真实且获本人授权」的脱敏案例。
+# 标题统一含 2026（时效性信号）。需要你提供：背景/标化/院校/策略/感言。
+items:
+  - slug: penn-w
+    title: "W 同学 → 宾夕法尼亚大学 ｜ 途策留学 2026 录取案例"
+    student: "W 同学"
+    city: 上海
+    school: 宾夕法尼亚大学
+    school_en: University of Pennsylvania
+    image: /assets/case-01.jpg
+    background: "【待填·真实背景】GPA 中游、标化与活动待补"
+    scores: "【待填：托福 / SAT / GPA】"
+    strategy: 模块化规划 + 真实科研，重塑申请形象，让背景亮点真正立住。
+    summary: 从 GPA 中游到藤校录取，通过模块化规划与真实科研项目，把原本平平的申请形象做出了纵深。
+    quote: "途策不是帮我「包装」，而是真的帮我找到了想做的事 —— 这份笃定，招生官看得见。"
+    timeline: "【待核实】2026 申请季录取"
+
+  - slug: uchicago-l
+    title: "L 同学 → 芝加哥大学 ｜ 途策留学 2026 录取案例"
+    student: "L 同学"
+    city: 北京
+    school: 芝加哥大学
+    school_en: University of Chicago
+    image: /assets/case-02.jpg
+    background: "【待填·真实背景】"
+    scores: "【待填：托福 / SAT / GPA】"
+    strategy: 文书十余稿打磨，把一段公益经历写成独一无二的故事。
+    summary: 围绕一段真实公益经历，经过十余稿文书打磨，讲出了戳中招生官的差异化故事。
+    quote: "【待填·真实学员感言】"
+    timeline: "【待核实】2026 申请季录取"
+
+  - slug: cornell-c
+    title: "C 同学 → 康奈尔大学 ｜ 途策留学 2026 录取案例"
+    student: "C 同学"
+    city: 深圳
+    school: 康奈尔大学
+    school_en: Cornell University
+    image: /assets/case-03.jpg
+    background: "【待填·真实背景】理工方向"
+    scores: "【待填：托福 / SAT / GPA】"
+    strategy: 理工方向背景提升 + RP 全真面试预演。
+    summary: 通过理工方向的背景提升与 RP 全真面试预演，稳稳拿下心仪的工程学院。
+    quote: "【待填·真实学员感言】"
+    timeline: "【待核实】2026 申请季录取"

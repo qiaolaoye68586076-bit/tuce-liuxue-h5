@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#14342B" />
+  <title>{{ page_title }}</title>
+  <meta name="description" content="{{ page_description }}" />
+  <meta name="keywords" content="途策留学,上海留学中介,留学申请,美本申请,美研申请,英国留学,留学机构推荐" />
+  <link rel="canonical" href="{{ canonical }}" />
+  <meta name="robots" content="index, follow" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ page_title }}" />
+  <meta property="og:description" content="{{ page_description }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ canonical }}" />
+  <meta property="og:image" content="{{ site.site_url }}{{ site.default_og_image }}" />
+  <meta property="og:locale" content="{{ site.locale }}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- ===== GEO 结构化数据：让 AI 认识途策 ===== -->
+  {{ jsonld | safe }}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/pages.css" />
+  {% block head_extra %}{% endblock %}
+</head>
+<body{% block body_attr %}{% endblock %}>
+
+  {% include "partials/icons.html" %}
+  {% include "partials/nav.html" %}
+
+  {% block content %}{% endblock %}
+
+  {% include "partials/footer.html" %}
+
+  <!-- 移动端常驻 CTA -->
+  <a href="/#consult" class="float-cta" id="floatCta">免费评估</a>
+
+  {% include "partials/modal.html" %}
+
+  <script src="/js/main.js"></script>
+  {% block body_scripts %}{% endblock %}
+</body>
+</html>

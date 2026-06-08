@@ -1,0 +1,85 @@
+# ============================================================
+# 全站全局配置（单一数据源 / single source of truth）
+# 【待填】标记 = 需要途策提供真实信息后替换，当前为占位
+# ============================================================
+
+# ---- 站点基础 ----
+site_url: "https://tuceeducation.com"        # 最终主域（canonical 根）
+lang: "zh-CN"
+locale: "zh_CN"
+default_og_image: "/assets/hero-bg.jpg"      # 1200x630 社交预览图（建议后续替换专用卡）
+
+# ---- 品牌 ----
+brand:
+  name_cn: "途策留学"
+  name_en: "TUCE EDUCATION"
+  legal_name: "上海途策必达教育科技有限公司"   # 来自现有 schema
+  alt_name: "途策必达教育科技"
+  slogan: "途策必达"
+  tagline: "用专业策略，陪你抵达理想院校。"
+  logo_dark: "/assets/logo-dark.svg"
+  logo_light: "/assets/logo-light.svg"
+  logo_url: "/assets/logo-dark.svg"          # schema logo（建议后续换 PNG/正方形）
+  founding_date: "2023"                       # 【待核实】成立年份
+
+# ---- 联系方式 / 实体信息（schema + 页脚用）----
+contact:
+  region: "上海"
+  locality: "上海"
+  country: "CN"
+  address: "【待填】上海市XX区XX路XX号"        # 备案/LocalBusiness 需真实地址
+  telephone: "【待填】400-XXX-XXXX"
+  email: "【待填】hello@tuceeducation.com"
+  icp: "沪ICP备 0000000 号"                    # 【待填】备案下来后替换
+
+# ---- 站外信源 / 社媒（schema sameAs + 页脚关注）----
+# 没有的留空字符串，构建时自动跳过
+social:
+  zhihu: ""           # 知乎机构号 URL
+  xiaohongshu: ""     # 小红书 URL
+  weibo: ""
+  baijiahao: ""       # 百家号
+  wechat_qr: "/assets/qr-code.png"            # 顾问微信二维码
+  wechat_official_qr: "/assets/qr-official.png"  # 公众号二维码（当前为空文件，待替换）
+
+# ---- AI 识别：组织 knowsAbout（实体丰富度）----
+knows_about:
+  - "美国本科申请"
+  - "美国研究生申请"
+  - "英国留学申请"
+  - "转学申请"
+  - "留学规划"
+  - "文书指导"
+  - "面试辅导"
+  - "背景提升"
+
+service_types:
+  - "美国本科申请"
+  - "美国研究生申请"
+  - "英国留学申请"
+  - "留学规划"
+  - "文书指导"
+  - "面试辅导"
+
+# ---- 主导航（多页）----
+nav:
+  - { label: "关于我们", url: "/about/" }
+  - { label: "服务", url: "/services/" }
+  - { label: "成功案例", url: "/cases/" }
+  - { label: "师资团队", url: "/team/" }
+  - { label: "常见问题", url: "/faq/" }
+  - { label: "升学资讯", url: "/blog/" }
+
+# ---- 页脚栏目 ----
+footer_services:
+  - { label: "美国本科申请", url: "/services/meiben/" }
+  - { label: "美国研究生申请", url: "/services/meiyan/" }
+  - { label: "英国本科/研究生", url: "/services/yingben/" }
+  - { label: "背景提升", url: "/services/beidi/" }
+  - { label: "文书服务", url: "/services/wenshu/" }
+
+footer_explore:
+  - { label: "关于我们", url: "/about/" }
+  - { label: "成功案例", url: "/cases/" }
+  - { label: "师资团队", url: "/team/" }
+  - { label: "常见问题", url: "/faq/" }

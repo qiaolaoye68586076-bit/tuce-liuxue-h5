@@ -1,0 +1,4 @@
+# 博客 / 升学资讯数据源（T1 阶段填充）
+# 每篇：slug / title（建议含 2026）/ date(YYYY-MM-DD) / excerpt / body(HTML)
+# 暂为空，备案窗口期按关键词库（认知/场景/决策词）批量产文。
+items: []

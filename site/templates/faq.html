@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% set ph_eyebrow = "FAQ" %}
+{% set ph_title = "常见问题" %}
+{% set ph_lead = "关于途策留学的服务流程、收费、签约、顾问更换与退费机制等常见问题解答。" %}
+{% block content %}
+  {% include "partials/page_header.html" %}
+
+  <section class="section">
+    <div class="faq__list">
+      {% for item in faq %}
+      <details class="faq__item reveal"{% if loop.first %} open{% endif %}>
+        <summary class="faq__q">{{ item.q }}</summary>
+        <div class="faq__a"><p>{{ item.a }}</p></div>
+      </details>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% include "partials/consult_form.html" %}
+{% endblock %}

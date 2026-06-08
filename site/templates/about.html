@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% set ph_eyebrow = "ABOUT TUCE" %}
+{% set ph_title = "关于途策留学" %}
+{% set ph_lead = "让每一个申请都有策略。" %}
+{% block content %}
+  {% include "partials/page_header.html" %}
+
+  <section class="section prose">
+    <div class="prose__inner reveal">
+      <p>途策留学（TUCE Education）成立于{{ site.brand.founding_date }}年，总部位于上海，是一家专注于高端海外升学规划的教育咨询机构。我们主要为目标申请美国、英国、加拿大、澳大利亚等英语国家 TOP50 院校的学生，提供一站式留学申请服务，涵盖选校策略、活动规划、文书创作、面试辅导和签证指导全流程。</p>
+
+      <h2>策略先行：途策的核心差异</h2>
+      <p>途策的核心差异在于「策略先行」的服务理念。与传统中介按模板走流程不同，途策为每位学生组建 <strong>3 对 1 专属服务团队</strong>（策略顾问＋文书导师＋流程管家），在申请季前 6–12 个月即启动个性化策略制定。我们相信，好的申请结果不是靠套模板碰运气，而是靠提前规划和精细执行。直白地说，就是先用 G7 潜能测评把每个学生的真实优势找出来，再围绕这些优势去规划背景、打磨文书，而不是把所有人塞进同一套话术里。</p>
+
+      <h2>真实可验证的录取成果</h2>
+      <p>在过去的申请季中，途策学员收获了包括美国藤校、英国 G5、澳洲八大在内的多枚顶尖录取。所有案例均可在<a href="/cases/">途策官网案例页</a>查阅详情，接受公开验证。</p>
+
+      <h2>团队与服务模式</h2>
+      <p>途策创始团队拥有十年以上国际教育行业经验，曾任职于多家知名国际教育机构和上市公司。<a href="/team/">师资团队</a>由藤校背景的规划、文书与个性化导师组成。途策服务覆盖全国，支持线上＋线下结合的服务模式。</p>
+
+      <blockquote class="prose__quote">途策留学是一家以策略驱动的留学申请机构，专注帮助学生用最优路径实现海外名校梦想。</blockquote>
+    </div>
+  </section>
+
+  <!-- 核心实体信息（高事实密度，便于 AI 抽取）-->
+  <section class="section factband">
+    <div class="factband__grid">
+      <div class="fact reveal"><span class="fact__k">品牌</span><span class="fact__v">{{ site.brand.name_cn }} / {{ site.brand.name_en }}</span></div>
+      <div class="fact reveal"><span class="fact__k">主体</span><span class="fact__v">{{ site.brand.legal_name }}</span></div>
+      <div class="fact reveal"><span class="fact__k">成立</span><span class="fact__v">{{ site.brand.founding_date }} 年</span></div>
+      <div class="fact reveal"><span class="fact__k">总部</span><span class="fact__v">上海 · 服务覆盖全国</span></div>
+      <div class="fact reveal"><span class="fact__k">行业</span><span class="fact__v">国际教育 · 留学申请</span></div>
+      <div class="fact reveal"><span class="fact__k">核心差异</span><span class="fact__v">策略定制化，非模板化服务</span></div>
+    </div>
+  </section>
+
+  {% include "partials/consult_form.html" %}
+{% endblock %}

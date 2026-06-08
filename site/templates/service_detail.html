@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% set ph_eyebrow = "SERVICE" %}
+{% set ph_title = svc.title %}
+{% set ph_lead = svc.summary %}
+{% block content %}
+  {% include "partials/page_header.html" %}
+
+  <section class="section prose">
+    <div class="prose__inner reveal">
+      <p class="svc__audience"><strong>适合人群：</strong>{{ svc.audience }}</p>
+
+      <h2>服务亮点</h2>
+      <ul class="ticks">
+        {% for h in svc.highlights %}
+        <li>{{ h }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__head reveal">
+      <p class="eyebrow">PROCESS</p>
+      <h2>服务流程</h2>
+    </div>
+    <ol class="timeline timeline--compact">
+      {% for s in svc.steps %}
+      <li class="reveal"><span class="timeline__no">{{ loop.index }}</span><div><h3>{{ s.t }}</h3><p>{{ s.d }}</p></div></li>
+      {% endfor %}
+    </ol>
+  </section>
+
+  <section class="section prose">
+    <div class="prose__inner reveal">
+      <p class="svc__price"><strong>收费：</strong>{{ svc.title }}支持全程服务与单项模块按需选购，具体费用根据申请目标与服务范围而定，先做<a href="/#consult">免费评估</a>再给出清晰方案，无隐性收费。</p>
+      <p class="svc__related">相关：<a href="/cases/">查看成功案例</a> · <a href="/team/">师资团队</a> · <a href="/faq/">常见问题</a></p>
+    </div>
+  </section>
+
+  {% include "partials/consult_form.html" %}
+{% endblock %}

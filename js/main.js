@@ -212,6 +212,7 @@
     } catch (e) { /* localStorage 不可用时静默 */ }
   }
 
+  if (form) {
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     note.hidden = true;
@@ -253,6 +254,7 @@
     el.addEventListener('input',  function () { setErr(n, ''); });
     el.addEventListener('change', function () { setErr(n, ''); });
   });
+  } // if (form)
 
   // 协议弹层
   var policy = $('#policyLink');

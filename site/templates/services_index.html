@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% set ph_eyebrow = "SERVICES" %}
+{% set ph_title = "覆盖全阶段的留学服务" %}
+{% set ph_lead = "从美本到研究生，从背景提升到文书，途策为每一种升学路径配备专属策略团队。" %}
+{% block content %}
+  {% include "partials/page_header.html" %}
+
+  <section class="section">
+    <div class="services__grid">
+      {% for svc in services %}
+      <a class="card reveal" href="/services/{{ svc.slug }}/">
+        <div class="card__head"><span class="card__no">{{ "%02d"|format(loop.index) }}</span><svg class="ic card__ic"><use href="#{{ svc.icon }}"/></svg></div>
+        <h3>{{ svc.title }}</h3>
+        <p>{{ svc.summary }}</p>
+        <span class="card__more">了解详情 ›</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% include "partials/consult_form.html" %}
+{% endblock %}

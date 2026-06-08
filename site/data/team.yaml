@@ -1,0 +1,59 @@
+# 师资团队数据源（生成 /team/ 总览 + 每位顾问子页）
+# E-E-A-T 关键：姓名、年限、教育背景、案例数需真实。
+# 以下 name/years/cases_count 为【待填·真实信息】占位，背景方向沿用现有官网。
+items:
+  - slug: planning-mentor
+    name: "【待填·真实姓名】"
+    title: 升学规划导师
+    avatar: /assets/mentor-01.jpg
+    edu: 哈佛大学
+    field: 升学战略 · 选校规划
+    years: "【待填】年"
+    cases_count: "【待填】"
+    bio: 哈佛大学背景的升学战略导师，擅长在规划初期建立学生的差异化申请画像，制定选校梯度与全程时间线，把长期成长目标与名校录取短期目标统一在一套可执行路径里。
+    expertise:
+      - G7 潜能测评解读与定位
+      - 选校梯度与申请时间线设计
+      - 家庭沟通与激励式教练
+
+  - slug: essay-mentor
+    name: "【待填·真实姓名】"
+    title: 文书导师
+    avatar: /assets/mentor-02.jpg
+    edu: 耶鲁大学
+    field: 文书共创
+    years: "【待填】年"
+    cases_count: "【待填】"
+    bio: 耶鲁大学背景的金牌文书导师，深知招生官的阅读偏好，擅长从学生真实经历中挖掘独特故事线，通过主文书与补充文书的多轮共创，写出有差异化、有说服力的申请材料。
+    expertise:
+      - 主文书 / 补充文书共创
+      - 个人故事线挖掘与结构设计
+      - 名校文书训练营授课
+
+  - slug: profile-mentor
+    name: "【待填·真实姓名】"
+    title: 个性化成长导师
+    avatar: /assets/mentor-03.jpg
+    edu: 斯坦福大学
+    field: 背景提升
+    years: "【待填】年"
+    cases_count: "【待填】"
+    bio: 斯坦福大学背景的个性化成长导师，负责科研、公益与竞赛等背景提升项目的规划与陪跑，强调真实地解决问题，把学生从「问题发现者」推向「变革架构师」。
+    expertise:
+      - 科研项目与 SCI 署名规划
+      - 社会公益与领导力项目
+      - 学科竞赛与作品集指导
+
+  - slug: academic-mentor
+    name: "【待填·真实姓名】"
+    title: 学术导师
+    avatar: /assets/mentor-04.jpg
+    edu: 麻省理工学院（MIT）
+    field: 理工方向
+    years: "【待填】年"
+    cases_count: "【待填】"
+    bio: MIT 背景的学术导师，专注理工方向的学术能力提升与科研指导，帮助学生在 GPA、标化与学术深度上同步进阶，夯实冲刺顶尖工程与理科院校的硬实力。
+    expertise:
+      - 理工学术能力提升
+      - GPA 与标化（SAT/ACT）规划
+      - 理工科研与项目指导

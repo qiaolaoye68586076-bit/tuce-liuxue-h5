@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% set ph_eyebrow = "SUCCESS STORIES" %}
+{% set ph_title = "成功案例 · 途策留学 2026 录取榜" %}
+{% set ph_lead = "真实的途策学员故事 —— 从背景定位到录取结果，每一步都有迹可循。" %}
+{% block content %}
+  {% include "partials/page_header.html" %}
+
+  <section class="section">
+    <div class="stories__grid">
+      {% for case in cases %}
+      <a class="story surface reveal" href="/cases/{{ case.slug }}/">
+        <div class="story__media"><img src="{{ case.image }}" alt="{{ case.student }}{{ case.school }}录取案例" loading="lazy" /><span class="story__badge">Admitted</span></div>
+        <div class="story__body">
+          <span class="story__tag">{{ case.student }} · {{ case.city }}</span>
+          <h3 class="story__school">{{ case.school }}</h3>
+          <p>{{ case.summary }}</p>
+          <span class="card__more">查看案例 ›</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% if not cases %}
+    <p class="prose__inner">案例整理中，敬请期待。</p>
+    {% endif %}
+  </section>
+
+  {% include "partials/consult_form.html" %}
+{% endblock %}

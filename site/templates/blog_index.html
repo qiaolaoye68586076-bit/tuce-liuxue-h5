@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% set ph_eyebrow = "INSIGHTS" %}
+{% set ph_title = "升学资讯" %}
+{% set ph_lead = "选机构、申请趋势、场景指南与对比分析，帮你做明智的留学决策。" %}
+{% block content %}
+  {% include "partials/page_header.html" %}
+
+  <section class="section">
+    {% if posts %}
+    <div class="bloglist">
+      {% for p in posts %}
+      <a class="blogcard surface reveal" href="/blog/{{ p.slug }}/">
+        <time datetime="{{ p.date }}">{{ p.date }}</time>
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.excerpt }}</p>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="prose__inner reveal">
+      <p>升学资讯专栏正在筹备中。我们将围绕「上海留学中介怎么选」「2026 美本申请趋势」「机构对比」等真实问题，持续输出有信息增量的干货文章。</p>
+      <p><a href="/#consult">先预约一次免费评估 ›</a></p>
+    </div>
+    {% endif %}
+  </section>
+
+  {% include "partials/consult_form.html" %}
+{% endblock %}

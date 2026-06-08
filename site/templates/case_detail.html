@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% set ph_eyebrow = "SUCCESS STORY" %}
+{% set ph_title = case.student ~ " → " ~ case.school %}
+{% set ph_lead = case.summary %}
+{% block content %}
+  {% include "partials/page_header.html" %}
+
+  <section class="section">
+    <article class="casefull reveal">
+      <div class="casefull__media">
+        <img src="{{ case.image }}" alt="{{ case.student }}{{ case.school }}录取案例" loading="lazy" />
+        <span class="story__badge">Admitted</span>
+      </div>
+      <div class="casefull__body">
+        <dl class="casefull__facts">
+          <div><dt>学员</dt><dd>{{ case.student }} · {{ case.city }}</dd></div>
+          <div><dt>录取院校</dt><dd>{{ case.school }}（{{ case.school_en }}）</dd></div>
+          <div><dt>背景</dt><dd>{{ case.background }}</dd></div>
+          <div><dt>标化</dt><dd>{{ case.scores }}</dd></div>
+          <div><dt>申请策略</dt><dd>{{ case.strategy }}</dd></div>
+          <div><dt>时间</dt><dd>{{ case.timeline }}</dd></div>
+        </dl>
+        <h2>案例解析</h2>
+        <p>{{ case.summary }}</p>
+        {% if case.quote and '待填' not in case.quote %}
+        <figure class="story__quote">
+          <svg class="ic ic--fill story__qmark"><use href="#ic-quote"/></svg>
+          <blockquote>{{ case.quote }}</blockquote>
+          <figcaption>—— {{ case.student }}</figcaption>
+        </figure>
+        {% endif %}
+        <p class="svc__related"><a href="/cases/">‹ 返回全部案例</a> · <a href="/#consult">免费评估我的录取可能</a></p>
+      </div>
+    </article>
+  </section>
+{% endblock %}

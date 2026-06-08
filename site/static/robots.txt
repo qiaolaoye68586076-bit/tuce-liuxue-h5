@@ -1,0 +1,55 @@
+# robots.txt — 途策留学 tuceeducation.com
+# 策略：放行检索/引用类 AI 爬虫（被 AI 引用的前提），中文引擎优先。
+# 注意：若部署在 Cloudflare，需在面板关闭 "Block AI Bots / AI Audit"，否则以下放行无效。
+
+# ---------- 中文搜索 / AI 引擎（优先）----------
+User-agent: Baiduspider          # 百度 / 百度 AI 搜索
+Allow: /
+User-agent: Sogou web spider     # 搜狗
+Allow: /
+User-agent: 360Spider            # 360 搜索
+Allow: /
+User-agent: Bytespider           # 字节 / 豆包
+Allow: /
+User-agent: PetalBot             # 华为花瓣
+Allow: /
+User-agent: YisouSpider          # 神马搜索
+Allow: /
+User-agent: Bingbot              # Bing（DeepSeek / Kimi 检索依赖）
+Allow: /
+
+# ---------- 英文检索 / 引用类 AI 爬虫 ----------
+User-agent: GPTBot               # OpenAI 抓取
+Allow: /
+User-agent: OAI-SearchBot        # ChatGPT Search
+Allow: /
+User-agent: ChatGPT-User         # ChatGPT 即时访问
+Allow: /
+User-agent: PerplexityBot        # Perplexity
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+User-agent: ClaudeBot            # Anthropic 抓取
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: Claude-User
+Allow: /
+User-agent: Google-Extended      # Google Gemini / AI Overviews
+Allow: /
+User-agent: Applebot-Extended    # Apple 智能
+Allow: /
+
+# ---------- 训练类爬虫 ----------
+# 【需你拍板】放行利于被长期“记住”，但等于授权内容进训练集。
+# 默认放行；如需禁止纯训练抓取，把对应 Allow 改成 Disallow。
+User-agent: CCBot                 # Common Crawl（多数模型训练语料来源）
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+
+# ---------- 其余所有爬虫 ----------
+User-agent: *
+Allow: /
+
+Sitemap: https://tuceeducation.com/sitemap.xml

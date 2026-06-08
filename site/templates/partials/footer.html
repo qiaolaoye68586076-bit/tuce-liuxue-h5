@@ -1,0 +1,42 @@
+  <!-- ===== 页脚 ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="brand brand--light">
+          <span class="brand__text"><b>{{ site.brand.name_cn }}</b><i>{{ site.brand.name_en | replace(" ", "&nbsp;") | safe }}</i></span>
+        </div>
+        <p class="footer__claim">{{ site.brand.slogan }}</p>
+        <p>{{ site.brand.tagline }}</p>
+      </div>
+      <div class="footer__col">
+        <h4>服务</h4>
+        {% for item in site.footer_services %}
+        <a href="{{ item.url }}">{{ item.label }}</a>
+        {% endfor %}
+      </div>
+      <div class="footer__col">
+        <h4>探索</h4>
+        {% for item in site.footer_explore %}
+        <a href="{{ item.url }}">{{ item.label }}</a>
+        {% endfor %}
+      </div>
+      <div class="footer__qr footer__qr--dual">
+        <div class="qr-item">
+          <div class="qr qr--sm" aria-label="顾问微信二维码">
+            <img src="{{ site.social.wechat_qr }}" alt="顾问微信二维码" loading="lazy" />
+          </div>
+          <p>顾问微信</p>
+        </div>
+        <div class="qr-item">
+          <div class="qr qr--sm" aria-label="微信公众号二维码">
+            <img src="{{ site.social.wechat_official_qr }}" alt="微信公众号二维码" onerror="this.style.display='none';this.parentNode.classList.add('qr--empty');this.parentNode.dataset.ph='公众号二维码'" />
+          </div>
+          <p>微信公众号</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bar">
+      <span>© {{ year }} {{ site.brand.name_cn }} TUCE Education. 保留所有权利。</span>
+      <span>{{ site.contact.icp }}</span>
+    </div>
+  </footer>
