@@ -831,6 +831,8 @@ h3{ font-family:var(--serif); font-size:19px; font-weight:600; letter-spacing:.0
 .story__tag{ font-size:12.5px; letter-spacing:.06em; color:var(--gold); font-weight:600; }
 .story__school{ margin:6px 0 9px; font-family:var(--serif); font-weight:600; font-size:20px; color:var(--ink); line-height:1.25; }
 .story__body p{ color:var(--muted); font-size:14px; line-height:1.75; }
+.story__more{ display:inline-block; margin-top:14px; font-size:13px; font-weight:600; color:var(--forest); text-decoration:none; letter-spacing:.02em; }
+.story__more:hover{ text-decoration:underline; }
 .story__quote{ max-width:760px; margin:54px auto 0; text-align:center; }
 .story__qmark{ width:40px; height:40px; color:var(--gold); opacity:.55; margin:0 auto 10px; }
 .story__quote blockquote{
