@@ -52,114 +52,54 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-    /* ===================== 核心亮点画廊卡片 ===================== */
-  var statsCarousel = $(".stats__carousel");
-  var statsTrack = $(".stats__track");
-  var statsPrev = $(".stats__prev");
-  var statsNext = $(".stats__next");
-  var statsDots = $(".stats__dots");
+  /* ===================== 核心亮点滑动卡片 ===================== */
+  var statsTrack = $('.stats__track');
+  var statsPrev = $('.stats__prev');
+  var statsNext = $('.stats__next');
+  var statsDots = $('.stats__dots');
+
+  function updateStatsDots() {
+    if (!statsTrack || !statsDots) return;
+    var cards = Array.prototype.slice.call(statsTrack.querySelectorAll('.stat-card'));
+    var center = statsTrack.scrollLeft + statsTrack.clientWidth / 2;
+    cards.forEach(function (card, idx) {
+      var dot = statsDots.children[idx];
+      if (!dot) return;
+      var left = card.offsetLeft;
+      var right = left + card.offsetWidth;
+      dot.classList.toggle('active', center >= left && center < right);
+    });
+  }
 
   if (statsTrack) {
-    var statCards = Array.prototype.slice.call(statsTrack.querySelectorAll(".stat-card"));
-    var currentIndex = 0;
-    var maxIndex = statCards.length - 1;
-
-    // Build Dots
+    var statCards = Array.prototype.slice.call(statsTrack.querySelectorAll('.stat-card'));
     if (statsDots && statCards.length) {
-      statsDots.innerHTML = "";
-      statCards.forEach(function (_, idx) {
-        var dot = document.createElement("button");
-        dot.type = "button";
-        dot.className = "stats__dot" + (idx === 0 ? " active" : "");
-        dot.addEventListener("click", function () {
-          goToIndex(idx);
+      statCards.forEach(function (card, idx) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'stats__dot' + (idx === 0 ? ' active' : '');
+        dot.addEventListener('click', function () {
+          statsTrack.scrollTo({ left: card.offsetLeft, behavior: 'smooth' });
         });
         statsDots.appendChild(dot);
       });
     }
 
-    // Optional: click adjacent cards to go to them
-    statCards.forEach(function(card, idx) {
-      card.addEventListener("click", function() {
-        if (currentIndex !== idx) goToIndex(idx);
-      });
-    });
-
-    function updateGallery() {
-      // 1. Arrows
-      if (statsPrev && statsNext) {
-        statsPrev.disabled = currentIndex === 0;
-        statsPrev.style.opacity = currentIndex === 0 ? "0.3" : "1";
-        statsPrev.style.pointerEvents = currentIndex === 0 ? "none" : "auto";
-        
-        statsNext.disabled = currentIndex === maxIndex;
-        statsNext.style.opacity = currentIndex === maxIndex ? "0.3" : "1";
-        statsNext.style.pointerEvents = currentIndex === maxIndex ? "none" : "auto";
-      }
-
-      // 2. Dots
-      if (statsDots) {
-        Array.prototype.slice.call(statsDots.children).forEach(function(dot, idx) {
-          dot.classList.toggle("active", idx === currentIndex);
-        });
-      }
-
-      // 3. Cards Classes & Track position
-      statCards.forEach(function(card, idx) {
-        if (idx === currentIndex) {
-          card.classList.add("active");
-        } else {
-          card.classList.remove("active");
-        }
-      });
-      
-      // Calculate offset to center the current card
-      var containerWidth = statsCarousel ? statsCarousel.clientWidth : window.innerWidth;
-      var cardWidth = statCards[currentIndex].offsetWidth;
-      var targetLeft = statCards[currentIndex].offsetLeft;
-      
-      // Center offset
-      var offset = (containerWidth / 2) - (targetLeft + cardWidth / 2);
-      
-      statsTrack.style.transform = "translate3d(" + offset + "px, 0, 0)";
-    }
-
     if (statsPrev) {
-      statsPrev.addEventListener("click", function () {
-        if (currentIndex > 0) goToIndex(currentIndex - 1);
+      statsPrev.addEventListener('click', function () {
+        statsTrack.scrollBy({ left: -statsTrack.clientWidth * 0.85, behavior: 'smooth' });
       });
     }
     if (statsNext) {
-      statsNext.addEventListener("click", function () {
-        if (currentIndex < maxIndex) goToIndex(currentIndex + 1);
+      statsNext.addEventListener('click', function () {
+        statsTrack.scrollBy({ left: statsTrack.clientWidth * 0.85, behavior: 'smooth' });
       });
     }
 
-    function goToIndex(idx) {
-      currentIndex = idx;
-      updateGallery();
-    }
-
-    // Initialize layout after a brief delay
-    setTimeout(function() {
-      updateGallery();
-    }, 50);
-
-    window.addEventListener("resize", function () {
-      updateGallery();
+    statsTrack.addEventListener('scroll', function () {
+      if (this._statsDotTimer) clearTimeout(this._statsDotTimer);
+      this._statsDotTimer = setTimeout(updateStatsDots, 50);
     });
-    
-    // Touch swipe — bind to carousel container for full-area coverage
-    var startX = 0;
-    var target = statsCarousel || statsTrack;
-    target.addEventListener("touchstart", function(e) {
-      startX = e.changedTouches[0].clientX;
-    }, {passive: true});
-    target.addEventListener("touchend", function(e) {
-      var diff = e.changedTouches[0].clientX - startX;
-      if (diff > 48 && currentIndex > 0) goToIndex(currentIndex - 1);
-      else if (diff < -48 && currentIndex < maxIndex) goToIndex(currentIndex + 1);
-    }, {passive: true});
   }
 
   function closeDrawer() {
