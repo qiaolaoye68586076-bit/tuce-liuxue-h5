@@ -1,0 +1,266 @@
+---
+/**
+ * 深色 Hero + 3D 点阵地球（client island）。
+ * 能力检测通过 → 动态 import three chunk；否则 html.globe-off → 2D 版照常显示。
+ * 数据源仍是 cases.json（与 2D / 语义列表同源）。
+ */
+import cases from '../data/cases.json';
+import { groupSchools, programLine } from '../lib/schools.js';
+
+interface Props { total: number; yearRange: string; schoolsCount: number; }
+const { total, yearRange, schoolsCount } = Astro.props;
+
+const REGIONS = [
+  { key: 'all', label: '全部地区' },
+  { key: 'us', label: '美国' },
+  { key: 'uk', label: '英国' },
+  { key: 'hk', label: '中国香港' },
+  { key: 'sg', label: '新加坡' },
+  { key: 'au', label: '澳大利亚' },
+  { key: 'ca', label: '加拿大' },
+];
+const years = [...new Set(cases.map((c) => c.year))].sort((a, b) => b - a);
+
+// 地球按院校聚合：一校一弧线（id 即 sid）
+const payload = groupSchools(cases).map((g) => ({
+  id: g.sid,
+  school_zh: g.school_zh,
+  school_en: g.school_en,
+  region: g.region,
+  years: g.years,
+  count: g.count,
+  programs: programLine(g),
+  yearSpan: g.years.length > 1 ? `${g.years[0]}–${g.years[g.years.length - 1]}` : String(g.years[0]),
+  coordinates: g.coordinates,
+}));
+---
+
+<section class="ghero" id="ghero">
+  <div class="ghero__inner">
+    <div class="ghero__copy">
+      <p class="ghero__eyebrow">ADMISSIONS<span></span>录取去向</p>
+      <h1 class="ghero__title">从上海出发，<em>抵达世界</em></h1>
+      <p class="ghero__sub">
+        {yearRange} 年，{total} 枚 Offer、{schoolsCount} 所院校，覆盖美英港新澳加六大地区。
+        每一条发光的航线，都是途策学员真实走过的路。
+      </p>
+
+      <div class="ghero__filters" role="group" aria-label="案例筛选">
+        {REGIONS.map((r, i) => (
+          <button type="button" class="gpill" data-gfilter="region" data-value={r.key}
+            aria-pressed={i === 0 ? 'true' : 'false'}>{r.label}</button>
+        ))}
+        <span class="gdiv" aria-hidden="true"></span>
+        <button type="button" class="gpill" data-gfilter="year" data-value="all" aria-pressed="true">全部年份</button>
+        {years.map((y) => (
+          <button type="button" class="gpill" data-gfilter="year" data-value={String(y)} aria-pressed="false">{y}</button>
+        ))}
+      </div>
+
+      <p class="ghero__hint">拖拽旋转地球 · 悬停光点查看案例</p>
+    </div>
+
+    <div class="ghero__stage" id="gstage">
+      <div class="ghero__ph" aria-hidden="true"><i></i></div>
+      <canvas class="ghero__canvas" id="gcanvas" aria-label="3D 录取去向地球"></canvas>
+      <div class="gcard" id="gcard" hidden></div>
+    </div>
+  </div>
+
+  <script type="application/json" id="gdata" set:html={JSON.stringify(payload)} is:inline></script>
+</section>
+
+<style>
+  /* ===== Ignite 风亮色 Hero：米白底，地球装进深色「穹幕板」 ===== */
+  .ghero {
+    position: relative;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    overflow: hidden;
+  }
+  .ghero__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 88px 20px 56px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: center;
+    min-height: min(88svh, 820px);
+  }
+  @media (min-width: 1024px) {
+    .ghero__inner { grid-template-columns: 0.95fr 1.05fr; padding: 64px 32px 48px; }
+  }
+
+  .ghero__eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-serif);
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.22em;
+    color: var(--color-gold); margin-bottom: 18px;
+  }
+  .ghero__eyebrow span { width: 32px; height: 2px; background: var(--color-gold); opacity: 0.55; }
+  .ghero__title {
+    font-family: var(--font-serif);
+    font-size: clamp(36px, 5.4vw, 64px);
+    font-weight: 850; line-height: 1.08; color: var(--color-ink-green);
+    letter-spacing: -0.015em;
+  }
+  .ghero__title em { font-style: normal; color: var(--color-gold); }
+  .ghero__sub {
+    margin-top: 18px; max-width: 460px;
+    font-size: 15px; line-height: 1.9; color: var(--color-ink-soft);
+  }
+
+  /* ===== 筛选 pills（深色版） ===== */
+  .ghero__filters { margin-top: 30px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .gpill {
+    font-family: var(--font-serif);
+    font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+    padding: 7px 16px; border-radius: 999px; cursor: pointer;
+    color: var(--color-ink-green); background: #fff;
+    border: 1.5px solid var(--color-paper-line);
+    transition: border-color 0.25s, background 0.25s, color 0.25s;
+  }
+  .gpill:hover { border-color: var(--color-ink-green); }
+  .gpill[aria-pressed='true'] { background: var(--color-ink-green); border-color: var(--color-ink-green); color: var(--color-paper); }
+  .gdiv { width: 1px; height: 16px; background: var(--color-paper-line); margin: 0 6px; }
+  .ghero__hint {
+    margin-top: 16px; font-size: 12px; letter-spacing: 0.06em;
+    color: var(--color-ink-soft); opacity: 0.7;
+  }
+
+  /* ===== 地球穹幕板：亮页中唯一的深色面板（保住 bloom 辉光语境） ===== */
+  .ghero__stage {
+    position: relative;
+    height: min(58vh, 460px);
+    border-radius: 24px;
+    overflow: hidden;
+    background: radial-gradient(120% 130% at 60% 35%, #1c1a17 0%, #15130f 55%, #0e0d0b 100%);
+    border: 1px solid rgba(182, 146, 78, 0.35);
+    box-shadow: 0 40px 80px -40px rgba(20, 52, 43, 0.5);
+  }
+  @media (min-width: 1024px) { .ghero__stage { height: min(76vh, 660px); } }
+  .ghero__canvas {
+    position: absolute; inset: 0; width: 100% !important; height: 100% !important;
+    display: block; opacity: 0; transition: opacity 1.1s ease;
+  }
+  .ghero__stage.ready .ghero__canvas { opacity: 1; }
+
+  /* 加载占位：与最终构图一致（居中细环 + 微光），杜绝白屏闪烁 */
+  .ghero__ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: opacity 0.9s ease; }
+  .ghero__ph i {
+    width: min(64%, 420px); aspect-ratio: 1; border-radius: 50%;
+    border: 1px solid rgba(0, 168, 107, 0.22);
+    box-shadow: 0 0 120px rgba(0, 88, 57, 0.35) inset, 0 0 90px rgba(0, 88, 57, 0.18);
+  }
+  .ghero__stage.ready .ghero__ph { opacity: 0; }
+
+  /* ===== 深色磨砂玻璃案例卡 ===== */
+  .gcard {
+    position: absolute; z-index: 10; width: 232px; pointer-events: none;
+    background: rgba(28, 26, 23, 0.74);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 168, 107, 0.45);
+    border-radius: 6px; padding: 13px 15px;
+    transform: translate(16px, -50%);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+  }
+  .gcard.flip { transform: translate(calc(-100% - 16px), -50%); }
+  .gcard :global(h4) { font-family: var(--font-serif); font-size: 15px; font-weight: 700; color: #f4efe6; line-height: 1.4; }
+  .gcard :global(.en) { font-size: 11px; letter-spacing: 0.04em; color: rgba(244, 239, 230, 0.5); }
+  .gcard :global(.prog) { margin-top: 8px; font-size: 13px; color: #7fdcb0; }
+  .gcard :global(.meta) { margin-top: 4px; font-size: 12px; color: rgba(244, 239, 230, 0.55); }
+
+  /* reduced-motion：占位不闪、canvas 直显 */
+  @media (prefers-reduced-motion: reduce) {
+    .ghero__canvas { transition: none; }
+    .ghero__ph { transition: none; }
+  }
+</style>
+
+<style is:global>
+  /* 3D 启用 → 隐藏正文区 2D 地图（保留 DOM 作回退）；3D 关闭 → hero 收紧为标题带 */
+  html.globe-on #map2d { display: none; }
+  html.globe-off .ghero__stage,
+  html.globe-off .ghero__filters,
+  html.globe-off .ghero__hint { display: none; }
+  html.globe-off .ghero .ghero__inner { min-height: auto; padding-top: 76px; padding-bottom: 44px; grid-template-columns: 1fr; }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const stage = document.getElementById('gstage')!;
+  const canvas = document.getElementById('gcanvas') as HTMLCanvasElement;
+  const card = document.getElementById('gcard')!;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function webglOK(): boolean {
+    try {
+      const c = document.createElement('canvas');
+      return !!(c.getContext('webgl2') || c.getContext('webgl'));
+    } catch { return false; }
+  }
+  const nav = navigator as Navigator & { deviceMemory?: number };
+  const lowEnd = (nav.hardwareConcurrency || 8) <= 2 || (nav.deviceMemory !== undefined && nav.deviceMemory < 4);
+  const desktop = matchMedia('(hover: hover) and (pointer: fine)').matches && innerWidth >= 768;
+  const use3D = desktop && webglOK() && !lowEnd;
+
+  type Row = {
+    id: string; school_zh: string; school_en: string; region: string;
+    years: number[]; count: number; programs: string; yearSpan: string;
+    coordinates: [number, number];
+  };
+  const data: Row[] = JSON.parse(document.getElementById('gdata')!.textContent!);
+  const byId = Object.fromEntries(data.map((c) => [c.id, c]));
+
+  if (!use3D) {
+    root.classList.add('globe-off');           // 2D 版（默认可见）即回退
+  } else {
+    let api: { setFilter(r: string, y: string): void } | null = null;
+    let region = 'all', year = 'all';
+
+    function onHover(id: string | null, x: number, y: number) {
+      if (!id) { card.hidden = true; return; }
+      const c = byId[id];
+      card.innerHTML =
+        `<h4>${c.school_zh}</h4><p class="en">${c.school_en}</p>` +
+        `<p class="prog">${c.count} 枚 Offer · ${c.yearSpan}</p>` +
+        `<p class="meta">${c.programs}</p>`;
+      card.style.left = x + 'px';
+      card.style.top = y + 'px';
+      card.classList.toggle('flip', x > stage.clientWidth * 0.55);
+      card.hidden = false;
+    }
+
+    const io = new IntersectionObserver(async (en) => {
+      if (!en[0].isIntersecting) return;
+      io.disconnect();
+      try {
+        const mod = await import('../three/globe/index');
+        api = await mod.createGlobe({
+          container: stage, canvas, cases: data,
+          dotsUrl: '/globe-dots.json', reduced, onHover,
+        });
+        root.classList.add('globe-on');
+        stage.classList.add('ready');
+        (window as any).__globeApi = api;       // 测试钩子
+      } catch (e) {
+        console.warn('[globe] WebGL init failed, fallback to 2D:', e);
+        root.classList.add('globe-off');
+      }
+    }, { threshold: 0.1 });
+    io.observe(stage);
+
+    document.querySelectorAll<HTMLButtonElement>('[data-gfilter]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const kind = btn.dataset.gfilter!;
+        if (kind === 'region') region = btn.dataset.value!;
+        else year = btn.dataset.value!;
+        document.querySelectorAll(`[data-gfilter="${kind}"]`).forEach((b) =>
+          b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+        card.hidden = true;
+        api?.setFilter(region, year);
+      });
+    });
+  }
+</script>

@@ -24,3 +24,6 @@ reference/stoooges/
 
 # Claude settings (local only)
 .claude/
+
+# Verification/debug screenshots (throwaway)
+reference/*.png

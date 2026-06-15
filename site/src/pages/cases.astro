@@ -1,0 +1,109 @@
+---
+import Base from '../layouts/Base.astro';
+import AdmissionMap from '../components/AdmissionMap.astro';
+import AdmissionGlobe from '../components/AdmissionGlobe.astro';
+import cases from '../data/cases.json';
+
+const REGION_META: Record<string, { zh: string; en: string }> = {
+  us: { zh: '美国', en: 'United States' },
+  uk: { zh: '英国', en: 'United Kingdom' },
+  hk: { zh: '中国香港', en: 'Hong Kong SAR' },
+  sg: { zh: '新加坡', en: 'Singapore' },
+  au: { zh: '澳大利亚', en: 'Australia' },
+  ca: { zh: '加拿大', en: 'Canada' },
+};
+const regionOrder = ['us', 'uk', 'hk', 'sg', 'au', 'ca'];
+
+// 区内按院校分组（Offer 数降序），校内按年份降序
+const grouped = regionOrder.map((key) => {
+  const list = cases.filter((c) => c.region === key);
+  const bySchool = new Map<string, typeof list>();
+  for (const c of list) {
+    if (!bySchool.has(c.school_en)) bySchool.set(c.school_en, []);
+    bySchool.get(c.school_en)!.push(c);
+  }
+  const schools = [...bySchool.values()]
+    .map((cs) => ({ school_zh: cs[0].school_zh, school_en: cs[0].school_en,
+      cases: cs.sort((a, b) => b.year - a.year) }))
+    .sort((a, b) => b.cases.length - a.cases.length);
+  return { key, ...REGION_META[key], count: list.length, schools };
+});
+const total = cases.length;
+const schoolsCount = new Set(cases.map((c) => c.school_en)).size;
+const regionCount = grouped.filter((g) => g.count > 0).length;
+const years = [...new Set(cases.map((c) => c.year))].sort();
+const yearRange = `${years[0]}–${years[years.length - 1]}`;
+
+const title = `录取案例 · ${total} 枚全球名校 Offer，覆盖美英港新澳加 | 途策留学`;
+const description = `途策留学学员 ${yearRange} 年录取去向：${total} 枚 Offer、${schoolsCount} 所院校，覆盖美国、英国、中国香港、新加坡、澳大利亚、加拿大六大地区，包括牛津大学、剑桥大学、帝国理工学院、康奈尔大学、香港大学、新加坡国立大学等全球顶尖院校。每一条录取都从上海出发，抵达世界。`;
+
+// JSON-LD：ItemList（SVG 地图对搜索引擎不可读，结构化数据 + 语义列表保证可抓取）
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: '途策留学学员录取案例',
+  description,
+  numberOfItems: total,
+  itemListElement: cases.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: `${c.school_zh} ${c.school_en} · ${c.program}（${c.degree}）· ${c.year} 年`,
+  })),
+};
+---
+
+<Base title={title} description={description} canonical="https://tuce.asia/cases/">
+  <!-- 深色 Hero：3D 点阵地球（不可用时自动回退 2D，标题仍在此） -->
+  <AdmissionGlobe total={total} yearRange={yearRange} schoolsCount={schoolsCount} />
+
+  <!-- 正文：米纸纸面（与深色 hero 的交界 = 一条细直线，不做花哨分割） -->
+  <main class="mx-auto max-w-[1240px] border-t border-ink-green/25 px-5 pb-24 pt-12 md:px-8 md:pt-16">
+    <!-- 2D SVG 地图：3D 启用时隐藏（html.globe-on），移动端 / 无 WebGL / 无 JS 时为主视觉 -->
+    <div id="map2d">
+      <AdmissionMap />
+    </div>
+
+    <!-- 语义化录取列表（与 JSON 同源、构建期静态渲染 —— SVG 的可抓取版本，非装饰） -->
+    <div class="mt-16 md:mt-24">
+      <h2 class="mb-2 font-serif text-[clamp(22px,3.4vw,30px)] font-bold text-ink">完整录取名录</h2>
+      <p class="mb-8 text-[13.5px] text-ink-soft">按地区与院校分组 · 共 {total} 枚 Offer / {schoolsCount} 所院校 · 学生均以匿名形式呈现</p>
+
+      {grouped.map((g) => g.count > 0 && (
+        <section class="mb-12" aria-labelledby={`region-${g.key}`}>
+          <h3
+            id={`region-${g.key}`}
+            class="mb-4 flex items-baseline gap-3 border-b border-ink-green/30 pb-2 font-serif text-lg font-bold text-ink-green"
+          >
+            {g.zh}<span class="font-sans text-[11.5px] font-normal tracking-[0.14em] text-ink-soft">{g.en}</span>
+            <span class="ml-auto font-sans text-[12px] font-normal text-ink-soft">{g.count} 枚 Offer</span>
+          </h3>
+          {g.schools.map((s) => (
+            <article class="mb-5">
+              <h4 class="mb-1 flex flex-wrap items-baseline gap-x-3 font-serif text-[15.5px] font-bold text-ink">
+                {s.school_zh}
+                <span class="font-sans text-[12px] font-normal tracking-wide text-ink-soft">{s.school_en}</span>
+                <span class="rounded-sm bg-ink-green/10 px-1.5 py-0.5 font-sans text-[11px] font-semibold text-ink-green">×{s.cases.length}</span>
+              </h4>
+              <ul class="divide-y divide-paper-line border-l border-ink-green/15 pl-4">
+                {s.cases.map((c) => (
+                  <li class="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 py-1.5 text-[13px]">
+                    <span class="text-ink">{c.program}</span>
+                    <span class="text-[12px] text-ink-soft">{c.degree}</span>
+                    <span class="ml-auto whitespace-nowrap text-[12px] text-ink-soft">{c.year} 年 · {c.student}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </section>
+      ))}
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="mt-20 border-t border-paper-line pt-6 text-[12.5px] text-ink-soft">
+      <p>© 2026 途策留学 TUCE Education · 以上案例均经学员授权、匿名呈现（当前为占位示例数据）</p>
+    </footer>
+  </main>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+</Base>

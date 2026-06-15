@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+/* 途策官网 · Ignite 风亮色系统（米白底 + 品牌深绿做墨色 + 金点缀）
+   注：--font-serif 为历史 token 名，现指向 Archivo 窄体 display（衬线体系已退役）。 */
+@theme {
+  --color-paper: #FAF7F0;        /* 页面米白 */
+  --color-paper-deep: #EBE5D8;   /* 2D 地图陆地填充 */
+  --color-paper-line: #E5DFD2;   /* 细分隔线 */
+  --color-ink-green: #14342B;    /* 品牌深绿 = 标题/强调"墨色"（与 H5 统一） */
+  --color-ink: #1C211B;          /* 正文墨黑 */
+  --color-ink-soft: #6F6B60;     /* 次级文字 */
+  --color-gold: #B6924E;         /* 金点缀 */
+
+  --font-serif: "Archivo", "Noto Sans SC", "PingFang SC", sans-serif;
+  --font-sans: "Archivo", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+::selection { background: var(--color-ink-green); color: var(--color-paper); }
+
+/* display 文字统一窄体（Archivo 变量字体 wdth 轴）——所有 font-serif 类一并生效 */
+.font-serif { font-stretch: 74%; letter-spacing: -0.01em; }

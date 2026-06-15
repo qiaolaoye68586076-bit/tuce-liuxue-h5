@@ -1,0 +1,3302 @@
+[
+  {
+    "id": "2024-001",
+    "student": "L同学",
+    "school_zh": "康奈尔大学",
+    "school_en": "Cornell University",
+    "program": "信息科学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Ithaca",
+    "coordinates": [
+      -76.48,
+      42.45
+    ]
+  },
+  {
+    "id": "2024-002",
+    "student": "W同学",
+    "school_zh": "芝加哥大学",
+    "school_en": "University of Chicago",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Chicago",
+    "coordinates": [
+      -87.6,
+      41.79
+    ]
+  },
+  {
+    "id": "2024-003",
+    "student": "Z同学",
+    "school_zh": "埃默里大学",
+    "school_en": "Emory University",
+    "program": "心理学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Atlanta",
+    "coordinates": [
+      -84.32,
+      33.79
+    ]
+  },
+  {
+    "id": "2024-004",
+    "student": "C同学",
+    "school_zh": "纽约大学",
+    "school_en": "New York University",
+    "program": "金融",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "New York",
+    "coordinates": [
+      -74.0,
+      40.73
+    ]
+  },
+  {
+    "id": "2024-005",
+    "student": "H同学",
+    "school_zh": "纽约大学",
+    "school_en": "New York University",
+    "program": "传媒",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "New York",
+    "coordinates": [
+      -74.0,
+      40.73
+    ]
+  },
+  {
+    "id": "2024-006",
+    "student": "Y同学",
+    "school_zh": "纽约大学",
+    "school_en": "New York University",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "New York",
+    "coordinates": [
+      -74.0,
+      40.73
+    ]
+  },
+  {
+    "id": "2024-007",
+    "student": "X同学",
+    "school_zh": "波士顿大学",
+    "school_en": "Boston University",
+    "program": "工商管理",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Boston",
+    "coordinates": [
+      -71.11,
+      42.35
+    ]
+  },
+  {
+    "id": "2024-008",
+    "student": "S同学",
+    "school_zh": "俄亥俄州立大学",
+    "school_en": "Ohio State University",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Columbus",
+    "coordinates": [
+      -83.03,
+      40.0
+    ]
+  },
+  {
+    "id": "2024-009",
+    "student": "T同学",
+    "school_zh": "俄亥俄州立大学",
+    "school_en": "Ohio State University",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Columbus",
+    "coordinates": [
+      -83.03,
+      40.0
+    ]
+  },
+  {
+    "id": "2024-010",
+    "student": "G同学",
+    "school_zh": "俄亥俄州立大学",
+    "school_en": "Ohio State University",
+    "program": "数据分析",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Columbus",
+    "coordinates": [
+      -83.03,
+      40.0
+    ]
+  },
+  {
+    "id": "2024-011",
+    "student": "F同学",
+    "school_zh": "俄亥俄州立大学",
+    "school_en": "Ohio State University",
+    "program": "机械工程",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Columbus",
+    "coordinates": [
+      -83.03,
+      40.0
+    ]
+  },
+  {
+    "id": "2024-012",
+    "student": "D同学",
+    "school_zh": "马里兰大学帕克分校",
+    "school_en": "University of Maryland, College Park",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "College Park",
+    "coordinates": [
+      -76.94,
+      38.99
+    ]
+  },
+  {
+    "id": "2024-013",
+    "student": "J同学",
+    "school_zh": "东北大学",
+    "school_en": "Northeastern University",
+    "program": "商业分析",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Boston",
+    "coordinates": [
+      -71.09,
+      42.34
+    ]
+  },
+  {
+    "id": "2024-014",
+    "student": "M同学",
+    "school_zh": "东北大学",
+    "school_en": "Northeastern University",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Boston",
+    "coordinates": [
+      -71.09,
+      42.34
+    ]
+  },
+  {
+    "id": "2024-015",
+    "student": "Q同学",
+    "school_zh": "东北大学",
+    "school_en": "Northeastern University",
+    "program": "传媒",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Boston",
+    "coordinates": [
+      -71.09,
+      42.34
+    ]
+  },
+  {
+    "id": "2024-016",
+    "student": "P同学",
+    "school_zh": "凯斯西储大学",
+    "school_en": "Case Western Reserve University",
+    "program": "生物医学工程",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Cleveland",
+    "coordinates": [
+      -81.61,
+      41.5
+    ]
+  },
+  {
+    "id": "2024-017",
+    "student": "K同学",
+    "school_zh": "凯斯西储大学",
+    "school_en": "Case Western Reserve University",
+    "program": "化学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Cleveland",
+    "coordinates": [
+      -81.61,
+      41.5
+    ]
+  },
+  {
+    "id": "2024-018",
+    "student": "R同学",
+    "school_zh": "明尼苏达大学双子城分校",
+    "school_en": "University of Minnesota Twin Cities",
+    "program": "心理学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Minneapolis",
+    "coordinates": [
+      -93.24,
+      44.97
+    ]
+  },
+  {
+    "id": "2024-019",
+    "student": "B同学",
+    "school_zh": "伦斯勒理工学院",
+    "school_en": "Rensselaer Polytechnic Institute",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Troy",
+    "coordinates": [
+      -73.68,
+      42.73
+    ]
+  },
+  {
+    "id": "2024-020",
+    "student": "N同学",
+    "school_zh": "伦斯勒理工学院",
+    "school_en": "Rensselaer Polytechnic Institute",
+    "program": "电子工程",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Troy",
+    "coordinates": [
+      -73.68,
+      42.73
+    ]
+  },
+  {
+    "id": "2024-021",
+    "student": "L同学",
+    "school_zh": "圣塔克拉拉大学",
+    "school_en": "Santa Clara University",
+    "program": "金融",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Santa Clara",
+    "coordinates": [
+      -121.94,
+      37.35
+    ]
+  },
+  {
+    "id": "2024-022",
+    "student": "W同学",
+    "school_zh": "圣塔克拉拉大学",
+    "school_en": "Santa Clara University",
+    "program": "市场营销",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "Santa Clara",
+    "coordinates": [
+      -121.94,
+      37.35
+    ]
+  },
+  {
+    "id": "2024-023",
+    "student": "Z同学",
+    "school_zh": "宾夕法尼亚州立大学",
+    "school_en": "Penn State University",
+    "program": "工程学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "University Park",
+    "coordinates": [
+      -77.86,
+      40.8
+    ]
+  },
+  {
+    "id": "2024-024",
+    "student": "C同学",
+    "school_zh": "密歇根州立大学",
+    "school_en": "Michigan State University",
+    "program": "传媒",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "East Lansing",
+    "coordinates": [
+      -84.48,
+      42.7
+    ]
+  },
+  {
+    "id": "2024-025",
+    "student": "H同学",
+    "school_zh": "密歇根州立大学",
+    "school_en": "Michigan State University",
+    "program": "供应链管理",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "East Lansing",
+    "coordinates": [
+      -84.48,
+      42.7
+    ]
+  },
+  {
+    "id": "2024-026",
+    "student": "Y同学",
+    "school_zh": "密歇根州立大学",
+    "school_en": "Michigan State University",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "us",
+    "city": "East Lansing",
+    "coordinates": [
+      -84.48,
+      42.7
+    ]
+  },
+  {
+    "id": "2024-027",
+    "student": "X同学",
+    "school_zh": "帝国理工学院",
+    "school_en": "Imperial College London",
+    "program": "数学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.176,
+      51.499
+    ]
+  },
+  {
+    "id": "2024-028",
+    "student": "S同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2024-029",
+    "student": "T同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "统计学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2024-030",
+    "student": "G同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "教育学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2024-031",
+    "student": "F同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "建筑学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2024-032",
+    "student": "D同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "管理学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2024-033",
+    "student": "J同学",
+    "school_zh": "杜伦大学",
+    "school_en": "Durham University",
+    "program": "会计与金融",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "Durham UK",
+    "coordinates": [
+      -1.57,
+      54.77
+    ]
+  },
+  {
+    "id": "2024-034",
+    "student": "M同学",
+    "school_zh": "约克大学",
+    "school_en": "University of York",
+    "program": "心理学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "York",
+    "coordinates": [
+      -1.05,
+      53.95
+    ]
+  },
+  {
+    "id": "2024-035",
+    "student": "Q同学",
+    "school_zh": "约克大学",
+    "school_en": "University of York",
+    "program": "传媒",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "York",
+    "coordinates": [
+      -1.05,
+      53.95
+    ]
+  },
+  {
+    "id": "2024-036",
+    "student": "P同学",
+    "school_zh": "南安普顿大学",
+    "school_en": "University of Southampton",
+    "program": "电子工程",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "Southampton",
+    "coordinates": [
+      -1.4,
+      50.93
+    ]
+  },
+  {
+    "id": "2024-037",
+    "student": "K同学",
+    "school_zh": "谢菲尔德大学",
+    "school_en": "University of Sheffield",
+    "program": "土木工程",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "Sheffield",
+    "coordinates": [
+      -1.49,
+      53.38
+    ]
+  },
+  {
+    "id": "2024-038",
+    "student": "R同学",
+    "school_zh": "曼彻斯特大学",
+    "school_en": "University of Manchester",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "Manchester",
+    "coordinates": [
+      -2.234,
+      53.467
+    ]
+  },
+  {
+    "id": "2024-039",
+    "student": "B同学",
+    "school_zh": "曼彻斯特大学",
+    "school_en": "University of Manchester",
+    "program": "数学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "Manchester",
+    "coordinates": [
+      -2.234,
+      53.467
+    ]
+  },
+  {
+    "id": "2024-040",
+    "student": "N同学",
+    "school_zh": "曼彻斯特大学",
+    "school_en": "University of Manchester",
+    "program": "材料科学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "Manchester",
+    "coordinates": [
+      -2.234,
+      53.467
+    ]
+  },
+  {
+    "id": "2024-041",
+    "student": "L同学",
+    "school_zh": "曼彻斯特大学",
+    "school_en": "University of Manchester",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "Manchester",
+    "coordinates": [
+      -2.234,
+      53.467
+    ]
+  },
+  {
+    "id": "2024-042",
+    "student": "W同学",
+    "school_zh": "伦敦国王学院",
+    "school_en": "King's College London",
+    "program": "商业管理",
+    "degree": "本科",
+    "year": 2024,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.116,
+      51.512
+    ]
+  },
+  {
+    "id": "2024-043",
+    "student": "Z同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "经济金融",
+    "degree": "本科",
+    "year": 2024,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2024-044",
+    "student": "C同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "工商管理",
+    "degree": "本科",
+    "year": 2024,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2024-045",
+    "student": "H同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "理学",
+    "degree": "本科",
+    "year": 2024,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2025-046",
+    "student": "Y同学",
+    "school_zh": "芝加哥大学",
+    "school_en": "University of Chicago",
+    "program": "数学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Chicago",
+    "coordinates": [
+      -87.6,
+      41.79
+    ]
+  },
+  {
+    "id": "2025-047",
+    "student": "X同学",
+    "school_zh": "范德堡大学",
+    "school_en": "Vanderbilt University",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Nashville",
+    "coordinates": [
+      -86.8,
+      36.14
+    ]
+  },
+  {
+    "id": "2025-048",
+    "student": "S同学",
+    "school_zh": "纽约大学",
+    "school_en": "New York University",
+    "program": "应用心理学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "New York",
+    "coordinates": [
+      -74.0,
+      40.73
+    ]
+  },
+  {
+    "id": "2025-049",
+    "student": "T同学",
+    "school_zh": "纽约大学",
+    "school_en": "New York University",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "New York",
+    "coordinates": [
+      -74.0,
+      40.73
+    ]
+  },
+  {
+    "id": "2025-050",
+    "student": "G同学",
+    "school_zh": "波士顿学院",
+    "school_en": "Boston College",
+    "program": "金融",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Boston",
+    "coordinates": [
+      -71.17,
+      42.34
+    ]
+  },
+  {
+    "id": "2025-051",
+    "student": "F同学",
+    "school_zh": "俄亥俄州立大学",
+    "school_en": "Ohio State University",
+    "program": "心理学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Columbus",
+    "coordinates": [
+      -83.03,
+      40.0
+    ]
+  },
+  {
+    "id": "2025-052",
+    "student": "D同学",
+    "school_zh": "俄亥俄州立大学",
+    "school_en": "Ohio State University",
+    "program": "商科",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Columbus",
+    "coordinates": [
+      -83.03,
+      40.0
+    ]
+  },
+  {
+    "id": "2025-053",
+    "student": "J同学",
+    "school_zh": "俄亥俄州立大学",
+    "school_en": "Ohio State University",
+    "program": "计算机工程",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Columbus",
+    "coordinates": [
+      -83.03,
+      40.0
+    ]
+  },
+  {
+    "id": "2025-054",
+    "student": "M同学",
+    "school_zh": "俄亥俄州立大学",
+    "school_en": "Ohio State University",
+    "program": "统计学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Columbus",
+    "coordinates": [
+      -83.03,
+      40.0
+    ]
+  },
+  {
+    "id": "2025-055",
+    "student": "Q同学",
+    "school_zh": "弗吉尼亚理工学院",
+    "school_en": "Virginia Tech",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Blacksburg",
+    "coordinates": [
+      -80.42,
+      37.23
+    ]
+  },
+  {
+    "id": "2025-056",
+    "student": "P同学",
+    "school_zh": "东北大学",
+    "school_en": "Northeastern University",
+    "program": "数据科学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Boston",
+    "coordinates": [
+      -71.09,
+      42.34
+    ]
+  },
+  {
+    "id": "2025-057",
+    "student": "K同学",
+    "school_zh": "东北大学",
+    "school_en": "Northeastern University",
+    "program": "机械工程",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Boston",
+    "coordinates": [
+      -71.09,
+      42.34
+    ]
+  },
+  {
+    "id": "2025-058",
+    "student": "R同学",
+    "school_zh": "东北大学",
+    "school_en": "Northeastern University",
+    "program": "国际商务",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Boston",
+    "coordinates": [
+      -71.09,
+      42.34
+    ]
+  },
+  {
+    "id": "2025-059",
+    "student": "B同学",
+    "school_zh": "凯斯西储大学",
+    "school_en": "Case Western Reserve University",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Cleveland",
+    "coordinates": [
+      -81.61,
+      41.5
+    ]
+  },
+  {
+    "id": "2025-060",
+    "student": "N同学",
+    "school_zh": "凯斯西储大学",
+    "school_en": "Case Western Reserve University",
+    "program": "心理学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Cleveland",
+    "coordinates": [
+      -81.61,
+      41.5
+    ]
+  },
+  {
+    "id": "2025-061",
+    "student": "L同学",
+    "school_zh": "威廉与玛丽学院",
+    "school_en": "College of William & Mary",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Williamsburg",
+    "coordinates": [
+      -76.71,
+      37.27
+    ]
+  },
+  {
+    "id": "2025-062",
+    "student": "W同学",
+    "school_zh": "伦斯勒理工学院",
+    "school_en": "Rensselaer Polytechnic Institute",
+    "program": "机械工程",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Troy",
+    "coordinates": [
+      -73.68,
+      42.73
+    ]
+  },
+  {
+    "id": "2025-063",
+    "student": "Z同学",
+    "school_zh": "圣塔克拉拉大学",
+    "school_en": "Santa Clara University",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Santa Clara",
+    "coordinates": [
+      -121.94,
+      37.35
+    ]
+  },
+  {
+    "id": "2025-064",
+    "student": "C同学",
+    "school_zh": "圣塔克拉拉大学",
+    "school_en": "Santa Clara University",
+    "program": "会计",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Santa Clara",
+    "coordinates": [
+      -121.94,
+      37.35
+    ]
+  },
+  {
+    "id": "2025-065",
+    "student": "H同学",
+    "school_zh": "宾夕法尼亚州立大学",
+    "school_en": "Penn State University",
+    "program": "传媒",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "University Park",
+    "coordinates": [
+      -77.86,
+      40.8
+    ]
+  },
+  {
+    "id": "2025-066",
+    "student": "Y同学",
+    "school_zh": "密歇根州立大学",
+    "school_en": "Michigan State University",
+    "program": "市场营销",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "East Lansing",
+    "coordinates": [
+      -84.48,
+      42.7
+    ]
+  },
+  {
+    "id": "2025-067",
+    "student": "X同学",
+    "school_zh": "密歇根州立大学",
+    "school_en": "Michigan State University",
+    "program": "教育学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "East Lansing",
+    "coordinates": [
+      -84.48,
+      42.7
+    ]
+  },
+  {
+    "id": "2025-068",
+    "student": "S同学",
+    "school_zh": "北卡罗来纳州立大学",
+    "school_en": "NC State University",
+    "program": "统计学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "us",
+    "city": "Raleigh",
+    "coordinates": [
+      -78.68,
+      35.78
+    ]
+  },
+  {
+    "id": "2025-069",
+    "student": "T同学",
+    "school_zh": "帝国理工学院",
+    "school_en": "Imperial College London",
+    "program": "化学工程",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.176,
+      51.499
+    ]
+  },
+  {
+    "id": "2025-070",
+    "student": "G同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "数学与经济",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2025-071",
+    "student": "F同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "心理学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2025-072",
+    "student": "D同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2025-073",
+    "student": "J同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "艺术史",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2025-074",
+    "student": "M同学",
+    "school_zh": "杜伦大学",
+    "school_en": "Durham University",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "Durham UK",
+    "coordinates": [
+      -1.57,
+      54.77
+    ]
+  },
+  {
+    "id": "2025-075",
+    "student": "Q同学",
+    "school_zh": "爱丁堡大学",
+    "school_en": "University of Edinburgh",
+    "program": "数学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "Edinburgh",
+    "coordinates": [
+      -3.19,
+      55.94
+    ]
+  },
+  {
+    "id": "2025-076",
+    "student": "P同学",
+    "school_zh": "约克大学",
+    "school_en": "University of York",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "York",
+    "coordinates": [
+      -1.05,
+      53.95
+    ]
+  },
+  {
+    "id": "2025-077",
+    "student": "K同学",
+    "school_zh": "约克大学",
+    "school_en": "University of York",
+    "program": "教育学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "York",
+    "coordinates": [
+      -1.05,
+      53.95
+    ]
+  },
+  {
+    "id": "2025-078",
+    "student": "R同学",
+    "school_zh": "约克大学",
+    "school_en": "University of York",
+    "program": "电子工程",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "York",
+    "coordinates": [
+      -1.05,
+      53.95
+    ]
+  },
+  {
+    "id": "2025-079",
+    "student": "B同学",
+    "school_zh": "曼彻斯特大学",
+    "school_en": "University of Manchester",
+    "program": "会计与金融",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "Manchester",
+    "coordinates": [
+      -2.234,
+      53.467
+    ]
+  },
+  {
+    "id": "2025-080",
+    "student": "N同学",
+    "school_zh": "曼彻斯特大学",
+    "school_en": "University of Manchester",
+    "program": "时尚管理",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "Manchester",
+    "coordinates": [
+      -2.234,
+      53.467
+    ]
+  },
+  {
+    "id": "2025-081",
+    "student": "L同学",
+    "school_zh": "曼彻斯特大学",
+    "school_en": "University of Manchester",
+    "program": "机械工程",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "Manchester",
+    "coordinates": [
+      -2.234,
+      53.467
+    ]
+  },
+  {
+    "id": "2025-082",
+    "student": "W同学",
+    "school_zh": "曼彻斯特大学",
+    "school_en": "University of Manchester",
+    "program": "社会学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "Manchester",
+    "coordinates": [
+      -2.234,
+      53.467
+    ]
+  },
+  {
+    "id": "2025-083",
+    "student": "Z同学",
+    "school_zh": "利兹大学",
+    "school_en": "University of Leeds",
+    "program": "传媒",
+    "degree": "本科",
+    "year": 2025,
+    "region": "uk",
+    "city": "Leeds",
+    "coordinates": [
+      -1.55,
+      53.81
+    ]
+  },
+  {
+    "id": "2025-084",
+    "student": "C同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2025-085",
+    "student": "H同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2025-086",
+    "student": "Y同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "社会科学",
+    "degree": "本科",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2025-087",
+    "student": "X同学",
+    "school_zh": "香港中文大学",
+    "school_en": "The Chinese University of Hong Kong",
+    "program": "工商管理",
+    "degree": "本科",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.207,
+      22.42
+    ]
+  },
+  {
+    "id": "2026-088",
+    "student": "S同学",
+    "school_zh": "约翰霍普金斯大学",
+    "school_en": "Johns Hopkins University",
+    "program": "生物医学工程",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Baltimore",
+    "coordinates": [
+      -76.62,
+      39.33
+    ]
+  },
+  {
+    "id": "2026-089",
+    "student": "T同学",
+    "school_zh": "芝加哥大学",
+    "school_en": "University of Chicago",
+    "program": "社会科学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Chicago",
+    "coordinates": [
+      -87.6,
+      41.79
+    ]
+  },
+  {
+    "id": "2026-090",
+    "student": "G同学",
+    "school_zh": "纽约大学",
+    "school_en": "New York University",
+    "program": "数学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "New York",
+    "coordinates": [
+      -74.0,
+      40.73
+    ]
+  },
+  {
+    "id": "2026-091",
+    "student": "F同学",
+    "school_zh": "纽约大学",
+    "school_en": "New York University",
+    "program": "媒体传播",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "New York",
+    "coordinates": [
+      -74.0,
+      40.73
+    ]
+  },
+  {
+    "id": "2026-092",
+    "student": "D同学",
+    "school_zh": "普渡大学西拉法叶分校",
+    "school_en": "Purdue University",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "West Lafayette",
+    "coordinates": [
+      -86.92,
+      40.43
+    ]
+  },
+  {
+    "id": "2026-093",
+    "student": "J同学",
+    "school_zh": "俄亥俄州立大学",
+    "school_en": "Ohio State University",
+    "program": "金融",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Columbus",
+    "coordinates": [
+      -83.03,
+      40.0
+    ]
+  },
+  {
+    "id": "2026-094",
+    "student": "M同学",
+    "school_zh": "俄亥俄州立大学",
+    "school_en": "Ohio State University",
+    "program": "工业工程",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Columbus",
+    "coordinates": [
+      -83.03,
+      40.0
+    ]
+  },
+  {
+    "id": "2026-095",
+    "student": "Q同学",
+    "school_zh": "俄亥俄州立大学",
+    "school_en": "Ohio State University",
+    "program": "传媒",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Columbus",
+    "coordinates": [
+      -83.03,
+      40.0
+    ]
+  },
+  {
+    "id": "2026-096",
+    "student": "P同学",
+    "school_zh": "弗吉尼亚理工学院",
+    "school_en": "Virginia Tech",
+    "program": "建筑学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Blacksburg",
+    "coordinates": [
+      -80.42,
+      37.23
+    ]
+  },
+  {
+    "id": "2026-097",
+    "student": "K同学",
+    "school_zh": "东北大学",
+    "school_en": "Northeastern University",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Boston",
+    "coordinates": [
+      -71.09,
+      42.34
+    ]
+  },
+  {
+    "id": "2026-098",
+    "student": "Z同学",
+    "school_zh": "东北大学",
+    "school_en": "Northeastern University",
+    "program": "传媒",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Boston",
+    "coordinates": [
+      -71.09,
+      42.34
+    ]
+  },
+  {
+    "id": "2026-099",
+    "student": "B同学",
+    "school_zh": "凯斯西储大学",
+    "school_en": "Case Western Reserve University",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Cleveland",
+    "coordinates": [
+      -81.61,
+      41.5
+    ]
+  },
+  {
+    "id": "2026-100",
+    "student": "N同学",
+    "school_zh": "明尼苏达大学双子城分校",
+    "school_en": "University of Minnesota Twin Cities",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Minneapolis",
+    "coordinates": [
+      -93.24,
+      44.97
+    ]
+  },
+  {
+    "id": "2026-101",
+    "student": "L同学",
+    "school_zh": "伦斯勒理工学院",
+    "school_en": "Rensselaer Polytechnic Institute",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Troy",
+    "coordinates": [
+      -73.68,
+      42.73
+    ]
+  },
+  {
+    "id": "2026-102",
+    "student": "W同学",
+    "school_zh": "伦斯勒理工学院",
+    "school_en": "Rensselaer Polytechnic Institute",
+    "program": "数学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Troy",
+    "coordinates": [
+      -73.68,
+      42.73
+    ]
+  },
+  {
+    "id": "2026-103",
+    "student": "R同学",
+    "school_zh": "布兰迪斯大学",
+    "school_en": "Brandeis University",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Boston",
+    "coordinates": [
+      -71.26,
+      42.37
+    ]
+  },
+  {
+    "id": "2026-104",
+    "student": "C同学",
+    "school_zh": "圣塔克拉拉大学",
+    "school_en": "Santa Clara University",
+    "program": "商业分析",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "Santa Clara",
+    "coordinates": [
+      -121.94,
+      37.35
+    ]
+  },
+  {
+    "id": "2026-105",
+    "student": "H同学",
+    "school_zh": "密歇根州立大学",
+    "school_en": "Michigan State University",
+    "program": "广告学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "East Lansing",
+    "coordinates": [
+      -84.48,
+      42.7
+    ]
+  },
+  {
+    "id": "2026-106",
+    "student": "Y同学",
+    "school_zh": "密歇根州立大学",
+    "school_en": "Michigan State University",
+    "program": "酒店管理",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "East Lansing",
+    "coordinates": [
+      -84.48,
+      42.7
+    ]
+  },
+  {
+    "id": "2026-107",
+    "student": "X同学",
+    "school_zh": "密歇根州立大学",
+    "school_en": "Michigan State University",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "us",
+    "city": "East Lansing",
+    "coordinates": [
+      -84.48,
+      42.7
+    ]
+  },
+  {
+    "id": "2026-108",
+    "student": "S同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "统计经济与金融",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2026-109",
+    "student": "T同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "管理科学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2026-110",
+    "student": "G同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "教育学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2026-111",
+    "student": "F同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "机械工程",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2026-112",
+    "student": "D同学",
+    "school_zh": "杜伦大学",
+    "school_en": "Durham University",
+    "program": "自然科学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "Durham UK",
+    "coordinates": [
+      -1.57,
+      54.77
+    ]
+  },
+  {
+    "id": "2026-113",
+    "student": "J同学",
+    "school_zh": "华威大学",
+    "school_en": "University of Warwick",
+    "program": "数学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "Coventry",
+    "coordinates": [
+      -1.56,
+      52.38
+    ]
+  },
+  {
+    "id": "2026-114",
+    "student": "M同学",
+    "school_zh": "约克大学",
+    "school_en": "University of York",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "York",
+    "coordinates": [
+      -1.05,
+      53.95
+    ]
+  },
+  {
+    "id": "2026-115",
+    "student": "Q同学",
+    "school_zh": "约克大学",
+    "school_en": "University of York",
+    "program": "心理学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "York",
+    "coordinates": [
+      -1.05,
+      53.95
+    ]
+  },
+  {
+    "id": "2026-116",
+    "student": "P同学",
+    "school_zh": "南安普顿大学",
+    "school_en": "University of Southampton",
+    "program": "商业管理",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "Southampton",
+    "coordinates": [
+      -1.4,
+      50.93
+    ]
+  },
+  {
+    "id": "2026-117",
+    "student": "K同学",
+    "school_zh": "伯明翰大学",
+    "school_en": "University of Birmingham",
+    "program": "国际关系",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "Birmingham",
+    "coordinates": [
+      -1.93,
+      52.45
+    ]
+  },
+  {
+    "id": "2026-118",
+    "student": "R同学",
+    "school_zh": "曼彻斯特大学",
+    "school_en": "University of Manchester",
+    "program": "计算机科学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "Manchester",
+    "coordinates": [
+      -2.234,
+      53.467
+    ]
+  },
+  {
+    "id": "2026-119",
+    "student": "B同学",
+    "school_zh": "曼彻斯特大学",
+    "school_en": "University of Manchester",
+    "program": "经济学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "Manchester",
+    "coordinates": [
+      -2.234,
+      53.467
+    ]
+  },
+  {
+    "id": "2026-120",
+    "student": "N同学",
+    "school_zh": "曼彻斯特大学",
+    "school_en": "University of Manchester",
+    "program": "电子电气工程",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "Manchester",
+    "coordinates": [
+      -2.234,
+      53.467
+    ]
+  },
+  {
+    "id": "2026-121",
+    "student": "L同学",
+    "school_zh": "伦敦国王学院",
+    "school_en": "King's College London",
+    "program": "数字媒体",
+    "degree": "本科",
+    "year": 2026,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.116,
+      51.512
+    ]
+  },
+  {
+    "id": "2026-122",
+    "student": "W同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "工商管理",
+    "degree": "本科",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2026-123",
+    "student": "Z同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "工程学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2026-124",
+    "student": "C同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "文学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2026-125",
+    "student": "H同学",
+    "school_zh": "香港科技大学",
+    "school_en": "HKUST",
+    "program": "理学",
+    "degree": "本科",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.263,
+      22.336
+    ]
+  },
+  {
+    "id": "2024-126",
+    "student": "F同学",
+    "school_zh": "哥伦比亚大学",
+    "school_en": "Columbia University",
+    "program": "MS Business Analytics 商业分析",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "us",
+    "city": "New York",
+    "coordinates": [
+      -73.96,
+      40.81
+    ]
+  },
+  {
+    "id": "2024-127",
+    "student": "D同学",
+    "school_zh": "约翰霍普金斯大学",
+    "school_en": "Johns Hopkins University",
+    "program": "MS Finance 金融",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "us",
+    "city": "Baltimore",
+    "coordinates": [
+      -76.62,
+      39.33
+    ]
+  },
+  {
+    "id": "2024-128",
+    "student": "J同学",
+    "school_zh": "卡内基梅隆大学",
+    "school_en": "Carnegie Mellon University",
+    "program": "MS Information Systems Management 信息系统管理",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "us",
+    "city": "Pittsburgh",
+    "coordinates": [
+      -79.94,
+      40.44
+    ]
+  },
+  {
+    "id": "2024-129",
+    "student": "M同学",
+    "school_zh": "杜克大学",
+    "school_en": "Duke University",
+    "program": "MEng Financial Technology 金融科技",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "us",
+    "city": "Durham NC",
+    "coordinates": [
+      -78.94,
+      36.0
+    ]
+  },
+  {
+    "id": "2024-130",
+    "student": "Q同学",
+    "school_zh": "康奈尔大学",
+    "school_en": "Cornell University",
+    "program": "MPS Data Science 数据科学",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "us",
+    "city": "Ithaca",
+    "coordinates": [
+      -76.48,
+      42.45
+    ]
+  },
+  {
+    "id": "2024-131",
+    "student": "P同学",
+    "school_zh": "纽约大学",
+    "school_en": "New York University",
+    "program": "MS Integrated Marketing 整合营销",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "us",
+    "city": "New York",
+    "coordinates": [
+      -74.0,
+      40.73
+    ]
+  },
+  {
+    "id": "2024-132",
+    "student": "L同学",
+    "school_zh": "牛津大学",
+    "school_en": "University of Oxford",
+    "program": "MSc Education 教育学",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "uk",
+    "city": "Oxford",
+    "coordinates": [
+      -1.254,
+      51.754
+    ]
+  },
+  {
+    "id": "2024-133",
+    "student": "W同学",
+    "school_zh": "帝国理工学院",
+    "school_en": "Imperial College London",
+    "program": "MSc Computing 计算机",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.176,
+      51.499
+    ]
+  },
+  {
+    "id": "2024-134",
+    "student": "Z同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "MSc Management 管理学",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2024-135",
+    "student": "C同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "MA Comparative Education 比较教育",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2024-136",
+    "student": "H同学",
+    "school_zh": "伦敦政治经济学院",
+    "school_en": "LSE",
+    "program": "MSc Marketing 市场营销",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.117,
+      51.514
+    ]
+  },
+  {
+    "id": "2024-137",
+    "student": "Y同学",
+    "school_zh": "伦敦国王学院",
+    "school_en": "King's College London",
+    "program": "LLM International Business Law 国际商法",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.116,
+      51.512
+    ]
+  },
+  {
+    "id": "2024-138",
+    "student": "X同学",
+    "school_zh": "爱丁堡大学",
+    "school_en": "University of Edinburgh",
+    "program": "MSc Data Science 数据科学",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "uk",
+    "city": "Edinburgh",
+    "coordinates": [
+      -3.19,
+      55.94
+    ]
+  },
+  {
+    "id": "2024-139",
+    "student": "K同学",
+    "school_zh": "曼彻斯特大学",
+    "school_en": "University of Manchester",
+    "program": "MSc Human Resource Management 人力资源管理",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "uk",
+    "city": "Manchester",
+    "coordinates": [
+      -2.234,
+      53.467
+    ]
+  },
+  {
+    "id": "2024-140",
+    "student": "R同学",
+    "school_zh": "华威大学",
+    "school_en": "University of Warwick",
+    "program": "MSc Finance and Economics 金融与经济",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "uk",
+    "city": "Coventry",
+    "coordinates": [
+      -1.56,
+      52.38
+    ]
+  },
+  {
+    "id": "2024-141",
+    "student": "T同学",
+    "school_zh": "新加坡国立大学",
+    "school_en": "National University of Singapore",
+    "program": "MSc Business Analytics 商业分析",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "sg",
+    "city": "Singapore",
+    "coordinates": [
+      103.776,
+      1.297
+    ]
+  },
+  {
+    "id": "2024-142",
+    "student": "G同学",
+    "school_zh": "新加坡国立大学",
+    "school_en": "National University of Singapore",
+    "program": "Master of Computing 计算机",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "sg",
+    "city": "Singapore",
+    "coordinates": [
+      103.776,
+      1.297
+    ]
+  },
+  {
+    "id": "2024-143",
+    "student": "S同学",
+    "school_zh": "南洋理工大学",
+    "school_en": "Nanyang Technological University",
+    "program": "MSc Financial Engineering 金融工程",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "sg",
+    "city": "Singapore",
+    "coordinates": [
+      103.683,
+      1.348
+    ]
+  },
+  {
+    "id": "2024-144",
+    "student": "F同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "MSc Computer Science 计算机科学",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2024-145",
+    "student": "D同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "Master of Economics 经济学",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2024-146",
+    "student": "J同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "MSc Marketing 市场营销",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2024-147",
+    "student": "M同学",
+    "school_zh": "香港中文大学",
+    "school_en": "The Chinese University of Hong Kong",
+    "program": "MSc Information Engineering 信息工程",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.207,
+      22.42
+    ]
+  },
+  {
+    "id": "2024-148",
+    "student": "Q同学",
+    "school_zh": "香港中文大学",
+    "school_en": "The Chinese University of Hong Kong",
+    "program": "MA Global Communication 全球传播",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.207,
+      22.42
+    ]
+  },
+  {
+    "id": "2024-149",
+    "student": "P同学",
+    "school_zh": "香港中文大学",
+    "school_en": "The Chinese University of Hong Kong",
+    "program": "MSc Accountancy 会计学",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.207,
+      22.42
+    ]
+  },
+  {
+    "id": "2024-150",
+    "student": "L同学",
+    "school_zh": "香港科技大学",
+    "school_en": "HKUST",
+    "program": "MSc Big Data Technology 大数据技术",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.263,
+      22.336
+    ]
+  },
+  {
+    "id": "2024-151",
+    "student": "W同学",
+    "school_zh": "香港科技大学",
+    "school_en": "HKUST",
+    "program": "MSc Investment Management 投资管理",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.263,
+      22.336
+    ]
+  },
+  {
+    "id": "2024-152",
+    "student": "Z同学",
+    "school_zh": "香港城市大学",
+    "school_en": "City University of Hong Kong",
+    "program": "MA Communication and New Media 传播与新媒体",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.172,
+      22.337
+    ]
+  },
+  {
+    "id": "2024-153",
+    "student": "C同学",
+    "school_zh": "香港理工大学",
+    "school_en": "The Hong Kong Polytechnic University",
+    "program": "MSc Supply Chain Management 供应链管理",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.18,
+      22.304
+    ]
+  },
+  {
+    "id": "2024-154",
+    "student": "H同学",
+    "school_zh": "墨尔本大学",
+    "school_en": "University of Melbourne",
+    "program": "Master of Data Science 数据科学",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "au",
+    "city": "Melbourne",
+    "coordinates": [
+      144.961,
+      -37.796
+    ]
+  },
+  {
+    "id": "2024-155",
+    "student": "Y同学",
+    "school_zh": "多伦多大学",
+    "school_en": "University of Toronto",
+    "program": "MEng Electrical & Computer Engineering 电子与计算机工程",
+    "degree": "研究生",
+    "year": 2024,
+    "region": "ca",
+    "city": "Toronto",
+    "coordinates": [
+      -79.395,
+      43.663
+    ]
+  },
+  {
+    "id": "2025-156",
+    "student": "F同学",
+    "school_zh": "宾夕法尼亚大学",
+    "school_en": "University of Pennsylvania",
+    "program": "MSE Data Science 数据科学",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "us",
+    "city": "Philadelphia",
+    "coordinates": [
+      -75.19,
+      39.95
+    ]
+  },
+  {
+    "id": "2025-157",
+    "student": "D同学",
+    "school_zh": "哥伦比亚大学",
+    "school_en": "Columbia University",
+    "program": "MA Statistics 统计学",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "us",
+    "city": "New York",
+    "coordinates": [
+      -73.96,
+      40.81
+    ]
+  },
+  {
+    "id": "2025-158",
+    "student": "J同学",
+    "school_zh": "康奈尔大学",
+    "school_en": "Cornell University",
+    "program": "MEng Computer Science 计算机科学",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "us",
+    "city": "Ithaca",
+    "coordinates": [
+      -76.48,
+      42.45
+    ]
+  },
+  {
+    "id": "2025-159",
+    "student": "M同学",
+    "school_zh": "西北大学",
+    "school_en": "Northwestern University",
+    "program": "MS Integrated Marketing Communications 整合营销传播",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "us",
+    "city": "Evanston",
+    "coordinates": [
+      -87.68,
+      42.06
+    ]
+  },
+  {
+    "id": "2025-160",
+    "student": "Q同学",
+    "school_zh": "南加州大学",
+    "school_en": "University of Southern California",
+    "program": "MS Computer Science 计算机科学",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "us",
+    "city": "Los Angeles",
+    "coordinates": [
+      -118.29,
+      34.02
+    ]
+  },
+  {
+    "id": "2025-161",
+    "student": "P同学",
+    "school_zh": "乔治城大学",
+    "school_en": "Georgetown University",
+    "program": "MS Finance 金融",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "us",
+    "city": "Washington DC",
+    "coordinates": [
+      -77.07,
+      38.91
+    ]
+  },
+  {
+    "id": "2025-162",
+    "student": "K同学",
+    "school_zh": "剑桥大学",
+    "school_en": "University of Cambridge",
+    "program": "MPhil Real Estate Finance 房地产金融",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "uk",
+    "city": "Cambridge UK",
+    "coordinates": [
+      0.114,
+      52.205
+    ]
+  },
+  {
+    "id": "2025-163",
+    "student": "L同学",
+    "school_zh": "帝国理工学院",
+    "school_en": "Imperial College London",
+    "program": "MSc Business Analytics 商业分析",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.176,
+      51.499
+    ]
+  },
+  {
+    "id": "2025-164",
+    "student": "W同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "MSc Project and Enterprise Management 项目与企业管理",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2025-165",
+    "student": "Z同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "MSc Machine Learning 机器学习",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2025-166",
+    "student": "C同学",
+    "school_zh": "伦敦政治经济学院",
+    "school_en": "LSE",
+    "program": "MSc Media and Communications 媒体与传播",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.117,
+      51.514
+    ]
+  },
+  {
+    "id": "2025-167",
+    "student": "H同学",
+    "school_zh": "伦敦国王学院",
+    "school_en": "King's College London",
+    "program": "MSc Banking and Finance 银行与金融",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.116,
+      51.512
+    ]
+  },
+  {
+    "id": "2025-168",
+    "student": "Y同学",
+    "school_zh": "爱丁堡大学",
+    "school_en": "University of Edinburgh",
+    "program": "MSc Artificial Intelligence 人工智能",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "uk",
+    "city": "Edinburgh",
+    "coordinates": [
+      -3.19,
+      55.94
+    ]
+  },
+  {
+    "id": "2025-169",
+    "student": "X同学",
+    "school_zh": "布里斯托大学",
+    "school_en": "University of Bristol",
+    "program": "MSc Economics and Finance 经济与金融",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "uk",
+    "city": "Bristol",
+    "coordinates": [
+      -2.6,
+      51.46
+    ]
+  },
+  {
+    "id": "2025-170",
+    "student": "R同学",
+    "school_zh": "格拉斯哥大学",
+    "school_en": "University of Glasgow",
+    "program": "MSc International Business 国际商务",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "uk",
+    "city": "Glasgow",
+    "coordinates": [
+      -4.29,
+      55.87
+    ]
+  },
+  {
+    "id": "2025-171",
+    "student": "T同学",
+    "school_zh": "新加坡国立大学",
+    "school_en": "National University of Singapore",
+    "program": "LLM International and Comparative Law 国际比较法",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "sg",
+    "city": "Singapore",
+    "coordinates": [
+      103.776,
+      1.297
+    ]
+  },
+  {
+    "id": "2025-172",
+    "student": "G同学",
+    "school_zh": "南洋理工大学",
+    "school_en": "Nanyang Technological University",
+    "program": "MSc Communication Studies 传播学",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "sg",
+    "city": "Singapore",
+    "coordinates": [
+      103.683,
+      1.348
+    ]
+  },
+  {
+    "id": "2025-173",
+    "student": "S同学",
+    "school_zh": "南洋理工大学",
+    "school_en": "Nanyang Technological University",
+    "program": "MSc Artificial Intelligence 人工智能",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "sg",
+    "city": "Singapore",
+    "coordinates": [
+      103.683,
+      1.348
+    ]
+  },
+  {
+    "id": "2025-174",
+    "student": "F同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "MSc Business Analytics 商业分析",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2025-175",
+    "student": "D同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "Master of Finance 金融",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2025-176",
+    "student": "J同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "MEd Education 教育学",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2025-177",
+    "student": "M同学",
+    "school_zh": "香港中文大学",
+    "school_en": "The Chinese University of Hong Kong",
+    "program": "MSc Data Science and Business Statistics 数据科学与商业统计",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.207,
+      22.42
+    ]
+  },
+  {
+    "id": "2025-178",
+    "student": "Q同学",
+    "school_zh": "香港中文大学",
+    "school_en": "The Chinese University of Hong Kong",
+    "program": "MSc Finance 金融",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.207,
+      22.42
+    ]
+  },
+  {
+    "id": "2025-179",
+    "student": "P同学",
+    "school_zh": "香港科技大学",
+    "school_en": "HKUST",
+    "program": "MSc Information Technology 信息技术",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.263,
+      22.336
+    ]
+  },
+  {
+    "id": "2025-180",
+    "student": "K同学",
+    "school_zh": "香港科技大学",
+    "school_en": "HKUST",
+    "program": "MSc Global Operations 全球运营",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.263,
+      22.336
+    ]
+  },
+  {
+    "id": "2025-181",
+    "student": "L同学",
+    "school_zh": "香港城市大学",
+    "school_en": "City University of Hong Kong",
+    "program": "MSc Financial Mathematics 金融数学",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.172,
+      22.337
+    ]
+  },
+  {
+    "id": "2025-182",
+    "student": "W同学",
+    "school_zh": "香港理工大学",
+    "school_en": "The Hong Kong Polytechnic University",
+    "program": "MSc Marketing Management 市场营销管理",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.18,
+      22.304
+    ]
+  },
+  {
+    "id": "2025-183",
+    "student": "Z同学",
+    "school_zh": "香港理工大学",
+    "school_en": "The Hong Kong Polytechnic University",
+    "program": "MDes Design 设计学",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.18,
+      22.304
+    ]
+  },
+  {
+    "id": "2025-184",
+    "student": "C同学",
+    "school_zh": "悉尼大学",
+    "school_en": "University of Sydney",
+    "program": "Master of Commerce 商学",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "au",
+    "city": "Sydney",
+    "coordinates": [
+      151.187,
+      -33.889
+    ]
+  },
+  {
+    "id": "2025-185",
+    "student": "H同学",
+    "school_zh": "麦吉尔大学",
+    "school_en": "McGill University",
+    "program": "MMA Management Analytics 管理分析",
+    "degree": "研究生",
+    "year": 2025,
+    "region": "ca",
+    "city": "Montreal",
+    "coordinates": [
+      -73.577,
+      45.505
+    ]
+  },
+  {
+    "id": "2026-186",
+    "student": "F同学",
+    "school_zh": "约翰霍普金斯大学",
+    "school_en": "Johns Hopkins University",
+    "program": "MS Biostatistics 生物统计",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "us",
+    "city": "Baltimore",
+    "coordinates": [
+      -76.62,
+      39.33
+    ]
+  },
+  {
+    "id": "2026-187",
+    "student": "D同学",
+    "school_zh": "哥伦比亚大学",
+    "school_en": "Columbia University",
+    "program": "MS Construction Administration 建设管理",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "us",
+    "city": "New York",
+    "coordinates": [
+      -73.96,
+      40.81
+    ]
+  },
+  {
+    "id": "2026-188",
+    "student": "J同学",
+    "school_zh": "卡内基梅隆大学",
+    "school_en": "Carnegie Mellon University",
+    "program": "MS Computational Data Science 计算数据科学",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "us",
+    "city": "Pittsburgh",
+    "coordinates": [
+      -79.94,
+      40.44
+    ]
+  },
+  {
+    "id": "2026-189",
+    "student": "M同学",
+    "school_zh": "杜克大学",
+    "school_en": "Duke University",
+    "program": "MS Quantitative Management 量化管理",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "us",
+    "city": "Durham NC",
+    "coordinates": [
+      -78.94,
+      36.0
+    ]
+  },
+  {
+    "id": "2026-190",
+    "student": "Q同学",
+    "school_zh": "纽约大学",
+    "school_en": "New York University",
+    "program": "MS Financial Engineering 金融工程 (Tandon)",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "us",
+    "city": "New York",
+    "coordinates": [
+      -74.0,
+      40.73
+    ]
+  },
+  {
+    "id": "2026-191",
+    "student": "P同学",
+    "school_zh": "南加州大学",
+    "school_en": "University of Southern California",
+    "program": "MS Applied Data Science 应用数据科学",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "us",
+    "city": "Los Angeles",
+    "coordinates": [
+      -118.29,
+      34.02
+    ]
+  },
+  {
+    "id": "2026-192",
+    "student": "R同学",
+    "school_zh": "牛津大学",
+    "school_en": "University of Oxford",
+    "program": "MSc Social Data Science 社会数据科学",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "uk",
+    "city": "Oxford",
+    "coordinates": [
+      -1.254,
+      51.754
+    ]
+  },
+  {
+    "id": "2026-193",
+    "student": "K同学",
+    "school_zh": "帝国理工学院",
+    "school_en": "Imperial College London",
+    "program": "MSc Finance 金融",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.176,
+      51.499
+    ]
+  },
+  {
+    "id": "2026-194",
+    "student": "L同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "MSc Data Science and Machine Learning 数据科学与机器学习",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2026-195",
+    "student": "W同学",
+    "school_zh": "伦敦大学学院",
+    "school_en": "UCL",
+    "program": "MA Museum Studies 博物馆学",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.134,
+      51.524
+    ]
+  },
+  {
+    "id": "2026-196",
+    "student": "Z同学",
+    "school_zh": "伦敦政治经济学院",
+    "school_en": "LSE",
+    "program": "MSc Management of Information Systems 信息系统管理",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.117,
+      51.514
+    ]
+  },
+  {
+    "id": "2026-197",
+    "student": "C同学",
+    "school_zh": "伦敦国王学院",
+    "school_en": "King's College London",
+    "program": "MSc Digital Marketing 数字营销",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "uk",
+    "city": "London",
+    "coordinates": [
+      -0.116,
+      51.512
+    ]
+  },
+  {
+    "id": "2026-198",
+    "student": "H同学",
+    "school_zh": "爱丁堡大学",
+    "school_en": "University of Edinburgh",
+    "program": "MSc Finance, Technology and Policy 金融科技与政策",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "uk",
+    "city": "Edinburgh",
+    "coordinates": [
+      -3.19,
+      55.94
+    ]
+  },
+  {
+    "id": "2026-199",
+    "student": "Y同学",
+    "school_zh": "曼彻斯特大学",
+    "school_en": "University of Manchester",
+    "program": "MSc Advanced Computer Science 高级计算机科学",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "uk",
+    "city": "Manchester",
+    "coordinates": [
+      -2.234,
+      53.467
+    ]
+  },
+  {
+    "id": "2026-200",
+    "student": "X同学",
+    "school_zh": "华威大学",
+    "school_en": "University of Warwick",
+    "program": "MSc Business Analytics 商业分析",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "uk",
+    "city": "Coventry",
+    "coordinates": [
+      -1.56,
+      52.38
+    ]
+  },
+  {
+    "id": "2026-201",
+    "student": "T同学",
+    "school_zh": "新加坡国立大学",
+    "school_en": "National University of Singapore",
+    "program": "MSc Industrial and Systems Engineering 工业与系统工程",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "sg",
+    "city": "Singapore",
+    "coordinates": [
+      103.776,
+      1.297
+    ]
+  },
+  {
+    "id": "2026-202",
+    "student": "G同学",
+    "school_zh": "新加坡国立大学",
+    "school_en": "National University of Singapore",
+    "program": "Master of Public Policy 公共政策",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "sg",
+    "city": "Singapore",
+    "coordinates": [
+      103.776,
+      1.297
+    ]
+  },
+  {
+    "id": "2026-203",
+    "student": "S同学",
+    "school_zh": "南洋理工大学",
+    "school_en": "Nanyang Technological University",
+    "program": "MSc Accountancy 会计学",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "sg",
+    "city": "Singapore",
+    "coordinates": [
+      103.683,
+      1.348
+    ]
+  },
+  {
+    "id": "2026-204",
+    "student": "C同学",
+    "school_zh": "南洋理工大学",
+    "school_en": "Nanyang Technological University",
+    "program": "MSc Data Analytics 数据分析",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "sg",
+    "city": "Singapore",
+    "coordinates": [
+      103.683,
+      1.348
+    ]
+  },
+  {
+    "id": "2026-205",
+    "student": "F同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "MSc Electrical and Electronic Engineering 电子电气工程",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2026-206",
+    "student": "D同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "Master of Journalism 新闻学",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2026-207",
+    "student": "J同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "MSc Real Estate 房地产",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2026-208",
+    "student": "G同学",
+    "school_zh": "香港大学",
+    "school_en": "The University of Hong Kong",
+    "program": "Master of Family Wealth Management 家族财富管理",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.137,
+      22.283
+    ]
+  },
+  {
+    "id": "2026-209",
+    "student": "M同学",
+    "school_zh": "香港中文大学",
+    "school_en": "The Chinese University of Hong Kong",
+    "program": "MSc Computer Science 计算机科学",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.207,
+      22.42
+    ]
+  },
+  {
+    "id": "2026-210",
+    "student": "Q同学",
+    "school_zh": "香港中文大学",
+    "school_en": "The Chinese University of Hong Kong",
+    "program": "MA Linguistics 语言学",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.207,
+      22.42
+    ]
+  },
+  {
+    "id": "2026-211",
+    "student": "P同学",
+    "school_zh": "香港中文大学",
+    "school_en": "The Chinese University of Hong Kong",
+    "program": "MSc Business Analytics 商业分析",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.207,
+      22.42
+    ]
+  },
+  {
+    "id": "2026-212",
+    "student": "K同学",
+    "school_zh": "香港科技大学",
+    "school_en": "HKUST",
+    "program": "MSc Data-Driven Modeling 数据驱动建模",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.263,
+      22.336
+    ]
+  },
+  {
+    "id": "2026-213",
+    "student": "R同学",
+    "school_zh": "香港科技大学",
+    "school_en": "HKUST",
+    "program": "MSc Economics 经济学",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.263,
+      22.336
+    ]
+  },
+  {
+    "id": "2026-214",
+    "student": "Y同学",
+    "school_zh": "香港科技大学",
+    "school_en": "HKUST",
+    "program": "MSc Data Analytics 数据分析",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.263,
+      22.336
+    ]
+  },
+  {
+    "id": "2026-215",
+    "student": "L同学",
+    "school_zh": "香港城市大学",
+    "school_en": "City University of Hong Kong",
+    "program": "MSc Electronic Information Engineering 电子信息工程",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.172,
+      22.337
+    ]
+  },
+  {
+    "id": "2026-216",
+    "student": "W同学",
+    "school_zh": "香港城市大学",
+    "school_en": "City University of Hong Kong",
+    "program": "LLM Intellectual Property Law 知识产权法",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.172,
+      22.337
+    ]
+  },
+  {
+    "id": "2026-217",
+    "student": "P同学",
+    "school_zh": "悉尼大学",
+    "school_en": "University of Sydney",
+    "program": "Master of Marketing 市场营销",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "au",
+    "city": "Sydney",
+    "coordinates": [
+      151.187,
+      -33.889
+    ]
+  },
+  {
+    "id": "2026-218",
+    "student": "Z同学",
+    "school_zh": "澳大利亚国立大学",
+    "school_en": "Australian National University",
+    "program": "Master of Finance 金融",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "au",
+    "city": "Canberra",
+    "coordinates": [
+      149.118,
+      -35.278
+    ]
+  },
+  {
+    "id": "2026-219",
+    "student": "C同学",
+    "school_zh": "英属哥伦比亚大学",
+    "school_en": "University of British Columbia",
+    "program": "Master of Data Science 数据科学",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "ca",
+    "city": "Vancouver",
+    "coordinates": [
+      -123.246,
+      49.261
+    ]
+  },
+  {
+    "id": "2026-220",
+    "student": "W同学",
+    "school_zh": "香港理工大学",
+    "school_en": "The Hong Kong Polytechnic University",
+    "program": "MSc Hospitality and Tourism Management 酒店与旅游管理",
+    "degree": "研究生",
+    "year": 2026,
+    "region": "hk",
+    "city": "Hong Kong",
+    "coordinates": [
+      114.18,
+      22.304
+    ]
+  }
+]

@@ -1,0 +1,412 @@
+---
+/**
+ * 录取案例世界地图 —— 构建期完成全部地理计算，输出内联 SVG。
+ * 客户端仅一段 vanilla script（入场编排 / hover 卡片 / 筛选 / 移动端底卡 / 待机重播）。
+ */
+import casesData from '../data/cases.json';
+import { landPath, bordersPath, project, SIZE } from '../lib/geo.js';
+import { buildScene } from '../lib/arcs.js';
+import { groupSchools, programLine } from '../lib/schools.js';
+
+const { W, H } = SIZE;
+// 地图按院校聚合：一校一弧线（220 条案例 → 59 所院校）
+const schools = groupSchools(casesData);
+const { sx, sy, items } = buildScene(schools, project);
+
+const REGIONS = [
+  { key: 'all', label: '全部地区' },
+  { key: 'us', label: '美国' },
+  { key: 'uk', label: '英国' },
+  { key: 'hk', label: '中国香港' },
+  { key: 'sg', label: '新加坡' },
+  { key: 'au', label: '澳大利亚' },
+  { key: 'ca', label: '加拿大' },
+];
+const years = [...new Set(casesData.map((c) => c.year))].sort((a, b) => b - a);
+const totalOffers = casesData.length;
+
+// 客户端卡片所需的最小数据（按院校聚合）
+const clientData = items.map((g) => ({
+  sid: g.sid,
+  school_zh: g.school_zh,
+  school_en: g.school_en,
+  count: g.count,
+  yearSpan: g.years.length > 1 ? `${g.years[0]}–${g.years[g.years.length - 1]}` : String(g.years[0]),
+  programs: programLine(g),
+}));
+---
+
+<div class="amap" id="amap">
+  <!-- 筛选器 -->
+  <div class="mb-5 flex flex-wrap items-center gap-2" role="group" aria-label="案例筛选">
+    {REGIONS.map((r, i) => (
+      <button
+        type="button"
+        data-filter="region"
+        data-value={r.key}
+        aria-pressed={i === 0 ? 'true' : 'false'}
+        class="amap-pill font-serif text-[13px] tracking-wide px-3.5 py-1.5 border border-ink-green/35 text-ink-green rounded-[3px] transition-colors duration-200 hover:border-ink-green aria-pressed:bg-ink-green aria-pressed:text-paper"
+      >{r.label}</button>
+    ))}
+    <span class="mx-2 h-4 w-px bg-paper-line" aria-hidden="true"></span>
+    <button
+      type="button"
+      data-filter="year"
+      data-value="all"
+      aria-pressed="true"
+      class="amap-pill font-serif text-[13px] tracking-wide px-3.5 py-1.5 border border-ink-green/35 text-ink-green rounded-[3px] transition-colors duration-200 hover:border-ink-green aria-pressed:bg-ink-green aria-pressed:text-paper"
+    >全部年份</button>
+    {years.map((y) => (
+      <button
+        type="button"
+        data-filter="year"
+        data-value={String(y)}
+        aria-pressed="false"
+        class="amap-pill font-serif text-[13px] tracking-wide px-3.5 py-1.5 border border-ink-green/35 text-ink-green rounded-[3px] transition-colors duration-200 hover:border-ink-green aria-pressed:bg-ink-green aria-pressed:text-paper"
+      >{y}</button>
+    ))}
+  </div>
+
+  <!-- 地图（移动端横向滚动，不强行塞进 375px） -->
+  <div class="amap__scroll overflow-x-auto md:overflow-visible">
+    <div class="amap__stage relative min-w-[880px] md:min-w-0">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        class="block w-full h-auto"
+        role="img"
+        aria-label={`途策学员录取去向地图：${totalOffers} 枚 Offer、${items.length} 所院校，从上海出发连接美国、英国、中国香港、新加坡、澳大利亚与加拿大`}
+      >
+        <path class="amap__land" d={landPath}></path>
+        <path class="amap__borders" d={bordersPath}></path>
+
+        <g>
+          {items.map((it) => (
+            <g
+              class="route"
+              data-id={it.sid}
+              data-region={it.region}
+              data-years={it.years.join(',')}
+              style={`--d:${it.delay}s`}
+            >
+              <path class="arc" d={it.d} pathLength="1"></path>
+              <circle class="dot" r="3" style={`offset-path: path('${it.d}')`}></circle>
+            </g>
+          ))}
+        </g>
+
+        <g>
+          {items.map((it) => (
+            <g
+              class="mark"
+              data-id={it.sid}
+              data-region={it.region}
+              data-years={it.years.join(',')}
+              data-x={((it.x / W) * 100).toFixed(2)}
+              data-y={((it.y / H) * 100).toFixed(2)}
+              style={`--d:${it.delay}s`}
+              transform={`translate(${it.x.toFixed(1)} ${it.y.toFixed(1)})`}
+              tabindex="0"
+              role="button"
+              aria-label={`${it.school_zh} ${it.school_en} · ${it.count} 枚 Offer`}
+            >
+              <circle class="mark__hit" r="12"></circle>
+              <circle class="mark__dot" r={it.count >= 8 ? 5 : 4}></circle>
+            </g>
+          ))}
+        </g>
+
+        <!-- 上海 · 唯一出发点 -->
+        <g class="origin" transform={`translate(${sx.toFixed(1)} ${sy.toFixed(1)})`}>
+          <circle class="origin__pulse" r="7"></circle>
+          <circle class="origin__core" r="5"></circle>
+          <text class="origin__label" y="22" text-anchor="middle">上海</text>
+        </g>
+      </svg>
+
+      <!-- 桌面 hover 案例卡片 -->
+      <div class="amap__card" id="amapCard" hidden></div>
+    </div>
+  </div>
+
+  <!-- 移动端底部卡片 -->
+  <div
+    class="fixed inset-x-3 bottom-3 z-50 rounded-md border border-ink-green/40 bg-paper p-4 pr-10 shadow-[0_-8px_30px_rgba(28,26,23,.18)]"
+    id="amapSheet"
+    hidden
+  >
+    <button
+      type="button"
+      id="amapSheetClose"
+      aria-label="关闭"
+      class="absolute right-2 top-1.5 px-2 text-xl leading-none text-ink-soft"
+    >&times;</button>
+    <div id="amapSheetBody"></div>
+  </div>
+
+  <script type="application/json" id="amapData" set:html={JSON.stringify(clientData)} is:inline></script>
+</div>
+
+<style define:vars={{}}>
+  /* ====== 地图基底：墨绿弧线是唯一视觉焦点 ====== */
+  .amap__land { fill: var(--color-paper-deep); }
+  .amap__borders { fill: none; stroke: var(--color-paper-line); stroke-width: 0.5; }
+
+  /* ====== 弧线：dasharray/dashoffset 描线（pathLength=1） ====== */
+  .arc {
+    fill: none;
+    stroke: var(--color-ink-green);
+    stroke-width: 1.3;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    opacity: 0.85;
+    transition:
+      stroke-dashoffset 0.9s cubic-bezier(0.45, 0, 0.2, 1),
+      opacity 0.4s ease,
+      stroke-width 0.3s ease;
+  }
+  .amap.is-live .route .arc {
+    stroke-dashoffset: 0;
+    transition-delay: var(--d), 0s, 0s; /* 入场 stagger；后续状态变化亦保留错峰美感 */
+  }
+  .amap.is-live .route.is-out .arc {
+    stroke-dashoffset: 1;
+    opacity: 0;
+    transition-delay: 0s, 0s, 0s;
+  }
+  /* hover 聚焦：其余弧线降透明，命中弧线加粗 */
+  .amap.has-focus .route:not(.is-hot) .arc { opacity: 0.25; }
+  .amap .route.is-hot .arc { stroke-width: 2.4; opacity: 1; }
+
+  /* ====== 飞行光点：CSS offset-path（不支持则优雅缺省） ====== */
+  .dot { fill: var(--color-ink-green); opacity: 0; }
+  @supports (offset-path: path('M 0 0 L 1 1')) {
+    .amap.is-live .route:not(.is-out) .dot {
+      animation: fly 0.95s ease-in-out var(--d) 1 both;
+    }
+  }
+  @keyframes fly {
+    0%   { offset-distance: 0%;   opacity: 0; }
+    12%  { opacity: 0.9; }
+    85%  { opacity: 0.9; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+
+  /* ====== 学校标记：弧线到达后弹出（overshoot） ====== */
+  .mark { cursor: pointer; outline: none; }
+  .mark__hit { fill: transparent; }
+  .mark__dot {
+    fill: var(--color-ink-green);
+    transform: scale(0);
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .amap.is-live .mark .mark__dot {
+    transform: scale(1);
+    transition-delay: calc(var(--d) + 0.78s);
+  }
+  .amap.is-live .mark.is-out .mark__dot {
+    transform: scale(0);
+    transition-delay: 0s;
+  }
+  .mark:hover .mark__dot,
+  .mark:focus-visible .mark__dot {
+    transform: scale(1.5);
+    transition-delay: 0s;
+  }
+  .mark:focus-visible .mark__hit {
+    stroke: var(--color-ink-green);
+    stroke-width: 1;
+    stroke-dasharray: 2 3;
+  }
+
+  /* ====== 上海起点：呼吸光晕 2.5s 循环 ====== */
+  .origin__core { fill: var(--color-ink-green); }
+  .origin__pulse {
+    fill: none;
+    stroke: var(--color-ink-green);
+    stroke-width: 1.2;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pulse 2.5s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { transform: scale(0.55); opacity: 0.6; }
+    75%  { transform: scale(2.1);  opacity: 0; }
+    100% { transform: scale(2.1);  opacity: 0; }
+  }
+  .origin__label {
+    font-family: var(--font-serif);
+    font-size: 12px;
+    font-weight: 600;
+    fill: var(--color-ink);
+  }
+
+  /* ====== 桌面 hover 卡片（JS 定位，% 坐标来自构建期投影） ====== */
+  .amap__card {
+    position: absolute;
+    z-index: 20;
+    width: 230px;
+    transform: translate(-50%, calc(-100% - 14px));
+    background: var(--color-paper);
+    border: 1px solid color-mix(in srgb, var(--color-ink-green) 45%, transparent);
+    border-radius: 4px;
+    box-shadow: 0 10px 28px rgba(28, 26, 23, 0.16);
+    padding: 12px 14px;
+    pointer-events: none;
+  }
+  .amap__card.flip-y { transform: translate(-50%, 18px); }
+  .amap__card.flip-x { transform: translate(-92%, calc(-100% - 14px)); }
+  .amap__card.flip-x.flip-y { transform: translate(-92%, 18px); }
+
+  /* ====== 降级：reduced-motion / 无 JS → 静态完整显示 ====== */
+  @media (prefers-reduced-motion: reduce) {
+    .arc { stroke-dashoffset: 0 !important; transition: none !important; }
+    .mark__dot { transform: scale(1) !important; transition: none !important; }
+    .dot { display: none; }
+    .origin__pulse { animation: none; opacity: 0; }
+  }
+  :global(html.no-js) .arc { stroke-dashoffset: 0; }
+  :global(html.no-js) .mark__dot { transform: scale(1); }
+  :global(html.no-js) .dot { display: none; }
+</style>
+
+<script>
+  const root = document.getElementById('amap')!;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+  const routes = [...root.querySelectorAll<SVGGElement>('.route')];
+  const marks = [...root.querySelectorAll<SVGGElement>('.mark')];
+  const card = document.getElementById('amapCard')!;
+  const sheet = document.getElementById('amapSheet')!;
+  const sheetBody = document.getElementById('amapSheetBody')!;
+  const stage = root.querySelector<HTMLElement>('.amap__stage')!;
+
+  type SchoolRow = {
+    sid: string; school_zh: string; school_en: string;
+    count: number; yearSpan: string; programs: string;
+  };
+  const data: SchoolRow[] = JSON.parse(document.getElementById('amapData')!.textContent!);
+  const byId = Object.fromEntries(data.map((c) => [c.sid, c]));
+
+  /* ---------- 院校聚合卡片（Tailwind 类直接写在字符串里，构建期可被扫描） ---------- */
+  function cardHTML(c: SchoolRow): string {
+    return `
+      <p class="font-serif font-bold text-[15px] leading-snug text-ink">${c.school_zh}</p>
+      <p class="text-[11.5px] tracking-wide text-ink-soft">${c.school_en}</p>
+      <p class="mt-2 text-[13px] font-semibold text-ink-green">${c.count} 枚 Offer · ${c.yearSpan}</p>
+      <p class="mt-1 text-[12px] leading-relaxed text-ink-soft">${c.programs}</p>`;
+  }
+
+  /* ---------- 入场：滚入视口后启动编排 ---------- */
+  let entranceDone = reduced;
+  const maxDelay = Math.max(...routes.map((r) => parseFloat(getComputedStyle(r).getPropertyValue('--d')) || 0));
+  function goLive() {
+    root.classList.add('is-live');
+    setTimeout(() => { entranceDone = true; scheduleIdle(); }, (maxDelay + 1.2) * 1000);
+  }
+  if (reduced) {
+    root.classList.add('is-live');
+  } else if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((en) => {
+      if (en[0].isIntersecting) { io.disconnect(); goLive(); }
+    }, { threshold: 0.25 });
+    io.observe(root);
+  } else {
+    goLive();
+  }
+
+  /* ---------- 筛选（地区 × 年份，弧线/标记动画进出；语义列表不参与，保持可抓取） ---------- */
+  let region = 'all';
+  let year = 'all';
+  function applyFilter() {
+    hideCard(); hideSheet();
+    [...routes, ...marks].forEach((el) => {
+      const ok =
+        (region === 'all' || el.dataset.region === region) &&
+        (year === 'all' || (el.dataset.years || '').split(',').includes(year));
+      el.classList.toggle('is-out', !ok);
+    });
+  }
+  root.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const kind = btn.dataset.filter!;
+      if (kind === 'region') region = btn.dataset.value!;
+      else year = btn.dataset.value!;
+      root.querySelectorAll(`[data-filter="${kind}"]`).forEach((b) =>
+        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+      applyFilter();
+    });
+  });
+
+  /* ---------- 桌面 hover 卡片 + 弧线聚焦 ---------- */
+  function showCard(c: CaseRow, mark: SVGGElement) {
+    card.innerHTML = cardHTML(c);
+    const x = parseFloat(mark.dataset.x!);
+    const y = parseFloat(mark.dataset.y!);
+    card.style.left = x + '%';
+    card.style.top = y + '%';
+    card.classList.toggle('flip-x', x > 64);
+    card.classList.toggle('flip-y', y < 30);
+    card.hidden = false;
+  }
+  function hideCard() { card.hidden = true; }
+  function hideSheet() { sheet.hidden = true; root.classList.remove('has-focus'); routes.forEach((r) => r.classList.remove('is-hot')); }
+
+  marks.forEach((m) => {
+    const id = m.dataset.id!;
+    const route = routes.find((r) => r.dataset.id === id);
+    const focusOn = () => { root.classList.add('has-focus'); route?.classList.add('is-hot'); };
+    const focusOff = () => { root.classList.remove('has-focus'); route?.classList.remove('is-hot'); };
+
+    if (finePointer) {
+      m.addEventListener('pointerenter', () => { showCard(byId[id], m); focusOn(); });
+      m.addEventListener('pointerleave', () => { hideCard(); focusOff(); });
+      m.addEventListener('focus', () => { showCard(byId[id], m); focusOn(); });
+      m.addEventListener('blur', () => { hideCard(); focusOff(); });
+    } else {
+      m.addEventListener('click', () => {
+        sheetBody.innerHTML = cardHTML(byId[id]);
+        sheet.hidden = false;
+        root.classList.add('has-focus');
+        routes.forEach((r) => r.classList.toggle('is-hot', r === route));
+      });
+    }
+    m.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') {
+        e.preventDefault();
+        (m as unknown as HTMLElement).click?.();
+        if (finePointer) { showCard(byId[id], m); focusOn(); }
+      }
+    });
+  });
+  document.getElementById('amapSheetClose')!.addEventListener('click', hideSheet);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { hideCard(); hideSheet(); } });
+
+  /* ---------- 待机：每 4.5–6.5s 随机重播一条可见弧线的光点 ---------- */
+  let idleTimer: ReturnType<typeof setTimeout> | undefined;
+  function scheduleIdle() {
+    if (reduced || !entranceDone) return;
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => { replayRandom(); scheduleIdle(); }, 4500 + Math.random() * 2000);
+  }
+  function replayRandom() {
+    if (document.hidden) return;
+    const rect = root.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > innerHeight) return; // 滚出视口不打扰
+    const visible = routes.filter((r) => !r.classList.contains('is-out'));
+    const r = visible[(Math.random() * visible.length) | 0];
+    const dot = r?.querySelector<SVGCircleElement>('.dot');
+    if (!dot) return;
+    dot.style.animation = 'none';
+    void dot.getBoundingClientRect();
+    dot.style.animation = '';
+    dot.style.animationDelay = '0s';
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) clearTimeout(idleTimer);
+    else scheduleIdle();
+  });
+</script>
