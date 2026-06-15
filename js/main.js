@@ -336,31 +336,69 @@
 
 
   /* ===================== Hero 动画与效果 ===================== */
-  setTimeout(function () {
-    var el = document.querySelector('.hero-footnote');
-    if (!el) return;
-    var text = '（我们对"千人一面"过敏。）';
-    var i = 0;
-    var timer = setInterval(function () {
-      el.textContent = text.slice(0, ++i);
-      if (i >= text.length) {
-        clearInterval(timer);
-        // 闪烁光标
-        var blink = 0;
-        var cursor = setInterval(function () {
-          el.textContent = text + (blink % 2 === 0 ? '|' : '');
-          if (++blink > 6) { clearInterval(cursor); el.textContent = text; }
-        }, 400);
-      }
-    }, 40);
-  }, 1200);
 
-  window.addEventListener('scroll', function once() {
+  // 背景图加载后触发缩放动画
+  var heroBgEl = document.querySelector('.hero-bg');
+  if (heroBgEl) {
+    var bgImg = new Image();
+    bgImg.onload = function () { heroBgEl.classList.add('loaded'); };
+    var bgUrl = window.getComputedStyle(heroBgEl).backgroundImage.replace(/url\(["']?|["']?\)/g, '');
+    bgImg.src = bgUrl;
+  }
+
+  // 打字机循环动效
+  (function () {
+    var el = document.getElementById('heroTypewriter');
+    if (!el || prefersReduced) {
+      if (el) el.textContent = '我们对"千人一面"过敏。';
+      return;
+    }
+    var phrases = [
+      '我们对"千人一面"过敏。',
+      '你的故事，只属于你。',
+      '策略先行，拒绝模板。',
+      '每一份申请，重新设计。'
+    ];
+    var phraseIdx = 0;
+    var charIdx = 0;
+    var deleting = false;
+    var pauseFrames = 0;
+    var PAUSE_AFTER_TYPE = 60;   // 打完停顿（帧数）
+    var PAUSE_AFTER_DEL  = 12;
+
+    function tick() {
+      var current = phrases[phraseIdx];
+      if (deleting) {
+        charIdx--;
+        el.textContent = current.slice(0, charIdx);
+        if (charIdx <= 0) {
+          deleting = false;
+          phraseIdx = (phraseIdx + 1) % phrases.length;
+          pauseFrames = PAUSE_AFTER_DEL;
+        }
+      } else {
+        charIdx++;
+        el.textContent = current.slice(0, charIdx);
+        if (charIdx >= current.length) {
+          deleting = true;
+          pauseFrames = PAUSE_AFTER_TYPE;
+        }
+      }
+      var delay = deleting ? 28 : 48;
+      if (pauseFrames > 0) { pauseFrames--; delay = 40; }
+      setTimeout(tick, delay);
+    }
+
+    // 等 hero-footnote 动画结束后启动（1.6s delay + 0.6s duration）
+    setTimeout(tick, 2400);
+  })();
+
+  // 滚动后隐藏向下提示
+  window.addEventListener('scroll', function () {
     var hint = document.querySelector('.hero-scroll-hint');
     if (hint) {
       hint.style.opacity = '0';
       hint.style.transition = 'opacity 0.5s';
     }
-    window.removeEventListener('scroll', once);
-  }, { once: true });
+  }, { once: true, passive: true });
 })();
