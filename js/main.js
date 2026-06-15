@@ -157,6 +157,26 @@
     counters.forEach(function (c) { cio.observe(c); });
   }
 
+  /* ===================== FAQ 手风琴 ===================== */
+  $$('.faq__q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var expanded = this.getAttribute('aria-expanded') === 'true';
+      var panel = $('#' + this.getAttribute('aria-controls'));
+
+      $$('.faq__q').forEach(function (b) {
+        b.setAttribute('aria-expanded', 'false');
+        var p = $('#' + b.getAttribute('aria-controls'));
+        if (p) { p.classList.remove('open'); p.setAttribute('aria-hidden', 'true'); }
+      });
+
+      if (!expanded && panel) {
+        this.setAttribute('aria-expanded', 'true');
+        panel.classList.add('open');
+        panel.setAttribute('aria-hidden', 'false');
+      }
+    });
+  });
+
   /* ===================== 表单 ===================== */
   var form = $('#leadForm');
   var note = $('#formNote');
