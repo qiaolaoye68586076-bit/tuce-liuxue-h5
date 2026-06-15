@@ -17,6 +17,12 @@
   --line:      #E5DFD2;
   --danger:    #B0392B;
 
+  /* 兼容自 GEO 分支并入的 FAQ 样式（映射到亮色体系） */
+  --white:     #FFFFFF;
+  --serif:     var(--sans);   /* Ignite 风用 grotesque：FAQ 问题沿用 Archivo */
+  --shadow-sm: 0 8px 22px -14px rgba(20,52,43,.25);
+  --shadow-md: 0 24px 48px -28px rgba(20,52,43,.3);
+
   --radius:    10px;
   --radius-lg: 18px;
   --maxw:      1180px;

@@ -27,3 +27,6 @@ reference/stoooges/
 
 # Verification/debug screenshots (throwaway)
 reference/*.png
+
+# Node deps (do not commit)
+node_modules/
