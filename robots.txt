@@ -1,36 +1,102 @@
+# 途策留学 (TUCE Education) · robots.txt
+# https://tuce.asia
+
+# ==============================
+# 默认：允许所有爬虫访问全站
+# ==============================
 User-agent: *
 Allow: /
+
+# ==============================
+# 中国搜索引擎
+# ==============================
 
 # 百度
 User-agent: Baiduspider
 Allow: /
 
-# 字节跳动（豆包/头条）
+# 360搜索（Qihoo 360 · so.com）
+User-agent: 360Spider
+Allow: /
+User-agent: Qihoobot
+Allow: /
+
+# 搜狗搜索（腾讯旗下 · sogou.com）
+User-agent: Sogou web spider
+Allow: /
+User-agent: Sogouwebspider
+Allow: /
+
+# 神马搜索（UC / 阿里 · sm.cn）
+User-agent: Shenmabot
+Allow: /
+User-agent: YisouSpider
+Allow: /
+
+# ==============================
+# 中国 AI 搜索 / 大模型爬虫
+# ==============================
+
+# DeepSeek
+User-agent: DeepSeekBot
+Allow: /
+
+# 字节跳动（豆包 · 头条 · Bytedance）
 User-agent: Bytespider
 Allow: /
 
-# 360搜索
-User-agent: Yisouspider
+# 腾讯（元宝 / 混元）
+User-agent: Tencent-Spider
 Allow: /
 
-# 搜狗
-User-agent: Sogou web spider
+# 阿里巴巴（通义千问 / Qwen）
+User-agent: Qwen
 Allow: /
 
-# DeepSeek
-User-agent: DeepSeek
+# Moonshot AI（Kimi）
+User-agent: MoonshotBot
 Allow: /
 
-# 腾讯（元宝）
-User-agent: Qihoobot
+# ==============================
+# 国际搜索引擎
+# ==============================
+
+# Google（含 Gemini · Google-Extended）
+User-agent: Googlebot
 Allow: /
+User-agent: Googlebot-Image
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+# Bing / Microsoft Copilot
+User-agent: Bingbot
+Allow: /
+User-agent: msnbot
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+
+# Yandex
+User-agent: YandexBot
+Allow: /
+
+# ==============================
+# AI 平台爬虫
+# ==============================
 
 # OpenAI / ChatGPT
 User-agent: GPTBot
 Allow: /
+User-agent: ChatGPT-User
+Allow: /
 
 # Anthropic / Claude
 User-agent: anthropic-ai
+Allow: /
+User-agent: ClaudeBot
 Allow: /
 User-agent: Claude-Web
 Allow: /
@@ -39,12 +105,35 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-# Bing / Copilot
-User-agent: Bingbot
+# xAI（Grok）
+User-agent: xAI-Bot
+Allow: /
+User-agent: Grok
 Allow: /
 
-# Google
-User-agent: Googlebot
+# ==============================
+# 社交平台 · 链接预览爬虫
+# ==============================
+
+# 微信（无独立爬虫；分享预览由 OG 标签驱动，in-app 浏览器内渲染）
+
+# Facebook / Instagram（Meta）
+User-agent: facebookexternalhit
+Allow: /
+User-agent: Facebot
 Allow: /
 
+# Twitter / X
+User-agent: Twitterbot
+Allow: /
+
+# LinkedIn
+User-agent: LinkedInBot
+Allow: /
+
+# Apple（Siri · Spotlight · 苹果地图）
+User-agent: Applebot
+Allow: /
+
+# ==============================
 Sitemap: https://tuce.asia/sitemap.xml

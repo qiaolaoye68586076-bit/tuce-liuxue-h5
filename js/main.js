@@ -16,7 +16,7 @@
   var nav    = $('#nav');
   var burger = $('#burger');
   var drawer = $('#drawer');
-  var heroBg = $('.hero__bg');
+  var heroBg = $('.hero-bg');
   var brandLogo = $('#brandLogo');
   var prefersReduced = !!(window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -132,28 +132,72 @@
   }
 
   /* ===================== 数字滚动 ===================== */
-  function animateCount(el) {
-    var target = parseFloat(el.getAttribute('data-count')) || 0;
-    var suffix = el.getAttribute('data-suffix') || '';
-    var dur = 1400, start = null;
-    function step(ts) {
-      if (!start) start = ts;
-      var p = Math.min((ts - start) / dur, 1);
-      var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(target * eased) + suffix;
-      if (p < 1) requestAnimationFrame(step);
-      else el.textContent = target + suffix;
+  function animateCount(el, target, unit, showPlus, duration) {
+    duration = duration || 1500;
+    var startTime = null;
+    function step(now) {
+      if (!startTime) startTime = now;
+      var progress = Math.min((now - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.round(eased * target);
+      var html = String(current);
+      if (showPlus && progress >= 1) html += '<span class="stat-plus">+</span>';
+      if (unit) html += '<span class="stat-unit">' + unit + '</span>';
+      el.innerHTML = html;
+      if (progress < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
   }
+
+  var statNums = $$('.stat-num[data-target]');
+  if ('IntersectionObserver' in window && statNums.length) {
+    var statsBand = document.querySelector('.stats__band');
+    if (statsBand) {
+      var bandTriggered = false;
+      var sio = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !bandTriggered) {
+            bandTriggered = true;
+            sio.unobserve(entry.target);
+            statNums.forEach(function(el) {
+              animateCount(
+                el,
+                parseInt(el.getAttribute('data-target'), 10) || 0,
+                el.getAttribute('data-unit') || '',
+                el.getAttribute('data-plus') === 'true'
+              );
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+      sio.observe(statsBand);
+    }
+  }
+
   var counters = $$('[data-count]');
   if ('IntersectionObserver' in window && counters.length) {
-    var cio = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { animateCount(e.target); cio.unobserve(e.target); }
+    var cio = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          cio.unobserve(e.target);
+          (function(el) {
+            var tgt = parseFloat(el.getAttribute('data-count')) || 0;
+            var sfx = el.getAttribute('data-suffix') || '';
+            var dur = 1400, s = null;
+            function run(ts) {
+              if (!s) s = ts;
+              var p = Math.min((ts - s) / dur, 1);
+              var eased = 1 - Math.pow(1 - p, 3);
+              el.textContent = Math.round(tgt * eased) + sfx;
+              if (p < 1) requestAnimationFrame(run);
+              else el.textContent = tgt + sfx;
+            }
+            requestAnimationFrame(run);
+          })(e.target);
+        }
       });
     }, { threshold: 0.5 });
-    counters.forEach(function (c) { cio.observe(c); });
+    counters.forEach(function(c) { cio.observe(c); });
   }
 
   /* ===================== FAQ 手风琴 ===================== */
@@ -290,4 +334,33 @@
     });
   }
 
+
+  /* ===================== Hero 动画与效果 ===================== */
+  setTimeout(function () {
+    var el = document.querySelector('.hero-footnote');
+    if (!el) return;
+    var text = '（我们对"千人一面"过敏。）';
+    var i = 0;
+    var timer = setInterval(function () {
+      el.textContent = text.slice(0, ++i);
+      if (i >= text.length) {
+        clearInterval(timer);
+        // 闪烁光标
+        var blink = 0;
+        var cursor = setInterval(function () {
+          el.textContent = text + (blink % 2 === 0 ? '|' : '');
+          if (++blink > 6) { clearInterval(cursor); el.textContent = text; }
+        }, 400);
+      }
+    }, 40);
+  }, 1200);
+
+  window.addEventListener('scroll', function once() {
+    var hint = document.querySelector('.hero-scroll-hint');
+    if (hint) {
+      hint.style.opacity = '0';
+      hint.style.transition = 'opacity 0.5s';
+    }
+    window.removeEventListener('scroll', once);
+  }, { once: true });
 })();

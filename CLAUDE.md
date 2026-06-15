@@ -84,6 +84,9 @@ GEO完整学习笔记.md
 | 2026-06-12 | 添加 FAQ 模块（手风琴交互 + JSON-LD 结构化数据）；导航加入"常见问题"链接 |
 | 2026-06-12 | 建立 CLAUDE.md 项目记事本 + LOG.md 开发日志 + memory 自动记忆系统；配置收尾触发词 |
 | 2026-06-12 | GEO 技术优化：robots.txt / sitemap.xml / JSON-LD 补全 / cases.html 新建 / #offers 删除 / stories 加跳转链接 |
+| 2026-06-15 | #stats 数据带数字样式升级（衬线体 / 36px / 500）+ 滚动动画重写（IntersectionObserver threshold:0.3 / bandTriggered flag / 量词内联 / +号金色） |
+| 2026-06-15 | GEO 深度升级：robots.txt 修复错误 UA 并扩充至 20+ 平台（含千问/Kimi/Grok）；head 补全 OG 图片/Twitter Card/地区声明；JSON-LD 升级双类型 + 服务目录 |
+| 2026-06-15 | 全局颜色字体优化：金色→#A89157 / 正文灰三级(555/888/999) / 行高统一1.8 / 赤陶色CTA按钮(.btn--cta) / 导航+Hero去宽度限制通栏化 / 清理重复CSS副本 |
 
 ---
 
