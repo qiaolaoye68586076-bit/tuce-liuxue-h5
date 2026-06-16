@@ -25,33 +25,38 @@ GEO完整学习笔记.md
 
 ## 页面模块（从上到下）
 
-| 模块 | ID | 状态 |
+> **2026-06-15 重构**：已从单页改为「首页 + 3 个子页面」。导航全站共用：`首页 | 服务 | 师资 | 案例 | 免费评估`（已去数字编号）。背景色用 `.sec-bleed` 全宽底色带做板块区分。
+
+**首页 `index.html`（Hero 之后只留 4 个板块 + FAQ）**
+
+| 模块 | ID | 背景 | 状态 |
+|---|---|---|---|
+| 导航 | `#nav` | 半透明米白 | ✅ 共用，已去编号 |
+| Hero 首屏 | `#top` | 深色底图 | ✅ 已删徽章，加品牌大字 `.hero-brand` |
+| 板块1 策略定制 | `#strategy` | 米色 | ✅ 合并 why/method，4 张亮点卡 + 双出口 |
+| 板块2 数据冲击 + 案例引导 | `#stats` | **深绿反白** | ✅ 数字 countUp+弹跳放大；案例卡占位 |
+| 板块3 申请流程 | `#process` | 米色 | ✅ 三阶段滑动卡片 + 横向时间轴 |
+| 常见问题 FAQ | `#faq` | 微暖灰 | ✅ 5 条手风琴 + JSON-LD（在 CTA 前）|
+| 板块4 联系我们 | `#consult` | **深绿** | ✅ UI 完成，`LEAD_ENDPOINT` 留空待配置 |
+| 页脚 | — | 白 | ⚠️ ICP 备案号占位（`沪ICP备 0000000 号`）|
+
+**子页面**
+
+| 页面 | 承接内容 | 状态 |
 |---|---|---|
-| 导航 | `#nav` | ✅ 完成 |
-| Hero 首屏 | `#top` | ✅ 完成（底图已有）|
-| 核心亮点滑动卡片 | `#stats` | ⚠️ 卡片图片是占位符 |
-| 服务 | `#services` | ✅ 完成 |
-| 本科服务体系 | `#system` | ✅ 完成 |
-| 为什么选途策 | `#why` | ✅ 完成 |
-| 途策方法论 | `#method` | ✅ 完成 |
-| 申请流程 | `#process` | ✅ 完成 |
-| 文书训练营 | `#camp` | ✅ 完成 |
-| 师资 | `#mentors` | ⚠️ 导师信息是占位（哈佛/耶鲁/斯坦福/MIT），待替换真实信息 |
-| 录取去向 | `#offers` | 🗑️ 已删除（数据为虚构占位，待真实录取数据后重建）|
-| 成功案例 | `#stories` | ⚠️ W/L/C 同学均为占位，需替换为真实授权案例 |
-| 常见问题 FAQ | `#faq` | ✅ 完成（5 条手风琴，已有 JSON-LD 结构化数据）|
-| 留资表单 | `#consult` | ✅ UI 完成，后端接口 `LEAD_ENDPOINT` 留空待配置 |
-| 页脚 | — | ⚠️ ICP 备案号占位（`沪ICP备 0000000 号`）|
+| `services.html` | 美本专题（三大模块）+ 核心亮点轮播 + 其他服务网格 + 文书训练营 | ⚠️ 核心亮点 4 张图占位 |
+| `teachers.html` | 师资团队 THE TEAM（4 位导师） | ⚠️ 导师信息占位（哈佛/耶鲁/斯坦福/MIT）|
+| `cases.html` | 数据带 + 成功案例 + 完整策略复盘（ItemList/Review Schema）+ 录取去向 + 学员之声 | ⚠️ W/L/C 案例占位 |
 
 ---
 
 ## 待办事项
 
 ### 内容替换（需客户提供）
-- [ ] 核心亮点卡片：替换 4 张"Image placeholder"为真实图片
-- [ ] 师资团队：替换为真实导师姓名、学校、照片
-- [ ] 成功案例：W/L/C 同学 → 真实授权案例（文案 + 照片 + 学校）
-- [ ] 录取院校墙：确认真实历届录取去向
+- [ ] 核心亮点卡片：替换 `services.html#features` 4 张"Image placeholder"为真实图片
+- [ ] 师资团队：`teachers.html` 替换为真实导师姓名、学校、照片
+- [ ] 成功案例：`cases.html` W/L/C 同学 → 真实授权案例（文案 + 照片 + 学校 + 策略复盘）
+- [ ] 录取院校墙：`cases.html#offers` 确认真实历届录取去向
 - [ ] 页脚 ICP 备案号
 - [ ] 协议弹层：替换为正式《用户协议》与《隐私政策》全文
 
@@ -64,7 +69,7 @@ GEO完整学习笔记.md
 - 已做：
   - [x] FAQ JSON-LD 结构化数据、EducationalOrganization schema（含 logo/address/knowsAbout）
   - [x] `robots.txt`：允许百度/字节/DeepSeek/GPTBot/Claude 等 AI 爬虫
-  - [x] `sitemap.xml`：首页 + cases.html，已含 cases 条目
+  - [x] `sitemap.xml`：首页 + services.html + teachers.html + cases.html（重构后已补全）
   - [x] `cases.html` 案例详情页（ItemList + Review Schema）
   - [x] 首页 title 加年份"2026"
 - 待做：
@@ -87,6 +92,8 @@ GEO完整学习笔记.md
 | 2026-06-15 | #stats 数据带数字样式升级（衬线体 / 36px / 500）+ 滚动动画重写（IntersectionObserver threshold:0.3 / bandTriggered flag / 量词内联 / +号金色） |
 | 2026-06-15 | GEO 深度升级：robots.txt 修复错误 UA 并扩充至 20+ 平台（含千问/Kimi/Grok）；head 补全 OG 图片/Twitter Card/地区声明；JSON-LD 升级双类型 + 服务目录 |
 | 2026-06-15 | 全局颜色字体优化：金色→#A89157 / 正文灰三级(555/888/999) / 行高统一1.8 / 赤陶色CTA按钮(.btn--cta) / 导航+Hero去宽度限制通栏化 / 清理重复CSS副本 |
+| 2026-06-15 | **官网重构**：导航改版（首页\|服务\|师资\|案例）；首页做减法只留 4 板块；新建 services/teachers/cases 三个子页面承接迁移内容；申请流程改滑动卡片+横向时间轴；main.js 表单加守卫可跨页共用 |
+| 2026-06-15 | 第二轮细调：导航去数字编号；Hero 删徽章+加品牌大字；数字区放大 1.6×+落定弹跳+单位描金；板块换色(`.sec-bleed` 深绿/微灰区分)；确认 FAQ 在 CTA 前 |
 
 ---
 

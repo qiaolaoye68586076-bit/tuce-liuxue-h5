@@ -32,9 +32,11 @@
 | 1 | `footer` | ICP 备案号是占位 `沪ICP备 0000000 号` | ⏳ 待客户提供 |
 | 2 | `#stats` 卡片 | 4 张图是 "Image placeholder"，未接真图 | ⏳ 待素材 |
 | 3 | `#mentors` | 导师信息（哈佛/耶鲁等）为示例，未经授权 | ⏳ 待客户确认 |
-| 4 | `#stories` | W/L/C 同学案例为虚构占位 | ⏳ 待真实授权案例 |
+| 4 | `cases.html` `#case-w/l/c` | W/L/C 同学案例为虚构占位（已迁至案例页） | ⏳ 待真实授权案例 |
 | 5 | `js/main.js:9` | `LEAD_ENDPOINT` 留空，表单提交走本地模拟 | ⏳ 待后端接口 |
 | 6 | `assets/qr-official.png` | 公众号二维码缺图，有 CSS 兜底但不显示内容 | ⏳ 待素材 |
+| 7 | `teachers.html` | 导师信息（哈佛/耶鲁等）为示例，已迁至师资页 | ⏳ 待客户确认 |
+| 8 | `services.html` `#features` | 核心亮点 4 张图仍为 "Image placeholder" | ⏳ 待素材 |
 
 ---
 
@@ -164,3 +166,48 @@
 
 ### 遗留 / 下次继续
 - 标题深绿旧值 `#2C3E2D` 在当前代码中不存在（实际用 `--green: #14342B`），无需额外处理
+
+---
+
+## 2026-06-15 · 官网重构（导航改版 + 首页做减法 + 三个子页面）
+
+### 完成
+- **导航改版**（全站共用）：`首页 | 服务 | 师资 | 案例 | [免费评估]`，子页面 brand→index.html、CTA→index.html#consult，当前页加 `.is-active` 高亮
+- **首页做减法**：Hero 之后只留 4 个板块 —— 板块1 策略定制（合并「为什么选途策 I-IV」+ 方法论关键词 G7/RP，4 张亮点卡 + 服务/师资双出口）→ 板块2 数据冲击 + 案例引导（数据带 countUp + 3 张精选案例卡 + 跳案例页）→ 板块3 申请流程（三阶段做成可滑动卡片 + 横向时间轴，窄屏转竖向）→ 板块4 联系我们（加引导语 + 原表单）；FAQ 保留在 CTA 前（GEO 资产）
+- **新建 `services.html`**：美本核心业务专题大卡（含三大模块 01/02/03 完整文案）+ 核心亮点轮播 + 其他服务网格（研究生/转学/英欧加港/单项/商务，编号原样保留）+ 文书训练营 + CTA 带
+- **新建 `teachers.html`**：复用深绿 THE TEAM 团队区，4 位导师信息完整保留 + CTA 带
+- **重建 `cases.html`**：换用全站共用 header/footer，数据带 + 精选案例卡 + 完整策略复盘详情卡（保留 ItemList/Review Schema）+ 录取去向宣言 + 学员之声滚动剥卡 + CTA 带
+- `css/style.css`：新增策略卡 `.hl`、流程时间轴 `.timeline/.tl-node`、子页 `.page-hero`、底部 `.cta-band`、美本 `.featured`、导航 `.is-active`；顺手修复旧 typo `..vcard`（双点）
+- `js/main.js`：表单逻辑加 `if(form)` 守卫使其可被无表单子页安全共用；新增申请流程滑动卡片交互（dots/箭头/滚动联动）
+- `sitemap.xml`：补入 services.html / teachers.html / cases.html
+
+### Debug / 踩坑
+| 现象 | 原因 | 解决方式 |
+|---|---|---|
+| main.js 在子页面会报错 | `form.addEventListener` 等无空值判断，子页无 `#leadForm` | 整块表单逻辑包进 `if (form) { … }` 守卫 |
+| 一次性删除 8 个迁移板块 | Edit 需精确匹配大段 old_string | 用单次 Edit 把 system→stories 整段替换为 FAQ 注释锚点 |
+
+### 遗留 / 下次继续
+- 子页面占位内容（导师真实信息、案例详情、核心亮点配图）待客户提供后替换
+- 旧 Astro `/cases/` 路由相关引用已全部改为 `cases.html`
+
+---
+
+## 2026-06-15 · 第二轮细节调整（导航去编号 + Hero 品牌字 + 数字冲击 + 板块换色）
+
+### 完成
+- **导航去编号**：4 个页面移除 `01/02/03/04` 数字前缀，只留文字
+- **Hero**：删除顶部「◆ 途策留学 · TUCE EDUCATION ◆」徽章；副文案上方新增 `.hero-brand`「途策留学」大字（Fraunces/思源宋体衬线、clamp 34→58px、暖金 gold-soft、阴影、淡入）
+- **数字统计区增强**：countUp 时长 1.5s→**1.8s**；数字落定后加 `is-pop` 类触发 `stat-pop` 弹跳关键帧（放大114%回弹）；字号桌面 36→58px / 移动 28→44px（≈1.6×）；`+` 号做上标小金字、单位（枚/所/大地区/届）相对数字 em 缩放+描金+错位
+- **板块背景区分**：新增 `.sec-bleed` 全宽底色带工具类（`::before` width:100vw 居中铺底，不改结构）；板块2 数据=深绿反白、板块4 FAQ=微暖灰 `#EFEAE0`、板块5 CTA=更深一档绿 `#0F2820`；深色板块文字自动反白
+- **FAQ 位置**：确认已在 CTA 前面，无需改动
+- 补 reduced-motion 下 Hero 文案兜底可见性（防纯动画淡入元素在「减弱动效」时空白）
+
+### Debug / 踩坑
+| 现象 | 原因 | 解决方式 |
+|---|---|---|
+| `.section` 加 bg 色不通栏 | `.section` 有 max-width 居中 | 用 `::before` width:100vw + translateX(-50%) 铺满整屏底色 |
+| 品牌字在 reduced-motion 下可能空白 | 靠 `opacity:0`+animation 淡入，减弱动效时 `animation:none` 致其停在 0 | 在 reduced-motion 块对 Hero 文案强制 `opacity:1` |
+
+### 遗留 / 下次继续
+- 本机无浏览器未做截图，建议本地 `open index.html` 滚动确认深色数据区反白数字弹跳 + 各板块换色边界 + 移动端大号数字不溢出

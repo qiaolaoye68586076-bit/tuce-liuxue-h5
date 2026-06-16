@@ -9,9 +9,25 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- 录取案例 · 世界地图页（Astro /cases/） -->
+  <!-- 服务方案 -->
   <url>
-    <loc>https://tuce.asia/cases/</loc>
+    <loc>https://tuce.asia/services.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- 师资团队 -->
+  <url>
+    <loc>https://tuce.asia/teachers.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 成功案例 · 录取去向 -->
+  <url>
+    <loc>https://tuce.asia/cases.html</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

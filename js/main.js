@@ -102,6 +102,55 @@
     });
   }
 
+  /* ===================== 申请流程滑动卡片（板块3） ===================== */
+  var flowTrack = $('.flow__track');
+  var flowPrev  = $('.flow__prev');
+  var flowNext  = $('.flow__next');
+  var flowDots  = $('.flow__dots');
+
+  if (flowTrack) {
+    var flowCards = Array.prototype.slice.call(flowTrack.querySelectorAll('.flow-card'));
+
+    function updateFlowDots() {
+      if (!flowDots) return;
+      var center = flowTrack.scrollLeft + flowTrack.clientWidth / 2;
+      flowCards.forEach(function (card, idx) {
+        var dot = flowDots.children[idx];
+        if (!dot) return;
+        dot.classList.toggle('active', center >= card.offsetLeft && center < card.offsetLeft + card.offsetWidth);
+      });
+    }
+
+    if (flowDots && flowCards.length) {
+      flowCards.forEach(function (card, idx) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'flow__dot' + (idx === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', '第 ' + (idx + 1) + ' 个阶段');
+        dot.addEventListener('click', function () {
+          flowTrack.scrollTo({ left: card.offsetLeft, behavior: 'smooth' });
+        });
+        flowDots.appendChild(dot);
+      });
+    }
+
+    if (flowPrev) {
+      flowPrev.addEventListener('click', function () {
+        flowTrack.scrollBy({ left: -flowTrack.clientWidth * 0.9, behavior: 'smooth' });
+      });
+    }
+    if (flowNext) {
+      flowNext.addEventListener('click', function () {
+        flowTrack.scrollBy({ left: flowTrack.clientWidth * 0.9, behavior: 'smooth' });
+      });
+    }
+
+    flowTrack.addEventListener('scroll', function () {
+      if (this._flowDotTimer) clearTimeout(this._flowDotTimer);
+      this._flowDotTimer = setTimeout(updateFlowDots, 50);
+    });
+  }
+
   function closeDrawer() {
     burger.classList.remove('open');
     drawer.classList.remove('open');
@@ -133,7 +182,7 @@
 
   /* ===================== 数字滚动 ===================== */
   function animateCount(el, target, unit, showPlus, duration) {
-    duration = duration || 1500;
+    duration = duration || 1800;
     var startTime = null;
     function step(now) {
       if (!startTime) startTime = now;
@@ -144,7 +193,12 @@
       if (showPlus && progress >= 1) html += '<span class="stat-plus">+</span>';
       if (unit) html += '<span class="stat-unit">' + unit + '</span>';
       el.innerHTML = html;
-      if (progress < 1) requestAnimationFrame(step);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        // 数字落定：触发一次弹跳缩放
+        el.classList.add('is-pop');
+      }
     }
     requestAnimationFrame(step);
   }
@@ -220,8 +274,9 @@
     });
   });
 
-  /* ===================== 表单 ===================== */
+  /* ===================== 表单（仅首页存在，子页面安全跳过） ===================== */
   var form = $('#leadForm');
+  if (form) {
   var note = $('#formNote');
   var btn  = $('#submitBtn');
 
@@ -316,6 +371,7 @@
     el.addEventListener('input',  function () { setErr(n, ''); });
     el.addEventListener('change', function () { setErr(n, ''); });
   });
+  } /* end if (form) */
 
   // 协议弹层
   var policy = $('#policyLink');

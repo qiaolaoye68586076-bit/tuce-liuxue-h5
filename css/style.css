@@ -337,6 +337,21 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
+/* —— 品牌大字（副文案之上） —— */
+.hero-brand {
+  font-family: 'Fraunces', 'Noto Serif SC', serif;
+  font-size: clamp(34px, 6.4vw, 58px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--gold-soft);
+  margin-top: 24px;
+  margin-bottom: 2px;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: hero-fade-up 0.65s cubic-bezier(0.16, 1, 0.3, 1) 1.0s forwards;
+}
+
 /* —— 副文案 —— */
 .hero-body {
   color: rgba(220, 215, 205, 0.9);
@@ -499,19 +514,24 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 .figure{ padding:34px 18px; border-bottom:1px solid var(--line); }
 .figure:nth-child(odd){ border-right:1px solid var(--line); }
 .figure b{
-  display:block; line-height:1; color:var(--green); letter-spacing:-.5px;
+  display:block; line-height:1; color:var(--green); letter-spacing:-1px;
   font-variant-numeric:tabular-nums;
-  font-size:28px; font-weight:500;
+  font-size:44px; font-weight:600;
   font-family:Georgia,'Noto Serif SC','Times New Roman',serif;
 }
-.figure__desc{ display:block; margin-top:10px; font-size:13px; letter-spacing:.06em; color:#999999; }
-.stat-unit{ font-family:sans-serif; font-size:14px; font-weight:400; color:var(--gold); letter-spacing:0; }
-.stat-plus{ color:var(--gold); }
+.figure__desc{ display:block; margin-top:14px; font-size:13px; letter-spacing:.06em; color:#999999; }
+/* 数字落定弹跳 */
+.stat-num{ display:inline-block; transform-origin:center 70%; }
+.stat-num.is-pop{ animation:stat-pop .55s var(--ease); }
+@keyframes stat-pop{ 0%{ transform:scale(1); } 35%{ transform:scale(1.14); } 70%{ transform:scale(.97); } 100%{ transform:scale(1); } }
+/* + 号与单位做层级区分（相对数字字号缩放） */
+.stat-plus{ color:var(--gold); font-size:.46em; font-weight:700; vertical-align:.5em; margin-left:2px; }
+.stat-unit{ font-family:var(--sans); font-size:.32em; font-weight:600; color:var(--gold); letter-spacing:.04em; margin-left:5px; vertical-align:.18em; }
 @media (min-width:760px){
   .stats__band{ grid-template-columns:repeat(4,1fr); }
   .figure{ border-bottom:none; border-right:1px solid var(--line); }
   .figure:last-child{ border-right:none; }
-  .figure b{ font-size:36px; }
+  .figure b{ font-size:58px; }
 }
 .stats .section__head{ padding:0 22px; }
 
@@ -869,7 +889,7 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 .vcard__school{
   font-size:12.5px; font-weight:800; letter-spacing:.06em; color:var(--gold);
 }
-..vcard blockquote{
+.vcard blockquote{
   margin-top:13px; font-size:16.5px; line-height:1.8; color:var(--ink);
   font-weight:500;
 }
@@ -1105,4 +1125,233 @@ html.has-gsap .reveal{ transition:none; }
   html{ scroll-behavior:auto; }
   .reveal{ opacity:1; transform:none; }
   .mq__track{ transform:none; }
+  /* Hero 文案靠动画淡入，减弱动效时直接显示，避免空白 */
+  .hero-title-line1,.hero-title-line2,.hero-divider,.hero-brand,
+  .hero-body,.hero-cta-group,.hero-footnote{ opacity:1 !important; transform:none !important; }
 }
+
+/* =========================================================
+   ✦ 2026 重构新增样式
+   导航激活态 / 板块1 策略定制 / 板块2 数据+案例 /
+   板块3 申请流程时间轴 / 子页 page-hero / cta-band / 美本专题
+   —— 全部复用既有变量与组件语言，保持视觉统一
+   ========================================================= */
+
+/* —— 导航：当前页激活态 —— */
+.nav__links a.is-active{ opacity:1; color:var(--green); }
+.nav__links a.is-active i{ color:var(--green); }
+.nav__drawer a.is-active{ color:var(--green); }
+
+/* =========================================================
+   板块 1 · 策略定制（拒绝千人一面）
+   ========================================================= */
+.strategy{ padding-bottom:96px; }
+.strategy__head{ max-width:780px; margin:0 0 40px; }
+.strategy__word{
+  font-stretch:68%; font-weight:900; letter-spacing:-.02em;
+  font-size:clamp(46px,9.4vw,96px); line-height:1.02; color:var(--green);
+  margin:8px 0 0;
+}
+.strategy__lead{
+  margin-top:24px; color:var(--muted); line-height:1.85; max-width:62ch;
+  font-size:clamp(15px,2vw,16.5px);
+}
+.strategy__lead b,.strategy__lead strong{ color:var(--green); font-weight:700; }
+
+.strategy__grid{ display:grid; grid-template-columns:1fr; gap:16px; }
+@media (min-width:640px){ .strategy__grid{ grid-template-columns:repeat(2,1fr); gap:18px; } }
+@media (min-width:1024px){ .strategy__grid{ grid-template-columns:repeat(4,1fr); gap:20px; } }
+.hl{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:28px 24px;
+  transition:transform .4s var(--ease), border-color .4s, box-shadow .4s;
+}
+.hl:hover{ transform:translateY(-5px); border-color:var(--green);
+  box-shadow:0 26px 52px -30px rgba(20,52,43,.35); }
+.hl__idx{ display:inline-block; font-weight:800; font-size:15px; color:var(--gold);
+  margin-bottom:14px; letter-spacing:.08em; }
+.hl h3{ font-size:18.5px; margin-bottom:9px; }
+.hl p{ color:#555555; font-size:14px; line-height:1.8; }
+
+.strategy__exits{
+  margin-top:44px; display:flex; flex-wrap:wrap; align-items:center; gap:18px 26px;
+}
+.strategy__exits .btn .ic{ width:18px; height:18px; transition:transform .3s var(--ease); }
+.strategy__exits .btn:hover .ic{ transform:translateX(5px); }
+.strategy__exit-link{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:14.5px; font-weight:700; color:var(--green); letter-spacing:.02em;
+}
+.strategy__exit-link .ic{ width:17px; height:17px; transition:transform .3s var(--ease); }
+.strategy__exit-link:hover{ color:var(--gold); }
+.strategy__exit-link:hover .ic{ transform:translateX(6px); }
+
+/* =========================================================
+   板块 2 · 数据冲击 + 案例引导
+   ========================================================= */
+.data-band .stats__band{ margin:0 0 60px; }
+.data-band .stories__grid{ margin-top:8px; }
+.data-band__cta{ margin-top:44px; text-align:center; }
+
+/* =========================================================
+   板块 3 · 申请流程（滑动卡片 + 横向时间轴）
+   ========================================================= */
+.flow__carousel{ position:relative; }
+.flow__track{
+  display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory;
+  padding:8px 4px 26px; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+}
+.flow__track::-webkit-scrollbar{ display:none; }
+.flow-card{
+  flex:0 0 100%; scroll-snap-align:center;
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:34px 30px 30px;
+}
+.flow-card__head{ display:flex; align-items:baseline; gap:12px; margin-bottom:8px; }
+.flow-card__phase{
+  font-stretch:74%; font-weight:850; font-size:24px; color:var(--green);
+}
+.flow-card__en{
+  font-stretch:80%; font-size:11.5px; font-weight:700; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--gold);
+}
+.flow-card__sub{ color:var(--muted); font-size:13.5px; margin-bottom:6px; }
+
+/* 横向时间轴 */
+.timeline{
+  display:grid; grid-auto-flow:column; grid-auto-columns:1fr; gap:0;
+  margin-top:26px;
+}
+.tl-node{ position:relative; padding:30px 18px 0 0; }
+.tl-node::before{
+  content:""; position:absolute; left:0; top:5px; right:0; height:2px;
+  background:var(--line);
+}
+.tl-node:last-child::before{ right:auto; width:13px; }
+.tl-node::after{
+  content:""; position:absolute; left:0; top:0; width:13px; height:13px;
+  border-radius:50%; background:var(--gold); box-shadow:0 0 0 4px var(--card);
+}
+.tl-no{ display:block; font-weight:800; font-size:12px; color:var(--gold);
+  letter-spacing:.08em; margin-bottom:5px; }
+.tl-node h3{ font-size:15.5px; margin-bottom:5px; }
+.tl-node p{ font-size:12.5px; color:#555555; line-height:1.7; }
+
+/* 竖向时间轴（窄屏） */
+@media (max-width:760px){
+  .timeline{ grid-auto-flow:row; }
+  .tl-node{ padding:0 0 26px 32px; }
+  .tl-node:last-child{ padding-bottom:4px; }
+  .tl-node::before{ left:6px; top:0; bottom:0; right:auto; width:2px; height:auto; }
+  .tl-node:last-child::before{ bottom:auto; height:13px; width:2px; }
+  .tl-node::after{ left:0; top:2px; }
+  .tl-node h3{ font-size:16px; }
+  .tl-node p{ font-size:13px; }
+}
+
+.flow__nav{
+  display:none; position:absolute; top:46%; z-index:2;
+  width:46px; height:46px; border-radius:50%; cursor:pointer;
+  background:#fff; color:var(--green); font-size:22px; line-height:1;
+  border:1px solid var(--line);
+  box-shadow:0 8px 22px -12px rgba(20,52,43,.3);
+  transition:background .3s, color .3s, transform .3s var(--ease);
+}
+.flow__nav:hover{ background:var(--green); color:#fff; transform:scale(1.06); }
+.flow__prev{ left:-8px; }
+.flow__next{ right:-8px; }
+.flow__dots{ display:flex; justify-content:center; gap:8px; padding-top:2px; }
+.flow__dot{
+  width:7px; height:7px; border-radius:99px; border:none; cursor:pointer; padding:0;
+  background:#D8D2C4; transition:background .3s, width .3s var(--ease);
+}
+.flow__dot.active{ background:var(--green); width:22px; }
+@media (min-width:980px){ .flow__nav{ display:block; } }
+
+/* =========================================================
+   子页面 · 顶部标题区 page-hero
+   ========================================================= */
+.page-hero{
+  position:relative; max-width:var(--maxw); margin:0 auto;
+  padding:128px 22px 24px;
+}
+.page-hero h1{
+  font-stretch:74%; font-weight:850; letter-spacing:-.015em; color:var(--green);
+  font-size:clamp(34px,7vw,62px); line-height:1.06;
+}
+.page-hero h1 em{ font-style:italic; color:var(--gold); font-weight:800; }
+.page-hero__sub{
+  margin-top:18px; color:var(--muted); font-size:16px; line-height:1.85; max-width:60ch;
+}
+.page-hero--dark{ background:var(--green); max-width:none; }
+.page-hero--dark .page-hero__inner{ max-width:var(--maxw); margin:0 auto; padding:0 22px; }
+.page-hero--dark h1{ color:#fff; }
+.page-hero--dark .eyebrow{ color:var(--gold-soft); }
+.page-hero--dark .page-hero__sub{ color:rgba(255,255,255,.75); }
+
+/* =========================================================
+   服务页 · 美国本科专题区（深绿大卡）
+   ========================================================= */
+.featured{
+  background:var(--green); color:#fff; border-radius:var(--radius-lg);
+  padding:46px 30px 40px; margin-top:8px;
+  box-shadow:0 34px 70px -38px rgba(20,52,43,.45);
+}
+.featured__top{ max-width:680px; margin-bottom:8px; }
+.featured .eyebrow{ color:var(--gold-soft); }
+.featured h2{ color:#fff; }
+.featured__lead{ margin-top:16px; color:rgba(255,255,255,.8); font-size:15.5px;
+  line-height:1.85; max-width:58ch; }
+.featured .system__grid{ border-top-color:rgba(255,255,255,.18); margin-top:30px; }
+.featured .module{ border-bottom-color:rgba(255,255,255,.14); }
+.featured .module__no{ -webkit-text-stroke-color:var(--gold-soft); }
+.featured .module h3{ color:#fff; }
+.featured .module p{ color:rgba(255,255,255,.72); }
+@media (min-width:860px){ .featured{ padding:56px 54px 50px; } }
+
+.services-sub__head{ margin-top:64px; }
+
+/* 师资页：在浅色页面中嵌入深绿团队区时，去掉额外圆角间距 */
+.teachers-page .team-wrap{ padding-top:40px; }
+
+/* =========================================================
+   子页面底部 · CTA 转化带（与首页板块4一致的语气）
+   ========================================================= */
+.cta-band{ background:var(--green); color:#fff; }
+.cta-band__inner{
+  max-width:var(--maxw); margin:0 auto; padding:74px 22px;
+  display:flex; flex-direction:column; align-items:flex-start; gap:20px;
+}
+.cta-band .eyebrow{ color:var(--gold-soft); }
+.cta-band h2{ color:#fff; max-width:18ch; }
+.cta-band p{ color:rgba(255,255,255,.78); font-size:15.5px; line-height:1.8; max-width:52ch; }
+.cta-band__actions{ margin-top:6px; display:flex; flex-wrap:wrap; gap:14px; }
+@media (min-width:860px){ .cta-band__inner{ padding:92px 22px; } }
+
+/* =========================================================
+   ✦ 第二轮 · 板块背景区分（全宽底色带）
+   .section 默认 max-width 居中，用 ::before 铺满整屏底色，
+   内容仍居中；相邻板块换色，滚动时能明确感知进入新区域
+   ========================================================= */
+.sec-bleed{ position:relative; z-index:0; }
+.sec-bleed::before{
+  content:""; position:absolute; top:0; bottom:0; left:50%;
+  width:100vw; transform:translateX(-50%); z-index:-1;
+}
+.sec-dark::before{ background:var(--green); }
+.sec-soft::before{ background:#EFEAE0; }
+
+/* 深色板块内文字反白 */
+.sec-dark .eyebrow{ color:var(--gold-soft); }
+.sec-dark h2{ color:#fff; }
+.sec-dark .lead{ color:rgba(255,255,255,.72); }
+
+/* 板块2 · 数据冲击（深绿底，数字反白、单位描金） */
+.data-band .stats__band{ border-color:rgba(255,255,255,.22); }
+.data-band .figure{ border-color:rgba(255,255,255,.16); }
+.data-band .figure b{ color:#FAF7F0; }
+.data-band .figure__desc{ color:rgba(255,255,255,.6); }
+
+/* 板块5 · 联系我们（更深一档绿，衬托内部绿色文案面板） */
+.consult.sec-dark::before{ background:#0F2820; }
+.consult .consult__card{ border:1px solid rgba(255,255,255,.12); }
