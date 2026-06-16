@@ -59,8 +59,8 @@ ul,ol{ list-style:none; }
   letter-spacing:-.015em; line-height:1.02; color:var(--green); }
 
 /* ---------- 通用排版 ---------- */
-.section{ position:relative; padding:104px 22px; max-width:var(--maxw); margin:0 auto; }
-.section__head{ max-width:720px; margin:0 0 56px; text-align:left; }
+.section{ position:relative; padding:100px 22px; max-width:var(--maxw); margin:0 auto; }
+.section__head{ max-width:680px; margin:0 0 52px; text-align:left; }
 
 .eyebrow{
   display:inline-flex; align-items:center; gap:.7em;
@@ -276,93 +276,84 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 /* —— 主标题 —— */
 .hero-title {
   color: #FAF7F0;
-  font-size: clamp(38px, 6vw, 68px);
-  font-weight: 850;
-  font-stretch: 78%;
-  line-height: 1.12;
-  letter-spacing: -0.02em;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-  margin-top: 22px;
+  font-stretch: 76%;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  margin-top: 26px;
 }
 
 .hero-title-line1 {
   display: block;
-  color: rgba(250, 247, 240, 0.92);
-  font-weight: 700;
+  font-size: clamp(28px, 4.6vw, 52px);
+  font-weight: 600;
+  color: rgba(250, 247, 240, 0.60);
+  letter-spacing: -0.01em;
+  text-shadow: none;
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(16px);
   animation: hero-fade-up 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.28s forwards;
 }
 
 .hero-title-line2 {
   display: block;
+  font-size: clamp(52px, 9.8vw, 108px);
+  font-weight: 900;
+  margin-top: 4px;
   opacity: 0;
-  transform: translateY(18px);
-  animation: hero-fade-up 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+  transform: translateY(20px);
+  animation: hero-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
 }
 
-/* 第二行：金色斜体，做视觉冲击 */
+/* 第二行：金色斜体，主打震撼 */
 .hero-title-line2 em {
   font-style: italic;
-  color: var(--gold);
-  font-weight: 900;
-  font-size: 1.08em;
-  text-shadow: 0 0 40px rgba(168, 145, 87, 0.45), 0 2px 16px rgba(0, 0, 0, 0.5);
-}
-
-/* —— 金线分割器 —— */
-.hero-divider {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 20px auto 0;
-  opacity: 0;
-  animation: hero-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.0s forwards;
-}
-
-.hero-divider__gem {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border: 1.5px solid var(--gold);
-  transform: rotate(45deg);
-  opacity: 0.8;
-  flex: none;
-}
-
-.hero-divider__line {
-  display: block;
-  width: 56px;
-  height: 1.5px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-}
-
-/* —— 品牌大字（副文案之上） —— */
-.hero-brand {
-  font-family: 'Fraunces', 'Noto Serif SC', serif;
-  font-size: clamp(34px, 6.4vw, 58px);
-  font-weight: 600;
-  letter-spacing: 0.06em;
   color: var(--gold-soft);
-  margin-top: 24px;
-  margin-bottom: 2px;
-  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+  font-weight: 900;
+  background: linear-gradient(92deg, #E8CA7A 0%, #A89157 55%, #C9A96E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 0 32px rgba(168,145,87,0.5));
+}
+
+/* —— 品牌 + 副文案横���容器 —— */
+.hero-brand-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 22px;
   opacity: 0;
   transform: translateY(16px);
   animation: hero-fade-up 0.65s cubic-bezier(0.16, 1, 0.3, 1) 1.0s forwards;
 }
 
+/* —— 品牌字（途策留学） —— */
+.hero-brand {
+  font-family: 'Fraunces', 'Noto Serif SC', serif;
+  font-size: clamp(20px, 3.2vw, 32px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--gold-soft);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  line-height: 1.7;
+  flex: none;
+  margin: 0;
+  padding-right: 20px;
+  border-right: 1.5px solid rgba(168, 145, 87, 0.4);
+}
+
 /* —— 副文案 —— */
 .hero-body {
   color: rgba(220, 215, 205, 0.9);
-  font-size: clamp(15px, 2.2vw, 17.5px);
+  font-size: clamp(14px, 2vw, 16.5px);
   line-height: 1.85;
   font-weight: 400;
-  max-width: 440px;
-  margin-top: 18px;
-  opacity: 0;
-  transform: translateY(16px);
-  animation: hero-fade-up 0.65s cubic-bezier(0.16, 1, 0.3, 1) 1.15s forwards;
+  margin: 0;
+  opacity: 1;
+  transform: none;
+  animation: none;
 }
 
 .hero-body strong {
@@ -435,16 +426,28 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 
 /* —— 脚注打字机 —— */
 .hero-footnote {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 2px;
   color: rgba(255, 255, 255, 0.42);
   font-size: 13.5px;
   letter-spacing: 0.06em;
   margin-top: 32px;
-  min-height: 22px;
+  /* 固定高度+宽度，防止文字变化时撑开布局引发上方元素抖动 */
+  height: 22px;
+  width: 100%;
+  max-width: 400px;
   opacity: 0;
   animation: hero-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards;
+}
+
+.hero-footnote__text {
+  /* 宽度不参与布局流计算，字符在此容器内左对齐写入 */
+  display: inline-block;
+  min-width: 0;
+  text-align: left;
+  white-space: nowrap;
 }
 
 .hero-footnote__cursor {
@@ -486,6 +489,8 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 
 @media (max-width: 600px) {
   .hero-content { padding: 0 20px; }
+  .hero-brand-row { flex-direction: column; gap: 10px; }
+  .hero-brand { border-right: none; padding-right: 0; border-bottom: 1.5px solid rgba(168, 145, 87, 0.4); padding-bottom: 10px; }
   .hero-body { max-width: 92%; }
   .hero-cta-group {
     flex-direction: column;
@@ -637,7 +642,7 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 @media (min-width:1024px){ .services__grid{ grid-template-columns:repeat(3,1fr); gap:20px; } }
 
 /* =========================================================
-   三大模块（大编号三列）
+   三大模块（��编号三列）
    ========================================================= */
 .system__grid{ display:grid; grid-template-columns:1fr; gap:0;
   border-top:1px solid var(--line); }
@@ -682,7 +687,7 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 .mlist p{ color:#555555; font-size:14px; line-height:1.8; margin-top:3px; }
 
 /* =========================================================
-   申请流程（三阶段卡列）
+   申请流程（三阶段��列）
    ========================================================= */
 .phases{ display:grid; grid-template-columns:1fr; gap:18px; }
 .phase{
@@ -816,7 +821,7 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 }
 .story:hover{ transform:translateY(-5px); border-color:var(--green);
   box-shadow:0 26px 52px -30px rgba(20,52,43,.35); }
-.story__media{ position:relative; aspect-ratio:4/3; background:#EFEAE0; overflow:hidden; }
+.story__media{ position:relative; aspect-ratio:16/10; background:#EFEAE0; overflow:hidden; }
 .story__media img{ width:100%; height:100%; object-fit:cover;
   transition:transform .7s var(--ease); }
 .story:hover .story__media img{ transform:scale(1.05); }
@@ -899,26 +904,28 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 /* =========================================================
    FAQ 常见问题
    ========================================================= */
-.faq__list{ max-width:760px; margin:0 auto; counter-reset:faq-counter; }
+.faq-section{ padding-bottom:96px; }
+.faq-section .section__head{ margin-bottom:40px; }
+.faq__list{ max-width:720px; margin:0; counter-reset:faq-counter; }
 .faq__item{ 
   border-bottom:1px solid var(--line); 
   counter-increment:faq-counter; 
   transition:all .4s ease; 
   border-radius:var(--radius-lg);
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
-.faq__item:first-child{ border-top:1px solid transparent; }
+.faq__item:first-child{ border-top:1px solid var(--line); }
 .faq__item:hover{ 
   border-color:transparent; 
-  background:rgba(255,255,255,0.6); 
+  background:rgba(255,255,255,0.72); 
   box-shadow:var(--shadow-sm); 
-  transform:translateY(-2px);
+  transform:translateY(-1px);
 }
 .faq__item:has(.faq__q[aria-expanded="true"]) {
   border-color:transparent; 
   background:var(--white); 
   box-shadow:var(--shadow-md);
-  transform:translateY(-2px);
+  transform:translateY(-1px);
 }
 
 .faq__q{
@@ -972,25 +979,34 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 /* =========================================================
    留资表单
    ========================================================= */
-.consult{ padding-bottom:110px; }
+.consult{ padding-top:96px; padding-bottom:110px; }
+.consult .section__head h2{ color:#fff; }
+.consult .section__head .eyebrow{ color:var(--gold-soft); }
+.consult .section__head .eyebrow::after{ background:var(--gold-soft); }
 .consult__card{
-  background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg);
+  background:var(--card); border:1px solid rgba(255,255,255,0.10); border-radius:var(--radius-lg);
   overflow:hidden; display:grid; grid-template-columns:1fr;
-  box-shadow:0 34px 70px -38px rgba(20,52,43,.35);
+  box-shadow:0 40px 80px -40px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,0.06);
 }
 .consult__copy{
-  padding:42px 30px; background:var(--green); color:#fff;
-}
+  padding:42px 30px;
+  background:linear-gradient(160deg, #1A3D30 0%, #0F2820 100%);
+  color:#fff;
+  border-right:1px solid rgba(255,255,255,0.07);
+  }
 .consult__copy .eyebrow{ color:var(--gold-soft); }
-.consult__copy h2{ color:#fff; margin-top:6px; }
-.consult__copy .lead{ color:rgba(255,255,255,.75); }
-.consult__pts{ margin-top:26px; display:grid; gap:12px; }
-.consult__pts li{ position:relative; padding-left:28px; color:rgba(255,255,255,.88);
-  font-size:14.5px; }
+.consult__copy .eyebrow::after{ background:var(--gold-soft); }
+.consult__copy h2{ color:#fff; margin-top:6px; font-size:clamp(24px,3.8vw,36px); }
+.consult__copy .lead{ color:rgba(255,255,255,0.6); margin-top:14px; }
+.consult__pts{ margin-top:26px; display:grid; gap:14px; }
+.consult__pts li{
+  position:relative; padding-left:26px;
+  color:rgba(255,255,255,0.82); font-size:14.5px; line-height:1.6;
+  }
 .consult__pts li::before{
-  content:""; position:absolute; left:0; top:9px; width:14px; height:2px;
+  content:""; position:absolute; left:0; top:10px; width:12px; height:1.5px;
   background:var(--gold-soft);
-}
+  }
 
 .form{ padding:32px 26px 34px; display:grid; grid-template-columns:1fr 1fr; gap:18px 16px; }
 .field{ display:flex; flex-direction:column; }
@@ -1126,8 +1142,8 @@ html.has-gsap .reveal{ transition:none; }
   .reveal{ opacity:1; transform:none; }
   .mq__track{ transform:none; }
   /* Hero 文案靠动画淡入，减弱动效时直接显示，避免空白 */
-  .hero-title-line1,.hero-title-line2,.hero-divider,.hero-brand,
-  .hero-body,.hero-cta-group,.hero-footnote{ opacity:1 !important; transform:none !important; }
+  .hero-title-line1,.hero-title-line2,.hero-brand-row,
+  .hero-cta-group,.hero-footnote{ opacity:1 !important; transform:none !important; }
 }
 
 /* =========================================================
@@ -1145,36 +1161,40 @@ html.has-gsap .reveal{ transition:none; }
 /* =========================================================
    板块 1 · 策略定制（拒绝千人一面）
    ========================================================= */
-.strategy{ padding-bottom:96px; }
-.strategy__head{ max-width:780px; margin:0 0 40px; }
+.strategy{ padding-top:96px; padding-bottom:100px; }
+.strategy__head{ max-width:780px; margin:0 0 44px; }
 .strategy__word{
   font-stretch:68%; font-weight:900; letter-spacing:-.02em;
-  font-size:clamp(46px,9.4vw,96px); line-height:1.02; color:var(--green);
-  margin:8px 0 0;
+  font-size:clamp(44px,8.8vw,92px); line-height:1.02; color:var(--green);
+  margin:10px 0 0;
 }
 .strategy__lead{
-  margin-top:24px; color:var(--muted); line-height:1.85; max-width:62ch;
-  font-size:clamp(15px,2vw,16.5px);
+  margin-top:26px; color:var(--muted); line-height:1.9; max-width:60ch;
+  font-size:clamp(15px,1.9vw,16px);
 }
 .strategy__lead b,.strategy__lead strong{ color:var(--green); font-weight:700; }
 
-.strategy__grid{ display:grid; grid-template-columns:1fr; gap:16px; }
-@media (min-width:640px){ .strategy__grid{ grid-template-columns:repeat(2,1fr); gap:18px; } }
-@media (min-width:1024px){ .strategy__grid{ grid-template-columns:repeat(4,1fr); gap:20px; } }
+.strategy__grid{ display:grid; grid-template-columns:1fr; gap:14px; }
+@media (min-width:640px){ .strategy__grid{ grid-template-columns:repeat(2,1fr); gap:16px; } }
+@media (min-width:1024px){ .strategy__grid{ grid-template-columns:repeat(4,1fr); gap:18px; } }
 .hl{
   background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg);
-  padding:28px 24px;
+  padding:26px 24px 28px;
   transition:transform .4s var(--ease), border-color .4s, box-shadow .4s;
 }
-.hl:hover{ transform:translateY(-5px); border-color:var(--green);
-  box-shadow:0 26px 52px -30px rgba(20,52,43,.35); }
-.hl__idx{ display:inline-block; font-weight:800; font-size:15px; color:var(--gold);
-  margin-bottom:14px; letter-spacing:.08em; }
-.hl h3{ font-size:18.5px; margin-bottom:9px; }
-.hl p{ color:#555555; font-size:14px; line-height:1.8; }
+.hl:hover{ transform:translateY(-4px); border-color:var(--green);
+  box-shadow:0 20px 44px -26px rgba(20,52,43,.3); }
+.hl__idx{
+  display:inline-block; font-weight:800; font-size:13px; color:var(--gold);
+  margin-bottom:16px; letter-spacing:.12em;
+  padding:4px 10px; border:1px solid rgba(168,145,87,.3); border-radius:999px;
+  background:rgba(168,145,87,.06);
+}
+.hl h3{ font-size:17.5px; margin-bottom:8px; }
+.hl p{ color:#555555; font-size:13.5px; line-height:1.8; }
 
 .strategy__exits{
-  margin-top:44px; display:flex; flex-wrap:wrap; align-items:center; gap:18px 26px;
+  margin-top:48px; display:flex; flex-wrap:wrap; align-items:center; gap:16px 24px;
 }
 .strategy__exits .btn .ic{ width:18px; height:18px; transition:transform .3s var(--ease); }
 .strategy__exits .btn:hover .ic{ transform:translateX(5px); }
@@ -1189,9 +1209,10 @@ html.has-gsap .reveal{ transition:none; }
 /* =========================================================
    板块 2 · 数据冲击 + 案例引导
    ========================================================= */
-.data-band .stats__band{ margin:0 0 60px; }
-.data-band .stories__grid{ margin-top:8px; }
-.data-band__cta{ margin-top:44px; text-align:center; }
+.data-band .stats__band{ margin:0 0 72px; }
+.data-band .section__head{ margin-bottom:44px; }
+.data-band .stories__grid{ margin-top:0; }
+.data-band__cta{ margin-top:52px; text-align:center; }
 
 /* =========================================================
    板块 3 · 申请流程（滑动卡片 + 横向时间轴）

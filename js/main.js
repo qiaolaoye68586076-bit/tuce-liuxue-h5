@@ -419,8 +419,8 @@
     var charIdx = 0;
     var deleting = false;
     var pauseFrames = 0;
-    var PAUSE_AFTER_TYPE = 60;   // 打完停顿（帧数）
-    var PAUSE_AFTER_DEL  = 12;
+    var PAUSE_AFTER_TYPE = 25;   // 打完停顿帧数（25 × 200ms ≈ 5s 停留）
+    var PAUSE_AFTER_DEL  = 6;    // 删完后短暂停顿再开始下一句
 
     function tick() {
       var current = phrases[phraseIdx];
@@ -440,8 +440,8 @@
           pauseFrames = PAUSE_AFTER_TYPE;
         }
       }
-      var delay = deleting ? 28 : 48;
-      if (pauseFrames > 0) { pauseFrames--; delay = 40; }
+      var delay = deleting ? 70 : 130;  // 打字 130ms/字，删除 70ms/字
+      if (pauseFrames > 0) { pauseFrames--; delay = 200; }
       setTimeout(tick, delay);
     }
 
