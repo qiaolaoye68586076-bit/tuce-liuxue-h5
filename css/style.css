@@ -554,54 +554,37 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 }
 .stats .section__head{ padding:0 22px; }
 
-.stats__carousel{ position:relative; }
-.stats__track{
-  display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory;
-  padding:8px 22px 24px; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+/* 四大核心亮点 · 2×2 彩色浅底块 + 图标 */
+.feature-grid{
+  display:grid; grid-template-columns:1fr; gap:12px;
+  padding:8px 22px 4px;
 }
-.stats__track::-webkit-scrollbar{ display:none; }
-.stat-card{
-  flex:0 0 80%; scroll-snap-align:center;
-  background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg);
-  overflow:hidden; transition:transform .4s var(--ease), border-color .4s, box-shadow .4s;
+.feature-card{
+  display:flex; gap:14px; align-items:flex-start;
+  border-radius:12px; padding:1.25rem;
 }
-.stat-card:hover{ transform:translateY(-5px); border-color:var(--green);
-  box-shadow:0 24px 48px -28px rgba(20,52,43,.35); }
-.stat-card__img{
-  aspect-ratio:16/10; display:flex; align-items:center; justify-content:center;
-  background:linear-gradient(150deg,#EFEAE0,#F7F3EA); position:relative;
+.feature-card--1{ background:rgba(20,52,43,.07); }
+.feature-card--2{ background:rgba(168,145,87,.1); }
+.feature-card--3{ background:rgba(181,105,77,.1); }
+.feature-card--4{ background:rgba(30,74,60,.08); }
+.feature-card__icon{
+  width:40px; height:40px; border-radius:10px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
 }
-.stat-card__placeholder span{
-  font-stretch:80%; font-weight:600; font-size:12px; letter-spacing:.16em;
-  color:#999999; border:1px dashed var(--line); padding:9px 18px; border-radius:4px;
-  background:#fff;
+.feature-card__icon svg{ width:20px; height:20px; }
+.feature-card--1 .feature-card__icon{ background:#14342B; }
+.feature-card--2 .feature-card__icon{ background:#A89157; }
+.feature-card--3 .feature-card__icon{ background:#B5694D; }
+.feature-card--4 .feature-card__icon{ background:#1E4A3C; }
+.feature-card h3{
+  font-size:14px; font-weight:600; color:#14342B; margin-bottom:4px;
 }
-.stat-card__body{ padding:22px 22px 26px; }
-.stat-card__body h3{ font-size:20px; }
-.stat-card__body p{ margin-top:9px; font-size:14px; color:#555555; line-height:1.8; }
-
-.stats__nav{
-  display:none; position:absolute; top:42%; z-index:2;
-  width:46px; height:46px; border-radius:50%; cursor:pointer;
-  background:#fff; color:var(--green); font-size:22px; line-height:1;
-  border:1px solid var(--line);
-  box-shadow:0 8px 22px -12px rgba(20,52,43,.3);
-  transition:background .3s, color .3s, transform .3s var(--ease);
+.feature-card p{
+  font-size:13px; line-height:1.6; color:#4a4a44;
 }
-.stats__nav:hover{ background:var(--green); color:#fff; transform:scale(1.06); }
-.stats__prev{ left:8px; }
-.stats__next{ right:8px; }
-.stats__dots{ display:flex; justify-content:center; gap:8px; padding-top:4px; }
-.stats__dot{
-  width:7px; height:7px; border-radius:99px; border:none; cursor:pointer; padding:0;
-  background:#D8D2C4; transition:background .3s, width .3s var(--ease);
-}
-.stats__dot.active{ background:var(--green); width:22px; }
 @media (min-width:700px){
-  .stat-card{ flex-basis:44%; }
-  .stats__nav{ display:block; }
+  .feature-grid{ grid-template-columns:1fr 1fr; }
 }
-@media (min-width:1024px){ .stat-card{ flex-basis:31.5%; } }
 
 /* =========================================================
    问题陈述（"Brutal." 式）
@@ -734,29 +717,42 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 @media (min-width:980px){ .phases{ grid-template-columns:repeat(3,1fr); align-items:start; } }
 
 /* =========================================================
-   文书训练营（全页唯一深绿色块）
+   探索更多留学方案（详情页底部 · CTA 之前）
    ========================================================= */
-.camp-wrap{ padding:0 22px; max-width:var(--maxw); margin:0 auto 104px; }
-.camp{
-  background:var(--green); color:#fff;
-  border-radius:var(--radius-lg); padding:48px 30px;
-  display:flex; flex-direction:column; gap:26px;
+.explore{ padding:0 22px; max-width:var(--maxw); margin:0 auto 104px; }
+.explore__head{ text-align:center; margin-bottom:40px; }
+.explore__head p{ margin-top:12px; color:#888888; font-size:15px; }
+.explore__grid{ display:grid; grid-template-columns:1fr; gap:18px; }
+.explore-card{
+  position:relative; display:flex; flex-direction:column; overflow:hidden;
+  background:var(--card); border:1px solid var(--line);
+  border-radius:var(--radius-lg); padding:30px 26px 26px; color:inherit;
+  transition:transform .4s var(--ease), box-shadow .4s;
 }
-.camp h2{ color:#fff; margin-top:4px; }
-.camp__lead{ margin-top:14px; font-size:15px; line-height:1.8; color:rgba(255,255,255,.82);
-  max-width:56ch; }
-.camp__tags{ display:flex; gap:10px; flex-wrap:wrap; align-content:flex-start; }
-.camp__tags span{
-  font-size:13.5px; font-weight:600; color:var(--gold-soft);
-  padding:9px 18px; border:1px solid rgba(217,194,140,.45); border-radius:999px;
-  transition:background .3s, color .3s;
+.explore-card::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:5px;
+  background:var(--band, var(--green));
 }
-.camp__tags span:hover{ background:var(--gold); color:var(--green); border-color:var(--gold); }
-@media (min-width:980px){
-  .camp{ flex-direction:row; align-items:center; justify-content:space-between;
-    padding:56px 54px; }
-  .camp__tags{ flex-direction:column; }
+.explore-card:hover{ transform:translateY(-5px);
+  box-shadow:0 26px 52px -30px rgba(20,52,43,.35); }
+.explore-card h3{ font-size:21px; margin-bottom:9px; }
+.explore-card p{ color:#555555; font-size:14.5px; line-height:1.8; }
+.explore-card__link{
+  margin-top:auto; padding-top:24px;
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:13.5px; font-weight:700; color:var(--green); letter-spacing:.04em;
 }
+.explore-card__link .ic{ width:17px; height:17px; transition:transform .3s var(--ease); }
+.explore-card:hover .explore-card__link .ic{ transform:translateX(6px); }
+.explore__more{ text-align:center; margin-top:34px; }
+.explore__more a{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:14.5px; font-weight:700; color:var(--green); letter-spacing:.04em;
+  transition:gap .3s var(--ease);
+}
+.explore__more a:hover{ gap:14px; }
+.explore__more .ic{ width:18px; height:18px; }
+@media (min-width:700px){ .explore__grid{ grid-template-columns:repeat(3,1fr); gap:20px; } }
 
 /* =========================================================
    师资 · THE TEAM（Ignite 深色团队版 · 品牌深绿）
@@ -803,26 +799,6 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 @media (min-width:1024px){
   .team{ grid-template-columns:.62fr 1fr; gap:64px; align-items:start; }
 }
-
-/* =========================================================
-   录取成果宣言 + 世界地图入口
-   ========================================================= */
-.offers{ text-align:left; }
-.offers__statement h2{ font-size:clamp(36px,7.6vw,68px); }
-.offers__statement h2 span{ color:var(--gold); font-variant-numeric:tabular-nums; }
-.offers__statement p{ margin-top:18px; color:#555555; font-size:15.5px; line-height:1.8; }
-.offers__portal{
-  margin-top:40px; display:flex; align-items:center; gap:16px;
-  background:var(--green); color:#fff;
-  border-radius:var(--radius-lg); padding:26px 28px;
-  font-size:clamp(15px,2.4vw,19px); font-weight:700;
-  transition:transform .35s var(--ease), box-shadow .35s, background .35s;
-  box-shadow:0 24px 50px -28px rgba(20,52,43,.55);
-}
-.offers__portal .ic{ width:24px; height:24px; color:var(--gold-soft); }
-.offers__portal-arrow{ margin-left:auto; transition:transform .35s var(--ease); }
-.offers__portal:hover{ transform:translateY(-3px); background:var(--green-2); }
-.offers__portal:hover .offers__portal-arrow{ transform:translateX(8px); }
 
 /* =========================================================
    学员故事 + 证言
@@ -1071,7 +1047,7 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
   background:#102A20;
   color:rgba(255,255,255,.7);
   /* CTA 与 footer 同为深绿，靠这条暖金分隔线区分两个区域（取代第五轮的换色方案）*/
-  border-top:2px solid rgba(168,145,87,.5);
+  border-top:1px solid rgba(168,145,87,.28);
   padding:72px 22px 28px;
 }
 .footer__inner{
@@ -1403,7 +1379,7 @@ html.has-gsap .reveal{ transition:none; }
 /* =========================================================
    子页面底部 · CTA 转化带（与首页板块4一致的语气）
    ========================================================= */
-.cta-band{ background:var(--green); color:#fff; }
+.cta-band{ background:#102A20; color:#fff; }
 .cta-band__inner{
   max-width:var(--maxw); margin:0 auto; padding:74px 22px;
   display:flex; flex-direction:column; align-items:flex-start; gap:20px;
@@ -1412,6 +1388,12 @@ html.has-gsap .reveal{ transition:none; }
 .cta-band h2{ color:#fff; max-width:18ch; }
 .cta-band p{ color:rgba(255,255,255,.78); font-size:15.5px; line-height:1.8; max-width:52ch; }
 .cta-band__actions{ margin-top:6px; display:flex; flex-wrap:wrap; gap:14px; }
+/* 深绿底上的 ghost 按钮：白色描边+白字，提升对比度避免发虚 */
+.cta-band .btn--line{ border-color:rgba(255,255,255,.5); color:rgba(255,255,255,.8); }
+.cta-band .btn--line:hover{
+  background:transparent; border-color:rgba(255,255,255,1); color:rgba(255,255,255,1);
+  transform:translateY(-2px);
+}
 @media (min-width:860px){ .cta-band__inner{ padding:92px 22px; } }
 
 /* =========================================================
@@ -1439,7 +1421,7 @@ html.has-gsap .reveal{ transition:none; }
 .data-band .figure__desc{ color:rgba(255,255,255,.6); }
 
 /* 板块5 · 联系我们（更深一档绿，衬托内部绿色文案面板） */
-.consult.sec-dark::before{ background:#0F2820; }
+.consult.sec-dark::before{ background:#102A20; }
 .consult .consult__card{ border:1px solid rgba(255,255,255,.12); }
 
 /* =========================================================
@@ -1488,12 +1470,12 @@ a.card{ color:inherit; }
 .biz-callout{
   display:flex; flex-direction:column; gap:18px; align-items:flex-start;
   background:var(--sand); border:1px solid var(--line); border-radius:var(--radius-lg);
-  padding:30px 28px;
+  padding:40px 28px;
 }
-.biz-callout__text h3{ font-size:22px; }
-.biz-callout__text p{ color:#555; font-size:14.5px; line-height:1.8; margin-top:6px; max-width:54ch; }
+.biz-callout__text h3{ font-size:25px; }
+.biz-callout__text p{ color:#555; font-size:14.5px; line-height:1.8; margin-top:8px; max-width:54ch; }
 @media (min-width:760px){
-  .biz-callout{ flex-direction:row; align-items:center; justify-content:space-between; padding:34px 42px; gap:28px; }
+  .biz-callout{ flex-direction:row; align-items:center; justify-content:space-between; padding:48px 48px; gap:40px; }
 }
 
 /* —— 四大核心亮点直接接在 page-hero 之后时，补一点顶部呼吸 —— */
@@ -1515,15 +1497,6 @@ a.card{ color:inherit; }
   padding:6px 14px; border-radius:999px;
 }
 
-/* —— 浅色页内嵌深绿训练营卡的“了解详情”链接 —— */
-.camp__link{
-  display:inline-flex; align-items:center; gap:9px; margin-top:18px;
-  font-size:14.5px; font-weight:700; color:var(--gold-soft);
-  transition:gap .3s var(--ease), color .3s;
-}
-.camp__link:hover{ color:#fff; gap:14px; }
-.camp__link .ic{ width:18px; height:18px; }
-
 /* =========================================================
    ✦ services.html · UI 精修（2026-06-17 · 纯视觉 · scope = .services-page）
    去“豆腐块”：纯内容轮播卡 / 服务卡去描边改阴影 + 左侧色带 /
@@ -1531,29 +1504,28 @@ a.card{ color:inherit; }
    仅作用于 services 页，meiben.html 等共用 .stat-card/.card 不受影响
    ========================================================= */
 
-/* —— 改动3 · 间距节奏：相关内容紧凑，板块间适度呼吸 —— */
-.services-page .stats--lead{ padding-top:30px; padding-bottom:48px; }
-.services-page #undergrad{ padding-top:8px; padding-bottom:18px; }
-.services-page #more-services{ padding-top:72px; padding-bottom:64px; }
+/* —— 改动3 · 间距节奏（新版顺序：Hero → 美本专题 → 不止于美本 → 亮点 → 商务）——
+   上半部分（美本 + 服务卡）紧凑，下半部分（亮点 + CTA）节奏稍缓 */
+.services-page #undergrad{ padding-top:28px; padding-bottom:24px; }   /* Hero→美本 ≈ 60px（含 featured margin-top:8）*/
+.services-page #more-services{ padding-top:48px; padding-bottom:64px; } /* 美本→不止于美本 ≈ 72px */
+.services-page #features{ padding-top:16px; padding-bottom:60px; }     /* 服务卡→亮点 ≈ 80px；亮点→商务 60px */
 .services-page #biz{ margin-bottom:56px; }
 
-/* —— 改动1 · 四大核心亮点：纯内容卡（去图片占位 + 顶部装饰序号）—— */
-.services-page .stat-card{
-  border:none;
-  box-shadow:0 1px 3px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.03);
-  transition:box-shadow .3s ease, transform .3s ease;
+/* —— 美本专题区：三大模块在深绿底内改为浅绿卡片（meiben/writing-camp 不受影响）—— */
+.services-page .featured .system__grid{
+  border-top:none; margin-top:32px; gap:18px;
 }
-.services-page .stat-card:hover{
-  transform:translateY(-3px); border:none;
-  box-shadow:0 2px 8px rgba(0,0,0,.06), 0 12px 30px rgba(0,0,0,.07);
+.services-page .featured .module{
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10);
+  border-radius:14px; padding:30px 26px 32px;
 }
-.services-page .stat-card__body{ padding:30px 26px; }
-.services-page .stat-card__no{
-  display:block; font-stretch:70%; font-weight:880;
-  font-size:clamp(40px,7vw,54px); line-height:1; letter-spacing:-.01em;
-  color:rgba(168,145,87,.28); margin-bottom:12px;
+.services-page .featured .module__no{
+  -webkit-text-stroke-color:#A89157; -webkit-text-fill-color:transparent; margin-bottom:14px;
 }
-.services-page .stat-card__body h3{ font-size:20px; }
+.services-page .featured .featured__tags{ margin-top:30px; }
+@media (min-width:860px){
+  .services-page .featured .module{ padding-top:34px; }
+}
 
 /* —— 改动2a · 服务卡：去描边 → 微阴影 + hover 上移 —— */
 .services-page .services__grid .card{

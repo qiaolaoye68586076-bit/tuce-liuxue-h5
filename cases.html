@@ -66,7 +66,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=9" />
+  <link rel="stylesheet" href="css/style.css?v=14" />
 
   <!-- ===== 案例详情卡（页内局部样式，沿用全站配色变量） ===== -->
   <style>
@@ -91,6 +91,133 @@
     .case-detail__quote{ border-left:3px solid var(--gold); padding-left:18px; margin:16px 0 0;
       font-style:italic; color:#555; font-size:14.5px; line-height:1.8; }
     .case-detail__quote small{ display:block; font-style:normal; color:var(--muted); margin-top:8px; font-size:12.5px; }
+
+    /* —— 背景：浅米 / 深米 交替（替代刺眼的纯白）——
+       Hero+数据 #f5f0e8 → 案例精选 #eae4d9 → 策略复盘 #f5f0e8 → 学员之声 深绿 */
+    body{ background:#f5f0e8; }
+    .sec-white::before{ background:#eae4d9; }   /* 案例精选板块 · 深一档米色 */
+
+    /* —— Hero 数据带：下移留白，作为 Hero 收尾 —— */
+    .stats--compact{ padding-bottom:88px; }
+    .stats--compact .stats__band{ margin-top:60px; }
+    .stories--tight{ padding-top:88px; }
+
+    /* —— 数据统计 · 模糊渐显（Blur Reveal，替代 countUp）——
+       初始 模糊+放大+透明 → 触发后清晰落定；4 组从左到右 stagger 0.15s */
+    .stat-blur{
+      opacity:0; filter:blur(12px); transform:scale(1.1);
+      transition:opacity .8s cubic-bezier(.25,.46,.45,.94),
+                 filter .8s cubic-bezier(.25,.46,.45,.94),
+                 transform .8s cubic-bezier(.25,.46,.45,.94);
+    }
+    .stat-blur.is-revealed{ opacity:1; filter:blur(0); transform:scale(1); }
+    .stat-blur:nth-child(1){ transition-delay:0s; }
+    .stat-blur:nth-child(2){ transition-delay:.15s; }
+    .stat-blur:nth-child(3){ transition-delay:.30s; }
+    .stat-blur:nth-child(4){ transition-delay:.45s; }
+    @media (prefers-reduced-motion:reduce){
+      .stat-blur{ transition:opacity .4s linear; filter:none; transform:none; }
+      .stat-blur.is-revealed{ filter:none; transform:none; }
+    }
+
+    /* —— 占位标注小标签（浅金底 + 金字） —— */
+    .ph-badge{
+      display:inline-block;
+      background:rgba(168,145,87,.12); color:var(--gold);
+      border:1px solid rgba(168,145,87,.32); border-radius:999px;
+      padding:4px 12px; font-size:12px; font-weight:600; letter-spacing:.02em;
+    }
+    .head-row{ display:flex; align-items:center; flex-wrap:wrap; gap:8px 14px; }
+    .head-row h2{ margin:0; }
+
+    /* —— 学员之声 · VOICES 自动轮播 —— */
+    .voices-band{
+      position:relative; overflow:hidden; text-align:center;
+      padding:96px 22px 104px;
+    }
+    .voices-watermark{
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      font-family:var(--sans); font-stretch:74%; font-weight:850;
+      font-size:clamp(120px,26vw,250px); line-height:1; letter-spacing:.02em;
+      color:rgba(245,240,232,.05); white-space:nowrap; pointer-events:none;
+      user-select:none; z-index:0;
+    }
+    .voices-inner{ position:relative; z-index:1; max-width:var(--maxw); margin:0 auto; }
+    .voices-band .section__head{ text-align:center; max-width:none; margin:0 auto 40px; }
+    .voices-band .eyebrow{ color:var(--gold-soft); }
+
+    .voices-stage{
+      position:relative; max-width:640px; margin:0 auto;
+      min-height:320px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    /* 基态：停在右侧画面外，等待滑入 */
+    .voice-card{
+      position:absolute; left:0; right:0; margin:0 auto; max-width:640px;
+      background:#fff; border-radius:16px; padding:2.5rem;
+      box-shadow:0 8px 30px rgba(0,0,0,.15);
+      opacity:0; visibility:hidden;
+      transform:translateX(120%) rotate(0deg);
+      transition:opacity .6s ease-in-out, transform .6s ease-in-out, box-shadow .3s ease;
+      text-align:center;
+    }
+    /* 当前卡片：滑入归位 + 恢复微倾斜 */
+    .voice-card.is-active{
+      opacity:1; visibility:visible;
+      transform:translateX(0) rotate(-1.5deg);
+    }
+    /* 退场卡片：向左滑出 + 摆正淡出 */
+    .voice-card.is-leaving{
+      opacity:0; visibility:visible;
+      transform:translateX(-120%) rotate(0deg);
+    }
+    /* 闲时呼吸：滑入归位后由 JS 添加，上下缓慢浮动 */
+    .voice-card.is-breathing{ animation:voice-breathe 3s ease-in-out infinite; }
+    @keyframes voice-breathe{
+      0%,100%{ transform:translateX(0) rotate(-1.5deg) translateY(0); }
+      50%    { transform:translateX(0) rotate(-1.5deg) translateY(-6px); }
+    }
+    /* hover：暂停呼吸 + 摆正 + 微放大上浮 + 阴影加深 */
+    .voice-card.is-active:hover{
+      animation:none;
+      transform:rotate(0deg) scale(1.02) translateY(-4px);
+      box-shadow:0 18px 48px rgba(0,0,0,.28);
+      transition:transform .3s ease, box-shadow .3s ease;
+    }
+    .voice-card__school{
+      display:block; color:var(--gold); font-size:14px; font-weight:700;
+      letter-spacing:.02em; margin-bottom:18px;
+    }
+    .voice-card__quote{
+      font-family:"Noto Serif SC","Songti SC",serif;
+      color:var(--green); font-size:18px; line-height:1.8; font-weight:500; margin:0;
+    }
+    .voice-card__by{
+      margin-top:20px; color:var(--muted); font-size:13px; letter-spacing:.02em;
+    }
+
+    .voices-dots{ display:flex; align-items:center; justify-content:center; gap:11px; margin-top:38px; }
+    .voices-dot{
+      width:8px; height:8px; border-radius:999px; padding:0; cursor:pointer;
+      border:none; background:rgba(245,240,232,.3);
+      transition:background .3s, width .3s;
+    }
+    .voices-dot:hover{ background:rgba(245,240,232,.55); }
+    .voices-dot.is-active{ background:var(--gold); width:24px; }   /* 当前 · 药丸形 */
+
+    @media (max-width:560px){
+      .voices-stage{ min-height:360px; }
+      .voice-card{ padding:2rem 1.6rem; }
+      .voice-card__quote{ font-size:16.5px; }
+    }
+    @media (prefers-reduced-motion:reduce){
+      .voice-card{ transition:opacity .3s linear; transform:none; }
+      .voice-card.is-active{ transform:none; }
+      .voice-card.is-leaving{ transform:none; }
+      .voice-card.is-breathing{ animation:none; }
+      .voice-card.is-active:hover{ transform:none; }
+    }
   </style>
 </head>
 <body>
@@ -143,20 +270,23 @@
   </section>
 
   <!-- ===== 数据统计条（复用首页数据带） ===== -->
-  <section class="stats" id="stats">
-    <div class="stats__band reveal">
-      <div class="figure"><b><span class="stat-num" data-target="220" data-unit="枚" data-plus="true">0</span></b><span class="figure__desc">Offer · 2024–2026</span></div>
-      <div class="figure"><b><span class="stat-num" data-target="59" data-unit="所" data-plus="true">0</span></b><span class="figure__desc">全球院校</span></div>
-      <div class="figure"><b><span class="stat-num" data-target="6" data-unit="大地区" data-plus="false">0</span></b><span class="figure__desc">美英港新澳加</span></div>
-      <div class="figure"><b><span class="stat-num" data-target="3" data-unit="届" data-plus="true">0</span></b><span class="figure__desc">学员 持续更新</span></div>
+  <section class="stats stats--compact" id="stats">
+    <div class="stats__band">
+      <div class="figure stat-blur"><b>220<span class="stat-plus">+</span><span class="stat-unit">枚</span></b><span class="figure__desc">Offer · 2024–2026</span></div>
+      <div class="figure stat-blur"><b>59<span class="stat-plus">+</span><span class="stat-unit">所</span></b><span class="figure__desc">全球院校</span></div>
+      <div class="figure stat-blur"><b>6<span class="stat-unit">大地区</span></b><span class="figure__desc">美英港新澳加</span></div>
+      <div class="figure stat-blur"><b>3<span class="stat-plus">+</span><span class="stat-unit">届</span></b><span class="figure__desc">学员 持续更新</span></div>
     </div>
   </section>
 
   <!-- ===== 精选案例概览（卡片） ===== -->
-  <section class="section stories" id="stories">
+  <section class="section stories stories--tight sec-bleed sec-white" id="stories">
     <div class="section__head reveal">
       <p class="eyebrow">HIGHLIGHTS</p>
-      <h2>他们，已经抵达</h2>
+      <div class="head-row">
+        <h2>他们，已经抵达</h2>
+        <span class="ph-badge">占位示例 · 待替换真实案例</span>
+      </div>
       <p class="lead">精选学员录取案例 —— 点击查看完整背景与策略复盘。</p>
     </div>
     <div class="stories__grid">
@@ -194,7 +324,10 @@
   <section class="section" id="case-details">
     <div class="section__head reveal">
       <p class="eyebrow">CASE STUDIES</p>
-      <h2>完整策略复盘</h2>
+      <div class="head-row">
+        <h2>完整策略复盘</h2>
+        <span class="ph-badge">结构待定 · 方案A 页内展开 / 方案B 三级页面跳转</span>
+      </div>
       <p class="lead">以下学员背景、策略与感言为占位示例，正式上线前替换为「真实且获本人授权」的案例。</p>
     </div>
 
@@ -262,41 +395,110 @@
     </article>
   </section>
 
-  <!-- ===== 录取去向宣言 ===== -->
-  <section class="section offers" id="offers">
-    <div class="offers__statement reveal">
-      <h2><span data-count="220" data-suffix="">0</span> 枚 Offer，<br/>每一枚都有迹可循。</h2>
-      <p>2024–2026 三届学员，59 所全球院校，覆盖美英港新澳加。<br/>完整录取去向持续更新中——更多案例陆续上线。</p>
+  <!-- ===== 学员之声 · VOICES 自动轮播（真实学员感言） ===== -->
+  <section class="voices-band sec-bleed sec-dark" id="voices">
+    <span class="voices-watermark" aria-hidden="true">VOICES</span>
+    <div class="voices-inner">
+      <div class="section__head reveal">
+        <p class="eyebrow">学员之声 · TESTIMONIALS</p>
+      </div>
+
+      <div class="voices-stage reveal" id="voicesStage">
+        <blockquote class="voice-card is-active" data-index="0">
+          <span class="voice-card__school">伦敦大学学院（UCL）</span>
+          <p class="voice-card__quote">「文书改到第十一稿的那天，我才真正想明白自己为什么要学这个专业。途策没有替我写，而是逼我想清楚。」</p>
+          <footer class="voice-card__by">L 同学 · 2025 入学</footer>
+        </blockquote>
+        <blockquote class="voice-card" data-index="1">
+          <span class="voice-card__school">香港大学</span>
+          <p class="voice-card__quote">「G7 测评把我自己都没意识到的优势挖了出来，后面整条申请线都顺了。」</p>
+          <footer class="voice-card__by">D 同学 · 2025 入学</footer>
+        </blockquote>
+        <blockquote class="voice-card" data-index="2">
+          <span class="voice-card__school">康奈尔大学</span>
+          <p class="voice-card__quote">「RP 全真模拟面试做了四轮，真到面试那天反而是最放松的一次。」</p>
+          <footer class="voice-card__by">C 同学 · 2025 入学</footer>
+        </blockquote>
+      </div>
+
+      <div class="voices-dots" id="voicesDots">
+        <button class="voices-dot is-active" data-go="0" aria-label="第 1 条感言"></button>
+        <button class="voices-dot" data-go="1" aria-label="第 2 条感言"></button>
+        <button class="voices-dot" data-go="2" aria-label="第 3 条感言"></button>
+      </div>
     </div>
   </section>
 
-  <!-- ===== 学员之声 · 滚动剥卡 =====
-       占位证言 ×3，正式上线前替换为「真实且获授权」的学员原话。 -->
-  <div class="voices reveal" id="voices">
-    <div class="voices__sticky">
-      <p class="voices__kicker">学员之声 · TESTIMONIALS</p>
-      <div class="voices__stage">
-        <span class="voices__word" aria-hidden="true">VOICES</span>
-        <div class="voices__stack" id="voicesStack" tabindex="0" role="button" aria-label="查看下一条学员证言">
-          <figure class="vcard" data-pos="2">
-            <p class="vcard__school">Cornell University · 康奈尔大学</p>
-            <blockquote>「RP 全真模拟面试做了四轮，真到面试那天反而是最放松的一次。」</blockquote>
-            <figcaption>C 同学 · 2025 入学（占位）</figcaption>
-          </figure>
-          <figure class="vcard" data-pos="1">
-            <p class="vcard__school">The University of Hong Kong · 香港大学</p>
-            <blockquote>「G7 测评把我自己都没意识到的优势挖了出来，后面整条申请线都顺了。」</blockquote>
-            <figcaption>D 同学 · 2026 入学（占位）</figcaption>
-          </figure>
-          <figure class="vcard" data-pos="0">
-            <p class="vcard__school">UCL · 伦敦大学学院</p>
-            <blockquote>「文书改到第十一稿的那天，我才真正想明白自己为什么要学这个专业。途策没有替我写，而是逼我想清楚。」</blockquote>
-            <figcaption>L 同学 · 2025 入学（占位）</figcaption>
-          </figure>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- 数据统计模糊渐显 + 学员之声滑动轮播（纯 vanilla JS，无外部库） -->
+  <script>
+    /* —— 数据统计 · Blur Reveal —— */
+    (function(){
+      var figs = Array.prototype.slice.call(document.querySelectorAll('#stats .stat-blur'));
+      if(!figs.length) return;
+      if(!('IntersectionObserver' in window)){
+        figs.forEach(function(f){ f.classList.add('is-revealed'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('is-revealed'); io.unobserve(e.target); }
+        });
+      }, { threshold:.4 });
+      figs.forEach(function(f){ io.observe(f); });
+    })();
+
+    /* —— 学员之声 · 水平滑动轮播 —— */
+    (function(){
+      var stage = document.getElementById('voicesStage');
+      var dots  = document.getElementById('voicesDots');
+      if(!stage || !dots) return;
+      var cards = Array.prototype.slice.call(stage.querySelectorAll('.voice-card'));
+      var btns  = Array.prototype.slice.call(dots.querySelectorAll('.voices-dot'));
+      var i = 0, timer = null, breatheTimer = null, hovering = false;
+      var DELAY = 5000, SLIDE = 600;
+
+      // 滑入归位后再启动呼吸动画，避免与滑动 transition 冲突
+      function armBreathe(card){
+        clearTimeout(breatheTimer);
+        breatheTimer = setTimeout(function(){
+          if(!hovering) card.classList.add('is-breathing');
+        }, SLIDE);
+      }
+
+      function show(n){
+        var to = (n + cards.length) % cards.length;
+        if(to === i) return;
+        var prev = cards[i], cur = cards[to];
+        // 当前卡片 → 向左滑出
+        prev.classList.remove('is-active', 'is-breathing');
+        prev.classList.add('is-leaving');
+        setTimeout(function(){ prev.classList.remove('is-leaving'); }, SLIDE);
+        // 新卡片 → 从右侧滑入（先回到基态，强制重排再激活）
+        cur.classList.remove('is-leaving');
+        void cur.offsetWidth;
+        cur.classList.add('is-active');
+        i = to;
+        btns.forEach(function(b, idx){ b.classList.toggle('is-active', idx === i); });
+        armBreathe(cur);
+      }
+      function next(){ show(i + 1); }
+      function start(){ stop(); timer = setInterval(next, DELAY); }
+      function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+
+      btns.forEach(function(b){
+        b.addEventListener('click', function(){
+          show(parseInt(b.dataset.go, 10));
+          start(); // 手动切换后重置计时
+        });
+      });
+      // 悬停：暂停自动轮播（呼吸由 CSS :hover 暂停），离开恢复
+      stage.addEventListener('mouseenter', function(){ hovering = true; stop(); });
+      stage.addEventListener('mouseleave', function(){ hovering = false; armBreathe(cards[i]); start(); });
+
+      armBreathe(cards[0]); // 首张卡片起始呼吸
+      start();
+    })();
+  </script>
 
   <!-- ===== 底部 CTA 转化带 ===== -->
   <section class="cta-band">

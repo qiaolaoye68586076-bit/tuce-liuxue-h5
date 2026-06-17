@@ -52,56 +52,6 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* ===================== 核心亮点滑动卡片 ===================== */
-  var statsTrack = $('.stats__track');
-  var statsPrev = $('.stats__prev');
-  var statsNext = $('.stats__next');
-  var statsDots = $('.stats__dots');
-
-  function updateStatsDots() {
-    if (!statsTrack || !statsDots) return;
-    var cards = Array.prototype.slice.call(statsTrack.querySelectorAll('.stat-card'));
-    var center = statsTrack.scrollLeft + statsTrack.clientWidth / 2;
-    cards.forEach(function (card, idx) {
-      var dot = statsDots.children[idx];
-      if (!dot) return;
-      var left = card.offsetLeft;
-      var right = left + card.offsetWidth;
-      dot.classList.toggle('active', center >= left && center < right);
-    });
-  }
-
-  if (statsTrack) {
-    var statCards = Array.prototype.slice.call(statsTrack.querySelectorAll('.stat-card'));
-    if (statsDots && statCards.length) {
-      statCards.forEach(function (card, idx) {
-        var dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'stats__dot' + (idx === 0 ? ' active' : '');
-        dot.addEventListener('click', function () {
-          statsTrack.scrollTo({ left: card.offsetLeft, behavior: 'smooth' });
-        });
-        statsDots.appendChild(dot);
-      });
-    }
-
-    if (statsPrev) {
-      statsPrev.addEventListener('click', function () {
-        statsTrack.scrollBy({ left: -statsTrack.clientWidth * 0.85, behavior: 'smooth' });
-      });
-    }
-    if (statsNext) {
-      statsNext.addEventListener('click', function () {
-        statsTrack.scrollBy({ left: statsTrack.clientWidth * 0.85, behavior: 'smooth' });
-      });
-    }
-
-    statsTrack.addEventListener('scroll', function () {
-      if (this._statsDotTimer) clearTimeout(this._statsDotTimer);
-      this._statsDotTimer = setTimeout(updateStatsDots, 50);
-    });
-  }
-
   /* ===================== 申请流程滑动卡片（板块3） ===================== */
   var flowTrack = $('.flow__track');
   var flowPrev  = $('.flow__prev');
