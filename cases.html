@@ -66,7 +66,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=4" />
+  <link rel="stylesheet" href="css/style.css?v=9" />
 
   <!-- ===== 案例详情卡（页内局部样式，沿用全站配色变量） ===== -->
   <style>
@@ -118,6 +118,7 @@
         <a href="services.html">服务</a>
         <a href="teachers.html">师资</a>
         <a href="cases.html" class="is-active">案例</a>
+        <a href="index.html#faq">常见问题</a>
       </nav>
       <a href="index.html#consult" class="btn btn--cta nav__cta">免费评估</a>
       <button class="nav__burger" id="burger" aria-label="菜单">
@@ -129,6 +130,7 @@
       <a href="services.html">服务</a>
       <a href="teachers.html">师资</a>
       <a href="cases.html" class="is-active">案例</a>
+      <a href="index.html#faq">常见问题</a>
       <a href="index.html#consult" class="btn btn--cta">免费评估</a>
     </div>
   </header>
@@ -309,45 +311,65 @@
     </div>
   </section>
 
-  <!-- ===== 页脚（全站共用） ===== -->
+  <!-- ===== 页脚（全站共用 · 深色四栏） ===== -->
   <footer class="footer">
     <div class="footer__inner">
+
+      <!-- 1 · 品牌 -->
       <div class="footer__brand">
         <div class="brand brand--footer">
           <span class="brand__text"><b>途策留学</b><i>TUCE&nbsp;EDUCATION</i></span>
         </div>
-        <p class="footer__claim">途策必达</p>
-        <p>用专业策略，陪你抵达理想院校。</p>
+        <p class="footer__desc">用专业策略，陪你抵达理想院校。</p>
       </div>
+
+      <!-- 2 · 联系方式 -->
       <div class="footer__col">
-        <h4>服务</h4>
-        <a href="services.html#undergrad">美国本科</a>
-        <a href="services.html">研究生</a>
-        <a href="services.html">转学</a>
-        <a href="services.html">英欧加港本科</a>
+        <h4>联系方式</h4>
+        <ul class="footer__contact">
+          <li>
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A15 15 0 0 1 4 5a1 1 0 0 1 1-1z"/></svg>
+            <a href="tel:400-XXX-XXXX">400-XXX-XXXX</a>
+          </li>
+          <li>
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <a href="mailto:contact@tuce-edu.com">contact@tuce-edu.com</a>
+          </li>
+          <li>
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>
+            <span>上海市 · 详细地址待补充</span>
+          </li>
+        </ul>
       </div>
+
+      <!-- 3 · 快速链接 -->
       <div class="footer__col">
-        <h4>探索</h4>
+        <h4>快速链接</h4>
         <a href="services.html">服务方案</a>
         <a href="teachers.html">师资团队</a>
         <a href="cases.html">成功案例</a>
-        <a href="cases.html">录取去向</a>
         <a href="index.html#faq">常见问题</a>
       </div>
-      <div class="footer__qr footer__qr--dual">
-        <div class="qr-item">
-          <div class="qr qr--sm" aria-label="顾问微信二维码">
-            <img src="assets/qr-code.png" alt="顾问微信二维码" loading="lazy" />
+
+      <!-- 4 · 关注我们 -->
+      <div class="footer__col">
+        <h4>关注我们</h4>
+        <div class="footer__qr footer__qr--dual">
+          <div class="qr-item">
+            <div class="qr qr--sm" aria-label="顾问微信二维码">
+              <img src="assets/qr-code.jpg" alt="顾问微信二维码" loading="lazy" />
+            </div>
+            <p>顾问微信</p>
           </div>
-          <p>顾问微信</p>
-        </div>
-        <div class="qr-item">
-          <div class="qr qr--sm" aria-label="微信公众号二维码">
-            <img src="assets/qr-official.png" alt="微信公众号二维码" onerror="this.style.display='none';this.parentNode.classList.add('qr--empty');this.parentNode.dataset.ph='公众号二维码'" />
+          <div class="qr-item">
+            <div class="qr qr--sm" aria-label="微信公众号二维码">
+              <img src="assets/qr-official.jpg" alt="微信公众号二维码" onerror="this.style.display='none';this.parentNode.classList.add('qr--empty');this.parentNode.dataset.ph='公众号二维码'" />
+            </div>
+            <p>微信公众号</p>
           </div>
-          <p>微信公众号</p>
         </div>
       </div>
+
     </div>
     <div class="footer__bar">
       <span>© 2026 途策留学 TuCe Education. 保留所有权利。</span>
