@@ -78,7 +78,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=13" />
+  <link rel="stylesheet" href="css/style.css?v=14" />
   <!-- ===== FAQ结构化数据（提高AI引用率） ===== -->
   <script type="application/ld+json">
   {
@@ -137,6 +137,7 @@
       <symbol id="ic-arrow" viewBox="0 0 24 24"><path d="M4 12h15M14 6.5 19.5 12 14 17.5"/></symbol>
       <symbol id="ic-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.6 2.4 2.6 14.6 0 17"/><path d="M12 3.5c-2.6 2.4-2.6 14.6 0 17"/></symbol>
       <symbol id="ic-quote" viewBox="0 0 24 24"><path d="M10 5C6.5 6.2 4.5 9 4.5 13v6h6v-7H7.4C7.6 9.7 8.6 8 10 7.2zM21 5c-3.5 1.2-5.5 4-5.5 8v6h6v-7h-3.1c.2-2.3 1.2-4 2.6-4.8z"/></symbol>
+      <symbol id="ic-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 12h6M9.5 15.5h6"/></symbol>
     </defs>
   </svg>
 
@@ -156,6 +157,7 @@
         <a href="teachers.html">师资</a>
         <a href="cases.html">案例</a>
         <a href="#faq">常见问题</a>
+        <a href="blog.html">洞察</a>
       </nav>
       <a href="#consult" class="btn btn--cta nav__cta">免费评估</a>
       <button class="nav__burger" id="burger" aria-label="菜单">
@@ -168,6 +170,7 @@
       <a href="teachers.html">师资</a>
       <a href="cases.html">案例</a>
       <a href="#faq">常见问题</a>
+      <a href="blog.html">洞察</a>
       <a href="#consult" class="btn btn--cta">免费评估</a>
     </div>
   </header>
@@ -177,10 +180,6 @@
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <p class="hero-label" aria-label="途策留学 · 高端留学申请机构 · 策略定制">
-        <span class="hero-label__dot" aria-hidden="true"></span>
-        高端留学申请机构 · 策略定制
-      </p>
       <h1 class="hero-title">
         <span class="hero-title-line1">大多数留学申请，</span>
         <span class="hero-title-line2"><em>长得一模一样。</em></span>
@@ -413,7 +412,20 @@
     </div>
   </section>
 
-  <!-- ===== 板块 4 · 联系我们 / 转化（深色底） ===== -->
+  <!-- ===== 板块 5 · 留学洞察预览（深米底） ===== -->
+  <section class="section insights-band sec-bleed" id="insights">
+    <div class="section__head reveal">
+      <p class="eyebrow">INSIGHTS · 留学洞察</p>
+      <h2>留学洞察</h2>
+      <p class="lead">来自途策一线的策略分享。</p>
+    </div>
+    <div class="post-grid" id="homeInsights"></div>
+    <div class="insights-band__more reveal">
+      <a href="blog.html">查看全部文章 <svg class="ic"><use href="#ic-arrow"/></svg></a>
+    </div>
+  </section>
+
+  <!-- ===== 板块 6 · 联系我们 / 转化（深色底） ===== -->
   <section class="section consult sec-bleed sec-dark" id="consult">
     <div class="section__head reveal" style="max-width:760px;margin-bottom:40px">
       <p class="eyebrow">GET STARTED · 联系我们</p>
@@ -527,6 +539,7 @@
         <a href="teachers.html">师资团队</a>
         <a href="cases.html">成功案例</a>
         <a href="index.html#faq">常见问题</a>
+        <a href="blog.html">留学洞察</a>
       </div>
 
       <!-- 4 · 关注我们 -->
@@ -575,5 +588,63 @@
   <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script src="js/main.js?v=4"></script>
   <script src="js/experience.js"></script>
+
+  <!-- ===== 板块5 · 留学洞察预览（取最新 3 篇） ===== -->
+  <script>
+  (function () {
+    'use strict';
+    var grid = document.getElementById('homeInsights');
+    if (!grid) return;
+
+    var CAT_BG = {
+      '英国地区': 'rgba(20,52,43,0.06)', '美国地区': 'rgba(20,52,43,0.06)',
+      '香港·新加坡': 'rgba(168,145,87,0.1)', '澳洲·加拿大': 'rgba(181,105,77,0.1)',
+      '专业解读': 'rgba(30,74,60,0.08)'
+    };
+    var CAT_FG = {
+      '英国地区': '#14342B', '美国地区': '#14342B',
+      '香港·新加坡': '#A89157', '澳洲·加拿大': '#B5694D', '专业解读': '#1E4A3C'
+    };
+    function bg(c){ return CAT_BG[c] || 'rgba(20,52,43,0.06)'; }
+    function fg(c){ return CAT_FG[c] || '#14342B'; }
+    function esc(s){
+      return String(s == null ? '' : s)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    // 首页卡片：不显示分类标签，只显示标题 + 日期
+    function cardHTML(a){
+      var thumb = a.cover_url
+        ? '<img src="'+esc(a.cover_url)+'" alt="'+esc(a.title)+'" loading="lazy" />'
+        : '<svg class="ic" style="color:'+fg(a.category)+'"><use href="#ic-doc"/></svg>';
+      var thumbBg = a.cover_url ? '' : ' style="background:'+bg(a.category)+'"';
+      return '<article class="blog-card post-card" role="link" tabindex="0" data-url="'+esc(a.url)+'">'+
+          '<div class="post-card__main">'+
+            '<h3 class="post-card__title">'+esc(a.title)+'</h3>'+
+            '<span class="post-card__date">'+esc(a.publish_time)+'</span>'+
+          '</div>'+
+          '<div class="post-card__thumb"'+thumbBg+'>'+thumb+'</div>'+
+        '</article>';
+    }
+    function open(url){ if (url) window.open(url, '_blank', 'noopener'); }
+
+    fetch('articles.json', { cache: 'no-cache' })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        var arts = ((data && data.articles) || [])
+          .slice()
+          .sort(function(a,b){ return (b.publish_time||'').localeCompare(a.publish_time||''); })
+          .slice(0, 3);
+        if (!arts.length) { grid.innerHTML = ''; return; }
+        grid.innerHTML = arts.map(cardHTML).join('');
+        Array.prototype.forEach.call(grid.querySelectorAll('.post-card'), function(card){
+          card.addEventListener('click', function(){ open(card.getAttribute('data-url')); });
+          card.addEventListener('keydown', function(e){
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card.getAttribute('data-url')); }
+          });
+        });
+      })
+      .catch(function(){ grid.innerHTML = ''; });
+  })();
+  </script>
 </body>
 </html>

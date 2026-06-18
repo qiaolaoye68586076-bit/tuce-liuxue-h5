@@ -1,0 +1,65 @@
+{
+  "updated_at": "2026-06-18T10:00:00+08:00",
+  "articles": [
+    {
+      "id": "001",
+      "title": "2026 Fall 美本申请复盘：哪些「常识」正在过时？",
+      "digest": "从今年的录取数据看，盲目堆活动、套用文书模板的申请者正在被系统性筛掉。真正拿到顶尖录取的学生，做对了什么？",
+      "cover_url": "",
+      "url": "https://mp.weixin.qq.com/s/placeholder1",
+      "publish_time": "2026-06-15",
+      "category": "美国地区",
+      "pinned": true
+    },
+    {
+      "id": "002",
+      "title": "Common App 主文书的三种致命开头",
+      "digest": "招生官每年读上千篇文书，这三种开头会让你的文章在前三秒被跳过。",
+      "cover_url": "",
+      "url": "https://mp.weixin.qq.com/s/placeholder2",
+      "publish_time": "2026-06-10",
+      "category": "美国地区",
+      "pinned": false
+    },
+    {
+      "id": "003",
+      "title": "UCL 还是 KCL？伦敦双校的真实对比",
+      "digest": "排名接近的两所学校，录取逻辑、校园体验、就业路径完全不同。",
+      "cover_url": "",
+      "url": "https://mp.weixin.qq.com/s/placeholder3",
+      "publish_time": "2026-06-05",
+      "category": "英国地区",
+      "pinned": false
+    },
+    {
+      "id": "004",
+      "title": "港三新二还能冲吗？2027 申请季前瞻",
+      "digest": "香港和新加坡头部院校的竞争烈度已经不输美国 Top 30，提前一年准备才是正解。",
+      "cover_url": "",
+      "url": "https://mp.weixin.qq.com/s/placeholder4",
+      "publish_time": "2026-05-28",
+      "category": "香港·新加坡",
+      "pinned": false
+    },
+    {
+      "id": "005",
+      "title": "计算机 vs 数据科学：哪个更适合你？",
+      "digest": "两个热门专业的课程设置、就业方向、申请难度全方位拆解。",
+      "cover_url": "",
+      "url": "https://mp.weixin.qq.com/s/placeholder5",
+      "publish_time": "2026-05-20",
+      "category": "专业解读",
+      "pinned": false
+    },
+    {
+      "id": "006",
+      "title": "墨尔本大学 vs 悉尼大学：澳洲双子星怎么选",
+      "digest": "两所 G8 领头校的风格差异比你想象的大。",
+      "cover_url": "",
+      "url": "https://mp.weixin.qq.com/s/placeholder6",
+      "publish_time": "2026-05-15",
+      "category": "澳洲·加拿大",
+      "pinned": false
+    }
+  ]
+}

@@ -1427,7 +1427,7 @@ html.has-gsap .reveal{ transition:none; }
 /* =========================================================
    ✦ 服务 Hub 重构 + 详情页（2026-06-17）
    新增组件：面包屑 / featured 标签+深入链接 / 整卡可点击 +
-   服务卡标签 / 商务合作横幅 / 详情页占位区 / 训���营链接按钮
+   服务卡标签 / 商务合作横幅 / 详情页占位区 / 训练营链接按钮
    ========================================================= */
 
 /* —— 面包屑（详情页顶部，第一元素需清开 fixed nav）—— */
@@ -1586,4 +1586,156 @@ a.card{ color:inherit; }
   .services-page .card--single .card__menu{
     margin-top:0; flex:0 0 auto; max-width:48%; justify-content:flex-end;
   }
+}
+
+/* =========================================================
+   ✦ 留学洞察 / 博客（blog.html）+ 首页板块5（2026-06-18）
+   复用全站色值与卡片语气，不引入新色
+   ========================================================= */
+/* 顶部浅米带：Hero + 分类筛选 + 置顶文章共用 #f5f0e8 */
+.blog-top{ background:#f5f0e8; }
+.blog-top__inner,
+.blog-list__inner{ max-width:var(--maxw); margin:0 auto; padding:0 22px; }
+.blog-top__inner{ padding-top:120px; padding-bottom:64px; }
+
+/* Hero */
+.blog-hero{ max-width:720px; }
+.blog-hero__kicker{
+  display:inline-flex; align-items:center; gap:12px; margin-bottom:18px;
+}
+.blog-hero__kicker::before{
+  content:""; width:3px; height:18px; background:var(--gold); border-radius:2px;
+}
+.blog-hero__kicker span{
+  font-stretch:80%; font-weight:700; font-size:12.5px;
+  letter-spacing:2px; color:var(--gold); text-transform:uppercase;
+}
+.blog-hero h1{
+  font-stretch:74%; font-weight:850; letter-spacing:-.015em; color:var(--green);
+  font-size:clamp(34px,7vw,58px); line-height:1.06;
+}
+.blog-hero__sub{
+  margin-top:18px; color:var(--muted); font-size:16px; line-height:1.85; max-width:54ch;
+}
+
+/* 分类筛选药丸 */
+.blog-filter{
+  display:flex; flex-wrap:wrap; gap:10px; margin-top:38px;
+}
+.pill{
+  border:none; cursor:pointer; font-family:var(--sans);
+  font-size:13.5px; font-weight:600; letter-spacing:.01em;
+  padding:9px 18px; border-radius:999px; color:var(--green);
+  background:rgba(20,52,43,.08); transition:background .25s, color .25s, transform .2s;
+}
+.pill:hover{ transform:translateY(-1px); }
+.pill.is-active{ background:var(--green); color:#fff; }
+
+/* 卡片基础阴影（博客共用） */
+.blog-card{
+  background:var(--card); border-radius:12px; overflow:hidden;
+  box-shadow:0 1px 3px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.03);
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+  cursor:pointer;
+}
+.blog-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(0,0,0,.08), 0 12px 28px rgba(0,0,0,.05);
+}
+
+/* 置顶文章大卡片 */
+.featured-post{ margin-top:40px; }
+.featured-post__cover{
+  position:relative; height:180px; background:var(--green);
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
+}
+.featured-post__cover img{ width:100%; height:100%; object-fit:cover; }
+.featured-post__cover-ph .ic{ width:46px; height:46px; color:rgba(255,255,255,.35); }
+.featured-post__watermark{
+  position:absolute; right:18px; bottom:6px;
+  font-stretch:74%; font-weight:850; letter-spacing:.04em;
+  font-size:clamp(40px,8vw,72px); line-height:1;
+  color:rgba(255,255,255,.08); pointer-events:none; user-select:none;
+}
+.featured-post__body{ padding:26px 28px 28px; }
+.featured-post__tags{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:14px; }
+.tag-pin{
+  font-size:12px; font-weight:700; letter-spacing:.04em;
+  padding:4px 11px; border-radius:999px;
+  background:rgba(168,145,87,.12); color:var(--gold);
+}
+.cat-tag{
+  font-size:12px; font-weight:700; letter-spacing:.03em;
+  padding:4px 11px; border-radius:999px;
+}
+.featured-post__title{
+  font-stretch:78%; font-weight:850; font-size:clamp(22px,3.4vw,28px);
+  line-height:1.25; color:var(--green); margin-bottom:12px;
+}
+.featured-post__digest{ color:#555555; font-size:15px; line-height:1.8; max-width:62ch; }
+.featured-post__foot{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:20px; padding-top:18px; border-top:1px solid var(--line);
+}
+.featured-post__date{ color:var(--muted); font-size:13.5px; }
+.featured-post__more{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:14px; font-weight:700; color:var(--terra);
+}
+
+/* 最新文章列表（深米底 #eae4d9） */
+.blog-list{ background:#eae4d9; }
+.blog-list__inner{ padding-top:64px; padding-bottom:80px; }
+.blog-list__kicker{
+  font-size:13px; font-weight:700; letter-spacing:.06em;
+  color:var(--muted); text-transform:none; margin-bottom:22px;
+}
+.post-grid{ display:grid; gap:16px; }
+.post-card{ display:flex; align-items:stretch; gap:18px; padding:18px 20px; }
+.post-card__main{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; }
+.post-card__title{
+  font-weight:500; font-size:17px; line-height:1.5; color:var(--green);
+  margin:10px 0 0;
+}
+.post-card .cat-tag{ align-self:flex-start; }
+.post-card__date{ margin-top:auto; padding-top:12px; color:var(--muted); font-size:13px; }
+.post-card__thumb{
+  flex:0 0 auto; width:72px; height:72px; border-radius:8px; overflow:hidden;
+  display:flex; align-items:center; justify-content:center; align-self:center;
+}
+.post-card__thumb img{ width:100%; height:100%; object-fit:cover; }
+.post-card__thumb .ic{ width:26px; height:26px; }
+
+/* 加载更多 */
+.blog-list__more{ display:flex; justify-content:center; margin-top:34px; }
+.blog-list__more[hidden]{ display:none; }
+.blog-empty{ color:var(--muted); font-size:14.5px; padding:30px 0; text-align:center; }
+
+@media (min-width:760px){
+  .post-card{ padding:20px 24px; }
+  .post-card__thumb{ width:84px; height:84px; }
+}
+
+/* 窄屏：缩略图缩小 */
+@media (max-width:520px){
+  .post-card{ gap:14px; padding:16px; }
+  .post-card__thumb{ width:60px; height:60px; }
+  .post-card__title{ font-size:15.5px; }
+  .featured-post__cover{ height:150px; }
+}
+
+/* =========================================================
+   首页板块5 · 留学洞察预览（深米底 #eae4d9）
+   ========================================================= */
+.insights-band.sec-bleed::before{ background:#eae4d9; }
+.insights-band .post-grid{ margin-top:8px; }
+.insights-band__more{ margin-top:34px; }
+.insights-band__more a{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:15px; font-weight:700; color:var(--green);
+  border-bottom:1px solid transparent; transition:border-color .25s;
+}
+.insights-band__more a:hover{ border-color:var(--green); }
+@media (min-width:760px){
+  .insights-band .post-grid{ grid-template-columns:repeat(3,1fr); gap:16px; }
 }
