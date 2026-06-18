@@ -42,7 +42,8 @@ from bs4 import BeautifulSoup
 logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO)
 log = logging.getLogger("scrape")
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+# 脚本已移入 scripts/，ROOT 指向仓库根（上一级），以便仍写入根目录的 reference/
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_BASE = "https://stoooges.com/web/"
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "

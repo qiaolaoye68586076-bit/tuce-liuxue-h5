@@ -249,3 +249,26 @@
 ### 遗留 / 下次继续
 - 本机磁盘吃紧 + 无浏览器，未做截图；建议本地 `open index.html` 确认三张流程卡时间轴占满、Footer 四栏在桌面/移动端表现、导航 CTA 浮动不抖
 - Footer 联系方式电话/邮箱/地址仍为占位（`400-XXX-XXXX` / `contact@tuce-edu.com` / 上海市），待客户提供真实信息
+
+---
+
+## 2026-06-18 · 工程化目录重构（前后端分离预留）
+
+### 完成
+- **前端整体平移**：11 个 HTML + `css/` `js/`（含 `vendor/`）+ `assets/` `images/` + `articles.json` + `robots.txt`/`sitemap.xml` 一起搬入 `frontend/`；因引用全是「无前导斜杠」相对路径、与资源目录保持同级，**HTML/JS 引用零改动**（已逐项校验命中）
+- **新建工程目录**：`backend/`（Flask 预留，含 README，`leads.db` 已 gitignore）、`scripts/`（`scrape_reference.py` 归位）
+- **归档弃用栈**：`legacy/`（旧版）+ `site/`（Astro 探索项目）统一移入 `archive/`，根目录清爽
+- **脚本修补**：`scrape_reference.py` 移入 `scripts/` 后，`ROOT` 由 `dirname(__file__)` 改为再上一级，确保仍写入仓库根的 `reference/`
+- **.gitignore**：新增 `backend/*.db`、`backend/instance/`
+- **全程 `git mv`**：77 文件识别为 rename，git 历史 100% 保留（脚本 98%，因改了 ROOT 一行）
+- 两次提交：`ee6a7bf`(refactor) + `5f43495`(docs 同步 CLAUDE.md 文件结构/路径/对话记录)
+
+### Debug / 踩坑
+| 现象 | 原因 | 解决方式 |
+|---|---|---|
+| 脚本移入子目录会写错位置 | `scrape_reference.py` 用 `ROOT=dirname(__file__)` 拼 `reference/`，移到 `scripts/` 后 ROOT 变成 scripts | 改为 `dirname(dirname(__file__))` 指向仓库根 |
+
+### 遗留 / 下次继续
+- ⚠️ **部署须知**：必须让 `frontend/` 作为 web 根目录，否则 `robots.txt`/`sitemap.xml` 不在域名根，AI 爬虫/百度读不到（关系到 GEO 与 SSL 上线）
+- `backend/app.py` 待开发：接 `LEAD_ENDPOINT` 留资表单 + SQLite
+- `scripts/sync_articles.py` 待开发：同步公众号文章 → `frontend/articles.json`

@@ -9,17 +9,24 @@
 **客户：** 途策留学（TUCE Education）/ 上海途策必达教育科技有限公司  
 **项目：** H5 官网（单页，静态 HTML/CSS/JS）  
 **设计风格：** Collegiate Editorial Luxury — 深森林绿 + 暖金 + 米纸，Fraunces / 思源宋体  
-**文件结构：**
+**文件结构：**（2026-06-18 工程化重构，前后端分离预留）
 ```
-index.html      主页面
-css/style.css   全站样式
-js/main.js      交互逻辑
-assets/         图片、logo、二维码
-reference/      竞品参考（stoooges）
-途策留学_GEO诊断报告.md
-途策官网_GEO搭建需求清单.md
-GEO完整学习笔记.md
+frontend/                  前端整体（部署时以此为 web 根目录）
+├── index.html             主页面
+├── *.html                 子页面（services/teachers/cases/blog/meiben…）
+├── css/style.css          全站样式
+├── js/main.js             交互逻辑（experience.js 动效 + vendor/ GSAP）
+├── assets/                图片、logo、二维码
+├── images/                封面图
+├── articles.json          博客数据（index/blog 通过 fetch 读取）
+├── robots.txt sitemap.xml SEO（须随 frontend/ 部署在域名根）
+backend/                   预留 Flask（app.py / leads.db）
+scripts/                   独立 Python 脚本（scrape_reference.py / 后续 sync_articles.py）
+archive/                   归档：legacy/ 旧版 + site/ Astro 探索项目
+reference/                 竞品参考（stoooges）
+途策留学_GEO诊断报告.md / 途策官网_GEO搭建需求清单.md / GEO完整学习笔记.md
 ```
+> ⚠️ 资源引用均为「无前导斜杠」相对路径，HTML 与 css/js/assets 保持同级，整体平移不破坏路径。部署务必让 `frontend/` 作为 web 根，否则 robots.txt/sitemap.xml 不在域名根，AI 爬虫读不到。
 
 ---
 
@@ -62,8 +69,9 @@ GEO完整学习笔记.md
 - [ ] 协议弹层：替换为正式《用户协议》与《隐私政策》全文
 
 ### 技术待接入
-- [ ] 留资表单后端：配置 `LEAD_ENDPOINT`（`js/main.js` 第 9 行）
-- [ ] 微信公众号二维码：`assets/qr-official.png`（目前缺图有兜底）
+- [ ] 留资表单后端：配置 `LEAD_ENDPOINT`（`frontend/js/main.js` 第 9 行）；后端代码落地 `backend/app.py`
+- [ ] 微信公众号二维码：`frontend/assets/qr-official.png`（目前缺图有兜底）
+- [ ] 公众号文章同步脚本：`scripts/sync_articles.py` → 输出 `frontend/articles.json`（待开发）
 
 ### GEO / SEO（AI 可见度）
 - 诊断结论：途策留学**目前未被 AI 提及**（见 `途策留学_GEO诊断报告.md`）
@@ -97,6 +105,7 @@ GEO完整学习笔记.md
 | 2026-06-15 | 第二轮细调：导航去数字编号；Hero 删徽章+加品牌大字；数字区放大 1.6×+落定弹跳+单位描金；板块换色(`.sec-bleed` 深绿/微灰区分)；确认 FAQ 在 CTA 前 |
 | 2026-06-16 | 导航新增「常见问题」项（案例与免费评估之间）：首页用 `#faq`、子页面用 `index.html#faq`，桌面+移动抽屉全部同步（4 页共 8 处） |
 | 2026-06-16 | 第三轮调整：申请流程时间轴 flex 化连线占满卡片宽度（含移动端竖向）；Footer 改深色四栏（品牌/联系方式/快速链接/关注我们）+底部版权条，4 页共用；导航免费评估按钮加浮动+脉冲动画（hover 暂停）；首页导师团队链接改描边按钮 `.btn--line`；css `?v=5` 破缓存 |
+| 2026-06-18 | **工程化目录重构**：HTML+css/js/assets/images+articles.json+SEO 整体平移入 `frontend/`（相对路径零改动，77 文件 git mv 保历史）；新建 `backend/`(Flask 预留)、`scripts/`(scrape_reference.py 归位+修 ROOT)；`legacy/`+`site/` 归档进 `archive/`；`.gitignore` 加 backend 运行时忽略 |
 
 ---
 

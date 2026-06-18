@@ -30,3 +30,7 @@ reference/*.png
 
 # Node deps (do not commit)
 node_modules/
+
+# Backend (Flask) runtime artifacts
+backend/*.db
+backend/instance/
