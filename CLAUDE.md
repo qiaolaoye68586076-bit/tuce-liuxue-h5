@@ -7,7 +7,7 @@
 ## 项目概况
 
 **客户：** 途策留学（TUCE Education）/ 上海途策必达教育科技有限公司  
-**项目：** H5 官网（单页，静态 HTML/CSS/JS）  
+**项目：** H5 官网（多页面架构，静态前端 + 轻后端规划中）；已部署上线 http://121.43.101.155，ICP 备案中  
 **设计风格：** Collegiate Editorial Luxury — 深森林绿 + 暖金 + 米纸，Fraunces / 思源宋体  
 **文件结构：**（2026-06-18 工程化重构，前后端分离预留）
 ```
@@ -21,7 +21,8 @@ frontend/                  前端整体（部署时以此为 web 根目录）
 ├── articles.json          博客数据（index/blog 通过 fetch 读取）
 ├── robots.txt sitemap.xml SEO（须随 frontend/ 部署在域名根）
 backend/                   预留 Flask（app.py / leads.db）
-scripts/                   独立 Python 脚本（scrape_reference.py / 后续 sync_articles.py）
+scripts/                   独立 Python 脚本（scrape_reference.py；sync_articles.py 待开发：cron 调公众号 API → articles.json）
+docs/                      项目级文档（DOMAIN-CUTOVER.md 域名切换/备案验收清单；未来 handoff 文档归属地）
 archive/                   归档：legacy/ 旧版 + site/ Astro 探索项目
 reference/                 竞品参考（stoooges）
 途策留学_GEO诊断报告.md / 途策官网_GEO搭建需求清单.md / GEO完整学习笔记.md
@@ -69,16 +70,18 @@ reference/                 竞品参考（stoooges）
 - [ ] 协议弹层：替换为正式《用户协议》与《隐私政策》全文
 
 ### 技术待接入
-- [ ] 留资表单后端：配置 `LEAD_ENDPOINT`（`frontend/js/main.js` 第 9 行）；后端代码落地 `backend/app.py`
+- [ ] 留资表单后端（CTA）：Flask + SQLite + 微信推送（Server酱 或 pushplus）；前端已预留 `LEAD_ENDPOINT`（`frontend/js/main.js` 第 9 行），后端代码落地 `backend/app.py`（启用时注意 `LEAD_ENDPOINT` 注释示例域名修正，详见 docs/DOMAIN-CUTOVER.md §3.1）
 - [ ] 微信公众号二维码：`frontend/assets/qr-official.png`（目前缺图有兜底）
-- [ ] 公众号文章同步脚本：`scripts/sync_articles.py` → 输出 `frontend/articles.json`（待开发）
+- [ ] 公众号文章同步：Python cron job 调公众号 API → 生成 `frontend/articles.json`（脚本 `scripts/sync_articles.py` 待开发，blog.html 消费此文件）
+
+> ⚠️ 后端上线时需同步扩展：`deploy.sh`（增加后端部署逻辑或拆出 `deploy-backend.sh`）/ `nginx.conf.example`（加 `location /api/` 反代到 Flask）/ `docs/DOMAIN-CUTOVER.md`（补后端域名策略一节）
 
 ### GEO / SEO（AI 可见度）
 - 诊断结论：途策留学**目前未被 AI 提及**（见 `途策留学_GEO诊断报告.md`）
 - 已做：
   - [x] FAQ JSON-LD 结构化数据、EducationalOrganization schema（含 logo/address/knowsAbout）
   - [x] `robots.txt`：允许百度/字节/DeepSeek/GPTBot/Claude 等 AI 爬虫
-  - [x] `sitemap.xml`：首页 + services.html + teachers.html + cases.html（重构后已补全）
+  - [x] `sitemap.xml`：全部 11 个页面（首页 / services 及 6 详情页 / teachers / cases / blog，M2-b 补全 blog）
   - [x] `cases.html` 案例详情页（ItemList + Review Schema）
   - [x] 首页 title 加年份"2026"
 - 待做：
@@ -88,6 +91,8 @@ reference/                 竞品参考（stoooges）
   - [ ] 知乎机构号 + 第一篇 GEO 文章
   - [ ] 百度百家号开通
   - [ ] cases.html 填入真实案例内容
+  - [ ] 9 个页面缺 og:image：services.html / meiben.html / writing-camp.html / graduate.html / transfer.html / uk-eu.html / single-service.html / teachers.html / cases.html —— 候选并入未来 GEO 批次
+  - [ ] 备案后清理 nginx conflicting server name "_" warning（详见 docs/DOMAIN-CUTOVER.md §4.11）
 
 ---
 
@@ -106,6 +111,8 @@ reference/                 竞品参考（stoooges）
 | 2026-06-16 | 导航新增「常见问题」项（案例与免费评估之间）：首页用 `#faq`、子页面用 `index.html#faq`，桌面+移动抽屉全部同步（4 页共 8 处） |
 | 2026-06-16 | 第三轮调整：申请流程时间轴 flex 化连线占满卡片宽度（含移动端竖向）；Footer 改深色四栏（品牌/联系方式/快速链接/关注我们）+底部版权条，4 页共用；导航免费评估按钮加浮动+脉冲动画（hover 暂停）；首页导师团队链接改描边按钮 `.btn--line`；css `?v=5` 破缓存 |
 | 2026-06-18 | **工程化目录重构**：HTML+css/js/assets/images+articles.json+SEO 整体平移入 `frontend/`（相对路径零改动，77 文件 git mv 保历史）；新建 `backend/`(Flask 预留)、`scripts/`(scrape_reference.py 归位+修 ROOT)；`legacy/`+`site/` 归档进 `archive/`；`.gitignore` 加 backend 运行时忽略 |
+| 2026-06-18 | **ECS 部署上线**：阿里云华东1（2核2GB / Alibaba Cloud Linux 3 / Nginx 1.24），公网可访问 http://121.43.101.155（备案中暂用 IP）；**M1 部署工具链**（commit 6482182）：deploy.sh（dry-run/verbose/backup + title 校验 + nginx -t&reload）/ DEPLOY.md / nginx.conf.example；顺带清理 37MB 冗余资源（618d4f7）|
+| 2026-06-19 | **M2 SEO 修复批次**：og:image 全站统一为 og-cover.jpg（index 3 处 + blog 死链修复，png→jpg 1.46MB→293KB，f2b582a）；blog.html 补进 sitemap 10→11 条（487cf65）；新建 **docs/DOMAIN-CUTOVER.md**：81 处 tuce.asia 硬编码盘点（A–F 六类）+ 备案验收清单 + 替换备用方案（5cfda8e）|
 
 ---
 

@@ -272,3 +272,53 @@
 - ⚠️ **部署须知**：必须让 `frontend/` 作为 web 根目录，否则 `robots.txt`/`sitemap.xml` 不在域名根，AI 爬虫/百度读不到（关系到 GEO 与 SSL 上线）
 - `backend/app.py` 待开发：接 `LEAD_ENDPOINT` 留资表单 + SQLite
 - `scripts/sync_articles.py` 待开发：同步公众号文章 → `frontend/articles.json`
+
+---
+
+## 2026-06-18 · 部署上线 + 部署工具链（M1：首次公网可访问 + deploy.sh 一键部署）
+
+### 完成
+- **阿里云 ECS 部署上线**：华东1·杭州 2核2GB / Alibaba Cloud Linux 3 / Nginx 1.24；rsync 本地 `frontend/` → `/var/www/tuce/`，站点配置 `/etc/nginx/conf.d/tuce.conf`；**公网首次可访问 http://121.43.101.155**（备案中，暂用 IP）
+- **SSH 免密直连**：配置密钥 + 本地 `~/.ssh/config` 别名 `ssh tuce` 一行直连；SSH 端口改 **22022**（学校 WiFi 封 22）；阿里云安全组放行 22022 / 80 / 443
+- **M1 部署工具链（commit 6482182）**：
+  - `deploy.sh`：rsync 部署脚本，`-n`(dry-run) / `-v`(verbose) / `--backup`；本地 `<title>` 校验、变更 stats 统计、>10 文件警告、远端 `nginx -t && reload`（graceful）
+  - `DEPLOY.md`：中文部署文档 + 故障排查清单
+  - `nginx.conf.example`：线上 Nginx 配置的版本控制副本
+- **部署演练流程跑通**：`./deploy.sh -n` 验收得到「✓ 无变更，本地与远端已同步」干净基线，确立「演练 → 看 itemize → 正式部署」工作流
+- **顺带清理 37MB 冗余资源（commit 618d4f7）**：删除 HTML 未引用的 mentor-01~04.png / qr 双份 / hero-bg / 重复封面，工作区 51MB → 14MB，rsync 才传得动
+
+### Debug / 踩坑
+| 现象 | 原因 | 解决方式 |
+|---|---|---|
+| SSH 连不上（22 端口）| 学校 Monash WiFi 封了 22 | sshd 配 `Port 22022` + 安全组加 22022 规则 |
+| rsync 卡顿 / 上行极慢 | 学校 WiFi 上行 ~30KB/s + 大图体积 | 提前清理 37MB 冗余资源；rsync 加 `--progress --partial --timeout=120` |
+| curl 80 端口不通 | 阿里云安全组 80 默认未开 | 手动添加 80 入站规则 |
+| SSH 短暂 Connection refused | ECS 装新内核后自动重启 | 等 1–2 分钟自愈 |
+| ssh-copy-id 推公钥失败 | 远端 authorized_keys 空文件写入异常 | 改手动 `cat >> ~/.ssh/authorized_keys` |
+| deploy.sh 统计行解析不到字段 | macOS 自带 rsync 统计字段名与新版不同（无 "regular" 一词）| deploy.sh 改字段兼容写法 |
+
+### 遗留 / 下次继续
+- 备案下来后：切域名 tuce.asia（A 记录解析）+ 配 HTTPS（certbot）+ 清理 nginx conflicting server name warning（详见 docs/DOMAIN-CUTOVER.md）；当前仅 IP 访问，备案前国内访问 tuce.asia 会被拦截
+- SSH 安全加固未完成：密钥已配但**密码登录未禁用**、22 端口未关、**fail2ban 未装**
+
+---
+
+## 2026-06-19 · SEO 修复批次（M2-a 统一 og:image + M2-b 域名硬编码盘点，顺带修两个 blog 隐性 bug）
+
+### 完成
+- **og:image 全站统一为 og-cover.jpg（M2-a，commit f2b582a，提交于 18 日深夜）**：index.html 3 处引用（og:image 行28 / twitter:image 行37 / JSON-LD image 行48）从 `.png` 统一到 `.jpg`；blog.html 的 og:image(行26)/twitter:image(行32) 本就指向 `.jpg`
+- **PNG → JPG 转换**：`og-cover.png` 1.46MB → `og-cover.jpg` 293KB（sips quality 85，~1/5.5），删除冗余 png
+- **docs/DOMAIN-CUTOVER.md 域名硬编码盘点（M2-b，commit 5cfda8e）**：盘点 `frontend/` 全部 **81 处** `https://tuce.asia` 引用，按 A–F 六类（canonical / og:url / og·twitter image / JSON-LD / robots / sitemap）逐文件逐行号登记；产出「备案当天验收清单」（DNS/HTTPS/curl/SEO 提交/nginx 收尾）为主 + 「全站替换备用方案」（find/sed）；含自校验命令（grep+wc 应返回 81）
+- **blog.html 补进 sitemap（M2-b，commit 487cf65）**：sitemap.xml 10 条 → 11 条 `<loc>`，已部署上线，线上 `<loc>`=11 验证通过
+
+### Debug / 踩坑
+| 现象 | 原因 | 解决方式 |
+|---|---|---|
+| blog.html 分享无封面（og:image 死链）| 引用的 og-cover.jpg 根本不存在（仅有 png）| M2-a 转出 jpg 后，blog 死链顺带修复（文件名本就对）|
+| blog.html 不被搜索引擎收录 | blog 漏进 sitemap.xml（只有 10 条，无 blog）| M2-b 盘点时发现，补为第 11 条 `<loc>` |
+| grep 盘点漏引用 | 查 meta 标签名 `og:image` 只覆盖语义子集，漏掉 twitter:image / JSON-LD image | 改查文件名 `og-cover` 抓全所有引用（已存 memory）|
+
+### 遗留 / 下次继续
+- **9 个页面缺 og:image**：services.html / meiben.html / writing-camp.html / graduate.html / transfer.html / uk-eu.html / single-service.html / teachers.html / cases.html —— 候选并入未来 GEO 优化批次
+- **备案后清理 nginx conflicting server name "_" warning**：详见 docs/DOMAIN-CUTOVER.md §4.11
+- DOMAIN-CUTOVER.md 维护触发：新增 HTML 页面 / 新增 JSON-LD url / 修改 robots.txt 或 sitemap.xml 时，需重跑 `grep -rn "tuce\.asia" frontend/ | wc -l` 校准计数 + 同步更新第 2 节行号
