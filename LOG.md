@@ -363,3 +363,25 @@
 
 ### 遗留 / 下次继续
 - 无（M4 资源优化批次 a/b 均收尾）；favicon、页脚 logo 占位等仍属设计资产待补（见 DESIGN-BRIEF.md）
+
+---
+
+## 2026-06-19 · M5 修复 logo（裁切拼版面板1单盾，方案A 保比例，已部署上线验证）
+
+### 完成
+- **根因诊断**：M4-b 当「源图」的 `logo-dark.svg` 内嵌 PNG 其实是一张 **2048×2048 三合一设计拼版**（面板1 Logo-Dark 绿盾透明底 / 面板2 Logo-Light / 面板3 Favicon Concept），M4-b 把整张拼版缩到 96×96 → 页面显示成「3 个小盾拼一起」
+- **重新裁切导出**：`git show fbd8eda:logo-dark.svg` 恢复源 → 一次性脚本 `/tmp/crop_logo.py`（RGB 彩图 + L 遮罩 putalpha 合成透明底 → 裁面板1 `(293,110)-(1024,1024)` → alpha tight-crop 得单盾 704×882）
+- **方案 A（保比例·透明补白）**：盾按比例缩为 77×96，居中贴到 96×96 透明画布（避免强压 1:1 把竖长盾拉胖），WebP q90 → **1832 字节**（比 M4-b 的 3786 更小）
+- **覆盖 `frontend/assets/logo.webp`**：路径未变，11 个 HTML 的 `src="assets/logo.webp"` 零改动、无 CSS 改动（方案 A 不依赖 `.brand__logo` 宽高假设，handoff 无埋雷）
+- commit `5e52995`（1 file）；`deploy.sh` 演练（-n -v）确认仅传 1 文件 → 正式部署 rsync 1 + nginx -t 通过 + reload 成功
+- **线上验证**：`/assets/logo.webp` → HTTP 200 / `image/webp` / `Content-Length 1832`（与本地一致）
+
+### Debug / 踩坑
+| 现象 | 原因 | 解决方式 |
+|---|---|---|
+| logo 显示成 3 个小盾拼在一起 | M4-b 误把三合一设计拼版整张当单 icon 缩放 | 从拼版裁出左上面板1单盾再导出；以后拿「设计稿」当资源前先肉眼确认是单 icon 而非排版稿 |
+| 单盾 704×882（竖长）压成 96×96 正方形被横向拉胖 | 源盾宽高比 0.80，强压 1:1 失真 | 方案 A：保比例缩放 + 居中透明补白成 96×96，不碰 CSS |
+
+### 遗留 / 下次继续
+- M5 commit `5e52995` 仅本地，未 `git push` 到远端 git（线上文件已 rsync 部署）；如需同步远端仓库再 push
+- favicon 仍可从面板3「Favicon Concept 512×512」单独导出（待需要时）

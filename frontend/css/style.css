@@ -501,6 +501,106 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
   50% { transform: translateX(-50%) translateY(7px); opacity: 0.35; }
 }
 
+/* =========================================================
+   首页 Hero · 浅色版（哥特钟楼图 · 左对齐深字）
+   只挂在 index.html 的 .hero.hero--light 上，覆盖默认深色居中版
+   ========================================================= */
+.hero--light { background-color: var(--bg); }
+
+.hero--light .hero-bg {
+  background-image: url('../images/page-hero.webp');
+  background-position: right center;
+  filter: none;
+}
+
+/* 左侧米白 → 右侧透明，保证左侧文字区够亮；建筑留在右侧 */
+.hero--light .hero-overlay {
+  background: linear-gradient(90deg,
+    var(--bg) 0%,
+    rgba(250, 247, 240, 0.90) 30%,
+    rgba(250, 247, 240, 0.48) 54%,
+    rgba(250, 247, 240, 0) 78%);
+}
+
+.hero--light .hero-content {
+  align-items: flex-start;
+  text-align: left;
+  max-width: var(--maxw);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+/* —— eyebrow 小标 —— */
+.hero-eyebrow {
+  margin: 0 0 24px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: hero-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+/* —— 标题：深绿主体 + 金色斜体强调，左对齐尺寸下调一档 —— */
+.hero--light .hero-title { color: var(--green); margin-top: 0; }
+.hero--light .hero-title-line1 {
+  font-size: clamp(26px, 4vw, 46px);
+  color: rgba(20, 52, 43, 0.55);
+}
+.hero--light .hero-title-line2 {
+  font-size: clamp(46px, 7.6vw, 88px);
+}
+.hero--light .hero-title-line2 em {
+  background: linear-gradient(92deg, #B89B4E 0%, #A89157 55%, #7E6A38 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: none;
+}
+
+/* —— 品牌行 / 副文案 深色化 —— */
+.hero--light .hero-brand {
+  color: var(--green);
+  text-shadow: none;
+  border-right-color: rgba(20, 52, 43, 0.22);
+}
+.hero--light .hero-body { color: rgba(28, 33, 27, 0.72); }
+.hero--light .hero-body strong {
+  color: var(--green);
+  border-bottom-color: rgba(168, 145, 87, 0.6);
+}
+
+/* —— 次按钮：深绿描边，hover 填充 —— */
+.hero--light .hero-cta-secondary {
+  border-color: rgba(20, 52, 43, 0.4);
+  color: var(--green);
+  background: rgba(255, 255, 255, 0.45);
+}
+.hero--light .hero-cta-secondary:hover {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+/* —— 脚注 / 滚动提示 —— */
+.hero--light .hero-footnote { color: rgba(20, 52, 43, 0.45); }
+.hero--light .hero-footnote__cursor { background: rgba(168, 145, 87, 0.85); }
+.hero--light .hero-scroll-hint { color: var(--green); }
+
+/* —— 移动端：建筑会被裁满全屏，改纵向米白遮罩整体提亮保证深字可读 —— */
+@media (max-width: 600px) {
+  .hero--light .hero-bg { background-position: 74% center; }
+  .hero--light .hero-overlay {
+    background: linear-gradient(180deg,
+      rgba(250, 247, 240, 0.55) 0%,
+      rgba(250, 247, 240, 0.90) 78%);
+  }
+  .hero--light .hero-eyebrow { margin-bottom: 18px; }
+}
+
 @media (max-width: 600px) {
   .hero-content { padding: 0 20px; }
   .hero-brand-row { flex-direction: column; gap: 10px; }
@@ -827,6 +927,34 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
   color:var(--green); line-height:1.25; }
 .story__body p{ color:#555555; font-size:14px; line-height:1.8; }
 @media (min-width:860px){ .stories__grid{ grid-template-columns:repeat(3,1fr); gap:22px; } }
+
+/* —— 真实瞬间 · 三图画廊（cases.html / 信任加固，非装饰） —— */
+.scene-gallery{ display:grid; grid-template-columns:1fr; gap:16px; margin-top:8px; }
+.scene{ position:relative; border-radius:var(--radius-lg); overflow:hidden;
+  box-shadow:var(--shadow-sm); background:#EFEAE0; }
+.scene img{ display:block; width:100%; height:100%; object-fit:cover; aspect-ratio:1/1;
+  transition:transform .6s var(--ease); }
+.scene:hover img{ transform:scale(1.05); }
+.scene__cap{ position:absolute; left:0; right:0; bottom:0; padding:46px 18px 16px;
+  background:linear-gradient(to top, rgba(20,52,43,.82), rgba(20,52,43,0));
+  color:#fff; font-size:14px; font-weight:600; letter-spacing:.02em; }
+.scene__cap em{ display:block; font-style:normal; font-size:11.5px; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--gold-soft); margin-bottom:4px; }
+@media (min-width:760px){ .scene-gallery{ grid-template-columns:repeat(3,1fr); gap:20px; } }
+
+/* —— 真实场景全宽横幅（services.html / 三大模块后） —— */
+.scene-banner{ position:relative; min-height:400px; display:flex; align-items:flex-end;
+  background:var(--green) center/cover no-repeat; overflow:hidden; }
+.scene-banner::after{ content:""; position:absolute; inset:0;
+  background:linear-gradient(105deg, rgba(20,52,43,.86) 0%, rgba(20,52,43,.5) 42%, rgba(20,52,43,.12) 100%); }
+.scene-banner__inner{ position:relative; z-index:1; max-width:var(--maxw);
+  margin:0 auto; width:100%; padding:48px 22px; }
+.scene-banner .eyebrow{ color:var(--gold-soft); }
+.scene-banner h2{ color:#fff; font-stretch:78%; font-weight:850; font-size:clamp(24px,4vw,36px);
+  line-height:1.18; margin:8px 0 10px; max-width:18ch; }
+.scene-banner p{ color:rgba(255,255,255,.82); font-size:15px; line-height:1.8; max-width:42ch; margin:0; }
+@media (min-width:760px){ .scene-banner{ min-height:460px; }
+  .scene-banner__inner{ padding:64px 22px; } }
 
 /* —— 学员之声 · 滚动剥卡（Ignite testimonials.ts 机制移植） ——
    .voices = 滚动跑道（JS 在滚动模式下拉高为 (卡数+1)×视口高）
@@ -1350,6 +1478,30 @@ html.has-gsap .reveal{ transition:none; }
 .page-hero--dark h1{ color:#fff; }
 .page-hero--dark .eyebrow{ color:var(--gold-soft); }
 .page-hero--dark .page-hero__sub{ color:rgba(255,255,255,.75); }
+
+/* —— 图片版 page-hero：通栏哥特钟楼背景，文字压在左侧留白上 —— */
+.page-hero--img{
+  max-width:none; padding:0; overflow:hidden;
+  border-bottom:3px solid var(--green);
+  background-image:
+    linear-gradient(90deg, var(--bg) 0%, rgba(250,247,240,.86) 30%, rgba(250,247,240,.45) 52%, rgba(250,247,240,0) 74%),
+    url('../images/page-hero.webp');
+  background-size:cover; background-position:right center; background-repeat:no-repeat;
+}
+.page-hero--img .page-hero__inner{
+  max-width:var(--maxw); margin:0 auto;
+  padding:148px 22px 56px;
+}
+.page-hero--img .page-hero__sub{ max-width:44ch; }
+@media (max-width:640px){
+  .page-hero--img{
+    background-position:78% center;
+    background-image:
+      linear-gradient(180deg, rgba(250,247,240,.62) 0%, rgba(250,247,240,.86) 100%),
+      url('../images/page-hero.webp');
+  }
+  .page-hero--img .page-hero__inner{ padding:120px 22px 40px; }
+}
 
 /* =========================================================
    服务页 · 美国本科专题区（深绿大卡）

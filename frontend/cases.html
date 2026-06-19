@@ -66,7 +66,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=14" />
+  <link rel="stylesheet" href="css/style.css?v=15" />
 
   <!-- ===== 案例详情卡（页内局部样式，沿用全站配色变量） ===== -->
   <style>
@@ -265,10 +265,12 @@
   </header>
 
   <!-- ===== 顶部标题区 ===== -->
-  <section class="page-hero">
-    <p class="eyebrow">SUCCESS STORIES</p>
-    <h1>成功案例 · <em>录取去向</em></h1>
-    <p class="page-hero__sub">真实背景 · 真实策略 · 真实录取 —— 所有案例均经学员授权发布。从定位到录取，每一步都有迹可循。</p>
+  <section class="page-hero page-hero--img">
+    <div class="page-hero__inner">
+      <p class="eyebrow">SUCCESS STORIES</p>
+      <h1>成功案例 · <em>录取去向</em></h1>
+      <p class="page-hero__sub">真实背景 · 真实策略 · 真实录取 —— 所有案例均经学员授权发布。从定位到录取，每一步都有迹可循。</p>
+    </div>
   </section>
 
   <!-- ===== 数据统计条（复用首页数据带） ===== -->
@@ -322,6 +324,29 @@
     </div>
   </section>
 
+  <!-- ===== 真实瞬间 · 三图画廊（学习现场 / 信任加固） ===== -->
+  <section class="section sec-bleed sec-soft" id="scenes">
+    <div class="section__head reveal">
+      <p class="eyebrow">BEHIND THE JOURNEY</p>
+      <h2>真实瞬间，而非摆拍</h2>
+      <p class="lead">课堂、共创与海外探索 —— 每一段陪伴都发生在真实的现场。</p>
+    </div>
+    <div class="scene-gallery">
+      <figure class="scene reveal">
+        <img src="assets/scene-class.webp" alt="学员在课堂上专注学习的真实瞬间" loading="lazy" />
+        <figcaption class="scene__cap"><em>In the classroom</em>并肩而坐的学术陪伴</figcaption>
+      </figure>
+      <figure class="scene reveal">
+        <img src="assets/scene-workshop.webp" alt="学员手绘共创工作坊场景" loading="lazy" />
+        <figcaption class="scene__cap"><em>Workshop</em>动手共创的成长现场</figcaption>
+      </figure>
+      <figure class="scene reveal">
+        <img src="assets/scene-explore.webp" alt="师生海外探店交流的生活场景" loading="lazy" />
+        <figcaption class="scene__cap"><em>Beyond campus</em>走进当地的真实生活</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- ===== 案例详情（含背景/策略复盘/感言，待填写真实内容） ===== -->
   <section class="section" id="case-details">
     <div class="section__head reveal">
@@ -331,6 +356,35 @@
         <span class="ph-badge">结构待定 · 方案A 页内展开 / 方案B 三级页面跳转</span>
       </div>
       <p class="lead">以下学员背景、策略与感言为占位示例，正式上线前替换为「真实且获本人授权」的案例。</p>
+    </div>
+
+    <!-- 真实申请故事（公众号原文，整卡跳转） -->
+    <div class="case-stories reveal" style="margin-bottom:40px">
+      <p class="eyebrow">真实申请故事 · STORIES</p>
+      <div class="post-grid">
+        <a class="blog-card post-card" href="https://mp.weixin.qq.com/s/erLSIA3ETc1lNyvc1dcWZA" target="_blank" rel="noopener">
+          <div class="post-card__main">
+            <span class="cat-tag" style="background:rgba(168,145,87,.12);color:var(--gold)">申请故事</span>
+            <h3 class="post-card__title">第一篇申请故事｜"老师，我托福只有88分，但我想学传媒。"</h3>
+            <p class="post-card__digest" style="color:#555;font-size:14px;line-height:1.7;margin:8px 0 0">托福 88 分的 Y 同学，通过深度挖掘影像创作与活动经历，成功斩获东北大学传媒专业录取。</p>
+            <span class="post-card__date">2026-04-24 · 公众号原文</span>
+          </div>
+          <div class="post-card__thumb">
+            <img src="assets/story-neu.webp" alt="托福88分学传媒——东北大学录取故事封面" loading="lazy" />
+          </div>
+        </a>
+        <a class="blog-card post-card" href="https://mp.weixin.qq.com/s/4RJEG3gtk2-V53K2DhdfUA" target="_blank" rel="noopener">
+          <div class="post-card__main">
+            <span class="cat-tag" style="background:rgba(168,145,87,.12);color:var(--gold)">申请故事</span>
+            <h3 class="post-card__title">淡定女孩的申请故事｜香港科技大学录取</h3>
+            <p class="post-card__digest" style="color:#555;font-size:14px;line-height:1.7;margin:8px 0 0">缺乏 GRE 成绩的叶同学，在顾问帮助下重构核心优势、融合宏观情怀，成功淡定斩获香港科技大学录取。</p>
+            <span class="post-card__date">2026-04-13 · 公众号原文</span>
+          </div>
+          <div class="post-card__thumb">
+            <img src="assets/story-hkust.webp" alt="淡定女孩的申请故事——香港科技大学录取封面" loading="lazy" />
+          </div>
+        </a>
+      </div>
     </div>
 
     <article class="case-detail reveal" id="case-w">
