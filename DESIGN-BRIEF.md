@@ -38,7 +38,7 @@ H5 落地页框架（`/Users/qiaoyu/Downloads/tuce-liuxue-h5/`）已搭好，结
 ### 0. 品牌 Logo ⭐（全站通用）
 | 项 | 要求 |
 |---|---|
-| 主 Logo（深色版） | `logo-dark.svg`（首选）或 `logo-dark.png` @2x；用于浅色导航，显示高度约 34px |
+| 主 Logo（深色版） | 当前使用 `logo.webp`（96×96，由原 logo-dark.svg 内嵌位图压缩而来，3.7KB）；用于浅色导航，显示高度约 34px |
 | 反白 Logo（浅色版） | `logo-light.svg` / `logo-light.png`；用于页脚深绿底 |
 | 站点图标 favicon | `favicon.png` 512×512（透明底）|
 | 文字 Logo | 现为「途策留学 / TUCE EDUCATION」，确认中英文写法是否保留 |
@@ -110,7 +110,7 @@ H5 落地页框架（`/Users/qiaoyu/Downloads/tuce-liuxue-h5/`）已搭好，结
 
 | 文件名 | 尺寸/格式 | 板块 | 必需 |
 |---|---|---|---|
-| `logo-dark.svg/png` | 高 ~34px / 2x | 导航 | ⭐ |
+| `logo.webp` | 96×96 WebP / 显示高 ~34px | 导航 | ⭐ |
 | `logo-light.svg/png` | 同上反白 | 页脚 | ⭐ |
 | `favicon.png` | 512×512 png | 站点图标 | ⭐ |
 | `hero-bg.jpg` | 1920×1280 jpg ≤500KB | 首屏 | ⭐ |
@@ -127,7 +127,7 @@ H5 落地页框架（`/Users/qiaoyu/Downloads/tuce-liuxue-h5/`）已搭好，结
 ## 四、素材就位后我要做的接入改动（不需你操作，列出供知晓）
 
 1. `index.html` / `css/style.css` — Hero `.hero__bg` 改为引用 `hero-bg.jpg`（或 `<video>` + 压暗蒙层），保证文字可读。
-2. 导航与页脚的 SVG 占位 → 替换为 `logo-dark` / `logo-light`，加 favicon 链接。
+2. 导航 logo 现用 `logo.webp`（已接入）；页脚占位与 favicon 链接待补。
 3. 师资 `.mentor__avatar` 首字母圈 → 改为 `<img>` 引用 `mentor-0x.jpg`。
 4. 新增「成功案例」板块（图片卡片栅格）+ 锚点与导航项；按你的选择处理 Offer 跑马灯。
 5. 页脚 `.qr` 占位框 → 替换为 `qr-wechat.png`；填入真实电话/邮箱/ICP。

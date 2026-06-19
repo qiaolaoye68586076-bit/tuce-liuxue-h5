@@ -102,8 +102,8 @@
 
 | 文件 | 行号 | 当前值 |
 |---|---|---|
-| frontend/index.html | 47 | `https://tuce.asia/assets/logo-dark.svg` |
-| frontend/blog.html | 47 | `https://tuce.asia/assets/logo-dark.svg` |
+| frontend/index.html | 47 | `https://tuce.asia/assets/logo.webp` |
+| frontend/blog.html | 47 | `https://tuce.asia/assets/logo.webp` |
 
 #### D3. image（实体 `"image"`）— 1 处
 

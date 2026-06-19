@@ -3,7 +3,7 @@
 以下是当前页面缺失或建议补齐的视觉素材，方便直接发送给设计师。
 
 ## 1. 品牌与 logo
-- 主 logo：`logo-dark.svg`（当前已使用）
+- 主 logo：`logo.webp`（96×96，当前已使用；由原 logo-dark.svg 内嵌位图压缩而来）
 - 可选：logo 在深/浅背景下的备用版本
 - 可选：品牌徽标 badge/图标组件素材
 
@@ -50,5 +50,5 @@
 
 ### 备注
 - 当前页面只有一个 `index.html`，属于单页落地页结构。
-- 已存在图片资源：`logo-dark.svg`, `hero-bg.jpg`, `mentor-01.jpg` ~ `mentor-04.jpg`, `case-01.jpg` ~ `case-03.jpg`, `qr-code.png`, `qr-official.png`。
+- 已存在图片资源：`logo.webp`, `hero-bg.jpg`, `mentor-01.jpg` ~ `mentor-04.jpg`, `case-01.jpg` ~ `case-03.jpg`, `qr-code.png`, `qr-official.png`。
 - 设计师可以先用这些素材替换占位图，并补齐上述缺失项。
