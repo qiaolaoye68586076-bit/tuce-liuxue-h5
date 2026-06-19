@@ -342,3 +342,24 @@
 
 ### 遗留 / 下次继续
 - M4-b（logo 压缩）待启动：`logo-dark.svg` 内嵌 2048×2048 PNG → 提取 → resize 96×96 → 输出 `frontend/assets/logo.webp`（quality 90）
+
+---
+
+## 2026-06-19 · M4-b 压缩 logo（logo-dark.svg → logo.webp，-99.7% 体积，已部署上线验证）
+
+### 完成
+- **生成 `frontend/assets/logo.webp`（96×96 / quality 90 / 3.7KB）**：`logo-dark.svg` 内含 2 个 2048×2048 内嵌 PNG（1 个 RGB 彩色图 + 1 个 L 灰度遮罩，SVG 原以「灰度按亮度作 alpha 遮罩」合成）；用 Pillow 把灰度图作为 alpha 通道合到彩色图 → resize 96×96 → 存 WebP；读图肉眼确认深绿徽章 + 白/金 TUCE 标识与原 logo 一致、透明通道正常（alpha extrema 0–255）
+- **删 `logo-dark.svg`（1.2MB）** + **13 处引用替换**（11 HTML img src + index/blog 各 1 处 JSON-LD `"logo"`），`sed 's/logo-dark\.svg/logo.webp/g'` 一并覆盖；frontend/ 零残留
+- **文档同步**：`docs/DOMAIN-CUTOVER.md`（D2 logo 2 条登记，域名仍 tuce.asia 总计数 81 不变）+ `DESIGN-BRIEF.md`（3 处）+ `design-assets-needed.md`（2 处）
+- commit `b3de3d9`（16 files），已 push；`deploy.sh` 正式部署 = transferred 12（11 HTML + logo.webp）+ `*deleting logo-dark.svg`，nginx reload 成功
+- **线上验证**：`logo.webp` → HTTP 200 / `Content-Type: image/webp` / `Content-Length: 3786`；旧 `logo-dark.svg` → HTTP 404（`--delete` 生效）
+- **体积净减 ≈1.27MB（-99.7%）**
+
+### Debug / 踩坑
+| 现象 | 原因 | 解决方式 |
+|---|---|---|
+| 首次生成的 logo.webp 是灰度图 | 两个内嵌 PNG 像素面积相同，按 `>` 严格比较挑「最大」时灰度遮罩先入选未被彩色图替换 | 改为显式按 mode 取 RGB 彩色图 + L 灰度遮罩，`putalpha` 合成才是浏览器真实渲染态 |
+| 本机无 ImageMagick（`identify`/`convert` 缺失）| 仅装了 Pillow 12.2.0 | 全程用 Pillow，GATE 验证用 Pillow 等价输出尺寸/格式替代 `identify`，不额外装 ImageMagick |
+
+### 遗留 / 下次继续
+- 无（M4 资源优化批次 a/b 均收尾）；favicon、页脚 logo 占位等仍属设计资产待补（见 DESIGN-BRIEF.md）

@@ -60,9 +60,9 @@ reference/                 竞品参考（stoooges）
 
 ## 待办事项
 
-### 进行中 · 资源优化（M4）
+### 资源优化（M4，已收尾）
 - [x] **M4-a 清理 logo 死代码**（commit fbd8eda，零体积/零视觉变化）：删 main.js 切换死代码 + 11 HTML 冗余属性 + 删 logo-light.svg
-- [ ] **M4-b logo 压缩**（待启动）：`logo-dark.svg`（内嵌 2048×2048 PNG）→ 提取 → resize 96×96 → 输出 `frontend/assets/logo.webp`（quality 90），替换全站 logo 引用
+- [x] **M4-b logo 压缩**（commit b3de3d9，已部署上线）：`logo-dark.svg`（内嵌 2048×2048 PNG）→ Pillow 合成 → 96×96 → `frontend/assets/logo.webp`（quality 90，3.7KB）；13 处引用替换；体积 1.27MB→3.7KB（-99.7%）；线上 logo.webp 200、旧 svg 404
 
 ### 内容替换（需客户提供）
 - [ ] 核心亮点卡片：替换 `services.html#features` 4 张"Image placeholder"为真实图片
@@ -118,6 +118,7 @@ reference/                 竞品参考（stoooges）
 | 2026-06-18 | **ECS 部署上线**：阿里云华东1（2核2GB / Alibaba Cloud Linux 3 / Nginx 1.24），公网可访问 http://121.43.101.155（备案中暂用 IP）；**M1 部署工具链**（commit 6482182）：deploy.sh（dry-run/verbose/backup + title 校验 + nginx -t&reload）/ DEPLOY.md / nginx.conf.example；顺带清理 37MB 冗余资源（618d4f7）|
 | 2026-06-19 | **M2 SEO 修复批次**：og:image 全站统一为 og-cover.jpg（index 3 处 + blog 死链修复，png→jpg 1.46MB→293KB，f2b582a）；blog.html 补进 sitemap 10→11 条（487cf65）；新建 **docs/DOMAIN-CUTOVER.md**：81 处 tuce.asia 硬编码盘点（A–F 六类）+ 备案验收清单 + 替换备用方案（5cfda8e）|
 | 2026-06-19 | **M4-a 清理 logo 死代码**（commit fbd8eda）：main.js 删 logo 切换死代码 10 行（`var brandLogo`/`setLogo()`/onScroll 两处调用）；11 个 HTML 剥离冗余 `data-logo-light`/`data-logo-dark` 属性；删零引用、与 logo-dark.svg 字节级相同的 `logo-light.svg`（1.27MB）。零视觉变化，为 **M4-b（logo 压缩）** 铺路 |
+| 2026-06-19 | **M4-b 压缩 logo**（commit b3de3d9，已部署上线）：Pillow 从 logo-dark.svg 提取内嵌 PNG（RGB 彩色图 + L 灰度遮罩 putalpha 合成）→ 96×96 → `logo.webp`（q90，3.7KB）；删 logo-dark.svg + 替换 13 处引用（11 img + 2 JSON-LD）；同步 DOMAIN-CUTOVER/DESIGN-BRIEF/design-assets-needed；体积 1.27MB→3.7KB（-99.7%）；线上 logo.webp 200 image/webp、旧 svg 404 |
 
 ---
 
