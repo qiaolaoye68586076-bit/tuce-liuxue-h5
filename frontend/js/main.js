@@ -17,25 +17,15 @@
   var burger = $('#burger');
   var drawer = $('#drawer');
   var heroBg = $('.hero-bg');
-  var brandLogo = $('#brandLogo');
   var prefersReduced = !!(window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-
-  function setLogo(useDark) {
-    if (!brandLogo) return;
-    var dark = brandLogo.getAttribute('data-logo-dark');
-    var light = brandLogo.getAttribute('data-logo-light');
-    brandLogo.src = useDark ? dark : light;
-  }
 
   function onScroll() {
     var y = window.scrollY;
     if (y > 24) {
       nav.classList.add('scrolled');
-      setLogo(true);
     } else {
       nav.classList.remove('scrolled');
-      setLogo(false);
     }
 
     var cta = $('#floatCta');
