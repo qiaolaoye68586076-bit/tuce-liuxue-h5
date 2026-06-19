@@ -322,3 +322,23 @@
 - **9 个页面缺 og:image**：services.html / meiben.html / writing-camp.html / graduate.html / transfer.html / uk-eu.html / single-service.html / teachers.html / cases.html —— 候选并入未来 GEO 优化批次
 - **备案后清理 nginx conflicting server name "_" warning**：详见 docs/DOMAIN-CUTOVER.md §4.11
 - DOMAIN-CUTOVER.md 维护触发：新增 HTML 页面 / 新增 JSON-LD url / 修改 robots.txt 或 sitemap.xml 时，需重跑 `grep -rn "tuce\.asia" frontend/ | wc -l` 校准计数 + 同步更新第 2 节行号
+
+---
+
+## 2026-06-19 · M4-a 清理 logo 死代码 + 删 logo-light.svg（technical debt，零视觉变化）
+
+### 完成
+- **main.js 删 logo 切换死代码（10 行）**：移除 `var brandLogo`、`setLogo()` 函数、onScroll 内两处 `setLogo()` 调用 —— 该切换逻辑早已无效（明暗 logo 实为同一文件），属纯死代码
+- **11 个 HTML 剥离冗余属性**：去掉 `<img id="brandLogo">` 上的 `data-logo-light` / `data-logo-dark`（两者都指向 `logo-dark.svg`，配合死代码才有意义），11 页同一行同一改法
+- **删 `frontend/assets/logo-light.svg`（1.27 MB）**：零引用、与 `logo-dark.svg` 字节级相同的冗余文件
+- commit `fbd8eda`（13 files changed, 11 insertions(+), 22 deletions(-)），已 push origin/main
+- **无视觉变化**：导航 logo 渲染前后一致；为 M4-b（logo 压缩）做准备
+
+### Debug / 踩坑
+| 现象 | 原因 | 解决方式 |
+|---|---|---|
+| 新窗口接续时 Edit/部署「已是目标态」| 上一上下文窗口在总结前已执行完 11 个 Edit 并跑过正式 deploy，进度超出交接 prompt 记录 | grep 实测确认无 `data-logo` 残留 + `deploy.sh -n -v` 零传输零删除核实远端已同步，再据实推进 |
+| `deploy.sh --dry-run` 显示「无变更」却看不清删除项 | `--stats` 的 transferred 只算「传输文件」不算「删除文件」，且 plain dry-run 未开 `--itemize-changes` | 改跑 `-n -v` 看 itemize 明细，确认零传输零删除才是远端真已同步 |
+
+### 遗留 / 下次继续
+- M4-b（logo 压缩）待启动：`logo-dark.svg` 内嵌 2048×2048 PNG → 提取 → resize 96×96 → 输出 `frontend/assets/logo.webp`（quality 90）
