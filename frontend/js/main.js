@@ -6,7 +6,7 @@
   'use strict';
 
   /* ------- 配置：留资提交端点（先占位，后端就绪后替换 URL）------- */
-  var LEAD_ENDPOINT = '';        // 例如 'https://api.tuce.com/lead'，留空则只存本地
+  var LEAD_ENDPOINT = '/api/lead';   // 同域 nginx 反代到 tuce-lead.service（127.0.0.1:5000）；留空则只存本地
   var LEAD_STORAGE_KEY = 'tuce_leads';
 
   var $  = function (s, c) { return (c || document).querySelector(s); };

@@ -21,12 +21,14 @@ server {
         add_header Cache-Control "public, immutable";
     }
 
-    # 未来 Flask API 反代（CTA 表单后端用），现在注释
-    # location /api/ {
-    #     proxy_pass http://127.0.0.1:5000/;
-    #     proxy_set_header Host $host;
-    #     proxy_set_header X-Real-IP $remote_addr;
-    # }
+    # 留资后端反代（tuce-lead.service，标准库 http.server，监听 127.0.0.1:5000）
+    # proxy_pass 不带尾斜杠：保留 /api/ 前缀，后端路由为 /api/lead
+    location /api/ {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
 
     gzip on;
     gzip_types text/plain text/css application/json application/javascript image/svg+xml;

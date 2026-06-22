@@ -1,0 +1,3 @@
+# 本服务零第三方依赖：仅用 Python 标准库（http.server / sqlite3 / urllib）。
+# 生产服务器为 Python 3.6.8，装不了 Flask 3.x，故未引入 Flask。
+# 直接：python3 app.py
