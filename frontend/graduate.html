@@ -55,7 +55,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=23" />
+  <link rel="stylesheet" href="css/style.css?v=dc768e09" />
 </head>
 <body>
 
@@ -100,33 +100,87 @@
     </div>
   </header>
 
-  <!-- ===== 面包屑 ===== -->
-  <nav class="crumbs" aria-label="面包屑">
-    <a href="index.html">首页</a><i>/</i><a href="services.html">服务</a><i>/</i><b>研究生</b>
-  </nav>
-
-  <!-- ===== 顶部标题区 ===== -->
-  <section class="page-hero">
-    <p class="eyebrow">GRADUATE</p>
-    <h1>研究生<em>申请</em></h1>
-    <p class="page-hero__sub">综合评估到签证辅导四步流程，按专业锚定方向，文书与面试逐项打磨。</p>
+  <!-- ===== 顶部标题区（深绿编辑式 Hero · 装饰描边大词 + 资历账目条） ===== -->
+  <section class="page-hero page-hero--dark page-hero--grad">
+    <div class="page-hero__inner">
+      <span class="ghost" aria-hidden="true">GRADUATE</span>
+      <nav class="crumbs crumbs--hero" aria-label="面包屑">
+        <a href="index.html">首页</a><i>/</i><a href="services.html">服务</a><i>/</i><b>研究生</b>
+      </nav>
+      <p class="eyebrow">GRADUATE · 研究生申请</p>
+      <h1>研究生<em>申请</em></h1>
+      <p class="page-hero__sub">从综合评估到签证辅导的四步流程，按专业锚定方向，文书与面试逐项打磨——多对一专属团队全程护航，把每一步都做扎实。</p>
+      <div class="ghero-stats">
+        <div><b>4<em>步</em></b><span>评估 → 签证 全流程</span></div>
+        <div><b>多对一</b><span>专属导师团队</span></div>
+        <div><b>G7</b><span>全方位潜能测评</span></div>
+        <div><b>24<em>h</em></b><span>微信随时答疑</span></div>
+      </div>
+    </div>
   </section>
 
-  <!-- ===== 内容建设中（占位区，风格与整站一致） ===== -->
-  <section class="coming">
-    <div class="coming__panel reveal">
-      <p class="eyebrow">COMING SOON</p>
-      <h2>详细内容正在建设中</h2>
-      <p>这一服务的完整介绍正在精心打磨中。在此之前，下面是它将覆盖的核心方向——如果你正考虑这条路径，欢迎先预约一次免费评估，导师会按你的情况给出针对性建议。</p>
-      <div class="coming__tags">
-        <span>专业锚定</span>
-        <span>文书面试</span>
-        <span>签证辅导</span>
-      </div>
-      <div class="cta-band__actions">
-        <a class="btn btn--cta btn--lg" href="index.html#consult">预约免费评估 <svg class="ic"><use href="#ic-arrow"/></svg></a>
-        <a class="btn btn--line" href="services.html">返回服务总览 <svg class="ic"><use href="#ic-arrow"/></svg></a>
-      </div>
+  <!-- ===== 硕士申请服务流程（四步 · 竖向时间轴） ===== -->
+  <section class="section" id="grad-process">
+    <div class="section__head reveal">
+      <p class="eyebrow">PROCESS · 申请流程</p>
+      <h2>硕士申请四步流程</h2>
+      <p class="lead">从综合评估到签证辅导，全程透明、专业护航——每一步都有专业导师深入参与，确保申请稳健推进。</p>
+    </div>
+    <ol class="gflow reveal">
+      <li class="gflow__step">
+        <span class="gflow__no">01</span>
+        <div class="gflow__body">
+          <h3>综合评估，量身规划</h3>
+          <p>深度自我探索 + 职业目标分析，从长远发展角度界定职业路径与学术目标；评估背景并给出包装建议，由专业导师讨论确认核心准备方向，制定申请节点与时间管理的全局策略。</p>
+        </div>
+      </li>
+      <li class="gflow__step">
+        <span class="gflow__no">02</span>
+        <div class="gflow__body">
+          <h3>精准定位，文书辅导</h3>
+          <p>个性化文书撰写，强调申请人的独特性与适合度；推荐信策略与最佳推荐人选择，专业简历指导凸显优势成就；提供深度润色与随时答疑，确保每一份材料都达到最优质量。</p>
+        </div>
+      </li>
+      <li class="gflow__step">
+        <span class="gflow__no">03</span>
+        <div class="gflow__body">
+          <h3>笔试面试，申请追踪</h3>
+          <p>指导网申表格填写与材料寄送、跟踪寄送进度；提供全方位面试准备与一对一全真模拟；附加结果 ARGUE 与补充材料支持、奖学金申请策略指导，争取更多录取与经济支持的可能。</p>
+        </div>
+      </li>
+      <li class="gflow__step">
+        <span class="gflow__no">04</span>
+        <div class="gflow__body">
+          <h3>职业规划，签证辅导</h3>
+          <p>进一步讨论并确定职业目标与最适合的领域，为未来职业发展铺路；提供签证材料准备与面试技巧的全面指导，确保顺利过签、平稳启程。</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===== 为什么选择我们（差异化能力 · 三大支柱卡） ===== -->
+  <section class="section sec-bleed sec-soft" id="why-grad">
+    <div class="section__head reveal">
+      <p class="eyebrow">WHY TUCE · 为什么选择我们</p>
+      <h2>专业、个性、全程透明</h2>
+      <p class="lead">我们相信，每位申请人都有独特的故事与背景。通过深入的个人挖掘与专业的心理学模型测试，帮你在复杂的申请过程中展现最真实的自我，并清晰规划未来的职业道路。</p>
+    </div>
+    <div class="gpillars reveal">
+      <article class="gpillar">
+        <span class="gpillar__no">01</span>
+        <h3>有温度、多对一的团队</h3>
+        <p>专业的申请支持 + 个性化的指导 + 全程透明的过程。选择我们，你将体验到一个有温度、全程参与、多对一服务的团队——我们承诺，为你的留学之路增添无限可能。</p>
+      </article>
+      <article class="gpillar">
+        <span class="gpillar__no">02</span>
+        <h3>激励式教练，激发积极人格</h3>
+        <p>面对意愿冲突、动力不足、沟通抵触、缺乏自信、文化融入困难等问题，顾问会结合测评结果与丰富阅历，为学生和家长找准问题、明确目标、重拾信心与决心，以饱满状态迎接挑战。</p>
+      </article>
+      <article class="gpillar">
+        <span class="gpillar__no">03</span>
+        <h3>既服务录取，也服务长远职业</h3>
+        <p>留学申请规划围绕成长路线图展开，既服务「考取顶尖高校」的短期目标，也服务「获得长远职业竞争力」的长期目标；并应用独特高效的 RP 现实预演与案例穿越等面试工具，系统性提升面试表现。</p>
+      </article>
     </div>
   </section>
 
@@ -241,9 +295,6 @@
   <!-- 移动端常驻 CTA -->
   <a href="index.html#consult" class="float-cta" id="floatCta">免费评估</a>
 
-  <script src="js/vendor/gsap.min.js"></script>
-  <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script src="js/main.js?v=5"></script>
-  <script src="js/experience.js"></script>
 </body>
 </html>

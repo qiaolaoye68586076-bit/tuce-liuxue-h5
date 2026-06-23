@@ -119,6 +119,60 @@ fi
 log_ok "所有 HTML 均含 <title> 标签"
 
 # ---------------------------------------------------------------------------
+# 1.5 CSS 缓存版本号统一（内容哈希自动 bump）
+#   以 style.css 的内容哈希作为 ?v=，保证：
+#     ① 全站所有 HTML 的版本号始终一致（杜绝 v=23/25/28 漂移导致的缓存错配）
+#     ② 仅当 style.css 内容真正变化时版本号才变（CSS 没动则命中缓存，不做无谓重下）
+#   非演练：就地改写 ${LOCAL_SRC}/*.html；演练：只报告将要改写的文件，不落盘。
+# ---------------------------------------------------------------------------
+bump_css_version() {
+  local css="$LOCAL_SRC/css/style.css"
+  if [[ ! -f "$css" ]]; then
+    log_warn "未找到 $css，跳过 CSS 版本号同步"
+    return 0
+  fi
+
+  # 短内容哈希（兼容 macOS 的 md5 与 Linux 的 md5sum）
+  local hash
+  if command -v md5 >/dev/null 2>&1; then
+    hash=$(md5 -q "$css")
+  else
+    hash=$(md5sum "$css" | cut -d' ' -f1)
+  fi
+  hash=${hash:0:8}
+
+  log_info "CSS 版本号同步：style.css?v=${hash}"
+
+  # 找出「引用了 style.css?v= 但版本号 ≠ 目标哈希」的 HTML
+  local to_update=() f
+  for f in "$LOCAL_SRC"/*.html; do
+    if grep -qE 'style\.css\?v=' "$f" && ! grep -qE "style\.css\?v=${hash}\"" "$f"; then
+      to_update+=("$f")
+    fi
+  done
+
+  if [[ ${#to_update[@]} -eq 0 ]]; then
+    log_ok "CSS 版本号已统一为 ${hash}，无需改写"
+    return 0
+  fi
+
+  if [[ "$DRY_RUN" == true ]]; then
+    log_warn "演练模式：以下 ${#to_update[@]} 个 HTML 的 CSS 版本号将更新为 ${hash}（本次不改写）"
+    for f in "${to_update[@]}"; do
+      printf '    %s%s%s\n' "$C_DIM" "$f" "$C_RESET"
+    done
+    return 0
+  fi
+
+  for f in "${to_update[@]}"; do
+    sed -i.bak -E "s/style\.css\?v=[^\"']*/style.css?v=${hash}/g" "$f" && rm -f "$f.bak"
+  done
+  log_ok "已将 ${#to_update[@]} 个 HTML 的 CSS 版本号统一为 ${hash}"
+}
+
+bump_css_version
+
+# ---------------------------------------------------------------------------
 # 计时开始
 # ---------------------------------------------------------------------------
 SECONDS=0

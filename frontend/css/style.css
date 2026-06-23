@@ -221,7 +221,7 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('../images/hero-cover.png');
+  background-image: url('../images/page-hero.webp');   /* 默认 hero 背景；深色 .hero 暂未启用，指向真实存在的资源避免 404（G4）*/
   background-size: cover;
   background-position: center;
   filter: saturate(0.8) brightness(0.88);
@@ -1177,7 +1177,7 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
   margin-left:5px; }
 .field label i.opt{ color:var(--muted); font-weight:400; }
 .field input,.field select,.field textarea{
-  font-family:inherit; font-size:15px; color:var(--ink);
+  font-family:inherit; font-size:16px; color:var(--ink);   /* ≥16px：避免 iOS 聚焦时自动放大（G1）*/
   padding:13px 14px; border:1.5px solid var(--line); border-radius:10px;
   background:var(--bg); transition:border-color .25s, background .25s, box-shadow .25s;
   width:100%;
@@ -1208,6 +1208,11 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
   .consult__card{ grid-template-columns:.92fr 1.08fr; }
   .consult__copy{ padding:54px 44px; }
   .form{ padding:46px 42px; }
+}
+
+/* 移动端：留资表单改单列，避免窄屏双列字段过挤（I2）*/
+@media (max-width:600px){
+  .form{ grid-template-columns:1fr; }
 }
 
 /* =========================================================
@@ -1405,7 +1410,8 @@ html.has-gsap .reveal{ transition:none; }
 /* 移动端：双按钮竖向堆叠、各自占满整行 */
 @media (max-width:560px){
   .strategy__exits{ flex-direction:column; align-items:stretch; }
-  .strategy__exits .btn{ width:100%; }
+  /* 整宽按钮允许长文案折行，避免 nowrap 文字被裁切（I1）*/
+  .strategy__exits .btn{ width:100%; white-space:normal; text-align:center; line-height:1.45; }
 }
 
 /* =========================================================
@@ -1984,6 +1990,8 @@ a.card{ color:inherit; }
    ========================================================= */
 
 /* services 标题区 → 淡雅拱门钟楼，靠右弱呈现，左侧标题区净空（满幅 ::before）*/
+/* z-index:0 自建层叠上下文，否则 ::before 的 z-index:-1 会被 body 背景遮挡（此前一直未显示）*/
+.page-hero--bg{ position:relative; z-index:0; }
 .page-hero--bg::before{
   content:""; position:absolute; top:0; bottom:0; left:50%;
   width:100vw; transform:translateX(-50%); z-index:-1;
@@ -2023,3 +2031,275 @@ a.card{ color:inherit; }
     url("../assets/bg-scenes.webp") center / cover no-repeat;
   background-color:#EFEAE0;
 }
+
+/* =========================================================
+   美本页背景图（即梦学术建筑素材 · 2026-06-22）
+   ========================================================= */
+
+/* 美本标题区 → 图书馆穹顶 duotone，靠右下呈现深色穹顶+柱廊，左侧标题区净空
+   注：z-index:0 自建层叠上下文，避免 ::before 的 z-index:-1 逃逸到根、被 body 背景遮挡 */
+/* 整屏 hero：穹顶满铺一屏，「美国本科申请」占满首屏，#system 在下一屏。
+   面包屑钉在顶部压在图上；正文竖直居中；图满铺至导航栏。
+   z-index:0 自建层叠上下文，避免 ::before 的 z-index:-1 被 body 背景遮挡 */
+.page-hero--meiben{
+  z-index:0;
+  display:flex; flex-direction:column; justify-content:center;
+  min-height:100vh; min-height:100svh;
+  padding-top:120px; padding-bottom:64px;
+}
+.page-hero--meiben .crumbs--hero{
+  position:absolute; top:92px; left:22px; margin:0; padding:0; max-width:none;
+}
+.page-hero--meiben::before{
+  content:""; position:absolute; top:0; bottom:0; left:50%;
+  width:100vw; transform:translateX(-50%); z-index:-1;
+  border-bottom:1px solid var(--line);
+  background:
+    linear-gradient(90deg, var(--bg) 0%, rgba(250,247,240,.9) 30%, rgba(250,247,240,.5) 56%, rgba(250,247,240,.08) 84%),
+    url("../assets/bg-meiben-hero.webp") right top / cover no-repeat;
+}
+@media (min-width:760px){ .page-hero--meiben .page-hero__sub{ max-width:46ch; } }
+@media (max-width:640px){
+  .page-hero--meiben{ padding-top:104px; padding-bottom:48px; }
+  .page-hero--meiben .crumbs--hero{ top:78px; }
+  .page-hero--meiben::before{
+    background:
+      linear-gradient(180deg, rgba(250,247,240,.5) 0%, rgba(250,247,240,.78) 58%, var(--bg) 95%),
+      url("../assets/bg-meiben-hero.webp") right top / cover no-repeat;
+  }
+}
+
+/* 模块二 深绿焦点 → 叠加学术钟楼 duotone 作氛围纹理；
+   翻转布局下白字密集的 body 在左 → 左侧重压暗(.97)；导语在右 → 右侧(.72)透出建筑 */
+#module-2.sec-dark::before{
+  background:
+    linear-gradient(90deg, rgba(20,52,43,.97) 0%, rgba(20,52,43,.9) 46%, rgba(20,52,43,.72) 100%),
+    url("../assets/bg-meiben-module.webp") right center / cover no-repeat;
+  background-color:var(--green);
+}
+
+/* =========================================================
+   ✦ 美本页重做（2026-06-22）· 三大模块 → 杂志编排
+   #system   → 模块索引导航（全局地图，非重复内容）
+   #module-1/2/3 → 左右交替 + 深浅交替的编辑式分栏
+   services #undergrad → 紧凑引流栏（不再铺三段完整模块）
+   全部新增类；旧 .featured/.module/.system__grid/.phases 不动，
+   writing-camp / blog 等共用页零影响
+   ========================================================= */
+
+/* —— 模块索引：编号 + 标题 + 一句话 + 锚点 —— */
+.mod-index{ display:grid; grid-template-columns:1fr; gap:0;
+  border-top:1px solid var(--line); }
+.mod-index__item{
+  position:relative; display:grid; grid-template-columns:auto 1fr auto;
+  align-items:center; gap:24px; padding:26px 4px;
+  border-bottom:1px solid var(--line); color:inherit;
+  transition:padding-left .35s var(--ease);
+}
+.mod-index__item::before{
+  content:""; position:absolute; left:-20px; top:14px; bottom:14px; width:3px;
+  background:var(--gold); transform:scaleY(0); transform-origin:top;
+  transition:transform .4s var(--ease);
+}
+.mod-index__item:hover{ padding-left:16px; }
+.mod-index__item:hover::before{ transform:scaleY(1); }
+.mod-index__no{
+  font-stretch:70%; font-weight:880; font-size:clamp(36px,6vw,54px); line-height:1;
+  color:transparent; -webkit-text-stroke:1.4px var(--green);
+  transition:-webkit-text-stroke-color .3s;
+}
+.mod-index__item:hover .mod-index__no{ -webkit-text-stroke-color:var(--gold); }
+.mod-index h3{ font-size:19px; margin-bottom:5px; }
+.mod-index__item p{ color:var(--muted); font-size:14px; line-height:1.7; max-width:50ch; }
+.mod-index__item .ic{ width:21px; height:21px; color:var(--gold);
+  transition:transform .3s var(--ease); }
+.mod-index__item:hover .ic{ transform:translateX(7px); }
+@media (max-width:600px){
+  .mod-index__item{ grid-template-columns:auto 1fr; gap:18px; }
+  .mod-index__item .ic{ display:none; }
+}
+
+/* —— 编辑式分栏：左侧大号导语（桌面 sticky）+ 右侧子模块清单 —— */
+.mod__inner{ display:grid; grid-template-columns:1fr; gap:36px; }
+.mod__no{
+  display:block; font-stretch:70%; font-weight:880; line-height:.9; margin-bottom:6px;
+  font-size:clamp(60px,12vw,124px);
+  color:transparent; -webkit-text-stroke:1.6px var(--gold-soft);
+}
+.mod__lead .eyebrow{ margin-bottom:12px; }
+.mod__lead h2{ line-height:1.04; }
+.mod__desc{ color:#555555; font-size:15px; line-height:1.85; margin-top:16px; max-width:46ch; }
+.mod__for{
+  display:inline-block; margin-top:22px; font-size:12.5px; font-weight:600;
+  letter-spacing:.01em; line-height:1.6; color:var(--green);
+  background:rgba(20,52,43,.06); border:1px solid var(--line);
+  padding:9px 16px; border-radius:14px;
+}
+.mod__body{ display:grid; gap:32px; }
+.mod__gh{
+  display:flex; align-items:baseline; gap:12px; margin-bottom:16px;
+  padding-bottom:12px; border-bottom:1px solid var(--line);
+}
+.mod__gh b{ font-stretch:78%; font-weight:850; font-size:19px; color:var(--green); }
+.mod__gh i{ font-style:normal; font-stretch:80%; font-size:10.5px; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+.mod__points{ display:grid; grid-template-columns:1fr; gap:16px 30px; }
+.mod__points li{ position:relative; padding-left:18px; }
+.mod__points li::before{
+  content:""; position:absolute; left:0; top:9px;
+  width:6px; height:6px; border-radius:50%; background:var(--gold);
+}
+.mod__points b{ display:block; font-weight:800; font-size:15px; color:var(--green); line-height:1.5; }
+.mod__points span{ display:block; font-size:13.5px; color:#555555; line-height:1.75; margin-top:2px; }
+@media (min-width:860px){
+  .mod__inner{ grid-template-columns:.82fr 1.18fr; gap:58px; align-items:start; }
+  .mod__lead{ position:sticky; top:96px; }
+  .mod__points{ grid-template-columns:1fr 1fr; }
+  .mod--flip .mod__inner{ grid-template-columns:1.18fr .82fr; }
+  .mod--flip .mod__lead{ order:2; }
+  .mod--flip .mod__body{ order:1; }
+}
+
+/* 深色模块（核心硬实力）· 深绿满幅，文字反白、金点缀 */
+.mod--dark .eyebrow{ color:var(--gold-soft); }
+.mod--dark h2{ color:#fff; }
+.mod--dark .mod__no{ -webkit-text-stroke-color:rgba(217,194,140,.7); }
+.mod--dark .mod__desc{ color:rgba(255,255,255,.78); }
+.mod--dark .mod__for{
+  color:var(--sand); background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.18);
+}
+.mod--dark .mod__gh{ border-bottom-color:rgba(255,255,255,.16); }
+.mod--dark .mod__gh b{ color:#fff; }
+.mod--dark .mod__points b{ color:#fff; }
+.mod--dark .mod__points span{ color:rgba(255,255,255,.72); }
+.mod--dark .mod__points li::before{ background:var(--gold-soft); }
+
+/* —— services 引流卡：三模块紧凑栏（替代三段完整模块）—— */
+.featured__modules{
+  display:grid; grid-template-columns:1fr; gap:0; margin-top:32px;
+  border-top:1px solid rgba(255,255,255,.16);
+}
+.fmod{
+  display:grid; grid-template-columns:auto 1fr; align-items:baseline; gap:16px;
+  padding:18px 2px; border-bottom:1px solid rgba(255,255,255,.12);
+}
+.fmod__no{
+  font-stretch:70%; font-weight:880; font-size:30px; line-height:1;
+  color:transparent; -webkit-text-stroke:1.3px var(--gold-soft);
+}
+.fmod b{ font-size:16px; font-weight:800; color:#fff; }
+.fmod i{ display:block; font-style:normal; font-size:13px; line-height:1.6;
+  color:rgba(255,255,255,.66); margin-top:3px; }
+@media (min-width:760px){
+  .featured__modules{ grid-template-columns:repeat(3,1fr); column-gap:32px; }
+  .fmod{ display:block; padding:0; border-bottom:none; }
+  .fmod__no{ display:block; margin-bottom:12px; font-size:34px; }
+  .fmod b{ display:block; }
+}
+
+/* =========================================================
+   ✦ 研究生页重做（2026-06-23）· 深绿编辑式 Hero + 流程时间轴 + 三大支柱
+   全部新增 .g* / .page-hero--grad 类，零影响其他页面
+   ========================================================= */
+
+/* —— Hero：深绿满幅 · 装饰描边大词 · 暖金辉光 · 资历账目条 —— */
+.page-hero--grad{
+  overflow:hidden;
+  padding-top:150px; padding-bottom:74px;
+  background:
+    radial-gradient(125% 95% at 90% 6%, rgba(168,145,87,.18) 0%, rgba(168,145,87,0) 56%),
+    var(--green);
+}
+/* 底部一道暖金渐隐细线，给深绿块一个明确的收口，避免下一段“漏一截”露出 */
+.page-hero--grad::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:1px;
+  background:linear-gradient(90deg, rgba(217,194,140,0), rgba(217,194,140,.4) 30%, rgba(217,194,140,.4) 70%, rgba(217,194,140,0));
+}
+.page-hero--grad .page-hero__inner{ position:relative; }
+.page-hero--grad .ghost{
+  position:absolute; top:-66px; right:-8px; pointer-events:none; user-select:none;
+  font-stretch:70%; font-weight:880; line-height:1; white-space:nowrap; letter-spacing:-.02em;
+  font-size:clamp(78px,16vw,200px);
+  color:transparent; -webkit-text-stroke:1.5px rgba(217,194,140,.13);
+}
+.page-hero--grad .crumbs--hero{
+  position:static; max-width:none; margin:0 0 30px; padding:0;
+  color:rgba(255,255,255,.6);
+}
+.page-hero--grad .crumbs--hero a{ color:rgba(255,255,255,.6); }
+.page-hero--grad .crumbs--hero a:hover{ color:#fff; }
+.page-hero--grad .crumbs--hero b{ color:var(--gold-soft); }
+.page-hero--grad h1{ position:relative; font-size:clamp(40px,8.4vw,80px); }
+.page-hero--grad .page-hero__sub{ position:relative; max-width:54ch; }
+
+.ghero-stats{
+  position:relative; display:grid; grid-template-columns:repeat(2,1fr);
+  gap:24px 30px; margin-top:50px; padding-top:36px;
+  border-top:1px solid rgba(255,255,255,.14);
+}
+.ghero-stats > div{ padding-left:16px; border-left:2px solid #C2622F; }
+.ghero-stats b{
+  display:block; font-stretch:74%; font-weight:850; line-height:1;
+  font-size:clamp(26px,4.4vw,38px); color:#fff;
+}
+.ghero-stats b em{ font-style:normal; font-size:.62em; color:#D7763F; margin-left:3px; }
+.ghero-stats span{
+  display:block; margin-top:10px; font-size:13px; letter-spacing:.01em;
+  color:rgba(255,255,255,.6);
+}
+@media (min-width:760px){ .ghero-stats{ grid-template-columns:repeat(4,1fr); } }
+
+/* —— 申请流程 · 编辑式竖向时间轴（描边编号做节点 + 金色脊线）—— */
+.gflow{ position:relative; max-width:880px; margin-top:4px; }
+.gflow__step{
+  position:relative; display:grid; grid-template-columns:54px 1fr; gap:22px;
+  padding-bottom:46px;
+}
+.gflow__step:last-child{ padding-bottom:0; }
+.gflow__step::before{
+  content:""; position:absolute; left:26px; top:50px; bottom:0; width:2px;
+  background:linear-gradient(180deg, var(--terra) 0%, rgba(168,145,87,.7) 45%, rgba(168,145,87,.14) 100%);
+}
+.gflow__step:last-child::before{ display:none; }
+.gflow__no{
+  text-align:center; font-stretch:72%; font-weight:880; line-height:1;
+  font-size:clamp(30px,4.6vw,42px);
+  color:transparent; -webkit-text-stroke:1.5px var(--green);
+  transition:-webkit-text-stroke-color .3s var(--ease);
+}
+.gflow__step:hover .gflow__no{ -webkit-text-stroke-color:var(--terra); }
+.gflow__body h3{ font-size:clamp(18.5px,2.3vw,22px); color:var(--green); line-height:1.34; }
+.gflow__body p{ margin-top:9px; color:#555555; font-size:14.5px; line-height:1.85; max-width:60ch; }
+@media (min-width:760px){
+  .gflow__step{ grid-template-columns:64px 1fr; gap:34px; }
+  .gflow__step::before{ left:31px; }
+}
+
+/* —— 为什么选择我们 · 三大支柱卡 —— */
+.gpillars{ display:grid; grid-template-columns:1fr; gap:18px; }
+.gpillar{
+  position:relative; overflow:hidden; background:var(--card);
+  border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:34px 26px 30px; box-shadow:var(--shadow-sm);
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+.gpillar::before{
+  content:""; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--terra), rgba(181,84,42,0));
+  transform:scaleX(0); transform-origin:left; transition:transform .45s var(--ease);
+}
+.gpillar:hover{ transform:translateY(-5px); box-shadow:var(--shadow-md); }
+.gpillar:hover::before{ transform:scaleX(1); }
+.gpillar__no{
+  display:block; margin-bottom:16px; font-stretch:72%; font-weight:880; line-height:1;
+  font-size:42px; color:transparent; -webkit-text-stroke:1.4px var(--terra);
+}
+.gpillar h3{ font-size:20px; color:var(--green); line-height:1.34; margin-bottom:11px; }
+.gpillar p{ color:#555555; font-size:14.5px; line-height:1.85; }
+@media (min-width:820px){ .gpillars{ grid-template-columns:repeat(3,1fr); gap:22px; } }
+
+/* —— 衔接节奏微调（仅研究生页）—— */
+/* 深绿 Hero → 流程：给浅色流程区更从容的顶部留白，绿→米过渡更利落 */
+#grad-process{ padding-top:116px; }
+/* 米色「为什么」带 → 「探索更多」：补足顶部呼吸，标题不再贴着色块边缘 */
+#why-grad + .explore{ padding-top:104px; }

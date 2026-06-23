@@ -55,7 +55,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=23" />
+  <link rel="stylesheet" href="css/style.css?v=dc768e09" />
 </head>
 <body>
 
@@ -101,43 +101,193 @@
     </div>
   </header>
 
-  <!-- ===== 面包屑 ===== -->
-  <nav class="crumbs" aria-label="面包屑">
-    <a href="index.html">首页</a><i>/</i><a href="services.html">服务</a><i>/</i><b>美国本科</b>
-  </nav>
-
-  <!-- ===== 顶部标题区 ===== -->
-  <section class="page-hero">
+  <!-- ===== 顶部标题区（图书馆穹顶 duotone 背景满铺至导航栏，面包屑压在图上） ===== -->
+  <section class="page-hero page-hero--meiben">
+    <nav class="crumbs crumbs--hero" aria-label="面包屑">
+      <a href="index.html">首页</a><i>/</i><a href="services.html">服务</a><i>/</i><b>美国本科</b>
+    </nav>
     <p class="eyebrow">UNDERGRADUATE · 核心业务</p>
     <h1>美国本科<em>申请</em></h1>
     <p class="page-hero__sub">以美本为核心的全球混申，三大模块全程规划，从成长定位到名校录取一体推进。我们把本科申请拆成可灵活组合的模块化体系，按阶段与目标按需选择——硬实力与软实力同步做厚，让每一份申请都真正立得住。</p>
   </section>
 
-  <!-- ===== 三大模块（深绿大卡） ===== -->
+  <!-- ===== 三大模块 · 索引导航（全局地图） ===== -->
   <section class="section" id="system">
-    <div class="featured reveal">
-      <div class="featured__top">
-        <p class="eyebrow">SYSTEM · 三大模块</p>
-        <h2>可灵活组合的<br/>模块化体系</h2>
-        <p class="featured__lead">从尚未明确路线，到硬实力夯实，再到软实力纵深——三大模块按阶段与目标自由组合，让每一份申请都立得住。</p>
-      </div>
-      <div class="system__grid">
-        <article class="module reveal">
-          <span class="module__no">01</span>
+    <div class="section__head reveal">
+      <p class="eyebrow">SYSTEM · 三大模块</p>
+      <h2>可灵活组合的<br/>模块化体系</h2>
+      <p class="lead">从尚未明确路线，到硬实力夯实，再到软实力纵深——三大模块按阶段与目标自由组合，让每一份申请都立得住。</p>
+    </div>
+    <nav class="mod-index reveal" aria-label="三大模块速览">
+      <a class="mod-index__item" href="#module-1">
+        <span class="mod-index__no">01</span>
+        <div>
           <h3>成长规划模块</h3>
-          <p>面向尚未明确路线的家庭：规划咨询 + 家庭会员，确立以美本为核心的全球混申路径与提分方案。</p>
-        </article>
-        <article class="module reveal">
-          <span class="module__no">02</span>
+          <p>面向尚未明确路线的家庭，确立以美本为核心的全球混申路径与提分方案。</p>
+        </div>
+        <svg class="ic"><use href="#ic-arrow"/></svg>
+      </a>
+      <a class="mod-index__item" href="#module-2">
+        <span class="mod-index__no">02</span>
+        <div>
           <h3>学术竞争力塑造 · 硬实力</h3>
-          <p>申请主模块：GPA 管理、标化辅导、学术能力提升，六大教育规划方向系统推进。</p>
-        </article>
-        <article class="module reveal">
-          <span class="module__no">03</span>
+          <p>申请主模块：GPA 管理、标化辅导、学术能力提升，系统推进六大教育规划方向。</p>
+        </div>
+        <svg class="ic"><use href="#ic-arrow"/></svg>
+      </a>
+      <a class="mod-index__item" href="#module-3">
+        <span class="mod-index__no">03</span>
+        <div>
           <h3>个性化成长与影响力 · 软实力</h3>
-          <p>实验室科研（真实 SCI 署名）、艺术作品集、社会性公益，塑造领导力·社会责任感·创新精神·全球胜任力。</p>
+          <p>实验室科研（真实 SCI 署名）、艺术作品集、社会性公益，塑造四大核心素养。</p>
+        </div>
+        <svg class="ic"><use href="#ic-arrow"/></svg>
+      </a>
+    </nav>
+  </section>
+
+  <!-- ===== 模块一 · 成长规划（米纸底 · 导语在左） ===== -->
+  <section class="section mod" id="module-1">
+    <div class="mod__inner reveal">
+      <div class="mod__lead">
+        <span class="mod__no">01</span>
+        <p class="eyebrow">MODULE 01 · 成长规划</p>
+        <h2>成长规划模块</h2>
+        <p class="mod__desc">面向尚未明确路线的家庭：以咨询为主，确立以美国本科为核心的全球混申路径，并在语言、学术、活动竞赛层面给出切实方案。</p>
+        <span class="mod__for">适合 · 刚转国际学校 / 规划思路未明确 / 学生年纪较小、尚未决定路线</span>
+      </div>
+      <div class="mod__body">
+        <article class="mod__group">
+          <header class="mod__gh"><b>规划咨询服务</b><i>Consultation</i></header>
+          <ul class="mod__points">
+            <li><b>全球混申规划</b><span>以美国本科为核心，确立清晰的申请路径与底层支撑逻辑。</span></li>
+            <li><b>语言提升方案</b><span>制定切实的提分方案，设定必须达到的基本分数线。</span></li>
+            <li><b>学术成绩优化</b><span>依据目标优化基础科目的选择与成绩规划。</span></li>
+            <li><b>活动竞赛布局</b><span>基于核心价值与竞争力提升逻辑，精准筛选与布局。</span></li>
+          </ul>
+        </article>
+        <article class="mod__group">
+          <header class="mod__gh"><b>家庭会员服务</b><i>Membership</i></header>
+          <ul class="mod__points">
+            <li><b>月度深度咨询</b><span>每月 1 小时深度咨询 + 季度进度跟进，确保规划质量。</span></li>
+            <li><b>24h 微信答疑</b><span>定期资源推送，实现无缝支持。</span></li>
+            <li><b>定制语言课程</b><span>含托福/雅思/SAT 专项提升的 2 课时定制语言课。</span></li>
+            <li><b>原版精读 · 写作坊</b><span>原版教材精读 + 学术写作工作坊，系统提升标化与学术能力。</span></li>
+          </ul>
+        </article>
+        <article class="mod__group">
+          <header class="mod__gh"><b>服务交付</b><i>Delivery</i></header>
+          <ul class="mod__points">
+            <li><b>规划咨询</b><span>形式以咨询为主，将获得个性化评估报告（电子 / 纸质）。</span></li>
+            <li><b>家庭会员</b><span>咨询 &amp; 活动 &amp; 部分课程，获得咨询报告、活动名额与语言课程。</span></li>
+          </ul>
         </article>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== 模块二 · 学术竞争力塑造（深绿满幅 + 翻转 · 申请主模块焦点） ===== -->
+  <section class="section mod mod--flip mod--dark sec-bleed sec-dark" id="module-2">
+    <div class="mod__inner reveal">
+      <div class="mod__lead">
+        <span class="mod__no">02</span>
+        <p class="eyebrow">MODULE 02 · 学术硬实力</p>
+        <h2>学术竞争力<br/>塑造模块</h2>
+        <p class="mod__desc">本科申请教育规划的主模块：围绕教育规划展开发展路径、学术指导与特长培养，落到 GPA 管理、标化成绩与学术能力三大专项，把硬实力系统做厚。</p>
+        <span class="mod__for">申请主模块 · 六大教育规划方向系统推进</span>
+      </div>
+      <div class="mod__body">
+        <article class="mod__group">
+          <header class="mod__gh"><b>2.1 GPA 管理辅导</b><i>GPA</i></header>
+          <ul class="mod__points">
+            <li><b>学科能力诊断</b><span>个性化学习方案、学习方法指导与定期能力复测。</span></li>
+            <li><b>核心课程辅导</b><span>数理化专项提升、人文学科深度训练、STEM 项目指导。</span></li>
+            <li><b>课程规划指导</b><span>选课策略、难度梯度设计与 AP/IB/A-Level 组合策略。</span></li>
+            <li><b>成绩提升跟踪</b><span>每周进度监控、模考分析与错题本维护。</span></li>
+          </ul>
+        </article>
+        <article class="mod__group">
+          <header class="mod__gh"><b>2.2 标化成绩辅导</b><i>Test Prep</i></header>
+          <ul class="mod__points">
+            <li><b>标化考试冲刺</b><span>TOEFL/IELTS/SAT/ACT 个性化备考与模块化专项强化。</span></li>
+            <li><b>应试技巧训练</b><span>题型分析、答题策略、时间管理与全周期模考。</span></li>
+            <li><b>学术写作进阶</b><span>学术论文写作、研究报告撰写与高分范文点评。</span></li>
+            <li><b>高阶口语培养</b><span>学术演讲、面试口语、辩论与跨文化交流。</span></li>
+          </ul>
+        </article>
+        <article class="mod__group">
+          <header class="mod__gh"><b>2.3 学术能力提升</b><i>Proficiency</i></header>
+          <ul class="mod__points">
+            <li><b>研究领域确定</b><span>文献阅读指导、研究计划设计与研究方法培训。</span></li>
+            <li><b>学术写作指导</b><span>批判性思维、学术表达逻辑与精读精度训练。</span></li>
+            <li><b>资源检索素养</b><span>学术资源高效检索、信息素养与独立探究能力。</span></li>
+            <li><b>学科改进辅导</b><span>梳理各学科学习状况，找出欠缺知识点并针对性补强。</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 模块三 · 个性化成长与影响力（暖米底 · 导语在左） ===== -->
+  <section class="section mod sec-bleed sec-soft" id="module-3">
+    <div class="mod__inner reveal">
+      <div class="mod__lead">
+        <span class="mod__no">03</span>
+        <p class="eyebrow">MODULE 03 · 软实力纵深</p>
+        <h2>个性化成长与<br/>影响力塑造</h2>
+        <p class="mod__desc">深度挖掘学生潜能，围绕核心优势与热情，规划并执行具有深度和影响力的背景提升活动，系统塑造领导力、社会责任感、创新精神与全球胜任力。</p>
+        <span class="mod__for">四大核心素养 · 领导力 / 社会责任 / 创新精神 / 全球胜任力</span>
+      </div>
+      <div class="mod__body">
+        <article class="mod__group">
+          <header class="mod__gh"><b>3.1 实验室科研项目</b><i>Research</i></header>
+          <ul class="mod__points">
+            <li><b>1v1 顶尖导师</b><span>围绕具体科学问题设计主题性课程，构建科研逻辑范式与思维。</span></li>
+            <li><b>真实 SCI 项目</b><span>共同第一作者 / 第二·四作者，JCR 分区、作者位置可查。</span></li>
+            <li><b>八大专业方向</b><span>生物、医学、交叉学科、化学、农学、计算机等方向覆盖。</span></li>
+            <li><b>三类项目梯度</b><span>开拓者计划 / 实践型者计划 / 探索者启航计划，按基础匹配。</span></li>
+          </ul>
+        </article>
+        <article class="mod__group">
+          <header class="mod__gh"><b>3.2 艺术作品集</b><i>Portfolio</i></header>
+          <ul class="mod__points">
+            <li><b>理论认知</b><span>艺术家调研、中西美术史、当代艺术解析与艺术批评。</span></li>
+            <li><b>绘画与专业基础</b><span>绘画训练、主题创作、新媒体实践与思维转换。</span></li>
+            <li><b>作品制作</b><span>一手调研、材料实验、转化升华与作品拍摄。</span></li>
+            <li><b>面试辅导</b><span>作品阐述、拓展方向、理念沟通与口语练习。</span></li>
+          </ul>
+        </article>
+        <article class="mod__group">
+          <header class="mod__gh"><b>3.3 社会性公益活动</b><i>Impact</i></header>
+          <ul class="mod__points">
+            <li><b>变革架构师</b><span>从问题发现者进阶为变革架构师（Problem-Solver to Changemaker）。</span></li>
+            <li><b>五种表现形式</b><span>技能赋能、调查研究、创意发明、文化守护、机制改良。</span></li>
+            <li><b>解决链路设计</b><span>社会痛点切入 → 学科工具选择 → 成果学术化封装 → 文书战略嵌入。</span></li>
+            <li><b>拒绝慈善表象</b><span>深耕解决链路的学术纵深与社会能效，让公益成为学术能力的显微镜。</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 途策方法 · G7 潜能测评 + 成长路线图（差异化能力） ===== -->
+  <section class="section" id="meiben-edge">
+    <div class="section__head reveal">
+      <p class="eyebrow">WHY TUCE · 途策方法</p>
+      <h2>从潜能测评开始，<br/>为你设计专属路线</h2>
+      <p class="lead">每一份申请，都从一次全方位潜能测评重新设计——你的故事，应该只属于你。</p>
+    </div>
+    <div class="why__grid reveal">
+      <article class="feat">
+        <span class="feat__idx">G7 全方位潜能测评</span>
+        <h3>发现被忽视的申请 &amp; 发展潜能</h3>
+        <p>资深人才咨询团队使用国际顶尖私校与企业采用的 G7 潜能测评系统，通过人格图式瞬查、原子式逻辑陷阱、情境测验、半结构面试等手段，多层次挖掘学生的人格、偏好、能力结构与发展模式，并创新性地把它融入名校申请——将招生团队关注的潜力、特点、价值立体化呈现。</p>
+      </article>
+      <article class="feat">
+        <span class="feat__idx">成长路线图设计</span>
+        <h3>一条「天赋形成路径」的上升通道</h3>
+        <p>结合测评画像、学生个人意愿与家长期望，设计精细化的成长路线图：以信心促成兴趣、以兴趣激发行为、以行为强化才能、以才能巩固信心，形成才能与动机相互强化的良性循环，最终为学生铺出一条阶梯状的上升通道。</p>
+      </article>
     </div>
   </section>
 
@@ -252,9 +402,6 @@
   <!-- 移动端常驻 CTA -->
   <a href="index.html#consult" class="float-cta" id="floatCta">免费评估</a>
 
-  <script src="js/vendor/gsap.min.js"></script>
-  <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script src="js/main.js?v=5"></script>
-  <script src="js/experience.js"></script>
 </body>
 </html>
