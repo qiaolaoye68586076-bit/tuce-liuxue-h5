@@ -5,9 +5,9 @@
 export const CONFIG = {
   radius: 1,
 
-  /* 相机与构图（球径 ≈ 舞台高度的 ~75%，留呼吸感） */
+  /* 相机与构图：方形取景，球径约占框 ~70%，上下左右给跨洋长弧留出头（避免弧线被截） */
   fov: 38,
-  cameraZ: 3.95,
+  cameraZ: 4.1,
 
   /* 运动 */
   rotationSecsPerTurn: 60,   // 自转一圈秒数
@@ -19,9 +19,9 @@ export const CONFIG = {
 
   /* 配色（全部墨绿系） */
   colors: {
-    dot: '#3d4a42',          // 陆地点：低饱和暖灰绿
-    dotLit: '#7fdcb0',       // 脉冲经过时点的提亮色
-    sphere: '#0d1411',       // 内球（近不可见的深色球面）
+    dot: '#5d8472',          // 陆地点：提亮墨绿（陆块更清晰，看得出是地球）
+    dotLit: '#9bf0c6',       // 脉冲经过时点的提亮色
+    sphere: '#0e1d17',       // 内球（深墨绿球面，给出地球轮廓/海洋底色）
     atmosphere: '#00a86b',   // Fresnel 大气边缘光
     arcDeep: '#005839',
     arcMid: '#00a86b',
@@ -35,18 +35,19 @@ export const CONFIG = {
   /* 辉光（Selective Bloom，宁低勿高） */
   bloom: { strength: 0.8, radius: 0.4, threshold: 0.1 },
 
-  /* 大气强度 */
-  atmosphereIntensity: 0.5,
+  /* 大气强度（球缘绿色光晕，强化"这是个球"的体积感） */
+  atmosphereIntensity: 1.0,
 
   /* 点阵 */
   dots: {
-    size: 0.012,             // 基础点径（world 单位，≈2px @ 默认相机距离）
+    size: 0.02,              // 基础点径（配合降密度，陆块成片更易辨认）
     litRadius: 0.24,         // 脉冲提亮的影响半径（world 单位）
   },
 
-  /* 初始姿态：北太平洋视角——上海光点居中偏左，跨洋弧线向右上扇出，港新短弧落左下 */
+  /* 初始姿态：东亚视角——上海居中、亚欧大陆铺满左半（不再正对空旷太平洋），
+     跨洋弧线向右扇出落向美洲 */
   initialRotX: 0.42,
-  initialRotY: 1.32,
+  initialRotY: 2.70,
 
   /* 弧线 */
   arc: {

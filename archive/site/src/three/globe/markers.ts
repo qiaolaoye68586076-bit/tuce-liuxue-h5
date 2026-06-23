@@ -4,12 +4,13 @@
  */
 import {
   Mesh, SphereGeometry, MeshBasicMaterial, CylinderGeometry, ShaderMaterial,
-  Color, Vector3, Quaternion, AdditiveBlending,
+  Color, Vector3, Quaternion, AdditiveBlending, RingGeometry,
 } from 'three';
 import { CONFIG, BLOOM_LAYER, SHANGHAI } from './config';
 import { lonLatToVec3 } from './globe';
 
 const Y_AXIS = new Vector3(0, 1, 0);
+const Z_AXIS = new Vector3(0, 0, 1);
 
 export interface Marker {
   id: string;
@@ -90,8 +91,40 @@ export function buildBeacon() {
     transparent: true,
     opacity: 0,
   });
-  const mesh = new Mesh(new SphereGeometry(0.015, 12, 12), mat);
+  const mesh = new Mesh(new SphereGeometry(0.022, 16, 16), mat);   // 放大源点，bloom 更亮、更醒目
   mesh.position.copy(pos);
   mesh.layers.enable(BLOOM_LAYER);
   return { mesh, material: mat, pos };
+}
+
+export interface Ping { mesh: Mesh; mat: ShaderMaterial; }
+
+/** 上海源点的外扩声呐环（数枚错相位循环扩散，强化"从此处辐射"的观感） */
+export function buildBeaconPings(count = 3): Ping[] {
+  const normal = lonLatToVec3(SHANGHAI[0], SHANGHAI[1], 1).normalize();
+  const pos = normal.clone().multiplyScalar(CONFIG.radius * 1.004);
+  const quat = new Quaternion().setFromUnitVectors(Z_AXIS, normal); // 环面贴上海切平面
+  const pings: Ping[] = [];
+  for (let i = 0; i < count; i++) {
+    const mat = new ShaderMaterial({
+      transparent: true, depthWrite: false, depthTest: false,
+      blending: AdditiveBlending,
+      uniforms: {
+        uColor: { value: new Color(CONFIG.colors.beacon) },
+        uAlpha: { value: 0 },
+      },
+      vertexShader: /* glsl */ `
+        void main() { gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: /* glsl */ `
+        uniform vec3 uColor; uniform float uAlpha;
+        void main() { gl_FragColor = vec4(uColor, uAlpha); }`,
+    });
+    const mesh = new Mesh(new RingGeometry(0.86, 1.0, 64), mat); // 细环，实际大小由 scale 控制
+    mesh.position.copy(pos);
+    mesh.quaternion.copy(quat);
+    mesh.renderOrder = 9;
+    mesh.layers.enable(BLOOM_LAYER);
+    pings.push({ mesh, mat });
+  }
+  return pings;
 }

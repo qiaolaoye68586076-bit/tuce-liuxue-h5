@@ -10,6 +10,8 @@
   --color-ink: #1C211B;          /* 正文墨黑 */
   --color-ink-soft: #6F6B60;     /* 次级文字 */
   --color-gold: #B6924E;         /* 金点缀 */
+  --color-terra: #B5542A;        /* 赤陶橙（与 H5 主站 CTA 同源） */
+  --color-terra-dk: #9A4723;     /* 赤陶橙·深 */
 
   --font-serif: "Archivo", "Noto Sans SC", "PingFang SC", sans-serif;
   --font-sans: "Archivo", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", sans-serif;

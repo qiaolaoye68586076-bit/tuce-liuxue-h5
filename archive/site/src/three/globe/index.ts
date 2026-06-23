@@ -9,7 +9,7 @@ import {
 import { CONFIG } from './config';
 import { createDots, createSphere, createAtmosphere } from './globe';
 import { buildArc, tickRipple, type Arc, type CaseInput } from './arcs';
-import { buildMarker, tickMarker, buildBeacon, type Marker } from './markers';
+import { buildMarker, tickMarker, buildBeacon, buildBeaconPings, type Marker } from './markers';
 import { createPost } from './post';
 import { createInteractions } from './interactions';
 
@@ -59,6 +59,8 @@ export async function createGlobe(opts: {
   for (const c of cases) markers.set(c.id, buildMarker(c.id, c.coordinates));
   const beacon = buildBeacon();
   globe.add(beacon.mesh);
+  const pings = buildBeaconPings(3);
+  for (const p of pings) globe.add(p.mesh);
   for (const a of arcs) globe.add(a.line, a.head, a.ripple);
   for (const m of markers.values()) globe.add(m.dot, m.pillar, m.hit);
 
@@ -276,6 +278,15 @@ export async function createGlobe(opts: {
     const breathe = Math.sin((elapsed * Math.PI * 2) / CONFIG.beaconBreathSecs);
     beacon.mesh.scale.setScalar(1 + 0.22 * breathe);
     if (entranceDone) beacon.material.opacity = 0.78 + 0.22 * breathe;
+
+    // 上海源点：外扩声呐环（3 枚错相位循环，强化"从此处辐射"）
+    const pingVis = entranceDone ? 1 : 0;
+    const PING_DUR = 2.8;
+    for (let i = 0; i < pings.length; i++) {
+      const ph = (elapsed / PING_DUR + i / pings.length) % 1;
+      pings[i].mesh.scale.setScalar(0.018 + ph * 0.13);            // 世界尺度由内向外扩散
+      pings[i].mat.uniforms.uAlpha.value = (1 - ph) * (1 - ph) * 0.55 * pingVis; // 外扩渐隐
+    }
 
     // 姿态：拖拽/视差/自转
     let pauseSpin = false;

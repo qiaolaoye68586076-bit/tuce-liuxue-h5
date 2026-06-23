@@ -20,15 +20,15 @@ const out = resolve(here, '../public/globe-dots.json');
 
 const land = feature(world, world.objects.land);
 
-const STEP = 1.05;          // 基础纬向间距（度）——密度旋钮
+const STEP = 1.5;           // 基础纬向间距（度）——密度旋钮（调稀，大陆更清晰、不眼花）
 const LAT_MIN = -56;        // 剔除南极洲
 const LAT_MAX = 84;
 
 const dots = [];
 for (let lat = LAT_MIN; lat <= LAT_MAX; lat += STEP) {
   const dLon = STEP / Math.max(0.18, Math.cos((lat * Math.PI) / 180));
-  // 每行加半步交错，避免网格感过强
-  const offset = ((lat / STEP) % 2) * (dLon / 2);
+  // 干净对齐网格（不再半步交错）——点阵成行成列，更易读成大陆轮廓
+  const offset = 0;
   for (let lon = -180 + offset; lon < 180; lon += dLon) {
     if (geoContains(land, [lon, lat])) {
       dots.push(Math.round(lon * 10), Math.round(lat * 10));

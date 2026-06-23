@@ -30,14 +30,14 @@ const grouped = regionOrder.map((key) => {
 });
 const total = cases.length;
 const schoolsCount = new Set(cases.map((c) => c.school_en)).size;
-const regionCount = grouped.filter((g) => g.count > 0).length;
-const years = [...new Set(cases.map((c) => c.year))].sort();
+const years = [...new Set(cases.map((c) => c.year))].sort((a, b) => a - b);
 const yearRange = `${years[0]}–${years[years.length - 1]}`;
+const filterRegions = grouped.filter((g) => g.count > 0);
 
 const title = `录取案例 · ${total} 枚全球名校 Offer，覆盖美英港新澳加 | 途策留学`;
 const description = `途策留学学员 ${yearRange} 年录取去向：${total} 枚 Offer、${schoolsCount} 所院校，覆盖美国、英国、中国香港、新加坡、澳大利亚、加拿大六大地区，包括牛津大学、剑桥大学、帝国理工学院、康奈尔大学、香港大学、新加坡国立大学等全球顶尖院校。每一条录取都从上海出发，抵达世界。`;
 
-// JSON-LD：ItemList（SVG 地图对搜索引擎不可读，结构化数据 + 语义列表保证可抓取）
+// JSON-LD：ItemList（SVG/3D 对搜索引擎不可读，结构化数据 + 语义列表保证可抓取）
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
@@ -53,43 +53,84 @@ const jsonLd = {
 ---
 
 <Base title={title} description={description} canonical="https://tuce.asia/cases/">
-  <!-- 深色 Hero：3D 点阵地球（不可用时自动回退 2D，标题仍在此） -->
-  <AdmissionGlobe total={total} yearRange={yearRange} schoolsCount={schoolsCount} />
+  <!-- ===== 录取去向 · 单板块（一屏高） ===== -->
+  <section class="cx">
+    <div class="cx__inner">
+      <header class="cx__head">
+        <p class="cx__eyebrow">ADMISSIONS<span></span>录取去向</p>
+        <h2 class="cx__title">从上海出发，<em>抵达世界</em></h2>
+        <p class="cx__sub">{yearRange} 年 · {total} 枚 Offer · {schoolsCount} 所院校 · 覆盖美英港新澳加六大地区</p>
+      </header>
 
-  <!-- 正文：米纸纸面（与深色 hero 的交界 = 一条细直线，不做花哨分割） -->
-  <main class="mx-auto max-w-[1240px] border-t border-ink-green/25 px-5 pb-24 pt-12 md:px-8 md:pt-16">
-    <!-- 2D SVG 地图：3D 启用时隐藏（html.globe-on），移动端 / 无 WebGL / 无 JS 时为主视觉 -->
-    <div id="map2d">
-      <AdmissionMap />
+      <div class="cx__grid">
+        <!-- 左：紧凑 3D 地球（无 WebGL/移动端回退 2D） -->
+        <div class="cx__stage">
+          <div id="gstageWrap"><AdmissionGlobe total={total} yearRange={yearRange} schoolsCount={schoolsCount} /></div>
+          <div id="map2d"><AdmissionMap /></div>
+        </div>
+
+        <!-- 右：地区筛选 + 定高滚动的院校清单（筛选同时驱动地球） -->
+        <div class="cx__panel">
+          <div class="cx__filter" role="group" aria-label="按地区筛选录取案例">
+            <button type="button" class="cx-pill" data-gfilter="region" data-value="all" aria-pressed="true">全部</button>
+            {filterRegions.map((g) => (
+              <button type="button" class="cx-pill" data-gfilter="region" data-value={g.key} aria-pressed="false">{g.zh}</button>
+            ))}
+          </div>
+
+          <p class="cx__stat">当前 <b id="cx-total">{total}</b> 枚 Offer · <b id="cx-schools">{schoolsCount}</b> 所院校</p>
+
+          <div class="cx__listwrap">
+            <div class="cx__list" id="cxList" tabindex="0" aria-label="录取院校清单">
+              {grouped.map((g) => g.count > 0 && (
+                <Fragment>
+                  <div class="cx-sub" data-region={g.key}>
+                    <span class="cx-sub__zh">{g.zh}</span>
+                    <span class="cx-sub__n">{g.count} 枚</span>
+                  </div>
+                  {g.schools.map((s) => (
+                    <div class="cx-srow" data-region={g.key} data-count={s.cases.length}>
+                      <span class="cx-srow__zh">{s.school_zh}</span>
+                      <span class="cx-srow__en">{s.school_en}</span>
+                      <span class="cx-srow__n">×{s.cases.length}</span>
+                    </div>
+                  ))}
+                </Fragment>
+              ))}
+              <p class="cx-empty" id="cx-empty" hidden>该地区暂无录取记录。</p>
+            </div>
+            <div class="cx__cue" aria-hidden="true">
+              下滑查看全部
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- 语义化录取列表（与 JSON 同源、构建期静态渲染 —— SVG 的可抓取版本，非装饰） -->
-    <div class="mt-16 md:mt-24">
-      <h2 class="mb-2 font-serif text-[clamp(22px,3.4vw,30px)] font-bold text-ink">完整录取名录</h2>
-      <p class="mb-8 text-[13.5px] text-ink-soft">按地区与院校分组 · 共 {total} 枚 Offer / {schoolsCount} 所院校 · 学生均以匿名形式呈现</p>
-
+  <!-- 完整名录：默认折叠（保留语义内容供 SEO 抓取，页面保持精简） -->
+  <details class="cx-full">
+    <summary>查看完整录取名录（{total} 枚 Offer / {schoolsCount} 所院校）</summary>
+    <div class="cx-full__body">
       {grouped.map((g) => g.count > 0 && (
-        <section class="mb-12" aria-labelledby={`region-${g.key}`}>
-          <h3
-            id={`region-${g.key}`}
-            class="mb-4 flex items-baseline gap-3 border-b border-ink-green/30 pb-2 font-serif text-lg font-bold text-ink-green"
-          >
-            {g.zh}<span class="font-sans text-[11.5px] font-normal tracking-[0.14em] text-ink-soft">{g.en}</span>
-            <span class="ml-auto font-sans text-[12px] font-normal text-ink-soft">{g.count} 枚 Offer</span>
+        <section class="cx-region" data-region={g.key} aria-labelledby={`region-${g.key}`}>
+          <h3 id={`region-${g.key}`} class="cx-region__title">
+            {g.zh}<span class="cx-region__en">{g.en}</span>
+            <span class="cx-region__count">{g.count} 枚 Offer</span>
           </h3>
           {g.schools.map((s) => (
-            <article class="mb-5">
-              <h4 class="mb-1 flex flex-wrap items-baseline gap-x-3 font-serif text-[15.5px] font-bold text-ink">
-                {s.school_zh}
-                <span class="font-sans text-[12px] font-normal tracking-wide text-ink-soft">{s.school_en}</span>
-                <span class="rounded-sm bg-ink-green/10 px-1.5 py-0.5 font-sans text-[11px] font-semibold text-ink-green">×{s.cases.length}</span>
+            <article class="cx-school">
+              <h4 class="cx-school__name">
+                {s.school_zh}<span class="cx-school__en">{s.school_en}</span>
+                <span class="cx-school__badge">×{s.cases.length}</span>
               </h4>
-              <ul class="divide-y divide-paper-line border-l border-ink-green/15 pl-4">
+              <ul class="cx-cases">
                 {s.cases.map((c) => (
-                  <li class="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 py-1.5 text-[13px]">
-                    <span class="text-ink">{c.program}</span>
-                    <span class="text-[12px] text-ink-soft">{c.degree}</span>
-                    <span class="ml-auto whitespace-nowrap text-[12px] text-ink-soft">{c.year} 年 · {c.student}</span>
+                  <li class="cx-case">
+                    <span class="cx-case__prog">{c.program}</span>
+                    <span class="cx-case__deg">{c.degree}</span>
+                    <span class="cx-case__meta">{c.year} 年 · {c.student}</span>
                   </li>
                 ))}
               </ul>
@@ -98,12 +139,266 @@ const jsonLd = {
         </section>
       ))}
     </div>
+  </details>
 
-    <!-- 页脚 -->
-    <footer class="mt-20 border-t border-paper-line pt-6 text-[12.5px] text-ink-soft">
-      <p>© 2026 途策留学 TUCE Education · 以上案例均经学员授权、匿名呈现（当前为占位示例数据）</p>
-    </footer>
-  </main>
+  <!-- ===== CTA：你的故事，从这里开始 ===== -->
+  <section class="cx-cta">
+    <div class="cx-cta__inner">
+      <p class="cx-cta__eyebrow">YOUR TURN</p>
+      <h2 class="cx-cta__title">你的故事，从这里开始</h2>
+      <p class="cx-cta__sub">每一条航线，都曾是一个普通的起点。预约一次免费评估，让途策为你规划下一段路。</p>
+      <a class="cx-cta__btn" href="/#consult">免费评估</a>
+    </div>
+  </section>
+
+  <footer class="cx-foot">
+    <p>© 2026 途策留学 TUCE Education · 以上案例均经学员授权、匿名呈现（当前为占位示例数据）</p>
+  </footer>
 
   <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
 </Base>
+
+<style>
+  /* ===== 单板块容器 ===== */
+  .cx { background: var(--color-paper); }
+  .cx__inner { max-width: 1240px; margin: 0 auto; padding: 56px 20px 40px; }
+  @media (min-width: 768px) { .cx__inner { padding: 72px 32px 48px; } }
+
+  .cx__head { margin-bottom: 24px; }
+  .cx__eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-serif);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.22em;
+    color: var(--color-gold); margin-bottom: 12px;
+  }
+  .cx__eyebrow span { width: 30px; height: 2px; background: var(--color-gold); opacity: 0.55; }
+  .cx__title {
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 4.2vw, 46px);
+    font-weight: 850; line-height: 1.1; color: var(--color-ink-green); letter-spacing: -0.015em;
+  }
+  .cx__title em { font-style: normal; color: var(--color-gold); }
+  .cx__sub { margin-top: 12px; font-size: 14px; color: var(--color-ink-soft); }
+
+  /* ===== 两列：左地球 / 右面板（等高） ===== */
+  .cx__grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+  @media (min-width: 1024px) {
+    html.globe-on .cx__grid { grid-template-columns: minmax(360px, 480px) 1fr; gap: 36px; align-items: stretch; }
+  }
+  #gstageWrap { display: none; }
+
+  .cx__panel { display: flex; flex-direction: column; min-height: 0; }
+  .cx__filter { display: flex; flex-wrap: wrap; gap: 7px; }
+  .cx-pill {
+    font-family: var(--font-serif);
+    font-size: 13px; font-weight: 600; letter-spacing: 0.03em;
+    padding: 6px 15px; border-radius: 999px; cursor: pointer;
+    color: var(--color-ink-green); background: #fff;
+    border: 1.5px solid var(--color-paper-line);
+    transition: border-color 0.22s, background 0.22s, color 0.22s;
+  }
+  .cx-pill:hover { border-color: var(--color-ink-green); }
+  .cx-pill[aria-pressed='true'] { background: var(--color-ink-green); border-color: var(--color-ink-green); color: var(--color-paper); }
+
+  .cx__stat { margin: 14px 0 10px; font-size: 13px; color: var(--color-ink-soft); }
+  .cx__stat b { color: var(--color-ink-green); font-weight: 700; }
+
+  /* 定高滚动清单：板块不被名录撑长；外层 wrap 承载底部渐隐与下滑提示 */
+  .cx__listwrap { position: relative; flex: 1 1 auto; min-height: 0; }
+  .cx__list {
+    height: 100%; max-height: 340px; overflow-y: auto;
+    border-top: 1px solid var(--color-paper-line);
+    padding-right: 8px; padding-bottom: 44px;   /* 末行留白，避免被提示胶囊压住 */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(181, 84, 42, 0.5) transparent;
+    scroll-behavior: smooth;
+  }
+  @media (min-width: 1024px) { .cx__list { max-height: 392px; } } /* 定高内滚，右栏≈方形地球框等高 */
+  .cx__list::-webkit-scrollbar { width: 6px; }
+  .cx__list::-webkit-scrollbar-thumb { background: rgba(181, 84, 42, 0.45); border-radius: 999px; }
+  .cx__list::-webkit-scrollbar-thumb:hover { background: rgba(181, 84, 42, 0.7); }
+
+  /* 底部渐隐：仅最底部一段米白，柔和暗示"还有内容"，不遮挡行文字 */
+  .cx__listwrap::after {
+    content: ''; position: absolute; left: 0; right: 8px; bottom: 0; height: 52px; z-index: 1;
+    background: linear-gradient(transparent, var(--color-paper));
+    pointer-events: none; opacity: 0; transition: opacity 0.28s;
+  }
+  .cx__listwrap.is-scrollable:not(.at-end)::after { opacity: 1; }
+  /* 下滑提示胶囊（赤陶橙），实底高对比，置于渐隐之上保证清晰；仅"可滚且未到底"时浮现 */
+  .cx__cue {
+    position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); z-index: 2;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-serif); font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em;
+    color: #fff; background: var(--color-terra);
+    border: none; padding: 5px 14px; border-radius: 999px; pointer-events: none; white-space: nowrap;
+    opacity: 0; transition: opacity 0.28s; box-shadow: 0 8px 20px -6px rgba(181, 84, 42, 0.55);
+  }
+  .cx__listwrap.is-scrollable:not(.at-end) .cx__cue { opacity: 1; }
+  .cx__cue svg { animation: cxBounce 1.4s ease-in-out infinite; }
+  @keyframes cxBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(2.5px); } }
+
+  /* 地区小标题：赤陶橙竖条 + 计数描橙 */
+  .cx-sub {
+    display: flex; align-items: center; gap: 8px;
+    position: sticky; top: 0; z-index: 1;
+    background: var(--color-paper);
+    padding: 11px 0 7px 12px; margin-top: 4px;
+    border-bottom: 1px solid rgba(20, 52, 43, 0.18);
+    font-family: var(--font-serif); font-size: 13px; font-weight: 800; letter-spacing: 0.06em;
+    color: var(--color-ink-green);
+  }
+  .cx-sub::before {
+    content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    width: 4px; height: 15px; border-radius: 2px;
+    background: linear-gradient(var(--color-terra), var(--color-terra-dk));
+  }
+  .cx-sub__n {
+    margin-left: auto; font-family: var(--font-sans); font-weight: 700; font-size: 11px; letter-spacing: 0.02em;
+    color: var(--color-terra); background: rgba(181, 84, 42, 0.1);
+    padding: 1px 8px; border-radius: 999px;
+  }
+
+  /* 院校行：hover 时橙条滑入 + 底色微染，去"死板" */
+  .cx-srow {
+    position: relative;
+    display: flex; align-items: baseline; gap: 4px 10px; flex-wrap: wrap;
+    padding: 8px 6px 8px 12px; border-bottom: 1px solid var(--color-paper-line);
+    font-size: 13.5px; border-radius: 6px;
+    transition: background 0.2s;
+  }
+  .cx-srow::before {
+    content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    width: 3px; height: 0; border-radius: 2px; background: var(--color-terra);
+    transition: height 0.22s ease;
+  }
+  .cx-srow:hover { background: rgba(181, 84, 42, 0.06); }
+  .cx-srow:hover::before { height: 62%; }
+  .cx-srow__zh { color: var(--color-ink); font-weight: 600; transition: color 0.2s; }
+  .cx-srow:hover .cx-srow__zh { color: var(--color-terra-dk); }
+  .cx-srow__en { font-size: 11.5px; color: var(--color-ink-soft); }
+  .cx-srow__n {
+    margin-left: auto; font-size: 11px; font-weight: 700; color: var(--color-terra);
+    background: rgba(181, 84, 42, 0.1); padding: 1px 8px; border-radius: 999px;
+  }
+  .cx-empty { padding: 22px 4px; font-size: 13.5px; color: var(--color-ink-soft); }
+  /* 显式 display:flex 会压过 UA 的 [hidden]，筛选时须强制隐藏 */
+  .cx-sub[hidden], .cx-srow[hidden], .cx-region[hidden], .cx-school[hidden], .cx-case[hidden] { display: none !important; }
+
+  /* ===== 完整名录（折叠） ===== */
+  .cx-full { max-width: 1240px; margin: 0 auto; padding: 0 20px 28px; }
+  @media (min-width: 768px) { .cx-full { padding: 0 32px 36px; } }
+  .cx-full > summary {
+    cursor: pointer; list-style: none;
+    font-family: var(--font-serif); font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--color-ink-green);
+    padding: 14px 0; border-top: 1px solid var(--color-paper-line);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cx-full > summary::-webkit-details-marker { display: none; }
+  .cx-full > summary::before { content: '＋'; color: var(--color-gold); font-weight: 700; }
+  .cx-full[open] > summary::before { content: '－'; }
+  .cx-full__body { padding-top: 8px; }
+
+  .cx-region { margin-bottom: 26px; }
+  .cx-region__title {
+    display: flex; align-items: baseline; gap: 12px;
+    border-bottom: 1px solid rgba(20, 52, 43, 0.28); padding-bottom: 8px; margin-bottom: 14px;
+    font-family: var(--font-serif); font-size: 17px; font-weight: 800; color: var(--color-ink-green);
+  }
+  .cx-region__en { font-size: 11px; font-weight: 400; letter-spacing: 0.14em; color: var(--color-ink-soft); }
+  .cx-region__count { margin-left: auto; font-size: 12px; font-weight: 400; color: var(--color-ink-soft); white-space: nowrap; }
+  .cx-school { margin-bottom: 16px; }
+  .cx-school__name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 4px; font-family: var(--font-serif); font-size: 15px; font-weight: 700; color: var(--color-ink); }
+  .cx-school__en { font-size: 12px; font-weight: 400; color: var(--color-ink-soft); }
+  .cx-school__badge { border-radius: 3px; background: rgba(20, 52, 43, 0.1); padding: 1px 6px; font-size: 11px; font-weight: 600; color: var(--color-ink-green); }
+  .cx-cases { border-left: 1px solid rgba(20, 52, 43, 0.15); padding-left: 16px; }
+  .cx-case { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; padding: 5px 0; font-size: 12.5px; border-top: 1px solid var(--color-paper-line); }
+  .cx-case:first-child { border-top: 0; }
+  .cx-case__prog { color: var(--color-ink); }
+  .cx-case__deg { font-size: 11.5px; color: var(--color-ink-soft); }
+  .cx-case__meta { margin-left: auto; font-size: 11.5px; color: var(--color-ink-soft); white-space: nowrap; }
+
+  /* ===== CTA ===== */
+  .cx-cta { background: var(--color-ink-green); color: var(--color-paper); }
+  .cx-cta__inner { max-width: 1240px; margin: 0 auto; padding: 64px 20px; text-align: center; }
+  @media (min-width: 768px) { .cx-cta__inner { padding: 84px 32px; } }
+  .cx-cta__eyebrow { font-family: var(--font-serif); font-size: 12px; font-weight: 700; letter-spacing: 0.24em; color: var(--color-gold); }
+  .cx-cta__title { margin-top: 14px; font-family: var(--font-serif); font-size: clamp(26px, 4.4vw, 44px); font-weight: 850; letter-spacing: -0.01em; }
+  .cx-cta__sub { margin: 16px auto 0; max-width: 460px; font-size: 15px; line-height: 1.9; color: rgba(250, 247, 240, 0.72); }
+  .cx-cta__btn {
+    display: inline-block; margin-top: 28px;
+    font-family: var(--font-serif); font-size: 14.5px; font-weight: 700; letter-spacing: 0.04em;
+    padding: 13px 34px; border-radius: 999px;
+    color: var(--color-ink-green); background: var(--color-gold);
+    transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 10px 30px -12px rgba(182, 146, 78, 0.6);
+  }
+  .cx-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -12px rgba(182, 146, 78, 0.7); }
+
+  .cx-foot { max-width: 1240px; margin: 0 auto; padding: 26px 20px; font-size: 12.5px; color: var(--color-ink-soft); }
+</style>
+
+<style is:global>
+  /* 3D 启用 → 显示地球、隐藏 2D 图；否则（默认/无 JS/移动端）显示 2D 图 */
+  html.globe-on #gstageWrap { display: block; height: 100%; }
+  html.globe-on #map2d { display: none; }
+</style>
+
+<script>
+  // 共享地区筛选：一次点击同时驱动「3D 地球」与「右侧院校清单 + 折叠名录」
+  let region = 'all';
+  (window as any).__caseFilter = { region, year: 'all' };
+
+  const totalEl = document.getElementById('cx-total')!;
+  const schoolsEl = document.getElementById('cx-schools')!;
+  const emptyEl = document.getElementById('cx-empty') as HTMLElement;
+  const list = document.getElementById('cxList') as HTMLElement;
+  const listwrap = list.parentElement!;
+
+  // 下滑提示：可滚 + 未到底 → 显示底部渐隐与"下滑查看全部"胶囊
+  function updateCue() {
+    const scrollable = list.scrollHeight - list.clientHeight > 4;
+    const atEnd = list.scrollTop + list.clientHeight >= list.scrollHeight - 4;
+    listwrap.classList.toggle('is-scrollable', scrollable);
+    listwrap.classList.toggle('at-end', atEnd);
+  }
+  list.addEventListener('scroll', updateCue, { passive: true });
+  window.addEventListener('resize', updateCue);
+
+  function applyDirectory() {
+    let offers = 0, schoolsShown = 0;
+    // 紧凑清单
+    document.querySelectorAll<HTMLElement>('.cx-sub').forEach((el) => {
+      el.hidden = !(region === 'all' || region === el.dataset.region);
+    });
+    document.querySelectorAll<HTMLElement>('.cx-srow').forEach((el) => {
+      const ok = region === 'all' || region === el.dataset.region;
+      el.hidden = !ok;
+      if (ok) { offers += Number(el.dataset.count); schoolsShown++; }
+    });
+    // 折叠的完整名录
+    document.querySelectorAll<HTMLElement>('.cx-region').forEach((sec) => {
+      sec.hidden = !(region === 'all' || region === sec.dataset.region);
+    });
+    totalEl.textContent = String(offers);
+    schoolsEl.textContent = String(schoolsShown);
+    emptyEl.hidden = schoolsShown > 0;
+    list.scrollTop = 0;                       // 换地区回到顶部
+    requestAnimationFrame(updateCue);         // 行显隐改变后重算可滚状态
+  }
+
+  updateCue();                                // 初始判定一次
+
+  document.querySelectorAll<HTMLButtonElement>('[data-gfilter="region"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      region = btn.dataset.value!;
+      document.querySelectorAll('[data-gfilter="region"]').forEach((b) =>
+        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+      (window as any).__caseFilter = { region, year: 'all' };
+      (window as any).__globeApi?.setFilter(region, 'all');  // 3D 未就绪则空操作，进场自对齐
+      const card = document.getElementById('gcard');
+      if (card) card.hidden = true;
+      applyDirectory();
+    });
+  });
+</script>

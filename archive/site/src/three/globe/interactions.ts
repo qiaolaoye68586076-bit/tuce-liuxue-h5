@@ -52,7 +52,10 @@ export function createInteractions(opts: {
   function pick(e: PointerEvent) {
     const { px, py } = toNdc(e);
     ray.setFromCamera(ndc, camera);
-    const hit = ray.intersectObjects(hits, false)[0];
+    // 只取最近的「可见」命中：筛选后被隐藏的光点(visible=false)虽不渲染，
+    // 但 three 的射线检测无视 .visible，仍会命中 → 必须手动过滤，
+    // 否则在某地区筛选下仍会悬停弹出其他地区(尤其美国密集簇)的卡片。
+    const hit = ray.intersectObjects(hits, false).find((h) => h.object.visible);
     const id = hit ? (hit.object.userData.caseId as string) : null;
     if (id !== st.hoveredId) {
       st.hoveredId = id;
