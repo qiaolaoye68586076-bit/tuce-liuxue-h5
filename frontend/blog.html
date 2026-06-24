@@ -106,9 +106,9 @@
 
       <!-- Hero -->
       <div class="blog-hero">
-        <p class="blog-hero__kicker"><span>INSIGHTS</span></p>
-        <h1>留学洞察</h1>
-        <p class="blog-hero__sub">申请策略、选校逻辑、文书方法论——来自途策一线顾问的深度分享。</p>
+        <p class="blog-hero__kicker reveal"><span>INSIGHTS</span></p>
+        <h1 class="reveal">留学洞察</h1>
+        <p class="blog-hero__sub reveal">申请策略、选校逻辑、文书方法论——来自途策一线顾问的深度分享。</p>
       </div>
 
       <!-- 置顶文章（JS 注入） -->
@@ -120,7 +120,7 @@
   <!-- ===== 最新文章列表（深米底） ===== -->
   <section class="blog-list">
     <div class="blog-list__inner">
-      <div class="blog-list__head">
+      <div class="blog-list__head reveal">
         <p class="blog-list__kicker">最新文章</p>
         <!-- 分类筛选（编辑式文字 Tab） -->
         <div class="blog-filter" id="blogFilter">
@@ -139,7 +139,7 @@
 
   <!-- ===== 底部 CTA 转化带 ===== -->
   <section class="cta-band">
-    <div class="cta-band__inner">
+    <div class="cta-band__inner reveal">
       <p class="eyebrow">GET STARTED</p>
       <h2>有想法？聊聊看。</h2>
       <p>每一篇文章背后，都有可以落地的策略。</p>
@@ -249,6 +249,25 @@
     var listSection = document.querySelector('.blog-list');
     var filterEl = document.getElementById('blogFilter');
 
+    /* 滚动揭示：复用全站 .reveal/.in，但这些卡片由 JS 后注入，
+       main.js 的观察器已在更早时刻完成扫描，故此处自建一个观察器接管。
+       减弱动效或不支持 IO 时不加 .reveal，元素按默认即时显示。 */
+    var prefersReduced = !!(window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    var revealIO = (!prefersReduced && 'IntersectionObserver' in window)
+      ? new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' })
+      : null;
+    function revealEl(el, i) {
+      if (!el || !revealIO) return;
+      el.classList.add('reveal');
+      el.style.transitionDelay = (Math.min(i || 0, 5) * 65) + 'ms';   // 同行卡片错峰
+      revealIO.observe(el);
+    }
+
     function esc(s) {
       return String(s == null ? '' : s)
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -294,6 +313,7 @@
       card.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(a.url); }
       });
+      revealEl(card, 0);
     }
 
     // 普通文章卡片（竖版：图在上 + 标签/标题/日期在下）
@@ -329,11 +349,12 @@
       var start = (currentPage - 1) * PAGE_SIZE;
       var shown = filtered.slice(start, start + PAGE_SIZE);
       gridEl.innerHTML = shown.map(cardHTML).join('');
-      Array.prototype.forEach.call(gridEl.querySelectorAll('.post-card'), function (card) {
+      Array.prototype.forEach.call(gridEl.querySelectorAll('.post-card'), function (card, idx) {
         card.addEventListener('click', function () { open(card.getAttribute('data-url')); });
         card.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card.getAttribute('data-url')); }
         });
+        revealEl(card, idx % 4);   // 4 列网格，按列错峰揭示
       });
       renderPager(totalPages);
     }

@@ -2006,7 +2006,9 @@ a.card{ color:inherit; }
   background:
     linear-gradient(90deg, #f5f0e8 0%, rgba(245,240,232,.92) 34%, rgba(245,240,232,.58) 62%, rgba(245,240,232,.16) 84%),
     url("../assets/bg-blog-hero.webp") right top / cover no-repeat;
+  animation:blogHeroBgIn 1.4s var(--ease) both;   /* 建筑随首屏轻缓淡入（减弱动效时由媒体查询关闭）*/
 }
+@keyframes blogHeroBgIn{ from{ opacity:0 } to{ opacity:1 } }
 .blog-top__inner,
 .blog-list__inner{ max-width:var(--maxw); margin:0 auto; padding:0 22px; }
 .blog-top__inner{ padding-top:120px; padding-bottom:64px; }

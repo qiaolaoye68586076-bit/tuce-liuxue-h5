@@ -598,6 +598,20 @@
     var grid = document.getElementById('homeInsights');
     if (!grid) return;
 
+    // 用户一旦主动滚动/操作，就放弃锚点纠偏，避免打断阅读
+    var userTookOver = false;
+    ['wheel','touchmove','keydown','mousedown'].forEach(function(ev){
+      window.addEventListener(ev, function(){ userTookOver = true; }, { passive:true, once:true });
+    });
+    // 卡片是异步注入的：洞察板块（位于 #consult 之上）撑高后会把锚点目标顶下去，
+    // 导致从其他页点"免费评估"跳到 index.html#consult 时只露出半屏。注入后重新对齐。
+    function realignHash(){
+      if (userTookOver || location.hash.length < 2) return;
+      var target;
+      try { target = document.querySelector(location.hash); } catch(e){ return; }
+      if (target) requestAnimationFrame(function(){ target.scrollIntoView(); });
+    }
+
     function esc(s){
       return String(s == null ? '' : s)
         .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -647,6 +661,7 @@
           .slice(0, 3);
         if (!arts.length) { grid.innerHTML = ''; return; }
         grid.innerHTML = arts.map(cardHTML).join('');
+        realignHash();
         Array.prototype.forEach.call(grid.querySelectorAll('.insight-card'), function(card){
           card.addEventListener('click', function(){ open(card.getAttribute('data-url')); });
           card.addEventListener('keydown', function(e){
