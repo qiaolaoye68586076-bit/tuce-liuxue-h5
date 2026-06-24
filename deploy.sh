@@ -199,11 +199,13 @@ fi
 # --exclude 保护「服务器自己生成」的内容不被 --delete 清掉 / 被本地占位覆盖：
 #   /articles.json     由 scripts/sync_articles.py 在服务器上生成（仓库那份只是占位种子）
 #   /assets/insights/   同步脚本下载的公众号封面图
+#   /_*.html           下划线前缀的预览/草稿页（如 _preview-*.html），仅本地预览，不上生产
 # 详见 scripts/README.md「与 deploy.sh 的关系」。
 rsync_opts=(-avz --progress --partial --timeout=120 --delete --stats
             --exclude='.DS_Store'
             --exclude='/articles.json'
-            --exclude='/assets/insights/')
+            --exclude='/assets/insights/'
+            --exclude='/_*.html')
 if [[ "$VERBOSE" == true ]]; then
   rsync_opts+=(--itemize-changes)
 fi
