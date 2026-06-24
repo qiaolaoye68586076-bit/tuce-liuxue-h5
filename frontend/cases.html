@@ -66,7 +66,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=dc768e09" />
+  <link rel="stylesheet" href="css/style.css?v=29e5088b" />
 
   <!-- ===== 案例详情卡（页内局部样式，沿用全站配色变量） ===== -->
   <style>
@@ -316,7 +316,7 @@
     /* 面板：筛选 + 名录 */
     .cx__panel{ display:flex; flex-direction:column; min-height:0; }
     .cx__filter{ display:flex; flex-wrap:wrap; gap:7px; }
-    .cx-pill{ font-stretch:75%; font-size:13px; font-weight:600; letter-spacing:.03em; padding:6px 15px;
+    .cx-pill{ font-stretch:75%; font-size:13px; font-weight:600; letter-spacing:.03em; padding:13px 15px;  /* 竖向 padding 撑到 ≥44px（C1）*/
       border-radius:999px; cursor:pointer; color:var(--green); background:#fff; border:1.5px solid var(--line);
       transition:border-color .22s, background .22s, color .22s; }
     .cx-pill:hover{ border-color:var(--green); }
@@ -374,6 +374,17 @@
     .cx-full>summary::-webkit-details-marker{ display:none; }
     .cx-full>summary::before{ content:'＋'; color:var(--gold); font-weight:700; }
     .cx-full[open]>summary::before{ content:'－'; }
+    /* 名录展开后常驻「收起」浮标：sticky 贴在视口底部，滚动途中随时可点，不必到底 */
+    .cx-full__collapse{ display:none; }
+    .cx-full[open] .cx-full__collapse{ display:flex; align-items:center; justify-content:center; gap:8px;
+      position:sticky; bottom:16px; z-index:30; width:max-content; max-width:100%; margin:18px auto 0;
+      padding:11px 22px; border:1px solid var(--line); border-radius:999px;
+      background:rgba(247,244,238,.92); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+      box-shadow:0 14px 30px -12px rgba(20,52,43,.4); cursor:pointer; font-family:inherit;
+      font-stretch:75%; font-size:14px; font-weight:700; letter-spacing:.02em; color:var(--green);
+      transition:color .25s, box-shadow .25s; }
+    .cx-full__collapse>span{ color:var(--gold); font-weight:700; }
+    .cx-full__collapse:hover{ color:var(--gold); box-shadow:0 16px 34px -12px rgba(20,52,43,.5); }
     .cx-region{ margin-bottom:26px; }
     .cx-region__title{ display:flex; align-items:baseline; gap:12px; border-bottom:1px solid rgba(20,52,43,.28);
       padding-bottom:8px; margin-bottom:14px; font-stretch:75%; font-size:17px; font-weight:800; color:var(--green); }
@@ -471,33 +482,33 @@
       <p class="lead">精选学员录取案例 —— 点击查看完整背景与策略复盘。</p>
     </div>
     <div class="stories__grid">
-      <article class="story reveal">
+      <a class="story reveal" href="#case-w">
         <div class="story__media"><img src="assets/case-01.jpg" alt="学员录取案例" loading="lazy" /><span class="story__badge">Admitted</span></div>
         <div class="story__body">
           <span class="story__tag">W 同学 · 上海</span>
           <h3 class="story__school">宾夕法尼亚大学</h3>
           <p>从 GPA 中游到藤校录取，模块化规划 + 真实科研，让申请形象真正立住。</p>
-          <a href="#case-w" class="story__more">查看完整案例 →</a>
+          <span class="story__more">查看完整案例 →</span>
         </div>
-      </article>
-      <article class="story reveal">
+      </a>
+      <a class="story reveal" href="#case-l">
         <div class="story__media"><img src="assets/case-02.jpg" alt="学员录取案例" loading="lazy" /><span class="story__badge">Admitted</span></div>
         <div class="story__body">
           <span class="story__tag">L 同学 · 北京</span>
           <h3 class="story__school">芝加哥大学</h3>
           <p>文书十余稿打磨，把一段公益经历写成独一无二的故事，戳中招生官。</p>
-          <a href="#case-l" class="story__more">查看完整案例 →</a>
+          <span class="story__more">查看完整案例 →</span>
         </div>
-      </article>
-      <article class="story reveal">
+      </a>
+      <a class="story reveal" href="#case-c">
         <div class="story__media"><img src="assets/case-03.jpg" alt="学员录取案例" loading="lazy" /><span class="story__badge">Admitted</span></div>
         <div class="story__body">
           <span class="story__tag">C 同学 · 深圳</span>
           <h3 class="story__school">康奈尔大学</h3>
           <p>理工方向背景提升 + RP 全真面试预演，稳稳拿下心仪工程学院。</p>
-          <a href="#case-c" class="story__more">查看完整案例 →</a>
+          <span class="story__more">查看完整案例 →</span>
         </div>
-      </article>
+      </a>
     </div>
   </section>
 
@@ -688,7 +699,7 @@
             <div class="gstage__ph" aria-hidden="true"><i></i></div>
             <canvas class="gstage__canvas" id="gcanvas" aria-label="3D 录取去向地球"></canvas>
             <div class="gcard" id="gcard" hidden></div>
-            <p class="gstage__hint" aria-hidden="true">拖拽旋转 · 悬停光点看案例</p>
+            <p class="gstage__hint" aria-hidden="true">拖拽旋转 · 悬停光点看案例</p><!-- 触摸屏文案由 JS 改写为「拖拽旋转地球」 -->
           </div>
         </div>
         <div class="cx__panel">
@@ -706,6 +717,7 @@
     <details class="cx-full" id="cxFull">
       <summary id="cxFullSummary">查看完整录取名录</summary>
       <div class="cx-full__body" id="cxFullBody"></div>
+      <button type="button" class="cx-full__collapse" id="cxFullCollapse">收起名录<span aria-hidden="true">－</span></button>
     </details>
   </section>
 
@@ -740,15 +752,19 @@
         <ul class="footer__contact">
           <li>
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A15 15 0 0 1 4 5a1 1 0 0 1 1-1z"/></svg>
-            <a href="tel:400-XXX-XXXX">400-XXX-XXXX</a>
+            <a href="tel:+8613665152000">+86 13665152000</a>
           </li>
           <li>
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-            <a href="mailto:contact@tuce-edu.com">contact@tuce-edu.com</a>
+            <a href="mailto:kevinqiao@tucededu.com">kevinqiao@tucededu.com</a>
           </li>
           <li>
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>
-            <span>上海市 · 详细地址待补充</span>
+            <span>上海办公室 · 长宁区</span>
+          </li>
+          <li>
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>
+            <span>无锡办公室 · 锡山区</span>
           </li>
         </ul>
       </div>
@@ -841,6 +857,19 @@
         s.cases.map((c) => `<li class="cx-case"><span class="cx-case__prog">${esc(c.program)}</span><span class="cx-case__deg">${esc(c.degree)}</span><span class="cx-case__meta">${c.year} 年 · ${esc(c.student)}</span></li>`).join('') +
         '</ul></article>').join('') + '</section>').join('');
 
+    // —— 名录末尾「收起」按钮：关闭后平滑回滚到 summary（避让 fixed 导航高度） ——
+    const fullDetails = document.getElementById('cxFull');
+    const collapseBtn = document.getElementById('cxFullCollapse');
+    if (fullDetails && collapseBtn) {
+      collapseBtn.addEventListener('click', () => {
+        fullDetails.open = false;
+        const navH = document.querySelector('.nav')?.offsetHeight || 0;
+        const summary = document.getElementById('cxFullSummary');
+        const y = summary.getBoundingClientRect().top + window.scrollY - navH - 12;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      });
+    }
+
     // —— 文案 + 计数 ——
     const totalEl = document.getElementById('cxTotal');
     const schoolsEl = document.getElementById('cxSchools');
@@ -882,6 +911,12 @@
       apply();
     }));
     updateCue();
+
+    // —— 地球提示文案分流：触摸屏没有「悬停」，避免文案误导（B 组）——
+    if (!matchMedia('(hover: hover)').matches) {
+      const hint = document.querySelector('.gstage__hint');
+      if (hint) hint.textContent = '拖拽旋转地球';
+    }
 
     // —— 3D 地球：WebGL + 非低端设备即加载（含移动端），进视口懒加载 ——
     if (!use3D) return;                       // 无 WebGL / 低端机：单列仅名录

@@ -34,3 +34,7 @@ node_modules/
 # Backend (Flask) runtime artifacts
 backend/*.db
 backend/instance/
+
+# 公众号同步：access_token 凭据缓存 + 同步下载的封面（由服务器 cron 生成，不入库）
+scripts/.wx_token_cache.json
+frontend/assets/insights/

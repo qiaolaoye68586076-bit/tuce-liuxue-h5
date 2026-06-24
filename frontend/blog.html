@@ -54,7 +54,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=dc768e09" />
+  <link rel="stylesheet" href="css/style.css?v=29e5088b" />
 </head>
 <body>
 
@@ -111,16 +111,6 @@
         <p class="blog-hero__sub">申请策略、选校逻辑、文书方法论——来自途策一线顾问的深度分享。</p>
       </div>
 
-      <!-- 分类筛选 -->
-      <div class="blog-filter" id="blogFilter">
-        <button type="button" class="pill is-active" data-cat="全部">全部</button>
-        <button type="button" class="pill" data-cat="美国地区">美国地区</button>
-        <button type="button" class="pill" data-cat="英国地区">英国地区</button>
-        <button type="button" class="pill" data-cat="香港·新加坡">香港·新加坡</button>
-        <button type="button" class="pill" data-cat="澳洲·加拿大">澳洲·加拿大</button>
-        <button type="button" class="pill" data-cat="专业解读">专业解读</button>
-      </div>
-
       <!-- 置顶文章（JS 注入） -->
       <div id="featuredPost"></div>
 
@@ -130,11 +120,20 @@
   <!-- ===== 最新文章列表（深米底） ===== -->
   <section class="blog-list">
     <div class="blog-list__inner">
-      <p class="blog-list__kicker">最新文章</p>
-      <div class="post-grid" id="postGrid"></div>
-      <div class="blog-list__more" id="loadMoreWrap" hidden>
-        <button type="button" class="btn btn--line" id="loadMore">加载更多</button>
+      <div class="blog-list__head">
+        <p class="blog-list__kicker">最新文章</p>
+        <!-- 分类筛选（编辑式文字 Tab） -->
+        <div class="blog-filter" id="blogFilter">
+          <button type="button" class="pill is-active" data-cat="全部">全部</button>
+          <button type="button" class="pill" data-cat="美国地区">美国地区</button>
+          <button type="button" class="pill" data-cat="英国地区">英国地区</button>
+          <button type="button" class="pill" data-cat="香港·新加坡">香港·新加坡</button>
+          <button type="button" class="pill" data-cat="澳洲·加拿大">澳洲·加拿大</button>
+          <button type="button" class="pill" data-cat="专业解读">专业解读</button>
+        </div>
       </div>
+      <div class="post-grid" id="postGrid"></div>
+      <nav class="pager" id="pager" aria-label="文章分页"></nav>
     </div>
   </section>
 
@@ -168,15 +167,19 @@
         <ul class="footer__contact">
           <li>
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A15 15 0 0 1 4 5a1 1 0 0 1 1-1z"/></svg>
-            <a href="tel:400-XXX-XXXX">400-XXX-XXXX</a>
+            <a href="tel:+8613665152000">+86 13665152000</a>
           </li>
           <li>
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-            <a href="mailto:contact@tuce-edu.com">contact@tuce-edu.com</a>
+            <a href="mailto:kevinqiao@tucededu.com">kevinqiao@tucededu.com</a>
           </li>
           <li>
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>
-            <span>上海市 · 详细地址待补充</span>
+            <span>上海办公室 · 长宁区</span>
+          </li>
+          <li>
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>
+            <span>无锡办公室 · 锡山区</span>
           </li>
         </ul>
       </div>
@@ -233,17 +236,17 @@
       '专业解读': { bg: 'rgba(30,74,60,0.08)',  color: '#1E4A3C' }
     };
     var DEFAULT_COLOR = { bg: 'rgba(20,52,43,0.06)', color: '#14342B' };
-    var STEP = 4;
+    var PAGE_SIZE = 8;    // 4 列 × 2 行，满页 8 篇
 
     var allArticles = [];   // 全部（含置顶）
     var listArticles = [];  // 普通文章（排除置顶，倒序）
     var activeCat = '全部';
-    var displayCount = STEP;
+    var currentPage = 1;
 
     var featuredEl = document.getElementById('featuredPost');
     var gridEl = document.getElementById('postGrid');
-    var moreWrap = document.getElementById('loadMoreWrap');
-    var moreBtn = document.getElementById('loadMore');
+    var pagerEl = document.getElementById('pager');
+    var listSection = document.querySelector('.blog-list');
     var filterEl = document.getElementById('blogFilter');
 
     function esc(s) {
@@ -293,19 +296,18 @@
       });
     }
 
-    // 普通文章小卡片
+    // 普通文章卡片（竖版：图在上 + 标签/标题/日期在下）
     function cardHTML(a) {
       var thumb = a.cover_url
         ? '<img src="' + esc(a.cover_url) + '" alt="' + esc(a.title) + '" loading="lazy" />'
-        : '<svg class="ic" style="color:' + catColor(a.category) + '"><use href="#ic-doc"/></svg>';
-      var thumbBg = a.cover_url ? '' : ' style="background:' + catBg(a.category) + '"';
+        : '<span class="post-card__ph"><svg class="ic"><use href="#ic-doc"/></svg></span>';
       return '<article class="blog-card post-card" role="link" tabindex="0" data-url="' + esc(a.url) + '">' +
+          '<div class="post-card__thumb">' + thumb + '</div>' +
           '<div class="post-card__main">' +
             '<span class="cat-tag" style="' + catStyle(a.category) + '">' + esc(a.category) + '</span>' +
             '<h3 class="post-card__title">' + esc(a.title) + '</h3>' +
             '<span class="post-card__date">' + esc(a.publish_time) + '</span>' +
           '</div>' +
-          '<div class="post-card__thumb"' + thumbBg + '>' + thumb + '</div>' +
         '</article>';
     }
 
@@ -316,10 +318,16 @@
 
       if (!filtered.length) {
         gridEl.innerHTML = '<p class="blog-empty">该分类暂无文章。</p>';
-        moreWrap.hidden = true;
+        pagerEl.innerHTML = '';
         return;
       }
-      var shown = filtered.slice(0, displayCount);
+
+      var totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      var start = (currentPage - 1) * PAGE_SIZE;
+      var shown = filtered.slice(start, start + PAGE_SIZE);
       gridEl.innerHTML = shown.map(cardHTML).join('');
       Array.prototype.forEach.call(gridEl.querySelectorAll('.post-card'), function (card) {
         card.addEventListener('click', function () { open(card.getAttribute('data-url')); });
@@ -327,7 +335,43 @@
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card.getAttribute('data-url')); }
         });
       });
-      moreWrap.hidden = displayCount >= filtered.length;
+      renderPager(totalPages);
+    }
+
+    // 智能页码：始终给出 首页 / 末页 / 当前页±1，其余用 … 折叠
+    function pageItems(cur, total) {
+      var items = [], range = [], i;
+      for (i = Math.max(2, cur - 1); i <= Math.min(total - 1, cur + 1); i++) range.push(i);
+      items.push(1);
+      if (range.length && range[0] > 2) items.push('…');
+      items = items.concat(range);
+      if (range.length && range[range.length - 1] < total - 1) items.push('…');
+      if (total > 1) items.push(total);
+      return items;
+    }
+
+    function renderPager(totalPages) {
+      if (totalPages <= 1) { pagerEl.innerHTML = ''; return; }
+      var html = '<button type="button" class="pager__btn" data-page="' + (currentPage - 1) +
+                 '"' + (currentPage === 1 ? ' disabled' : '') + ' aria-label="上一页">‹</button>';
+      pageItems(currentPage, totalPages).forEach(function (it) {
+        if (it === '…') { html += '<span class="pager__gap">…</span>'; return; }
+        html += '<button type="button" class="pager__num' +
+                (it === currentPage ? ' is-active" aria-current="page' : '') +
+                '" data-page="' + it + '">' + it + '</button>';
+      });
+      html += '<button type="button" class="pager__btn" data-page="' + (currentPage + 1) +
+              '"' + (currentPage === totalPages ? ' disabled' : '') + ' aria-label="下一页">›</button>';
+      pagerEl.innerHTML = html;
+    }
+
+    function goToPage(n) {
+      currentPage = n;
+      renderList();
+      if (listSection) {
+        var top = listSection.getBoundingClientRect().top + window.pageYOffset - 72;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
     }
 
     // 分类切换
@@ -338,14 +382,16 @@
         p.classList.toggle('is-active', p === btn);
       });
       activeCat = btn.getAttribute('data-cat');
-      displayCount = STEP;        // 切换分类重置数量
+      currentPage = 1;            // 切换分类回到第 1 页
       renderList();
     });
 
-    // 加载更多
-    moreBtn.addEventListener('click', function () {
-      displayCount += STEP;
-      renderList();
+    // 翻页（事件委托）
+    pagerEl.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-page]');
+      if (!btn || btn.disabled) return;
+      var n = parseInt(btn.getAttribute('data-page'), 10);
+      if (!isNaN(n)) goToPage(n);
     });
 
     fetch('articles.json', { cache: 'no-cache' })

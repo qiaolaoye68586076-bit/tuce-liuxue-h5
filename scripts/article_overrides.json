@@ -1,0 +1,13 @@
+{
+  "_comment": "可选的人工微调表。公众号 API 没有「分类」和「置顶」概念，靠这里按文章 URL 覆盖。改完无需重启，下次同步（cron）自动生效。本文件不含密钥，可提交。",
+  "_how_to": "从 blog.html 或公众号链接复制文章的 mp.weixin.qq.com 永久链接作为 key；category 可选值见 frontend/blog.html 的 5 个筛选项；pinned 置顶后会上 blog 顶部大卡；hidden 用来隐藏非留学类推文。",
+  "pin_latest_if_none": true,
+  "by_url": {
+    "https://mp.weixin.qq.com/s/示例-把这里换成真实文章链接": {
+      "category": "英国地区",
+      "pinned": true,
+      "digest": "（可选）覆盖摘要文案",
+      "hidden": false
+    }
+  }
+}

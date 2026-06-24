@@ -196,7 +196,14 @@ fi
 # 3. rsync 同步
 # ---------------------------------------------------------------------------
 # --stats 让 rsync 输出权威统计行，正式部署据此取「实际传输文件数」
-rsync_opts=(-avz --progress --partial --timeout=120 --delete --exclude='.DS_Store' --stats)
+# --exclude 保护「服务器自己生成」的内容不被 --delete 清掉 / 被本地占位覆盖：
+#   /articles.json     由 scripts/sync_articles.py 在服务器上生成（仓库那份只是占位种子）
+#   /assets/insights/   同步脚本下载的公众号封面图
+# 详见 scripts/README.md「与 deploy.sh 的关系」。
+rsync_opts=(-avz --progress --partial --timeout=120 --delete --stats
+            --exclude='.DS_Store'
+            --exclude='/articles.json'
+            --exclude='/assets/insights/')
 if [[ "$VERBOSE" == true ]]; then
   rsync_opts+=(--itemize-changes)
 fi

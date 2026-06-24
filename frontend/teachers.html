@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=dc768e09" />
+  <link rel="stylesheet" href="css/style.css?v=29e5088b" />
 </head>
 <body>
 
@@ -68,42 +68,169 @@
     </div>
   </header>
 
-  <!-- ===== 师资 · THE TEAM（品牌深绿团队区）
-       简介为占位文案，待替换为真实导师介绍 -->
-  <section class="team-wrap" id="mentors">
-    <div class="team">
-      <div class="team__intro reveal">
-        <p class="team__kicker">师资团队 · MENTORS</p>
-        <h2 class="team__title">THE<br/>TEAM</h2>
-        <p class="team__lead">你需要的是主动带来解法的人。藤校背景的规划、文书与个性化导师团队，1v1 陪你打磨每一处细节——我们的全部经验，为你所用。</p>
-      </div>
-      <div class="team__grid">
-        <article class="member reveal">
-          <img class="member__photo" loading="lazy" src="assets/mentor-01.jpg" alt="规划导师" />
-          <h3>规划导师</h3>
-          <p class="member__role">哈佛大学 · 升学战略</p>
-          <p class="member__bio">多个申请季的策略操盘手，擅长把模糊的兴趣翻译成清晰的录取路径。（占位简介）</p>
-        </article>
-        <article class="member reveal">
-          <img class="member__photo" loading="lazy" src="assets/mentor-02.jpg" alt="文书导师" />
-          <h3>文书导师</h3>
-          <p class="member__role">耶鲁大学 · 文书共创</p>
-          <p class="member__bio">一篇主文书改十余稿是常态，坚信好故事是想清楚之后的副产品。（占位简介）</p>
-        </article>
-        <article class="member reveal">
-          <img class="member__photo" loading="lazy" src="assets/mentor-03.jpg" alt="个性化导师" />
-          <h3>个性化导师</h3>
-          <p class="member__role">斯坦福大学 · 背景提升</p>
-          <p class="member__bio">从科研到公益，专治「活动清单很满但没有一条立得住」。（占位简介）</p>
-        </article>
-        <article class="member reveal">
-          <img class="member__photo" loading="lazy" src="assets/mentor-04.jpg" alt="学术导师" />
-          <h3>学术导师</h3>
-          <p class="member__role">MIT · 理工方向</p>
-          <p class="member__bio">带学生做真实 SCI 课题，相信硬实力是最好的申请语言。（占位简介）</p>
-        </article>
-      </div>
+  <!-- ===== 师资 · THE TEAM —— 深绿 hero 标题带（牛津庭院背景） ===== -->
+  <section class="team-hero" id="mentors">
+    <div class="team-hero__inner reveal">
+      <p class="team__kicker">师资团队 · MENTORS</p>
+      <h2 class="team__title">THE&nbsp;TEAM</h2>
+      <p class="team__lead">以真实经历为基础，帮一个真实的人——孩子或家庭——找到、并讲好自己。升学、文书、家庭教育、心理成长，是同一件事的不同入口。不靠信息差，不堆形容词，不做名校至上。</p>
     </div>
+  </section>
+
+  <!-- ===== 导师卡片区（米纸底，与上方深绿 hero 形成色块对比，避免与底部 CTA 两段深绿相连）
+       卡面展示第三人称简介 + 履历要点；点击 / 回车展开第一人称自述弹层（内容存于各卡 <template>）
+       ⚠️ member__photo 为真实导师照片（mentor-0x.jpg） -->
+  <section class="team-grid-wrap">
+    <div class="team__grid">
+        <article class="member member--clickable reveal" data-mentor role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Kevin 的自述">
+          <div class="member__frame">
+            <img class="member__photo" loading="lazy" src="assets/mentor-01.jpg" alt="创始人 Kevin" />
+            <span class="member__veil"><span class="member__cue">点击查看自述 <svg class="ic"><use href="#ic-arrow"/></svg></span></span>
+          </div>
+          <div class="member__info">
+            <h3 class="member__name">KEVIN<span class="member__suffix"> · 创始人</span></h3>
+            <p class="member__role">宾大英语教学硕士 · 波士顿大学新闻学学士</p>
+            <p class="member__bio">他做过<strong>记者</strong>，也做过<strong>老师</strong>。在波士顿街头，他把真实的故事从细节里刨出来、确认它、再讲给别人听；后来在宾大和国际学校教了多年英语。这两件事，在他手里合成了一件事：把<strong>"挖故事、讲清楚"</strong>的本事，从新闻报道用到每一个孩子身上。</p>
+            <p class="member__bio">他<strong>不靠信息差，也不信名校至上</strong>。在他看来，申请季最该被看见的，不是被修饰过的履历，而是一个孩子本来的兴趣、经历和擅长。他做的，就是把这些挖出来，讲明白。录取很重要，但<strong>家庭关系、孩子的自信</strong>，和面对压力时怎么找到方向——这些，他同样在意。</p>
+            <ul class="member__points">
+              <li>波士顿报社记者</li>
+              <li>受过新闻学训练</li>
+              <li>宾大英语教学硕士</li>
+              <li>国际学校英语教学</li>
+              <li>在意家庭关系与心理</li>
+            </ul>
+            <span class="member__more">阅读 TA 的第一人称自述 <svg class="ic"><use href="#ic-arrow"/></svg></span>
+          </div>
+          <template class="member__full">
+            <figure class="mentor-modal__art"><img src="assets/mentor-art-kevin.webp" alt="哥特式学府门廊" loading="lazy" /></figure>
+            <div class="mentor-modal__text">
+            <h3>创始人 · KEVIN</h3>
+            <p class="member__sub">宾夕法尼亚大学英语教学硕士 · 波士顿大学新闻学学士</p>
+            <p>我一直在做同一件事：<strong>帮一个人找到、并讲好他自己真实的故事</strong>。</p>
+            <p>本科我读新闻，给波士顿当地报社跑过报道。新闻教我的，是怎么把一个故事从表面底下挖出来——确认它是真的，再讲到别人能懂、能被触动。后来我去宾大读英语教学，又在国际学校教过 10 到 12 年级。这些经历到了留学这行，其实是一件事：把<strong>"挖故事、讲清楚"</strong>的本事，从一篇报道，用到一个孩子身上。</p>
+            <p>我<strong>不靠信息差，也不信名校至上</strong>。在我看来，留学这件事，真实的才是最好的，合适的才是最好的。一个孩子最该被申请季看见的，不是被修饰过的样子，而是他自己——他的兴趣、他的经历、他真正擅长什么。我做的，就是把这些挖出来，然后讲明白。</p>
+            <p>我也不只盯着那一纸录取。<strong>家庭关系，孩子的自信和心态</strong>，面对压力时怎么找到自己的方向——这些和申请同样重要，甚至更重要。信息差正在被 AI 一点点抹平，而我想做的，是在这个时代，陪一个真实的孩子、一个真实的家庭，走对自己的那条路。</p>
+            <dl class="mentor-facts">
+              <div><dt>教育理念</dt><dd>真实 ＞ 修饰 · 合适 ＞ 排名 · 成长 ＞ 录取</dd></div>
+              <div><dt>履历</dt><dd>波士顿报社记者 · 宾大英语教学硕士 · 国际学校 10–12 年级教学</dd></div>
+            </dl>
+            </div>
+          </template>
+        </article>
+
+        <article class="member member--clickable reveal" data-mentor role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Jennifer 的自述">
+          <div class="member__frame">
+            <img class="member__photo" loading="lazy" src="assets/mentor-03.jpg" alt="导师 Jennifer" />
+            <span class="member__veil"><span class="member__cue">点击查看自述 <svg class="ic"><use href="#ic-arrow"/></svg></span></span>
+          </div>
+          <div class="member__info">
+            <h3 class="member__name">JENNIFER<span class="member__suffix"> · 导师</span></h3>
+            <p class="member__role">UCLA 心理学学士 · 哥大社会组织心理学硕士</p>
+            <p class="member__bio"><strong>国际教育这条路，她自己从头走到尾</strong>——加拿大长大，上海读国际学校，本硕 DIY 申请拿下 UCLA 和哥大。也正是因为自己一步步摸过来，她后来帮弟弟、帮朋友的孩子、帮身边一个个真实的人，越帮越多。</p>
+            <p class="member__bio">她同时是<strong>心理咨询师</strong>。比起"能申到哪所名校"，她更想知道一个孩子到底是什么样的人、什么对他才合适。<strong>200 多个孩子的性格测评、30 多个家庭的关系调解</strong>，让她有一种直觉：看见一个人，就知道从哪儿开始帮他。</p>
+            <ul class="member__points">
+              <li>本硕全程 DIY 申请</li>
+              <li>200+ 学生性格测评</li>
+              <li>30+ 家庭关系调解</li>
+              <li>录取覆盖哈佛·剑桥·港大</li>
+              <li>哥大 TESOL</li>
+              <li>中科院心理咨询</li>
+              <li>早稻田日语证书</li>
+            </ul>
+            <span class="member__more">阅读 TA 的第一人称自述 <svg class="ic"><use href="#ic-arrow"/></svg></span>
+          </div>
+          <template class="member__full">
+            <figure class="mentor-modal__art"><img src="assets/mentor-art-jennifer.webp" alt="牛津风格学院庭院" loading="lazy" /></figure>
+            <div class="mentor-modal__text">
+            <h3>导师 · JENNIFER</h3>
+            <p class="member__sub">UCLA 心理学学士 · 哥伦比亚大学社会组织心理学硕士</p>
+            <p>我从小跟父母在加拿大长大。外婆是大学英语老师，妈妈在外企做高管，家里一直是中英文混着说。初中我回了国，读上海的国际学校——所以<strong>国内国际学校这套，我不是听来的，是自己念过来的</strong>。</p>
+            <p>本科和硕士，UCLA 和哥大，是我自己 <strong>DIY 申进去的</strong>，没找中介，一步步自己摸。也正因为这样，后来我弟弟、他的同学、我妈朋友同事家的孩子要申美、加、英的学校，都来问我。我带的第一批学生，就是身边这些我认识的、活生生的人。</p>
+            <p>我在外企做了好些年商务资讯，升学顾问是兼职做着做着，越做越想做。后来想明白了，<strong>干脆把自己整个交给教育和心理这两件事</strong>。</p>
+            <p>我也是心理咨询师。比起"能申到哪所名校"，我更想知道<strong>一个孩子到底是什么样的人、什么对他才合适</strong>。我替 200 多个学生做过性格测评解读——说白了，就是从一个人真实的样子出发，看他学术上强在哪、弱在哪，再帮他找对得上的专业和方向。我也做家庭矛盾调解，帮过 30 多个家庭。在我这儿，孩子的心理、家里的关系，和那张录取通知书一样重要。</p>
+            <dl class="mentor-facts">
+              <div><dt>录取战绩</dt><dd><span class="rg">美国</span>哈佛 · 斯坦福 · 哥大 · 布朗 · 康奈尔 · 西北 · 伯克利 等 TOP30<span class="rg">英国</span>剑桥 · 帝国理工 · 伦敦大学学院<span class="rg">加拿大</span>多伦多 · 麦吉尔<span class="rg">亚洲</span>港大 · 早稻田 · 东京大学</dd></div>
+              <div><dt>覆盖专业</dt><dd>心理学、数学、生物、传媒、国际关系、CS、大数据、教育、哲学等</dd></div>
+              <div><dt>证书</dt><dd>哥伦比亚大学教育学院 TESOL · 中科院心理所 心理咨询证书 · 早稻田大学 日语语言证书</dd></div>
+            </dl>
+            </div>
+          </template>
+        </article>
+
+        <article class="member member--clickable reveal" data-mentor role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 荣子依 的自述">
+          <div class="member__frame">
+            <img class="member__photo" loading="lazy" src="assets/mentor-04.jpg" alt="导师 荣子依" />
+            <span class="member__veil"><span class="member__cue">点击查看自述 <svg class="ic"><use href="#ic-arrow"/></svg></span></span>
+          </div>
+          <div class="member__info">
+            <h3 class="member__name">荣子依<span class="member__suffix"> · 导师</span></h3>
+            <p class="member__role">意大利布雷拉美术学院</p>
+            <p class="member__bio">她陪孩子和留学生家庭做家庭教育，做的是<strong>从根上帮孩子的事</strong>——帮他们打开自己的潜能，把学习的动力从心里点起来。分数和录取她当然看重，但她更在意的是一个孩子<strong>为什么学、想成为什么样的人</strong>。</p>
+            <p class="member__bio">作为<strong>中科院认证的心理咨询师</strong>，她手里有不止一种工具：认知行为疗法、表达性艺术、音乐疗愈、马术疗愈——从不同的路走进去，陪一个孩子走进自己的情绪，也陪一个家庭把关系慢慢理顺。她常说，<strong>一个孩子最缺的，往往不是再上一节课，而是有人帮他看见自己、相信自己</strong>。</p>
+            <ul class="member__points">
+              <li>认知行为疗法 CBT</li>
+              <li>表达性艺术疗愈</li>
+              <li>音乐疗愈</li>
+              <li>马术疗愈</li>
+              <li>中科院认证心理咨询师</li>
+              <li>耶鲁心理学进修</li>
+              <li>伯克利音乐疗愈</li>
+              <li>荷兰诊所合作咨询师</li>
+            </ul>
+            <span class="member__more">阅读 TA 的第一人称自述 <svg class="ic"><use href="#ic-arrow"/></svg></span>
+          </div>
+          <template class="member__full">
+            <figure class="mentor-modal__art"><img src="assets/mentor-art-rong.webp" alt="古典圆顶殿堂" loading="lazy" /></figure>
+            <div class="mentor-modal__text">
+            <h3>导师 · 荣子依</h3>
+            <p class="member__sub">意大利布雷拉美术学院（Accademia di Brera, Milano）</p>
+            <p>在途策，我主要陪孩子和留学生家庭。我做的是家庭教育这块——帮孩子<strong>找到、打开自己的潜能</strong>，把学习的动力从心里点起来。</p>
+            <p>我更在乎的不是孩子考了多少分、申到哪所学校，而是<strong>他为什么学、想成为什么样的人</strong>。我是中科院认证的心理咨询师，会的方法不止一种：认知行为疗法、表达性艺术疗愈、音乐疗愈，还有马术疗愈——从不同的路进去，陪一个孩子走进自己的情绪，也陪一个家庭把关系慢慢理顺。</p>
+            <p>这些年我一直在进修：中国的 CBT 专业培训、伯克利音乐学院的音乐疗愈、耶鲁的心理学培训，也在荷兰 Huisartsenpraktijk van Beukering 诊所做合作咨询师。</p>
+            <p>我常觉得，<strong>一个孩子最缺的，往往不是再上一节课，而是有人帮他看见自己、相信自己</strong>。</p>
+            <dl class="mentor-facts">
+              <div><dt>疗愈方法</dt><dd>认知行为疗法（CBT）· 表达性艺术疗愈 · 音乐疗愈 · 马术疗愈</dd></div>
+              <div><dt>进修与认证</dt><dd>中科院认证心理咨询师 · 中国 CBT 专业培训 · 伯克利音乐学院 Music for Wellness · 耶鲁大学心理学培训 · 荷兰 Huisartsenpraktijk van Beukering 诊所合作咨询师</dd></div>
+            </dl>
+            </div>
+          </template>
+        </article>
+
+        <article class="member member--clickable reveal" data-mentor role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Tim 楚浩哲 的自述">
+          <div class="member__frame">
+            <img class="member__photo" loading="lazy" src="assets/mentor-02.jpg" alt="文书顾问 Tim 楚浩哲" />
+            <span class="member__veil"><span class="member__cue">点击查看自述 <svg class="ic"><use href="#ic-arrow"/></svg></span></span>
+          </div>
+          <div class="member__info">
+            <h3 class="member__name">TIM 楚浩哲<span class="member__suffix"> · 导师</span></h3>
+            <p class="member__role">斯坦福大学</p>
+            <p class="member__bio">他长期研究海外名校的申请文书与策略，最擅长从一个申请者真实的成长经历里，<strong>提炼出有辨识度的个人叙事</strong>——把申请故事讲得清楚、有逻辑、立得住。</p>
+            <p class="member__bio">他熟知顶尖高校怎么评一篇文书，但<strong>出发点永远是真实的经历</strong>：先看见你是什么样的人，再结合你的专业方向、学术背景和职业规划，做出真正属于你自己的申请材料。<strong>商业与学术的双线背景</strong>，让他既有逻辑框架，又懂得如何在文字里呈现一个人的深度。</p>
+            <ul class="member__points">
+              <li>斯坦福校友</li>
+              <li>斯坦福写作中心指导</li>
+              <li>前 Google GTM Director</li>
+              <li>商业与学术双线背景</li>
+              <li>已助 30+ 名校录取</li>
+            </ul>
+            <span class="member__more">阅读 TA 的第一人称自述 <svg class="ic"><use href="#ic-arrow"/></svg></span>
+          </div>
+          <template class="member__full">
+            <figure class="mentor-modal__art"><img src="assets/mentor-art-tim.webp" alt="古典图书馆长廊书架" loading="lazy" /></figure>
+            <div class="mentor-modal__text">
+            <h3>导师 · TIM 楚浩哲</h3>
+            <p class="member__sub">文书顾问 · 斯坦福大学校友</p>
+            <p>我毕业于斯坦福，这些年一直在研究海外名校的申请文书和申请策略。我最擅长的，是从一个学生真实的成长经历里，帮他<strong>提炼出有辨识度的个人叙事（Personal Narrative）</strong>——把申请故事讲得清楚、有逻辑、有说服力。</p>
+            <p>美国顶尖高校看重什么、怎么评一篇文书，我熟。但我的<strong>出发点永远是真实的经历</strong>——在这个基础上，再结合你的专业方向、学术背景和职业规划，做出真正属于你自己的申请材料，把你的潜力和独特的地方讲出来。</p>
+            <p>我曾在 Google 做 GTM Director，也在斯坦福写作中心做过学术写作指导。商业领域的训练让我看问题讲逻辑、重结果，学术写作的经历让我对文字和表达有近乎苛刻的敏感。到现在，我帮 30 多个学生拿到了哈佛、斯坦福、MIT 等学校的录取。但<strong>比数字更让我在意的，是每一篇文书里，那个人的声音有没有被真正听到</strong>。</p>
+            <dl class="mentor-facts">
+              <div><dt>履历</dt><dd>Google GTM Director（前）· 斯坦福写作中心 学术写作指导</dd></div>
+              <div><dt>录取战绩</dt><dd>已助 30+ 学生录取 哈佛 · 斯坦福 · 麻省理工 等顶尖院校</dd></div>
+            </dl>
+            </div>
+          </template>
+        </article>
+      </div>
   </section>
 
   <!-- ===== 底部 CTA 转化带 ===== -->
@@ -137,15 +264,19 @@
         <ul class="footer__contact">
           <li>
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A15 15 0 0 1 4 5a1 1 0 0 1 1-1z"/></svg>
-            <a href="tel:400-XXX-XXXX">400-XXX-XXXX</a>
+            <a href="tel:+8613665152000">+86 13665152000</a>
           </li>
           <li>
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-            <a href="mailto:contact@tuce-edu.com">contact@tuce-edu.com</a>
+            <a href="mailto:kevinqiao@tucededu.com">kevinqiao@tucededu.com</a>
           </li>
           <li>
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>
-            <span>上海市 · 详细地址待补充</span>
+            <span>上海办公室 · 长宁区</span>
+          </li>
+          <li>
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>
+            <span>无锡办公室 · 锡山区</span>
           </li>
         </ul>
       </div>
@@ -189,6 +320,58 @@
   <!-- 移动端常驻 CTA -->
   <a href="index.html#consult" class="float-cta" id="floatCta">免费评估</a>
 
+  <!-- ===== 导师自述弹层（共用容器，内容由卡片 <template> 注入） ===== -->
+  <div class="modal" id="mentorModal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel modal__panel--mentor" role="dialog" aria-modal="true" aria-label="导师自述">
+      <button class="modal__close" type="button" aria-label="关闭" data-close>&times;</button>
+      <div class="modal__body" id="mentorModalBody"></div>
+    </div>
+  </div>
+
   <script src="js/main.js?v=5"></script>
+
+  <!-- 师资卡片 → 第一人称自述弹层 -->
+  <script>
+  (function () {
+    'use strict';
+    var modal = document.getElementById('mentorModal');
+    var body  = document.getElementById('mentorModalBody');
+    if (!modal || !body) return;
+    var cards = document.querySelectorAll('.member--clickable');
+    var lastFocus = null;
+
+    function open(card) {
+      var tpl = card.querySelector('.member__full');
+      if (!tpl) return;
+      body.innerHTML = '';
+      body.appendChild(tpl.content.cloneNode(true));
+      lastFocus = card;
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      var closeBtn = modal.querySelector('.modal__close');
+      if (closeBtn) closeBtn.focus();
+    }
+    function close() {
+      if (modal.hidden) return;
+      modal.hidden = true;
+      document.body.style.overflow = '';
+      if (lastFocus) lastFocus.focus();
+    }
+
+    cards.forEach(function (card) {
+      card.addEventListener('click', function () { open(card); });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card); }
+      });
+    });
+    modal.addEventListener('click', function (e) {
+      if (e.target.hasAttribute('data-close')) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') close();
+    });
+  })();
+  </script>
 </body>
 </html>
