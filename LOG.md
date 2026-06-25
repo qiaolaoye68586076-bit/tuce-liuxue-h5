@@ -385,3 +385,26 @@
 ### 遗留 / 下次继续
 - M5 commit `5e52995` 仅本地，未 `git push` 到远端 git（线上文件已 rsync 部署）；如需同步远端仓库再 push
 - favicon 仍可从面板3「Favicon Concept 512×512」单独导出（待需要时）
+
+---
+
+## 2026-06-26 · SSH 密钥配置 + 推送 5 个提交
+
+### 完成
+- SSH 密钥不存在，生成新的 RSA 4096 位密钥对（`~/.ssh/id_rsa` + `~/.ssh/id_rsa.pub`）
+- 将公钥添加至 GitHub Settings → SSH and GPG keys
+- 推送 5 个本地提交到 `origin/main`：
+  - aea7b81 feat(frontend): deploy latest updates and add new logos
+  - c065483 chore(deploy): rsync 排除下划线前缀草稿页（/_*.html）
+  - 13a2721 chore(deploy): CSS 版本号同步 → a11f6a6c
+  - cc83c9a feat(blog): 洞察页进场动效 + 首页 #consult 锚点纠偏
+  - d3b7115 feat(blog): 洞察页改版 + 纳入会话前全站 WIP（师资素材/文章同步脚本）
+- branch 'main' now tracking 'origin/main'
+
+### Debug / 踩坑
+| 现象 | 原因 | 解决方式 |
+|---|---|---|
+| `git push` 提示 SSH 权限拒绝 | SSH 公钥未配置到 GitHub | 生成新 SSH 密钥对并添加公钥到 GitHub |
+
+### 遗留 / 下次继续
+- 无

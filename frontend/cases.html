@@ -491,18 +491,27 @@
        案例详情 · 富版式（Yu 同学 · 哥伦比亚录取复盘）—— .cdx 命名空间
        =================================================================== */
     .cdx{ color:var(--ink); }
-    /* —— 深绿头部 —— */
+    /* —— 深绿头部：左侧 logo + 右侧标题 —— */
     .cdx__hero{
       background:radial-gradient(120% 140% at 50% -10%, #235041 0%, #14342B 62%);
-      color:#fff; text-align:center; padding:48px clamp(40px,6vw,72px) 44px;
+      color:#fff; padding:32px clamp(30px,5vw,50px);
+      display:flex; align-items:center; gap:clamp(24px,5vw,48px);
     }
+    .cdx__hero-logo{
+      flex:0 0 auto; width:clamp(80px,12vw,120px); aspect-ratio:1/1;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .cdx__hero-logo img{
+      width:100%; height:100%; object-fit:contain; display:block;
+    }
+    .cdx__hero-text{ flex:1 1 auto; }
     .cdx__title{
       font-family:'Fraunces','Noto Serif SC',serif; color:#fff; font-weight:600;
-      font-size:clamp(25px,3.6vw,38px); line-height:1.24; letter-spacing:.01em; margin:0;
+      font-size:clamp(20px,3vw,32px); line-height:1.28; letter-spacing:.01em; margin:0;
     }
     .cdx__subtitle{
-      margin:13px 0 0; color:var(--gold-soft);
-      font-size:clamp(14.5px,1.8vw,18px); letter-spacing:.05em; font-weight:400;
+      margin:10px 0 0; color:var(--gold-soft);
+      font-size:clamp(13px,1.6vw,16px); letter-spacing:.04em; font-weight:400;
     }
     /* —— 录取院校墙（白卡浮层，叠在 hero 底沿）—— */
     .cdx__logos{
@@ -526,18 +535,27 @@
     }
     .cdx__logo--text small{ display:block; font-family:inherit; font-size:11px;
       font-weight:400; color:var(--muted); margin-top:2px; letter-spacing:0; }
-    /* —— 成绩条 —— */
+    /* —— 成绩条：白卡片 + 水平数据项 —— */
     .cdx__stats{
-      margin:16px clamp(18px,3vw,30px) 0;
-      background:#faf8f3; border:1px solid var(--line); border-radius:14px;
-      display:grid; grid-template-columns:repeat(4,1fr); overflow:hidden;
+      margin:20px clamp(18px,3vw,30px) 0;
+      background:#fff; border:1px solid var(--line); border-radius:16px;
+      display:flex; flex-wrap:wrap; overflow:hidden;
+      box-shadow:0 2px 8px rgba(20,52,43,.06);
     }
-    .cdx__stat{ display:flex; align-items:center; gap:12px; padding:15px clamp(12px,1.8vw,20px); min-width:0; }
-    .cdx__stat + .cdx__stat{ border-left:1px solid var(--line); }
-    .cdx__stat svg{ width:25px; height:25px; flex:0 0 auto; color:var(--gold); }
-    .cdx__stat b{ display:block; font-family:'Fraunces',serif; font-weight:600;
-      font-size:clamp(15px,1.9vw,17px); color:var(--green); line-height:1.2; }
-    .cdx__stat span{ display:block; font-size:12px; color:var(--muted); margin-top:3px; }
+    .cdx__stat{
+      display:flex; align-items:center; gap:14px; padding:18px clamp(14px,2vw,24px);
+      flex:1 1 calc(50% - 0.5px); min-width:0; border-right:1px solid rgba(20,52,43,.08);
+    }
+    .cdx__stat:nth-child(even){ border-right:0; }
+    .cdx__stat:nth-child(n+3){ border-top:1px solid rgba(20,52,43,.08); }
+    .cdx__stat svg{
+      width:28px; height:28px; flex:0 0 auto; color:var(--gold);
+    }
+    .cdx__stat b{
+      display:block; font-family:'Fraunces',serif; font-weight:600;
+      font-size:clamp(16px,2vw,19px); color:var(--green); line-height:1.1;
+    }
+    .cdx__stat span{ display:block; font-size:12.5px; color:var(--muted); margin-top:4px; }
     /* —— 正文区 —— */
     .cdx__body{ padding:30px clamp(22px,4vw,46px) 42px; }
     .cdx__sec{ margin-top:34px; }
@@ -599,15 +617,17 @@
       border-radius:8px; padding:6px 14px; }
 
     @media (max-width:760px){
-      .cdx__stats{ grid-template-columns:repeat(2,1fr); }
-      .cdx__stat:nth-child(3){ border-left:0; }
-      .cdx__stat:nth-child(n+3){ border-top:1px solid var(--line); }
+      .cdx__hero{ flex-direction:column; gap:20px; text-align:center; }
+      .cdx__hero-logo{ width:clamp(70px,15vw,100px); }
       .cdx__cols{ grid-template-columns:1fr; }
       .cdx__grid2{ grid-template-columns:1fr; }
     }
     @media (max-width:480px){
-      .cdx__stats{ grid-template-columns:1fr; }
-      .cdx__stat + .cdx__stat{ border-left:0; border-top:1px solid var(--line); }
+      .cdx__stats{ flex-direction:column; }
+      .cdx__stat{
+        flex:1 1 100%; border-right:0!important; border-top:1px solid rgba(20,52,43,.08)!important;
+      }
+      .cdx__stat:first-child{ border-top:0!important; }
     }
   </style>
 </head>
@@ -1110,10 +1130,15 @@
   <!-- 抽屉内容模板（由 JS 克隆进抽屉，正式上线前替换为真实且获授权的案例） -->
   <template id="tpl-case-w">
     <article class="cdx">
-      <!-- 深绿头部 -->
+      <!-- 深绿头部：左侧 logo + 右侧标题 -->
       <header class="cdx__hero">
-        <h2 class="cdx__title">以哲学为刃，打破沉默的叙事</h2>
-        <p class="cdx__subtitle">Yu 同学的哥伦比亚大学录取复盘</p>
+        <div class="cdx__hero-logo">
+          <img src="assets/logo-columbia.svg" alt="哥伦比亚大学" loading="lazy" />
+        </div>
+        <div class="cdx__hero-text">
+          <h2 class="cdx__title">以哲学为刃，打破沉默的叙事</h2>
+          <p class="cdx__subtitle">Yu 同学的哥伦比亚大学录取复盘</p>
+        </div>
       </header>
 
       <!-- 录取院校墙（官方校徽） -->
@@ -1241,10 +1266,15 @@
 
   <template id="tpl-case-l">
     <article class="cdx">
-      <!-- 深绿头部 -->
+      <!-- 深绿头部：左侧 logo + 右侧标题 -->
       <header class="cdx__hero">
-        <h2 class="cdx__title">以混沌为序，让物理照进现实</h2>
-        <p class="cdx__subtitle">Li 同学的理工科申请复盘</p>
+        <div class="cdx__hero-logo">
+          <img src="assets/logo-cornell.png" alt="康奈尔大学" loading="lazy" />
+        </div>
+        <div class="cdx__hero-text">
+          <h2 class="cdx__title">以混沌为序，让物理照进现实</h2>
+          <p class="cdx__subtitle">Li 同学的理工科申请复盘</p>
+        </div>
       </header>
 
       <!-- 录取院校墙（康奈尔校徽 + 其余待补） -->
@@ -1377,10 +1407,15 @@
 
   <template id="tpl-case-c">
     <article class="cdx">
-      <!-- 深绿头部 -->
+      <!-- 深绿头部：左侧 logo + 右侧标题 -->
       <header class="cdx__hero">
-        <h2 class="cdx__title">以经济学为镜，洞察人与社会的选择</h2>
-        <p class="cdx__subtitle">Wang 同学的芝加哥大学录取复盘</p>
+        <div class="cdx__hero-logo">
+          <img src="assets/logo-chicago.png" alt="芝加哥大学" loading="lazy" />
+        </div>
+        <div class="cdx__hero-text">
+          <h2 class="cdx__title">以经济学为镜，洞察人与社会的选择</h2>
+          <p class="cdx__subtitle">Wang 同学的芝加哥大学录取复盘</p>
+        </div>
       </header>
 
       <!-- 录取院校墙（官方校徽） -->
