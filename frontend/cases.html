@@ -30,9 +30,9 @@
     "url": "https://tuce.asia/cases.html",
     "numberOfItems": 3,
     "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "W同学（上海）→ 宾夕法尼亚大学", "url": "https://tuce.asia/cases.html#case-w"},
-      {"@type": "ListItem", "position": 2, "name": "L同学（北京）→ 芝加哥大学", "url": "https://tuce.asia/cases.html#case-l"},
-      {"@type": "ListItem", "position": 3, "name": "C同学（深圳）→ 康奈尔大学", "url": "https://tuce.asia/cases.html#case-c"}
+      {"@type": "ListItem", "position": 1, "name": "Y同学（广州）→ 哥伦比亚大学（哲学）", "url": "https://tuce.asia/cases.html#case-w"},
+      {"@type": "ListItem", "position": 2, "name": "Li同学 → 康奈尔大学（物理 · 混沌理论 · 工程创新）", "url": "https://tuce.asia/cases.html#case-l"},
+      {"@type": "ListItem", "position": 3, "name": "Wang同学 → 芝加哥大学（经济学 · 公共政策 · 行为经济学）", "url": "https://tuce.asia/cases.html#case-c"}
     ]
   }
   </script>
@@ -47,16 +47,16 @@
     "review": [
       {
         "@type": "Review",
-        "author": { "@type": "Person", "name": "W同学（化名）" },
+        "author": { "@type": "Person", "name": "Y同学（化名）" },
         "datePublished": "2026-06-01",
-        "reviewBody": "待填写：学员真实感言",
+        "reviewBody": "途策没有替我写文书，而是逼着我把『为什么是哲学』想透。当这条主线立住，所有经历突然都连成了一个人。最终录取哥伦比亚大学哲学方向。",
         "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
       },
       {
         "@type": "Review",
-        "author": { "@type": "Person", "name": "L同学（化名）" },
+        "author": { "@type": "Person", "name": "Li同学（化名）" },
         "datePublished": "2026-06-01",
-        "reviewBody": "待填写：学员真实感言",
+        "reviewBody": "途策帮我把混沌理论研究、光学实验室、康复机械臂这些看似分散的经历，串成一条统一的理工科主线。文书从陪伴家人康复切入，用『双摆』隐喻把学术与人文连了起来，最终拿下康奈尔大学。",
         "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
       }
     ]
@@ -66,7 +66,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=a11f6a6c" />
+  <link rel="stylesheet" href="css/style.css?v=71fc3e3c" />
 
   <!-- ===== 案例详情卡（页内局部样式，沿用全站配色变量） ===== -->
   <style>
@@ -406,6 +406,209 @@
       .gstage__canvas,.gstage__ph,.gstage__hint,.gstage__stars{ transition:none; }
       .gstage__stars,.cx__cue svg{ animation:none; }
     }
+
+    /* —— 精选案例卡 · 编辑式排版（无图，纸感卡片）—— */
+    .stories__grid .casecard{
+      display:flex; flex-direction:column; width:100%; text-align:left;
+      font:inherit; color:inherit; -webkit-appearance:none; appearance:none; cursor:pointer;
+      background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg);
+      padding:26px 26px 24px;
+      transition:transform .4s var(--ease), border-color .4s, box-shadow .4s;
+    }
+    .stories__grid .casecard:hover{ transform:translateY(-5px); border-color:var(--green);
+      box-shadow:0 26px 52px -30px rgba(20,52,43,.35); }
+    .casecard__badge{ align-self:flex-start; max-width:100%;
+      background:var(--green); color:var(--gold-soft);
+      font-size:13.5px; font-weight:700; letter-spacing:.01em; line-height:1.4;
+      padding:7px 16px; border-radius:999px; }
+    .casecard__title{ margin:18px 0 0; font-stretch:80%; font-weight:850;
+      font-size:23px; line-height:1.35; color:var(--ink, #1c2a23); }
+    .casecard__scores{ display:flex; align-items:baseline; gap:16px; margin-top:16px;
+      font-stretch:84%; }
+    .casecard__score{ font-size:19px; font-weight:800; color:#333; }
+    .casecard__score--key{ color:var(--green); }
+    .casecard__score small{ font-size:12.5px; font-weight:600; color:var(--muted); margin-left:3px; }
+    .casecard__divider{ width:1px; align-self:stretch; background:var(--line); }
+    .casecard__rule{ height:1px; background:var(--line); margin:18px 0; }
+    .casecard__quote{ font-style:italic; color:#6a6a6a; font-size:14.5px; line-height:1.75; margin:0; }
+    .casecard__more{ display:inline-flex; align-self:flex-end; margin-top:20px;
+      font-stretch:84%; font-size:14px; font-weight:800; letter-spacing:.02em; color:var(--green);
+      transition:color .3s, transform .3s var(--ease); }
+    .stories__grid .casecard:hover .casecard__more{ color:var(--gold); transform:translateX(4px); }
+    .casecard--wip{ position:relative; }
+    .casecard--wip .casecard__title,
+    .casecard--wip .casecard__quote{ color:var(--muted); }
+
+    /* ===================================================================
+       案例详情 · 居中模态（Centered Modal）
+       =================================================================== */
+    .drawer-overlay{
+      position:fixed; inset:0; z-index:120;
+      background:rgba(12,24,18,.58); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
+      opacity:0; visibility:hidden; pointer-events:none;
+      transition:opacity .4s ease, visibility .4s ease;
+    }
+    .drawer-overlay.is-open{ opacity:1; visibility:visible; pointer-events:auto; }
+
+    .case-drawer{
+      position:fixed; inset:0; z-index:121;
+      display:flex; align-items:flex-start; justify-content:center;
+      padding:max(20px,3vh) 16px;
+      opacity:0; visibility:hidden; pointer-events:none;
+      transition:opacity .32s ease, visibility .32s ease;
+    }
+    .case-drawer.is-open{ opacity:1; visibility:visible; pointer-events:auto; }
+    .case-drawer__card{
+      position:relative; width:min(1060px,100%); max-height:94vh;
+      display:flex; flex-direction:column; overflow:hidden;
+      background:var(--card); border-radius:22px;
+      box-shadow:0 44px 110px -34px rgba(12,24,18,.62);
+      transform:translateY(18px) scale(.985);
+      transition:transform .44s cubic-bezier(.22,.61,.36,1);
+    }
+    .case-drawer.is-open .case-drawer__card{ transform:none; }
+    .case-drawer__close{
+      position:absolute; top:16px; right:18px; z-index:5;
+      width:40px; height:40px; border-radius:50%;
+      border:1px solid rgba(255,255,255,.28);
+      background:rgba(12,24,18,.46); color:#fff; font-size:23px; line-height:1;
+      cursor:pointer; -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+      box-shadow:0 4px 14px -4px rgba(0,0,0,.4);
+      transition:background .25s, color .25s, transform .35s;
+    }
+    .case-drawer__close:hover{ background:#fff; color:var(--green); transform:rotate(90deg); }
+    .case-drawer__body{ flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+    /* 简单占位案例（L/C）：补回内边距，避免贴边 */
+    .case-drawer__body .case-detail{ border:0; margin:0; background:none; box-shadow:none;
+      padding:60px clamp(22px,4vw,46px) 44px; }
+    .case-drawer__body .case-detail:hover{ border:0; box-shadow:none; }
+    @media (prefers-reduced-motion:reduce){
+      .drawer-overlay,.case-drawer{ transition:opacity .2s linear, visibility .2s linear; }
+      .case-drawer__card{ transition:none; }
+    }
+
+    /* ===================================================================
+       案例详情 · 富版式（Yu 同学 · 哥伦比亚录取复盘）—— .cdx 命名空间
+       =================================================================== */
+    .cdx{ color:var(--ink); }
+    /* —— 深绿头部 —— */
+    .cdx__hero{
+      background:radial-gradient(120% 140% at 50% -10%, #235041 0%, #14342B 62%);
+      color:#fff; text-align:center; padding:48px clamp(40px,6vw,72px) 44px;
+    }
+    .cdx__title{
+      font-family:'Fraunces','Noto Serif SC',serif; color:#fff; font-weight:600;
+      font-size:clamp(25px,3.6vw,38px); line-height:1.24; letter-spacing:.01em; margin:0;
+    }
+    .cdx__subtitle{
+      margin:13px 0 0; color:var(--gold-soft);
+      font-size:clamp(14.5px,1.8vw,18px); letter-spacing:.05em; font-weight:400;
+    }
+    /* —— 录取院校墙（白卡浮层，叠在 hero 底沿）—— */
+    .cdx__logos{
+      position:relative; z-index:2; margin:-26px clamp(18px,3vw,30px) 0;
+      background:#fff; border-radius:14px;
+      box-shadow:0 20px 44px -26px rgba(12,24,18,.42);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px 18px; padding:18px clamp(16px,3vw,30px); flex-wrap:wrap;
+    }
+    /* 各校徽宽高比差异大：统一用等高 flex 单元 + contain 归一化，视觉权重一致 */
+    .cdx__logo{
+      flex:1 1 110px; display:flex; align-items:center; justify-content:center; height:42px;
+    }
+    .cdx__logo img{
+      max-height:32px; max-width:100%; width:auto; object-fit:contain; display:block;
+    }
+    /* 文字院校墙（暂无校徽时占位，与 img 版等高对齐） */
+    .cdx__logo--text{
+      font-family:'Fraunces',serif; font-size:13.5px; font-weight:500;
+      color:var(--green); letter-spacing:.02em; text-align:center; line-height:1.3;
+    }
+    .cdx__logo--text small{ display:block; font-family:inherit; font-size:11px;
+      font-weight:400; color:var(--muted); margin-top:2px; letter-spacing:0; }
+    /* —— 成绩条 —— */
+    .cdx__stats{
+      margin:16px clamp(18px,3vw,30px) 0;
+      background:#faf8f3; border:1px solid var(--line); border-radius:14px;
+      display:grid; grid-template-columns:repeat(4,1fr); overflow:hidden;
+    }
+    .cdx__stat{ display:flex; align-items:center; gap:12px; padding:15px clamp(12px,1.8vw,20px); min-width:0; }
+    .cdx__stat + .cdx__stat{ border-left:1px solid var(--line); }
+    .cdx__stat svg{ width:25px; height:25px; flex:0 0 auto; color:var(--gold); }
+    .cdx__stat b{ display:block; font-family:'Fraunces',serif; font-weight:600;
+      font-size:clamp(15px,1.9vw,17px); color:var(--green); line-height:1.2; }
+    .cdx__stat span{ display:block; font-size:12px; color:var(--muted); margin-top:3px; }
+    /* —— 正文区 —— */
+    .cdx__body{ padding:30px clamp(22px,4vw,46px) 42px; }
+    .cdx__sec{ margin-top:34px; }
+    .cdx__sec--first{ margin-top:30px; }
+    .cdx__h{
+      display:flex; align-items:center; gap:9px; margin:0 0 13px;
+      font-family:'Fraunces','Noto Serif SC',serif; font-weight:600;
+      font-size:clamp(19px,2.4vw,22px); color:var(--green);
+    }
+    .cdx__h .qm{ color:var(--gold); font-family:Georgia,'Times New Roman',serif;
+      font-size:34px; line-height:.1; transform:translateY(8px); }
+    .cdx__p{ color:#555; font-size:15px; line-height:1.92; margin:0; }
+    /* 学术亮点：三栏 */
+    .cdx__cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px clamp(20px,3vw,34px); margin-top:4px; }
+    .cdx__col-h{ display:flex; align-items:flex-start; gap:11px; margin-bottom:12px; }
+    .cdx__col-h svg{ width:30px; height:30px; flex:0 0 auto; color:var(--gold); margin-top:1px; }
+    .cdx__col-h h4{ margin:0; font-family:'Fraunces','Noto Serif SC',serif;
+      font-weight:600; font-size:16px; color:var(--green); line-height:1.3; }
+    .cdx__col-h h4 i{ display:block; font-style:normal; font-family:var(--sans);
+      font-weight:700; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:3px; }
+    .cdx__list{ list-style:none; padding:0; margin:0; }
+    .cdx__list li{ position:relative; padding-left:16px; color:#555;
+      font-size:14px; line-height:1.7; margin-bottom:9px; }
+    .cdx__list li::before{ content:''; position:absolute; left:1px; top:9px;
+      width:5px; height:5px; border-radius:50%; background:var(--gold); }
+    /* 双栏：活动体系 + 文书/点评 */
+    .cdx__grid2{ display:grid; grid-template-columns:1.04fr .96fr; gap:30px clamp(26px,3.4vw,40px);
+      margin-top:34px; align-items:start; }
+    /* 活动时间轴 */
+    .cdx__intro{ color:#555; font-size:14px; line-height:1.8; font-style:italic; margin:0 0 18px; }
+    .cdx__timeline{ list-style:none; margin:0; padding:0 0 0 22px;
+      border-left:2px solid var(--line); }
+    .cdx__timeline li{ position:relative; padding:0 0 20px; }
+    .cdx__timeline li:last-child{ padding-bottom:0; }
+    .cdx__timeline li::before{ content:''; position:absolute; left:-30px; top:2px;
+      width:13px; height:13px; border-radius:50%; background:#fff;
+      border:2.5px solid var(--gold); }
+    .cdx__timeline h5{ margin:0 0 4px; font-family:'Noto Serif SC',serif; font-weight:600;
+      font-size:15px; color:var(--green); }
+    .cdx__timeline p{ margin:0; color:#666; font-size:13.5px; line-height:1.65; }
+    .cdx__close-note{ margin:18px 0 0; color:#555; font-size:13.5px; line-height:1.7; }
+    /* 文书特色 / 顾问点评 卡片 */
+    .cdx__rcol{ display:flex; flex-direction:column; gap:22px; }
+    .cdx__card{ background:#faf8f3; border:1px solid var(--line); border-radius:14px;
+      padding:22px 24px; }
+    .cdx__card .cdx__h{ font-size:18px; margin-bottom:11px; }
+    .cdx__card p{ margin:0; color:#555; font-size:14px; line-height:1.85; }
+    .cdx__chips{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
+    .cdx__chip{ font-size:12.5px; font-weight:600; color:var(--green);
+      background:rgba(20,52,43,.07); border-radius:999px; padding:5px 13px; }
+    .cdx__sign{ display:block; text-align:right; margin-top:14px;
+      font-family:'Fraunces',serif; font-style:italic; color:var(--gold); font-size:14px; }
+    /* 关键词 */
+    .cdx__kw{ margin-top:34px; padding-top:26px; border-top:1px solid var(--line); }
+    .cdx__tags{ display:flex; flex-wrap:wrap; gap:9px; margin-top:6px; }
+    .cdx__tag{ font-size:13px; font-weight:600; color:var(--green);
+      background:rgba(168,145,87,.12); border:1px solid rgba(168,145,87,.28);
+      border-radius:8px; padding:6px 14px; }
+
+    @media (max-width:760px){
+      .cdx__stats{ grid-template-columns:repeat(2,1fr); }
+      .cdx__stat:nth-child(3){ border-left:0; }
+      .cdx__stat:nth-child(n+3){ border-top:1px solid var(--line); }
+      .cdx__cols{ grid-template-columns:1fr; }
+      .cdx__grid2{ grid-template-columns:1fr; }
+    }
+    @media (max-width:480px){
+      .cdx__stats{ grid-template-columns:1fr; }
+      .cdx__stat + .cdx__stat{ border-left:0; border-top:1px solid var(--line); }
+    }
   </style>
 </head>
 <body>
@@ -471,7 +674,44 @@
     </div>
   </section>
 
-  <!-- ===== 精选案例概览（卡片） ===== -->
+  <!-- ===== 2 · 宏观震撼：录取去向 · 3D 地球 + 完整名录（数据由 js 渲染，见页尾 module） ===== -->
+  <section class="cx-sec" id="admissions-globe">
+    <div class="cx__inner">
+      <header class="cx__head">
+        <p class="cx__eyebrow">ADMISSIONS<span></span>录取去向</p>
+        <h2 class="cx__title">从上海出发，<em>抵达世界</em></h2>
+        <p class="cx__sub" id="cxSub">真实录取去向 —— 筛选下方名录，左侧地球同步点亮对应航线。</p>
+      </header>
+      <div class="cx__grid">
+        <div class="cx__stage">
+          <div class="gstage" id="gstage">
+            <div class="gstage__stars" aria-hidden="true"></div>
+            <div class="gstage__ph" aria-hidden="true"><i></i></div>
+            <canvas class="gstage__canvas" id="gcanvas" aria-label="3D 录取去向地球"></canvas>
+            <div class="gcard" id="gcard" hidden></div>
+            <p class="gstage__hint" aria-hidden="true">拖拽旋转 · 悬停光点看案例</p><!-- 触摸屏文案由 JS 改写为「拖拽旋转地球」 -->
+          </div>
+        </div>
+        <div class="cx__panel">
+          <div class="cx__filter" id="cxFilter" role="group" aria-label="按地区筛选录取案例"></div>
+          <p class="cx__stat">当前 <b id="cxTotal">—</b> 枚 Offer · <b id="cxSchools">—</b> 所院校</p>
+          <div class="cx__listwrap">
+            <div class="cx__list" id="cxList" tabindex="0" aria-label="录取院校清单"></div>
+            <div class="cx__cue" aria-hidden="true">下滑查看全部
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <details class="cx-full" id="cxFull">
+      <summary id="cxFullSummary">查看完整录取名录</summary>
+      <div class="cx-full__body" id="cxFullBody"></div>
+      <button type="button" class="cx-full__collapse" id="cxFullCollapse">收起名录<span aria-hidden="true">－</span></button>
+    </details>
+  </section>
+
+  <!-- ===== 3 · 微观吸引：精选名校案例（卡片 · 点击侧边抽屉展开） ===== -->
   <section class="section stories stories--tight sec-bleed sec-white" id="stories">
     <div class="section__head reveal">
       <p class="eyebrow">HIGHLIGHTS</p>
@@ -479,40 +719,89 @@
         <h2>他们，已经抵达</h2>
         <span class="ph-badge">占位示例 · 待替换真实案例</span>
       </div>
-      <p class="lead">精选学员录取案例 —— 点击查看完整背景与策略复盘。</p>
+      <p class="lead">精选学员录取案例 —— 点击卡片，从右侧滑出完整背景与策略复盘。</p>
     </div>
     <div class="stories__grid">
-      <a class="story reveal" href="#case-w">
-        <div class="story__media"><img src="assets/case-01.jpg" alt="学员录取案例" loading="lazy" /><span class="story__badge">Admitted</span></div>
-        <div class="story__body">
-          <span class="story__tag">W 同学 · 上海</span>
-          <h3 class="story__school">宾夕法尼亚大学</h3>
-          <p>从 GPA 中游到藤校录取，模块化规划 + 真实科研，让申请形象真正立住。</p>
-          <span class="story__more">查看完整案例 →</span>
+      <button type="button" class="casecard reveal" data-case="case-w">
+        <span class="casecard__badge">哥伦比亚大学（RD）· 剑桥大学</span>
+        <h3 class="casecard__title">Y 同学：哲学如何成为她拿下哥大、剑桥的唯一主线？</h3>
+        <div class="casecard__scores">
+          <span class="casecard__score casecard__score--key">ACT 36<small>满分</small></span>
+          <span class="casecard__divider" aria-hidden="true"></span>
+          <span class="casecard__score">托福 115</span>
         </div>
-      </a>
-      <a class="story reveal" href="#case-l">
-        <div class="story__media"><img src="assets/case-02.jpg" alt="学员录取案例" loading="lazy" /><span class="story__badge">Admitted</span></div>
-        <div class="story__body">
-          <span class="story__tag">L 同学 · 北京</span>
-          <h3 class="story__school">芝加哥大学</h3>
-          <p>文书十余稿打磨，把一段公益经历写成独一无二的故事，戳中招生官。</p>
-          <span class="story__more">查看完整案例 →</span>
+        <div class="casecard__rule" aria-hidden="true"></div>
+        <p class="casecard__quote">“顶尖申请，比的不是‘有什么’，而是‘串成什么’。”</p>
+        <span class="casecard__more">查看完整策略复盘 →</span>
+      </button>
+      <button type="button" class="casecard reveal" data-case="case-l">
+        <span class="casecard__badge">康奈尔大学</span>
+        <h3 class="casecard__title">Li 同学：从混沌理论到康复机械臂，理工科叙事如何打动顶尖名校？</h3>
+        <div class="casecard__scores">
+          <span class="casecard__score casecard__score--key">GPA 4.92<small>/4.0</small></span>
+          <span class="casecard__divider" aria-hidden="true"></span>
+          <span class="casecard__score">ACT 34 · 托福 113</span>
         </div>
-      </a>
-      <a class="story reveal" href="#case-c">
-        <div class="story__media"><img src="assets/case-03.jpg" alt="学员录取案例" loading="lazy" /><span class="story__badge">Admitted</span></div>
-        <div class="story__body">
-          <span class="story__tag">C 同学 · 深圳</span>
-          <h3 class="story__school">康奈尔大学</h3>
-          <p>理工方向背景提升 + RP 全真面试预演，稳稳拿下心仪工程学院。</p>
-          <span class="story__more">查看完整案例 →</span>
+        <div class="casecard__rule" aria-hidden="true"></div>
+        <p class="casecard__quote">“顶尖大学看的不是掌握了多少知识，而是能否发现、研究并解决问题。”</p>
+        <span class="casecard__more">查看完整策略复盘 →</span>
+      </button>
+      <button type="button" class="casecard reveal" data-case="case-c">
+        <span class="casecard__badge">芝加哥大学（University of Chicago）</span>
+        <h3 class="casecard__title">Wang 同学：从行为经济学到公共议题，如何用一条主线打动芝大？</h3>
+        <div class="casecard__scores">
+          <span class="casecard__score casecard__score--key">GPA 4.98<small>/5.0</small></span>
+          <span class="casecard__divider" aria-hidden="true"></span>
+          <span class="casecard__score">SAT 1520 · 托福 114</span>
         </div>
-      </a>
+        <div class="casecard__rule" aria-hidden="true"></div>
+        <p class="casecard__quote">“经济学不只在课堂与模型里，更在人与人的互动、社会运行的每个细节中。”</p>
+        <span class="casecard__more">查看完整策略复盘 →</span>
+      </button>
     </div>
   </section>
 
-  <!-- ===== 学员故事 · STUDENT STORIES 照片墙（照片 + 学员之声 混排拼贴） ===== -->
+  <!-- ===== 4 · 深度阅读：完整策略复盘（图文列表 · 真实申请故事） ===== -->
+  <section class="section" id="case-details">
+    <div class="section__head reveal">
+      <p class="eyebrow">CASE STUDIES</p>
+      <div class="head-row">
+        <h2>完整策略复盘</h2>
+        <span class="ph-badge">真实申请故事 · 公众号原文</span>
+      </div>
+      <p class="lead">88 分托福如何逆袭？完整记录每一段申请过程 —— 干货拆解，逐篇可读。</p>
+    </div>
+
+    <!-- 真实申请故事（公众号原文，整卡跳转） -->
+    <div class="case-stories reveal">
+      <div class="post-grid">
+        <a class="blog-card post-card" href="https://mp.weixin.qq.com/s/erLSIA3ETc1lNyvc1dcWZA" target="_blank" rel="noopener">
+          <div class="post-card__main">
+            <span class="cat-tag" style="background:rgba(168,145,87,.12);color:var(--gold)">申请故事</span>
+            <h3 class="post-card__title">第一篇申请故事｜"老师，我托福只有88分，但我想学传媒。"</h3>
+            <p class="post-card__digest" style="color:#555;font-size:14px;line-height:1.7;margin:8px 0 0">托福 88 分的 Y 同学，通过深度挖掘影像创作与活动经历，成功斩获东北大学传媒专业录取。</p>
+            <span class="post-card__date">2026-04-24 · 公众号原文</span>
+          </div>
+          <div class="post-card__thumb">
+            <img src="assets/story-neu.webp" alt="托福88分学传媒——东北大学录取故事封面" loading="lazy" />
+          </div>
+        </a>
+        <a class="blog-card post-card" href="https://mp.weixin.qq.com/s/4RJEG3gtk2-V53K2DhdfUA" target="_blank" rel="noopener">
+          <div class="post-card__main">
+            <span class="cat-tag" style="background:rgba(168,145,87,.12);color:var(--gold)">申请故事</span>
+            <h3 class="post-card__title">淡定女孩的申请故事｜香港科技大学录取</h3>
+            <p class="post-card__digest" style="color:#555;font-size:14px;line-height:1.7;margin:8px 0 0">缺乏 GRE 成绩的叶同学，在顾问帮助下重构核心优势、融合宏观情怀，成功淡定斩获香港科技大学录取。</p>
+            <span class="post-card__date">2026-04-13 · 公众号原文</span>
+          </div>
+          <div class="post-card__thumb">
+            <img src="assets/story-hkust.webp" alt="淡定女孩的申请故事——香港科技大学录取封面" loading="lazy" />
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 5 · 情感共鸣：学员之声 · STUDENT STORIES 照片墙（照片 + 评价 混排拼贴） ===== -->
   <section class="swall" id="student-stories">
     <span class="swall__watermark" aria-hidden="true">VOICES</span>
     <div class="swall__head reveal">
@@ -561,110 +850,6 @@
     </div>
   </section>
 
-  <!-- ===== 案例详情（含背景/策略复盘/感言，待填写真实内容） ===== -->
-  <section class="section" id="case-details">
-    <div class="section__head reveal">
-      <p class="eyebrow">CASE STUDIES</p>
-      <div class="head-row">
-        <h2>完整策略复盘</h2>
-        <span class="ph-badge">结构待定 · 方案A 页内展开 / 方案B 三级页面跳转</span>
-      </div>
-      <p class="lead">以下学员背景、策略与感言为占位示例，正式上线前替换为「真实且获本人授权」的案例。</p>
-    </div>
-
-    <!-- 真实申请故事（公众号原文，整卡跳转） -->
-    <div class="case-stories reveal" style="margin-bottom:40px">
-      <p class="eyebrow">真实申请故事 · STORIES</p>
-      <div class="post-grid">
-        <a class="blog-card post-card" href="https://mp.weixin.qq.com/s/erLSIA3ETc1lNyvc1dcWZA" target="_blank" rel="noopener">
-          <div class="post-card__main">
-            <span class="cat-tag" style="background:rgba(168,145,87,.12);color:var(--gold)">申请故事</span>
-            <h3 class="post-card__title">第一篇申请故事｜"老师，我托福只有88分，但我想学传媒。"</h3>
-            <p class="post-card__digest" style="color:#555;font-size:14px;line-height:1.7;margin:8px 0 0">托福 88 分的 Y 同学，通过深度挖掘影像创作与活动经历，成功斩获东北大学传媒专业录取。</p>
-            <span class="post-card__date">2026-04-24 · 公众号原文</span>
-          </div>
-          <div class="post-card__thumb">
-            <img src="assets/story-neu.webp" alt="托福88分学传媒——东北大学录取故事封面" loading="lazy" />
-          </div>
-        </a>
-        <a class="blog-card post-card" href="https://mp.weixin.qq.com/s/4RJEG3gtk2-V53K2DhdfUA" target="_blank" rel="noopener">
-          <div class="post-card__main">
-            <span class="cat-tag" style="background:rgba(168,145,87,.12);color:var(--gold)">申请故事</span>
-            <h3 class="post-card__title">淡定女孩的申请故事｜香港科技大学录取</h3>
-            <p class="post-card__digest" style="color:#555;font-size:14px;line-height:1.7;margin:8px 0 0">缺乏 GRE 成绩的叶同学，在顾问帮助下重构核心优势、融合宏观情怀，成功淡定斩获香港科技大学录取。</p>
-            <span class="post-card__date">2026-04-13 · 公众号原文</span>
-          </div>
-          <div class="post-card__thumb">
-            <img src="assets/story-hkust.webp" alt="淡定女孩的申请故事——香港科技大学录取封面" loading="lazy" />
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <article class="case-detail reveal" id="case-w">
-      <div class="case-detail__head">
-        <div class="case-detail__school">宾夕法尼亚大学</div>
-        <span class="case-detail__tag">美国本科 · 2026 · W同学 上海</span>
-      </div>
-      <table class="case-detail__table">
-        <tr><th>学生背景</th><td>待填写（如：上海某国际学校，GPA 3.8/4.0）</td></tr>
-        <tr><th>标化成绩</th><td>待填写（如：托福 110 / SAT 1480）</td></tr>
-        <tr><th>背景亮点</th><td>待填写（如：XX竞赛国家级奖项、创办校内社团）</td></tr>
-        <tr><th>录取院校</th><td>待填写（如：宾夕法尼亚大学 经济学）</td></tr>
-      </table>
-      <div class="case-detail__strategy">
-        <strong>申请策略复盘：</strong><br>
-        待填写：一段 100–200 字的策略说明，解释途策如何为这位同学制定个性化策略，包括选校逻辑、文书主题选取、活动包装重点等。这是 AI 最喜欢引用的部分，写得越具体越好。
-      </div>
-      <blockquote class="case-detail__quote">
-        "待填写：学员或家长的真实感言，1–2 句话。"
-        <small>— W同学（化名），录取于 待填写院校</small>
-      </blockquote>
-    </article>
-
-    <article class="case-detail reveal" id="case-l">
-      <div class="case-detail__head">
-        <div class="case-detail__school">芝加哥大学</div>
-        <span class="case-detail__tag">美国本科 · 2026 · L同学 北京</span>
-      </div>
-      <table class="case-detail__table">
-        <tr><th>学生背景</th><td>待填写</td></tr>
-        <tr><th>标化成绩</th><td>待填写</td></tr>
-        <tr><th>背景亮点</th><td>待填写</td></tr>
-        <tr><th>录取院校</th><td>待填写</td></tr>
-      </table>
-      <div class="case-detail__strategy">
-        <strong>申请策略复盘：</strong><br>
-        待填写
-      </div>
-      <blockquote class="case-detail__quote">
-        "待填写：学员感言。"
-        <small>— L同学（化名），录取于 待填写院校</small>
-      </blockquote>
-    </article>
-
-    <article class="case-detail reveal" id="case-c">
-      <div class="case-detail__head">
-        <div class="case-detail__school">康奈尔大学</div>
-        <span class="case-detail__tag">美国本科 · 2026 · C同学 深圳</span>
-      </div>
-      <table class="case-detail__table">
-        <tr><th>学生背景</th><td>待填写</td></tr>
-        <tr><th>标化成绩</th><td>待填写</td></tr>
-        <tr><th>背景亮点</th><td>待填写</td></tr>
-        <tr><th>录取院校</th><td>待填写</td></tr>
-      </table>
-      <div class="case-detail__strategy">
-        <strong>申请策略复盘：</strong><br>
-        待填写
-      </div>
-      <blockquote class="case-detail__quote">
-        "待填写：学员感言。"
-        <small>— C同学（化名），录取于 待填写院校</small>
-      </blockquote>
-    </article>
-  </section>
-
   <!-- 数据统计模糊渐显（纯 vanilla JS，无外部库） -->
   <script>
     /* —— 数据统计 · Blur Reveal —— */
@@ -683,43 +868,6 @@
       figs.forEach(function(f){ io.observe(f); });
     })();
   </script>
-
-  <!-- ===== 录取去向 · 3D 地球 + 完整名录（数据由 js 渲染，见页尾 module） ===== -->
-  <section class="cx-sec" id="admissions-globe">
-    <div class="cx__inner">
-      <header class="cx__head">
-        <p class="cx__eyebrow">ADMISSIONS<span></span>录取去向</p>
-        <h2 class="cx__title">从上海出发，<em>抵达世界</em></h2>
-        <p class="cx__sub" id="cxSub">真实录取去向 —— 筛选下方名录，左侧地球同步点亮对应航线。</p>
-      </header>
-      <div class="cx__grid">
-        <div class="cx__stage">
-          <div class="gstage" id="gstage">
-            <div class="gstage__stars" aria-hidden="true"></div>
-            <div class="gstage__ph" aria-hidden="true"><i></i></div>
-            <canvas class="gstage__canvas" id="gcanvas" aria-label="3D 录取去向地球"></canvas>
-            <div class="gcard" id="gcard" hidden></div>
-            <p class="gstage__hint" aria-hidden="true">拖拽旋转 · 悬停光点看案例</p><!-- 触摸屏文案由 JS 改写为「拖拽旋转地球」 -->
-          </div>
-        </div>
-        <div class="cx__panel">
-          <div class="cx__filter" id="cxFilter" role="group" aria-label="按地区筛选录取案例"></div>
-          <p class="cx__stat">当前 <b id="cxTotal">—</b> 枚 Offer · <b id="cxSchools">—</b> 所院校</p>
-          <div class="cx__listwrap">
-            <div class="cx__list" id="cxList" tabindex="0" aria-label="录取院校清单"></div>
-            <div class="cx__cue" aria-hidden="true">下滑查看全部
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <details class="cx-full" id="cxFull">
-      <summary id="cxFullSummary">查看完整录取名录</summary>
-      <div class="cx-full__body" id="cxFullBody"></div>
-      <button type="button" class="cx-full__collapse" id="cxFullCollapse">收起名录<span aria-hidden="true">－</span></button>
-    </details>
-  </section>
 
   <!-- ===== 底部 CTA 转化带 ===== -->
   <section class="cta-band">
@@ -948,6 +1096,460 @@
     }, { threshold: 0.1 });
     io.observe(stage);
   })();
+  </script>
+
+  <!-- ===== 案例详情 · 侧边抽屉（Side Drawer） ===== -->
+  <div class="drawer-overlay" id="caseOverlay"></div>
+  <aside class="case-drawer" id="caseDrawer" role="dialog" aria-modal="true" aria-label="案例详情" aria-hidden="true">
+    <div class="case-drawer__card">
+      <button type="button" class="case-drawer__close" id="caseDrawerClose" aria-label="关闭案例详情">×</button>
+      <div class="case-drawer__body" id="caseDrawerBody"></div>
+    </div>
+  </aside>
+
+  <!-- 抽屉内容模板（由 JS 克隆进抽屉，正式上线前替换为真实且获授权的案例） -->
+  <template id="tpl-case-w">
+    <article class="cdx">
+      <!-- 深绿头部 -->
+      <header class="cdx__hero">
+        <h2 class="cdx__title">以哲学为刃，打破沉默的叙事</h2>
+        <p class="cdx__subtitle">Yu 同学的哥伦比亚大学录取复盘</p>
+      </header>
+
+      <!-- 录取院校墙（官方校徽） -->
+      <div class="cdx__logos">
+        <span class="cdx__logo"><img src="assets/logo-columbia.svg" alt="哥伦比亚大学 Columbia University" loading="lazy" /></span>
+        <span class="cdx__logo"><img src="assets/logo-dartmouth.svg" alt="达特茅斯学院 Dartmouth College" loading="lazy" /></span>
+        <span class="cdx__logo"><img src="assets/logo-ucla.svg" alt="加州大学洛杉矶分校 UCLA" loading="lazy" /></span>
+        <span class="cdx__logo"><img src="assets/logo-wellesley.svg" alt="卫斯理学院 Wellesley College" loading="lazy" /></span>
+        <span class="cdx__logo"><img src="assets/logo-cambridge.png" alt="剑桥大学 University of Cambridge" loading="lazy" /></span>
+      </div>
+
+      <!-- 成绩条 -->
+      <div class="cdx__stats">
+        <div class="cdx__stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>
+          <span><b>GPA 4.90/4.0</b><span>国内重点高中</span></span>
+        </div>
+        <div class="cdx__stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg>
+          <span><b>ACT 36</b><span>满分成绩</span></span>
+        </div>
+        <div class="cdx__stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 2.6 14.6 0 17M12 3.5c-2.6 2.4-2.6 14.6 0 17"/></svg>
+          <span><b>托福 115</b><span>极高语言</span></span>
+        </div>
+        <div class="cdx__stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 12h6M9.5 15.5h5"/></svg>
+          <span><b>AP 7 门 5 分</b><span>文理兼修</span></span>
+        </div>
+      </div>
+
+      <div class="cdx__body">
+        <!-- 学生画像 -->
+        <section class="cdx__sec cdx__sec--first">
+          <h3 class="cdx__h"><span class="qm">“</span>学生画像</h3>
+          <p class="cdx__p">Yu 同学是一位典型的人文社科方向申请者。与传统竞赛型学生不同，她长期聚焦于哲学、伦理学与社会科学，通过课程学习、学术研究、播客创作和社会实践，逐步建立起清晰且有深度的学术画像。她不仅关心理论问题，也关心现实社会中的人与故事，并尝试通过研究与表达推动公共讨论。</p>
+        </section>
+
+        <!-- 学术亮点 · 三栏 -->
+        <section class="cdx__sec">
+          <h3 class="cdx__h">学术亮点</h3>
+          <div class="cdx__cols">
+            <div class="cdx__col">
+              <div class="cdx__col-h">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h11v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 1 2-2h11"/></svg>
+                <h4><i>Philosophy &amp; Ethics</i>哲学与伦理学研究</h4>
+              </div>
+              <ul class="cdx__list">
+                <li>完成大学教授指导下的哲学研究项目，独立撰写 40 余页学术论文，获得项目优秀评价</li>
+                <li>研究主题聚焦伦理学与当代社会议题</li>
+              </ul>
+            </div>
+            <div class="cdx__col">
+              <div class="cdx__col-h">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>
+                <h4><i>Humanistic Exploration</i>人文学术探索</h4>
+              </div>
+              <ul class="cdx__list">
+                <li>参加美国顶尖大学暑期课程，系统学习哲学与政治理论</li>
+                <li>长期阅读哲学、政治学及社会科学经典著作，持续参与学术讨论</li>
+              </ul>
+            </div>
+            <div class="cdx__col">
+              <div class="cdx__col-h">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v3a5 5 0 0 1-10 0z"/><path d="M7 5H4v2a3 3 0 0 0 3 3M17 5h3v2a3 3 0 0 1-3 3M9.5 14h5M9 20h6M12 14v6"/></svg>
+                <h4><i>Competitions &amp; Honors</i>竞赛与荣誉</h4>
+              </div>
+              <ul class="cdx__list">
+                <li>国际哲学论文竞赛获奖</li>
+                <li>全国伦理辩论赛事获奖</li>
+                <li>多项人文社科类学术活动成果突出</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 双栏：个性化活动体系 + 文书特色/顾问点评 -->
+        <div class="cdx__grid2">
+          <section class="cdx__col-left">
+            <h3 class="cdx__h">个性化活动体系</h3>
+            <p class="cdx__intro">Yu 同学的课外经历围绕同一主题持续展开——关注个体叙事，理解社会结构。她先后参与：</p>
+            <ul class="cdx__timeline">
+              <li><h5>青年口述史项目</h5><p>记录并整理真实个体故事</p></li>
+              <li><h5>哲学主题播客创作</h5><p>推动公共讨论</p></li>
+              <li><h5>校园学术社团运营</h5><p>组织跨年级学术交流</p></li>
+              <li><h5>社会议题研究与分享</h5></li>
+            </ul>
+            <p class="cdx__close-note">这些活动共同构成了一份完整且一致的申请叙事。</p>
+          </section>
+
+          <div class="cdx__rcol">
+            <section class="cdx__card">
+              <h3 class="cdx__h">文书特色</h3>
+              <div class="cdx__chips">
+                <span class="cdx__chip">表达与沉默</span>
+                <span class="cdx__chip">个体与社会</span>
+                <span class="cdx__chip">理念与行动</span>
+              </div>
+              <p>Yu 同学的申请文书没有选择常见的成长经历或竞赛故事。她从一次校园活动经历出发，探讨表达与沉默、个体与社会、理念与行动之间的关系，最终展现出一个具有独立思考能力、公共责任感和人文关怀的青年学者形象。</p>
+            </section>
+            <section class="cdx__card">
+              <h3 class="cdx__h">顾问点评</h3>
+              <p>Yu 同学的成功并非来自单一竞赛奖项，而是源于长期稳定的学术兴趣、高度统一的活动规划、深度思考能力与鲜明的人文社科定位。对于希望申请顶尖综合大学文科方向的学生而言，Yu 同学的案例说明：顶尖大学寻找的并不仅仅是"成绩优秀的学生"，而是对某一领域持续投入并形成个人观点的学习者。</p>
+              <span class="cdx__sign">— 途策首席顾问</span>
+            </section>
+          </div>
+        </div>
+
+        <!-- 案例关键词 -->
+        <section class="cdx__kw">
+          <h3 class="cdx__h">案例关键词</h3>
+          <div class="cdx__tags">
+            <span class="cdx__tag">哲学</span>
+            <span class="cdx__tag">伦理学</span>
+            <span class="cdx__tag">社会科学</span>
+            <span class="cdx__tag">学术研究</span>
+            <span class="cdx__tag">播客创作</span>
+            <span class="cdx__tag">人文社科申请</span>
+            <span class="cdx__tag">常春藤录取</span>
+          </div>
+        </section>
+      </div>
+    </article>
+  </template>
+
+  <template id="tpl-case-l">
+    <article class="cdx">
+      <!-- 深绿头部 -->
+      <header class="cdx__hero">
+        <h2 class="cdx__title">以混沌为序，让物理照进现实</h2>
+        <p class="cdx__subtitle">Li 同学的理工科申请复盘</p>
+      </header>
+
+      <!-- 录取院校墙（康奈尔校徽 + 其余待补） -->
+      <div class="cdx__logos">
+        <span class="cdx__logo"><img src="assets/logo-cornell.png" alt="康奈尔大学 Cornell University" loading="lazy" /></span>
+        <span class="cdx__logo cdx__logo--text">录取院校<small>待补充</small></span>
+        <span class="cdx__logo cdx__logo--text">录取院校<small>待补充</small></span>
+        <span class="cdx__logo cdx__logo--text">录取院校<small>待补充</small></span>
+        <span class="cdx__logo cdx__logo--text">录取院校<small>待补充</small></span>
+      </div>
+
+      <!-- 成绩条 -->
+      <div class="cdx__stats">
+        <div class="cdx__stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>
+          <span><b>GPA 4.92/4.0</b><span>国内重点高中</span></span>
+        </div>
+        <div class="cdx__stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg>
+          <span><b>ACT 34</b><span>标化成绩</span></span>
+        </div>
+        <div class="cdx__stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 2.6 14.6 0 17M12 3.5c-2.6 2.4-2.6 14.6 0 17"/></svg>
+          <span><b>托福 113</b><span>极高语言</span></span>
+        </div>
+        <div class="cdx__stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v3a5 5 0 0 1-10 0z"/><path d="M7 5H4v2a3 3 0 0 0 3 3M17 5h3v2a3 3 0 0 1-3 3M9.5 14h5M9 20h6M12 14v6"/></svg>
+          <span><b>BPhO 国际奖</b><span>英国物理奥赛</span></span>
+        </div>
+      </div>
+
+      <div class="cdx__body">
+        <!-- 学生画像 -->
+        <section class="cdx__sec cdx__sec--first">
+          <h3 class="cdx__h"><span class="qm">“</span>学生画像</h3>
+          <p class="cdx__p">Li 同学是一位典型的科研驱动型理工科申请者。从高中阶段开始，他便对物理学展现出浓厚兴趣，并逐渐将这种兴趣延伸至数学、工程设计与科学研究领域。与单纯依赖竞赛成绩的申请者不同，他始终坚持将学术探索与现实问题结合，通过科研项目、实验室实践和产品研发不断验证自己的想法，形成了兼具理论深度与实践能力的学术画像。</p>
+        </section>
+
+        <!-- 学术亮点 · 三栏 -->
+        <section class="cdx__sec">
+          <h3 class="cdx__h">学术亮点</h3>
+          <div class="cdx__cols">
+            <div class="cdx__col">
+              <div class="cdx__col-h">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>
+                <h4><i>Chaos Theory Research</i>混沌理论独立研究</h4>
+              </div>
+              <ul class="cdx__list">
+                <li>师从美国大学物理学教授，完成国际高阶独立研究项目</li>
+                <li>独立撰写 19 页英文学术论文，聚焦非线性动力学与混沌理论</li>
+                <li>获项目优秀评级并获学术期刊提名（Top 9%）</li>
+              </ul>
+            </div>
+            <div class="cdx__col">
+              <div class="cdx__col-h">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v3a5 5 0 0 1-10 0z"/><path d="M7 5H4v2a3 3 0 0 0 3 3M17 5h3v2a3 3 0 0 1-3 3M9.5 14h5M9 20h6M12 14v6"/></svg>
+                <h4><i>Competitions &amp; Honors</i>国际物理与数学竞赛</h4>
+              </div>
+              <ul class="cdx__list">
+                <li>Physics Bowl 全球前列成绩</li>
+                <li>British Physics Olympiad 国际奖项获得者</li>
+                <li>AMC / AIME 优秀成绩，取得 USAJMO 参赛资格</li>
+              </ul>
+            </div>
+            <div class="cdx__col">
+              <div class="cdx__col-h">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 21l-4.9 2.7"/><circle cx="12" cy="12" r="2.5"/></svg>
+                <h4><i>Lab &amp; Engineering</i>实验室科研与工程创新</h4>
+              </div>
+              <ul class="cdx__list">
+                <li>国内知名高校现代光学实验室研究助理，参与光纤传感、超声波与温度检测实验</li>
+                <li>自主设计康复辅助机械臂，完成 Arduino 编程与机械结构开发，实现手机端控制与动作记录</li>
+                <li>国际发明赛事国家级奖项获得者，入围全球总决赛</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 双栏：个性化活动体系 + 文书特色/顾问点评 -->
+        <div class="cdx__grid2">
+          <section class="cdx__col-left">
+            <h3 class="cdx__h">个性化活动体系</h3>
+            <p class="cdx__intro">Li 同学的活动规划围绕同一核心主题持续展开——利用物理学理解世界，并通过工程技术改善现实生活。围绕这一主线，他长期参与：</p>
+            <ul class="cdx__timeline">
+              <li><h5>物理学研究项目</h5><p>从课题切入真实科学问题</p></li>
+              <li><h5>高校光学实验室科研</h5><p>积累真实科研环境实验经验</p></li>
+              <li><h5>物理社团创办与运营</h5><p>组织跨年级学术交流</p></li>
+              <li><h5>工程发明与产品设计</h5><p>把理论转化为可用产品</p></li>
+              <li><h5>数学与物理竞赛</h5></li>
+              <li><h5>学术科普写作</h5></li>
+            </ul>
+            <p class="cdx__close-note">不同经历之间形成高度统一的学术叙事，而非简单堆砌活动成果。</p>
+          </section>
+
+          <div class="cdx__rcol">
+            <section class="cdx__card">
+              <h3 class="cdx__h">文书特色</h3>
+              <div class="cdx__chips">
+                <span class="cdx__chip">双摆</span>
+                <span class="cdx__chip">混沌理论</span>
+                <span class="cdx__chip">康复与陪伴</span>
+              </div>
+              <p>Li 同学的主文书没有围绕竞赛奖项展开。一次家庭变故成为其学术成长的重要契机——在陪伴家人进行术后康复的过程中，他开始关注患者在康复训练中的现实困难，并尝试运用物理与工程知识寻找解决方案。文书以"双摆"与"混沌理论"作为核心隐喻，将个人成长、家庭经历与学术兴趣有机融合，最终指向康复辅助机械臂的发明过程，展现出一位青年科研探索者的人文关怀与社会责任感。</p>
+            </section>
+            <section class="cdx__card">
+              <h3 class="cdx__h">顾问点评</h3>
+              <p>Li 同学的成功不是依靠单一竞赛成绩，而是来自一条完整且具有说服力的学术成长路径：扎实的数理基础、持续深入的科研探索、优秀的工程实践能力、清晰统一的学术定位。尤为难得的是，他始终保持着将科学研究与社会价值结合的思考习惯——从光学实验室到自主研发康复设备，每一步都体现出一个问题解决者的思维方式。这种兼具理论深度与实践关怀的理工科形象，在顶尖大学申请中具有极强的辨识度。</p>
+              <span class="cdx__sign">— 途策首席顾问</span>
+            </section>
+          </div>
+        </div>
+
+        <!-- 案例关键词 -->
+        <section class="cdx__kw">
+          <h3 class="cdx__h">案例关键词</h3>
+          <div class="cdx__tags">
+            <span class="cdx__tag">Physics</span>
+            <span class="cdx__tag">科研项目</span>
+            <span class="cdx__tag">混沌理论</span>
+            <span class="cdx__tag">实验室研究</span>
+            <span class="cdx__tag">工程创新</span>
+            <span class="cdx__tag">机械臂发明</span>
+            <span class="cdx__tag">理工科申请</span>
+            <span class="cdx__tag">藤校录取</span>
+          </div>
+        </section>
+      </div>
+    </article>
+  </template>
+
+  <template id="tpl-case-c">
+    <article class="cdx">
+      <!-- 深绿头部 -->
+      <header class="cdx__hero">
+        <h2 class="cdx__title">以经济学为镜，洞察人与社会的选择</h2>
+        <p class="cdx__subtitle">Wang 同学的芝加哥大学录取复盘</p>
+      </header>
+
+      <!-- 录取院校墙（官方校徽） -->
+      <div class="cdx__logos">
+        <span class="cdx__logo"><img src="assets/logo-chicago.png" alt="芝加哥大学 University of Chicago" loading="lazy" /></span>
+      </div>
+
+      <!-- 成绩条 -->
+      <div class="cdx__stats">
+        <div class="cdx__stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>
+          <span><b>GPA 4.98/5.0</b><span>稳居年级前列</span></span>
+        </div>
+        <div class="cdx__stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg>
+          <span><b>SAT 1520</b><span>标化高分</span></span>
+        </div>
+        <div class="cdx__stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 2.6 14.6 0 17M12 3.5c-2.6 2.4-2.6 14.6 0 17"/></svg>
+          <span><b>托福 114</b><span>极高语言</span></span>
+        </div>
+        <div class="cdx__stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 12h6M9.5 15.5h5"/></svg>
+          <span><b>IB Predicted 42/42</b><span>满分预估</span></span>
+        </div>
+      </div>
+
+      <div class="cdx__body">
+        <!-- 学生画像 -->
+        <section class="cdx__sec cdx__sec--first">
+          <h3 class="cdx__h"><span class="qm">“</span>学生画像</h3>
+          <p class="cdx__p">Wang 同学是一位典型的经济学与公共政策方向申请者。与传统以竞赛和科研堆砌背景的申请者不同，她的申请建立在对社会现象、公共议题与人类行为的长期观察之上。从行为经济学到社会运动研究，从学生组织管理到跨文化教育实践，她始终关注一个核心问题：人们为什么会做出某种选择，而社会又如何影响这些选择。这种跨越经济学、社会科学与公共议题的思考，构成了她鲜明而独特的学术画像。</p>
+        </section>
+
+        <!-- 学术亮点 · 三栏 -->
+        <section class="cdx__sec">
+          <h3 class="cdx__h">学术亮点</h3>
+          <div class="cdx__cols">
+            <div class="cdx__col">
+              <div class="cdx__col-h">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M7 4h10v3a5 5 0 0 1-10 0z"/><path d="M7 5H4v2a3 3 0 0 0 3 3M17 5h3v2a3 3 0 0 1-3 3M9.5 14h5M9 20h6M12 14v6"/></svg>
+                <h4><i>Economics</i>经济学方向学术能力</h4>
+              </div>
+              <ul class="cdx__list">
+                <li>国际经济学奥林匹克竞赛（IEO）金奖</li>
+                <li>National Economics Challenge 国际轮团队第一名</li>
+                <li>NEC 中国赛区个人 Distinction 奖项</li>
+                <li>长期保持经济学方向优秀学术表现</li>
+              </ul>
+            </div>
+            <div class="cdx__col">
+              <div class="cdx__col-h">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>
+                <h4><i>Behavioral Economics</i>行为经济学探索</h4>
+              </div>
+              <ul class="cdx__list">
+                <li>参加芝加哥大学经济学暑期课程，获课程 A 等级评价</li>
+                <li>系统学习宏观经济学与博弈论</li>
+                <li>深入探索行为经济学与现实决策之间的联系</li>
+              </ul>
+            </div>
+            <div class="cdx__col">
+              <div class="cdx__col-h">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h11v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 1 2-2h11"/></svg>
+                <h4><i>Interdisciplinary Research</i>跨学科研究经历</h4>
+              </div>
+              <ul class="cdx__list">
+                <li>参加 Pioneer Academics 学术研究项目，在大学教授指导下完成学术论文</li>
+                <li>研究主题聚焦《女性主义运动中的男性气质重构》</li>
+                <li>结合修辞学、社会运动理论与性别研究展开分析，展现较强的人文社科研究与学术写作能力</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 双栏：个性化活动体系 + 文书特色/顾问点评 -->
+        <div class="cdx__grid2">
+          <section class="cdx__col-left">
+            <h3 class="cdx__h">个性化活动体系</h3>
+            <p class="cdx__intro">不同于活动类型分散的申请者，Wang 同学的课外经历始终围绕同一主题展开——理解人与社会，并尝试推动积极改变。她先后参与：</p>
+            <ul class="cdx__timeline">
+              <li><h5>学生会副主席</h5></li>
+              <li><h5>全球公民教育项目创始人</h5></li>
+              <li><h5>辩论社核心成员与赛事评委</h5></li>
+              <li><h5>商务课程助教</h5></li>
+              <li><h5>跨文化交流活动组织者</h5></li>
+              <li><h5>公益教育志愿者</h5></li>
+            </ul>
+            <p class="cdx__close-note">这些经历共同构成了她对公共参与、组织管理与社会责任感的长期实践。</p>
+          </section>
+
+          <div class="cdx__rcol">
+            <section class="cdx__card">
+              <h3 class="cdx__h">文书特色</h3>
+              <div class="cdx__chips">
+                <span class="cdx__chip">Nudge</span>
+                <span class="cdx__chip">激励机制</span>
+                <span class="cdx__chip">框架效应</span>
+                <span class="cdx__chip">跨学科叙事</span>
+              </div>
+              <p>主文书灵感来源于行为经济学经典著作《Nudge》。她没有单纯讨论理论，而是结合担任学生会副主席的真实经历，分析激励机制、框架效应等概念如何影响现实中的组织管理与个人决策，最终展现出她对经济学的理解：经济学不仅存在于课堂与模型之中，更存在于人与人的互动与社会运行的每一个细节之中。在芝加哥大学补充文书中，她采用极具创造力的叙事方式，将经济学、数学、哲学、媒体与音乐构建成一个充满隐喻的思想世界，充分契合芝大重视的 Intellectual Curiosity 与 Intellectual Vitality。</p>
+            </section>
+            <section class="cdx__card">
+              <h3 class="cdx__h">顾问点评</h3>
+              <p>Wang 同学的成功并非来自单一顶级奖项或科研成果。真正打动招生官的，是她始终围绕经济学与公共议题展开的长期探索，以及由此形成的完整学术人格——扎实的经济学学术基础、明确且持续的人文社科兴趣、优秀的跨学科思考能力，以及极具辨识度的个人表达。对于芝加哥大学这样的学术型院校而言，成绩只是起点，真正重要的是申请者是否拥有持续探索世界的好奇心，以及形成独立观点的能力。</p>
+              <span class="cdx__sign">— 途策首席顾问</span>
+            </section>
+          </div>
+        </div>
+
+        <!-- 案例关键词 -->
+        <section class="cdx__kw">
+          <h3 class="cdx__h">案例关键词</h3>
+          <div class="cdx__tags">
+            <span class="cdx__tag">经济学</span>
+            <span class="cdx__tag">公共政策</span>
+            <span class="cdx__tag">行为经济学</span>
+            <span class="cdx__tag">Pioneer Academics</span>
+            <span class="cdx__tag">社会科学研究</span>
+            <span class="cdx__tag">学生领导力</span>
+            <span class="cdx__tag">跨文化教育</span>
+            <span class="cdx__tag">芝加哥大学录取</span>
+          </div>
+        </section>
+      </div>
+    </article>
+  </template>
+
+  <!-- 侧边抽屉交互：点击卡片右侧滑出，遮罩/关闭按钮/Esc 关闭，关闭后保持原浏览位置 -->
+  <script>
+    (function(){
+      var overlay  = document.getElementById('caseOverlay');
+      var drawer   = document.getElementById('caseDrawer');
+      var body     = document.getElementById('caseDrawerBody');
+      var closeBtn = document.getElementById('caseDrawerClose');
+      if(!overlay || !drawer || !body) return;
+      var lastFocus = null;
+
+      function open(id){
+        var tpl = document.getElementById('tpl-' + id);
+        if(!tpl) return;
+        body.innerHTML = '';
+        body.appendChild(tpl.content.cloneNode(true));
+        body.scrollTop = 0;
+        lastFocus = document.activeElement;
+        overlay.classList.add('is-open');
+        drawer.classList.add('is-open');
+        drawer.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';   // 锁背景滚动；关闭后位置不变
+        closeBtn.focus();
+      }
+      function close(){
+        if(!drawer.classList.contains('is-open')) return;
+        overlay.classList.remove('is-open');
+        drawer.classList.remove('is-open');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if(lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+
+      document.querySelectorAll('[data-case]').forEach(function(btn){
+        btn.addEventListener('click', function(){ open(btn.dataset.case); });
+      });
+      overlay.addEventListener('click', close);
+      // 居中模态：容器铺满全屏并盖在遮罩上，点击卡片外的背景区域也关闭
+      drawer.addEventListener('click', function(e){ if(e.target === drawer) close(); });
+      closeBtn.addEventListener('click', close);
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+    })();
   </script>
 </body>
 </html>

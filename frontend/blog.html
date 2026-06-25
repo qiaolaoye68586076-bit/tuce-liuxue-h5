@@ -54,7 +54,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=a11f6a6c" />
+  <link rel="stylesheet" href="css/style.css?v=71fc3e3c" />
 </head>
 <body>
 
@@ -132,8 +132,16 @@
           <button type="button" class="pill" data-cat="专业解读">专业解读</button>
         </div>
       </div>
-      <div class="post-grid" id="postGrid"></div>
-      <nav class="pager" id="pager" aria-label="文章分页"></nav>
+      <div class="post-deck" id="postDeck">
+        <button type="button" class="post-nav post-nav--prev" id="navPrev" aria-label="上一页">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
+        </button>
+        <div class="post-grid" id="postGrid"></div>
+        <button type="button" class="post-nav post-nav--next" id="navNext" aria-label="下一页">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <div class="pager" id="pager" aria-label="文章分页"></div>
     </div>
   </section>
 
@@ -245,6 +253,9 @@
 
     var featuredEl = document.getElementById('featuredPost');
     var gridEl = document.getElementById('postGrid');
+    var deckEl = document.getElementById('postDeck');
+    var navPrev = document.getElementById('navPrev');
+    var navNext = document.getElementById('navNext');
     var pagerEl = document.getElementById('pager');
     var listSection = document.querySelector('.blog-list');
     var filterEl = document.getElementById('blogFilter');
@@ -331,21 +342,21 @@
         '</article>';
     }
 
-    function renderList() {
-      var filtered = (activeCat === '全部')
+    // 当前分类下的文章集合
+    function currentFiltered() {
+      return (activeCat === '全部')
         ? listArticles
         : listArticles.filter(function (a) { return a.category === activeCat; });
+    }
+    function totalPagesOf(filtered) {
+      return Math.max(1, Math.ceil((filtered || currentFiltered()).length / PAGE_SIZE));
+    }
 
-      if (!filtered.length) {
-        gridEl.innerHTML = '<p class="blog-empty">该分类暂无文章。</p>';
-        pagerEl.innerHTML = '';
-        return;
-      }
-
-      var totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+    // 渲染当前页卡片（doReveal=false 用于翻页淡入，避免与容器淡入叠加）
+    function renderCards(filtered, doReveal) {
+      var totalPages = totalPagesOf(filtered);
       if (currentPage > totalPages) currentPage = totalPages;
       if (currentPage < 1) currentPage = 1;
-
       var start = (currentPage - 1) * PAGE_SIZE;
       var shown = filtered.slice(start, start + PAGE_SIZE);
       gridEl.innerHTML = shown.map(cardHTML).join('');
@@ -354,45 +365,137 @@
         card.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card.getAttribute('data-url')); }
         });
-        revealEl(card, idx % 4);   // 4 列网格，按列错峰揭示
+        if (doReveal) revealEl(card, idx % 4);   // 4 列网格，按列错峰揭示
       });
-      renderPager(totalPages);
     }
 
-    // 智能页码：始终给出 首页 / 末页 / 当前页±1，其余用 … 折叠
-    function pageItems(cur, total) {
-      var items = [], range = [], i;
-      for (i = Math.max(2, cur - 1); i <= Math.min(total - 1, cur + 1); i++) range.push(i);
-      items.push(1);
-      if (range.length && range[0] > 2) items.push('…');
-      items = items.concat(range);
-      if (range.length && range[range.length - 1] < total - 1) items.push('…');
-      if (total > 1) items.push(total);
-      return items;
-    }
-
-    function renderPager(totalPages) {
-      if (totalPages <= 1) { pagerEl.innerHTML = ''; return; }
-      var html = '<button type="button" class="pager__btn" data-page="' + (currentPage - 1) +
-                 '"' + (currentPage === 1 ? ' disabled' : '') + ' aria-label="上一页">‹</button>';
-      pageItems(currentPage, totalPages).forEach(function (it) {
-        if (it === '…') { html += '<span class="pager__gap">…</span>'; return; }
-        html += '<button type="button" class="pager__num' +
-                (it === currentPage ? ' is-active" aria-current="page' : '') +
-                '" data-page="' + it + '">' + it + '</button>';
-      });
-      html += '<button type="button" class="pager__btn" data-page="' + (currentPage + 1) +
-              '"' + (currentPage === totalPages ? ' disabled' : '') + ' aria-label="下一页">›</button>';
-      pagerEl.innerHTML = html;
-    }
-
-    function goToPage(n) {
-      currentPage = n;
-      renderList();
-      if (listSection) {
-        var top = listSection.getBoundingClientRect().top + window.pageYOffset - 72;
-        window.scrollTo({ top: top, behavior: 'smooth' });
+    // 完整重渲染（首次 / 分类切换）
+    function renderList() {
+      var filtered = currentFiltered();
+      if (!filtered.length) {
+        gridEl.innerHTML = '<p class="blog-empty">该分类暂无文章。</p>';
+        pagerEl.innerHTML = '';
+        deckEl.classList.add('is-single');
+        slTotal = 0;
+        return;
       }
+      renderCards(filtered, true);
+      renderControls(totalPagesOf(filtered));
+    }
+
+    /* ====== 底部滑块翻页控件 ====== */
+    var slRoot, slTrack, slFill, slThumb, slTip, slTotal = 0;
+
+    function fracOfPage(p) { return slTotal > 1 ? (p - 1) / (slTotal - 1) : 0; }
+    function pageOfFrac(f) { return Math.min(slTotal, Math.max(1, Math.round(f * (slTotal - 1)) + 1)); }
+
+    function setThumb(frac, label) {
+      if (!slThumb) return;
+      var pct = (Math.min(1, Math.max(0, frac)) * 100).toFixed(3) + '%';
+      slThumb.style.left = pct;
+      slFill.style.width = pct;
+      slTip.textContent = '第 ' + label + ' / ' + slTotal + ' 页';
+      slRoot.setAttribute('aria-valuenow', label);
+    }
+
+    function buildSlider(totalPages) {
+      if (slTotal !== totalPages || !slTrack) {
+        pagerEl.innerHTML =
+          '<div class="pslider" role="slider" tabindex="0" aria-label="文章翻页" ' +
+            'aria-valuemin="1" aria-valuemax="' + totalPages + '" aria-valuenow="' + currentPage + '">' +
+            '<div class="pslider__track">' +
+              '<div class="pslider__fill"></div>' +
+              '<div class="pslider__thumb"><span class="pslider__tip"></span></div>' +
+            '</div>' +
+          '</div>';
+        slRoot  = pagerEl.querySelector('.pslider');
+        slTrack = pagerEl.querySelector('.pslider__track');
+        slFill  = pagerEl.querySelector('.pslider__fill');
+        slThumb = pagerEl.querySelector('.pslider__thumb');
+        slTip   = pagerEl.querySelector('.pslider__tip');
+        slTotal = totalPages;
+        bindSlider();
+      }
+      slRoot.setAttribute('aria-valuemax', totalPages);
+      setThumb(fracOfPage(currentPage), currentPage);
+    }
+
+    function bindSlider() {
+      var dragging = false;
+
+      function fracFromX(clientX) {
+        var r = slTrack.getBoundingClientRect();
+        return Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+      }
+
+      slThumb.addEventListener('pointerdown', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        dragging = true;
+        slRoot.classList.add('is-dragging');
+        try { slThumb.setPointerCapture(e.pointerId); } catch (_) {}
+      });
+      slThumb.addEventListener('pointermove', function (e) {
+        if (!dragging) return;
+        var f = fracFromX(e.clientX);
+        setThumb(f, pageOfFrac(f));   // 滑块跟手平滑移动，标签吸附到整数页
+      });
+      function endDrag(e) {
+        if (!dragging) return;
+        dragging = false;
+        slRoot.classList.remove('is-dragging');   // 先解除「跟手无过渡」，让吸附有动效
+        var p = pageOfFrac(e ? fracFromX(e.clientX) : fracOfPage(currentPage));
+        setThumb(fracOfPage(p), p);                // 吸附到最近整数页
+        goToPage(p);
+      }
+      slThumb.addEventListener('pointerup', endDrag);
+      slThumb.addEventListener('pointercancel', endDrag);
+
+      // 轨道点击：吸附跳转（点到滑块本身不处理，交给拖拽逻辑；
+      //   监听整个控件根，使 4px 细轨道也有充足的点击热区）
+      slRoot.addEventListener('pointerdown', function (e) {
+        if (e.target === slThumb || slThumb.contains(e.target)) return;
+        var p = pageOfFrac(fracFromX(e.clientX));
+        setThumb(fracOfPage(p), p);
+        goToPage(p);
+      });
+
+      // 键盘可达
+      slRoot.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); goToPage(currentPage - 1); }
+        else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); goToPage(currentPage + 1); }
+        else if (e.key === 'Home') { e.preventDefault(); goToPage(1); }
+        else if (e.key === 'End') { e.preventDefault(); goToPage(slTotal); }
+      });
+    }
+
+    function renderControls(totalPages) {
+      var single = totalPages <= 1;
+      deckEl.classList.toggle('is-single', single);
+      navPrev.disabled = currentPage <= 1;
+      navNext.disabled = currentPage >= totalPages;
+      if (single) { pagerEl.innerHTML = ''; slTrack = null; slTotal = 0; return; }
+      buildSlider(totalPages);
+    }
+
+    // 跳页：渐隐 → 换内容 → 渐显，并同步滑块/箭头
+    function goToPage(n) {
+      var filtered = currentFiltered();
+      var totalPages = totalPagesOf(filtered);
+      n = Math.min(Math.max(n, 1), totalPages);
+      if (n === currentPage) { renderControls(totalPages); return; }
+      currentPage = n;
+      if (prefersReduced) {
+        renderCards(filtered, false);
+        renderControls(totalPages);
+        return;
+      }
+      gridEl.classList.add('is-swapping');
+      window.setTimeout(function () {
+        renderCards(filtered, false);
+        void gridEl.offsetWidth;            // 强制回流，确保淡入生效
+        gridEl.classList.remove('is-swapping');
+        renderControls(totalPages);
+      }, 180);
     }
 
     // 分类切换
@@ -407,13 +510,9 @@
       renderList();
     });
 
-    // 翻页（事件委托）
-    pagerEl.addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-page]');
-      if (!btn || btn.disabled) return;
-      var n = parseInt(btn.getAttribute('data-page'), 10);
-      if (!isNaN(n)) goToPage(n);
-    });
+    // 两侧大箭头：单步翻页
+    navPrev.addEventListener('click', function () { if (!navPrev.disabled) goToPage(currentPage - 1); });
+    navNext.addEventListener('click', function () { if (!navNext.disabled) goToPage(currentPage + 1); });
 
     fetch('articles.json', { cache: 'no-cache' })
       .then(function (r) { return r.json(); })
