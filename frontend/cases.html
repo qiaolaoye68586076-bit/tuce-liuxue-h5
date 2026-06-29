@@ -92,15 +92,32 @@
       font-style:italic; color:#555; font-size:14.5px; line-height:1.8; }
     .case-detail__quote small{ display:block; font-style:normal; color:var(--muted); margin-top:8px; font-size:12.5px; }
 
-    /* —— 背景：浅米 / 深米 交替（替代刺眼的纯白）——
-       Hero+数据 #f5f0e8 → 案例精选 #eae4d9 → 策略复盘 #f5f0e8 → 学员之声 深绿 */
+    /* —— 背景节奏：米底为主 + 单绿点缀（避免底部「学员之声 / CTA / 页脚」三绿连片）——
+       Hero+数据 #f5f0e8 → 案例精选 深绿(反白) → 策略复盘 #f5f0e8（叠 bg-strategy 淡水彩，右侧渐隐）→ 学员之声 #eae4d9 → CTA/页脚 深绿 */
     body{ background:#f5f0e8; }
-    .sec-white::before{ background:#eae4d9; }   /* 案例精选板块 · 深一档米色 */
+    /* 绿底板块内的占位小标签：金字改亮一档，避免在深绿上发闷 */
+    .sec-dark .ph-badge{ background:rgba(217,194,140,.14); color:var(--gold-soft); border-color:rgba(217,194,140,.4); }
 
     /* —— Hero 数据带：下移留白，作为 Hero 收尾 —— */
     .stats--compact{ padding-bottom:88px; }
     .stats--compact .stats__band{ margin-top:60px; }
     .stories--tight{ padding-top:88px; }
+
+    /* —— 完整策略复盘：叠一层 bg-strategy 淡水彩做底纹 ——
+       沿用全站 .sec-bleed 满屏写法（left:50%/100vw）铺满整屏，否则只盖居中盒子右侧露底；
+       低透明度 + 向左渐隐（mask），右侧哥特建筑轻浮于米底，不抢标题/卡片 */
+    #case-details{ position:relative; z-index:0; }
+    #case-details::before{
+      content:''; position:absolute; top:0; bottom:0; left:50%;
+      width:100vw; transform:translateX(-50%); z-index:-1; pointer-events:none;
+      background:url("assets/bg-strategy.webp") center right/cover no-repeat;
+      opacity:.32;
+      -webkit-mask-image:linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,.55) 48%, rgba(0,0,0,0) 82%);
+              mask-image:linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,.55) 48%, rgba(0,0,0,0) 82%);
+    }
+    @media (max-width:720px){
+      #case-details::before{ opacity:.2; background-position:top right; }
+    }
 
     /* —— 数据统计 · 模糊渐显（Blur Reveal，替代 countUp）——
        初始 模糊+放大+透明 → 触发后清晰落定；4 组从左到右 stagger 0.15s */
@@ -133,7 +150,7 @@
     /* —— 学员故事 · STUDENT STORIES 照片墙（masonry 拼贴） —— */
     .swall{
       position:relative; overflow:hidden;
-      background:#183326;            /* 深绿单色，与上下板块无缝衔接 */
+      background:#eae4d9;            /* 深一档米色：浅色「学员之声」，与下方 CTA/页脚的深绿拉开层次 */
       padding:96px 22px 110px;
     }
     /* 底部超大水印 */
@@ -141,7 +158,7 @@
       position:absolute; left:50%; bottom:-3%; transform:translateX(-50%);
       font-family:var(--sans); font-stretch:74%; font-weight:850;
       font-size:clamp(120px,26vw,260px); line-height:1; letter-spacing:.02em;
-      color:rgba(255,255,255,.035); white-space:nowrap; pointer-events:none;
+      color:rgba(20,52,43,.1); white-space:nowrap; pointer-events:none;
       user-select:none; z-index:0;
     }
     /* 顶部标题区 */
@@ -156,11 +173,11 @@
     }
     .swall__title{
       font-family:"Noto Serif SC","Songti SC",serif; font-weight:900;
-      font-size:clamp(30px,5vw,48px); line-height:1.2; color:#f0ead8; margin:0;
+      font-size:clamp(30px,5vw,48px); line-height:1.2; color:var(--green); margin:0;
     }
     .swall__sub{
       margin:18px auto 0; max-width:560px;
-      color:rgba(240,234,216,.62); font-size:15px; line-height:1.8;
+      color:#6f695e; font-size:15px; line-height:1.8;
     }
 
     /* masonry 三列照片墙 */
@@ -191,7 +208,7 @@
     .swall__card:hover{
       animation:none;
       transform:rotate(0deg) translateY(-8px);
-      box-shadow:0 22px 50px rgba(0,0,0,.4);
+      box-shadow:0 26px 56px -28px rgba(20,52,43,.32);
       z-index:2; position:relative;
     }
 
@@ -210,25 +227,21 @@
     }
     .swall__photo b{ font-family:"Noto Serif SC","Songti SC",serif; font-weight:700; font-size:17px; }
 
-    /* 引言卡 */
+    /* 引言卡 —— 深绿反白，与照片卡形成编辑式对比 */
     .swall__quote{
-      background:#fff; padding:28px 26px 24px; text-align:left;
-      box-shadow:0 8px 26px rgba(0,0,0,.18);
-    }
-    .swall__quote .mark{
-      display:block; font-family:"Noto Serif SC",serif; font-weight:900;
-      font-size:56px; line-height:.5; color:rgba(184,148,62,.28); margin-bottom:10px;
+      background:var(--green); padding:28px 26px 24px; text-align:left;
+      box-shadow:0 18px 40px -22px rgba(20,52,43,.4);
     }
     .swall__quote .uni{
-      display:block; color:var(--gold); font-size:13px; font-weight:700;
+      display:block; color:var(--gold-soft); font-size:13px; font-weight:700;
       letter-spacing:.04em; margin-bottom:12px;
     }
     .swall__quote p{
       font-family:"Noto Serif SC","Songti SC",serif; font-weight:500;
-      color:var(--green); font-size:16px; line-height:1.85; margin:0;
+      color:#f3eee2; font-size:16px; line-height:1.85; margin:0;
     }
     .swall__quote .by{
-      margin-top:16px; color:var(--muted); font-size:12.5px; letter-spacing:.02em;
+      margin-top:16px; color:rgba(243,238,226,.6); font-size:12.5px; letter-spacing:.02em;
     }
 
     @media (max-width:860px){ .swall__grid{ column-count:2; max-width:680px; } }
@@ -407,34 +420,45 @@
       .gstage__stars,.cx__cue svg{ animation:none; }
     }
 
-    /* —— 精选案例卡 · 编辑式排版（无图，纸感卡片）—— */
+    /* —— 精选案例卡 · 校徽抬头 + 策略引文（暖白卡 / 深绿底）—— */
+    .stories__grid{ align-items:stretch; }
     .stories__grid .casecard{
-      display:flex; flex-direction:column; width:100%; text-align:left;
+      position:relative; display:flex; flex-direction:column; width:100%; height:100%; text-align:left;
       font:inherit; color:inherit; -webkit-appearance:none; appearance:none; cursor:pointer;
-      background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg);
-      padding:26px 26px 24px;
-      transition:transform .4s var(--ease), border-color .4s, box-shadow .4s;
+      background:#FCFAF4; border:1px solid rgba(229,223,210,.65); border-radius:var(--radius-lg);
+      padding:26px 28px 24px; overflow:hidden;
+      box-shadow:0 22px 46px -32px rgba(0,0,0,.55);
+      transition:transform .45s var(--ease), border-color .45s, box-shadow .45s;
     }
-    .stories__grid .casecard:hover{ transform:translateY(-5px); border-color:var(--green);
-      box-shadow:0 26px 52px -30px rgba(20,52,43,.35); }
-    .casecard__badge{ align-self:flex-start; max-width:100%;
-      background:var(--green); color:var(--gold-soft);
-      font-size:13.5px; font-weight:700; letter-spacing:.01em; line-height:1.4;
-      padding:7px 16px; border-radius:999px; }
-    .casecard__title{ margin:18px 0 0; font-stretch:80%; font-weight:850;
-      font-size:23px; line-height:1.35; color:var(--ink, #1c2a23); }
-    .casecard__scores{ display:flex; align-items:baseline; gap:16px; margin-top:16px;
-      font-stretch:84%; }
-    .casecard__score{ font-size:19px; font-weight:800; color:#333; }
-    .casecard__score--key{ color:var(--green); }
-    .casecard__score small{ font-size:12.5px; font-weight:600; color:var(--muted); margin-left:3px; }
-    .casecard__divider{ width:1px; align-self:stretch; background:var(--line); }
-    .casecard__rule{ height:1px; background:var(--line); margin:18px 0; }
-    .casecard__quote{ font-style:italic; color:#6a6a6a; font-size:14.5px; line-height:1.75; margin:0; }
-    .casecard__more{ display:inline-flex; align-self:flex-end; margin-top:20px;
-      font-stretch:84%; font-size:14px; font-weight:800; letter-spacing:.02em; color:var(--green);
-      transition:color .3s, transform .3s var(--ease); }
-    .stories__grid .casecard:hover .casecard__more{ color:var(--gold); transform:translateX(4px); }
+    .stories__grid .casecard:hover{ transform:translateY(-6px); border-color:rgba(168,145,87,.55);
+      box-shadow:0 38px 64px -34px rgba(0,0,0,.6); }
+    /* 抬头：校徽 letterhead + 细线分隔 */
+    .casecard__head{ display:flex; align-items:center; min-height:36px;
+      padding-bottom:16px; border-bottom:1px solid var(--line); }
+    .casecard__logo{ height:30px; width:auto; max-width:82%; object-fit:contain;
+      object-position:left center; display:block; }
+    .casecard__school{ margin:15px 0 0; font-stretch:84%; font-weight:750;
+      font-size:14px; letter-spacing:.005em; color:var(--green); line-height:1.45;
+      min-height:1.45em; }
+    /* 标题预留 3 行高度：三张卡的分数/分隔线/引文起点对齐 */
+    .casecard__title{ margin:9px 0 0; font-stretch:80%; font-weight:850;
+      font-size:21px; line-height:1.4; color:var(--ink, #1c2a23); min-height:4.2em; }
+    /* 分数强制单行：key 较大、副项略小，不换行 */
+    .casecard__scores{ display:flex; align-items:baseline; flex-wrap:nowrap; gap:10px;
+      margin-top:16px; font-stretch:82%; white-space:nowrap; }
+    .casecard__score{ font-size:16px; font-weight:800; color:#2c2c2c; white-space:nowrap; }
+    .casecard__score--key{ font-size:19px; color:var(--green); }
+    .casecard__score small{ font-size:11.5px; font-weight:600; color:var(--muted); margin-left:2px; }
+    .casecard__divider{ width:1px; align-self:stretch; min-height:16px; background:var(--line); }
+    .casecard__rule{ height:1px; background:var(--line); margin:16px 0; }
+    .casecard__quote{ flex:1 1 auto; font-style:italic; color:#6a6a6a;
+      font-size:14px; line-height:1.75; margin:0; }
+    .casecard__more{ display:inline-flex; align-items:center; align-self:flex-end; margin-top:22px;
+      font-stretch:84%; font-size:13px; font-weight:800; letter-spacing:.02em;
+      color:#fff; background:var(--green); padding:9px 18px; border-radius:999px;
+      transition:background .3s, color .3s, transform .35s var(--ease), box-shadow .35s; }
+    .stories__grid .casecard:hover .casecard__more{ background:var(--gold); color:var(--green);
+      transform:translateX(3px); box-shadow:0 12px 24px -12px rgba(168,145,87,.7); }
     .casecard--wip{ position:relative; }
     .casecard--wip .casecard__title,
     .casecard--wip .casecard__quote{ color:var(--muted); }
@@ -459,7 +483,7 @@
     }
     .case-drawer.is-open{ opacity:1; visibility:visible; pointer-events:auto; }
     .case-drawer__card{
-      position:relative; width:min(1060px,100%); max-height:94vh;
+      position:relative; width:min(1240px,100%); max-height:94vh;
       display:flex; flex-direction:column; overflow:hidden;
       background:var(--card); border-radius:22px;
       box-shadow:0 44px 110px -34px rgba(12,24,18,.62);
@@ -490,21 +514,22 @@
     /* ===================================================================
        案例详情 · 富版式（Yu 同学 · 哥伦比亚录取复盘）—— .cdx 命名空间
        =================================================================== */
-    .cdx{ color:var(--ink); }
+    .cdx{ color:var(--ink); background:#f3f0e8; }   /* 暖灰底，白卡片浮起其上 */
     /* —— 深绿头部：左侧 logo + 右侧标题 —— */
     .cdx__hero{
       background:radial-gradient(120% 140% at 50% -10%, #235041 0%, #14342B 62%);
-      color:#fff; padding:32px clamp(30px,5vw,50px);
-      display:flex; align-items:center; gap:clamp(24px,5vw,48px);
+      color:#fff; padding:38px clamp(30px,5vw,50px) 52px;
+      display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center;
     }
+    /* 校徽：原色图案 + 白字抠图版，按高度归一化、居中叠在深绿底上 */
     .cdx__hero-logo{
-      flex:0 0 auto; width:clamp(80px,12vw,120px); aspect-ratio:1/1;
+      height:clamp(46px,6vw,62px); max-width:min(82%,420px);
       display:flex; align-items:center; justify-content:center;
     }
     .cdx__hero-logo img{
-      width:100%; height:100%; object-fit:contain; display:block;
+      height:100%; width:auto; max-width:100%; object-fit:contain; display:block;
     }
-    .cdx__hero-text{ flex:1 1 auto; }
+    .cdx__hero-text{ width:100%; }
     .cdx__title{
       font-family:'Fraunces','Noto Serif SC',serif; color:#fff; font-weight:600;
       font-size:clamp(20px,3vw,32px); line-height:1.28; letter-spacing:.01em; margin:0;
@@ -537,17 +562,17 @@
       font-weight:400; color:var(--muted); margin-top:2px; letter-spacing:0; }
     /* —— 成绩条：白卡片 + 水平数据项 —— */
     .cdx__stats{
-      margin:20px clamp(18px,3vw,30px) 0;
+      position:relative; z-index:2;
+      margin:-26px clamp(18px,3vw,30px) 0;
       background:#fff; border:1px solid var(--line); border-radius:16px;
-      display:flex; flex-wrap:wrap; overflow:hidden;
-      box-shadow:0 2px 8px rgba(20,52,43,.06);
+      display:grid; grid-template-columns:repeat(4,1fr); overflow:hidden;
+      box-shadow:0 20px 44px -26px rgba(12,24,18,.42);
     }
     .cdx__stat{
-      display:flex; align-items:center; gap:14px; padding:18px clamp(14px,2vw,24px);
-      flex:1 1 calc(50% - 0.5px); min-width:0; border-right:1px solid rgba(20,52,43,.08);
+      display:flex; align-items:center; gap:12px; padding:18px clamp(12px,1.6vw,22px);
+      min-width:0; border-right:1px solid rgba(20,52,43,.08);
     }
-    .cdx__stat:nth-child(even){ border-right:0; }
-    .cdx__stat:nth-child(n+3){ border-top:1px solid rgba(20,52,43,.08); }
+    .cdx__stat:last-child{ border-right:0; }
     .cdx__stat svg{
       width:28px; height:28px; flex:0 0 auto; color:var(--gold);
     }
@@ -557,9 +582,30 @@
     }
     .cdx__stat span{ display:block; font-size:12.5px; color:var(--muted); margin-top:4px; }
     /* —— 正文区 —— */
-    .cdx__body{ padding:30px clamp(22px,4vw,46px) 42px; }
-    .cdx__sec{ margin-top:34px; }
-    .cdx__sec--first{ margin-top:30px; }
+    .cdx__body{ padding:32px clamp(20px,3.6vw,40px) 44px; }
+    .cdx__sec{ margin-top:30px; }
+    /* 共用白卡片基底（学生画像 / 活动体系 / 文书·点评 / 关键词） */
+    .cdx__sec--first,.cdx__col-left,.cdx__card,.cdx__kw{
+      background:#fff; border:1px solid var(--line); border-radius:16px;
+      box-shadow:0 16px 36px -26px rgba(20,52,43,.34); }
+    .cdx__sec--first{ margin-top:0; padding:22px clamp(20px,2.6vw,30px); }
+    /* 学生画像卡：圆形原图（完整不裁切）｜ 核心问句（主角）+ 画像正文 */
+    .cdx__profile{ display:grid; grid-template-columns:clamp(150px,17vw,196px) minmax(0,1fr);
+      gap:clamp(20px,2.6vw,34px); align-items:center; }
+    .cdx__avatar{ width:100%; aspect-ratio:1/1; align-self:center;
+      display:flex; align-items:center; justify-content:center;
+      background:#efe9df; border-radius:50%;
+      box-shadow:0 0 0 1px var(--line), 0 22px 46px -22px rgba(20,52,43,.5); }
+    .cdx__avatar img{ width:100%; height:100%; object-fit:cover; display:block; border-radius:50%; }
+    .cdx__profile-main{ min-width:0; }
+    /* 核心问句：赤陶橙竖条引导的焦点句（pull-quote），取代旧的大引号 */
+    .cdx__question{ position:relative; margin:0 0 18px; padding:3px 0 3px 20px;
+      border-left:3px solid var(--terra);
+      font-family:'Fraunces','Noto Serif SC',serif; font-weight:600;
+      font-size:clamp(19px,2.5vw,26px); line-height:1.46; color:var(--green); letter-spacing:.004em; }
+    .cdx__profile .cdx__p{ font-size:14px; color:#5e5e5e; line-height:1.8; }
+    /* 正文关键词高亮：赤陶橙加粗，制造阅读重点 */
+    .cdx__hl{ font-weight:600; color:var(--terra); }
     .cdx__h{
       display:flex; align-items:center; gap:9px; margin:0 0 13px;
       font-family:'Fraunces','Noto Serif SC',serif; font-weight:600;
@@ -569,9 +615,15 @@
       font-size:34px; line-height:.1; transform:translateY(8px); }
     .cdx__p{ color:#555; font-size:15px; line-height:1.92; margin:0; }
     /* 学术亮点：三栏 */
-    .cdx__cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px clamp(20px,3vw,34px); margin-top:4px; }
-    .cdx__col-h{ display:flex; align-items:flex-start; gap:11px; margin-bottom:12px; }
-    .cdx__col-h svg{ width:30px; height:30px; flex:0 0 auto; color:var(--gold); margin-top:1px; }
+    .cdx__cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px clamp(16px,2.4vw,22px); margin-top:14px; }
+    .cdx__col{ background:#fff; border:1px solid var(--line); border-radius:14px;
+      padding:22px 20px; box-shadow:0 16px 36px -26px rgba(20,52,43,.34);
+      transition:transform .32s ease, box-shadow .32s ease; }
+    .cdx__col:hover{ transform:translateY(-3px); box-shadow:0 26px 44px -28px rgba(20,52,43,.42); }
+    .cdx__col-h{ display:flex; align-items:flex-start; gap:11px; margin-bottom:13px; }
+    .cdx__col-h svg{ width:36px; height:36px; flex:0 0 auto; color:var(--gold);
+      background:rgba(168,145,87,.10); border:1px solid rgba(168,145,87,.20);
+      border-radius:10px; padding:6px; box-sizing:border-box; }
     .cdx__col-h h4{ margin:0; font-family:'Fraunces','Noto Serif SC',serif;
       font-weight:600; font-size:16px; color:var(--green); line-height:1.3; }
     .cdx__col-h h4 i{ display:block; font-style:normal; font-family:var(--sans);
@@ -583,51 +635,87 @@
     .cdx__list li::before{ content:''; position:absolute; left:1px; top:9px;
       width:5px; height:5px; border-radius:50%; background:var(--gold); }
     /* 双栏：活动体系 + 文书/点评 */
-    .cdx__grid2{ display:grid; grid-template-columns:1.04fr .96fr; gap:30px clamp(26px,3.4vw,40px);
-      margin-top:34px; align-items:start; }
-    /* 活动时间轴 */
-    .cdx__intro{ color:#555; font-size:14px; line-height:1.8; font-style:italic; margin:0 0 18px; }
-    .cdx__timeline{ list-style:none; margin:0; padding:0 0 0 22px;
-      border-left:2px solid var(--line); }
-    .cdx__timeline li{ position:relative; padding:0 0 20px; }
-    .cdx__timeline li:last-child{ padding-bottom:0; }
-    .cdx__timeline li::before{ content:''; position:absolute; left:-30px; top:2px;
-      width:13px; height:13px; border-radius:50%; background:#fff;
-      border:2.5px solid var(--gold); }
-    .cdx__timeline h5{ margin:0 0 4px; font-family:'Noto Serif SC',serif; font-weight:600;
-      font-size:15px; color:var(--green); }
-    .cdx__timeline p{ margin:0; color:#666; font-size:13.5px; line-height:1.65; }
-    .cdx__close-note{ margin:18px 0 0; color:#555; font-size:13.5px; line-height:1.7; }
-    /* 文书特色 / 顾问点评 卡片 */
-    .cdx__rcol{ display:flex; flex-direction:column; gap:22px; }
-    .cdx__card{ background:#faf8f3; border:1px solid var(--line); border-radius:14px;
-      padding:22px 24px; }
-    .cdx__card .cdx__h{ font-size:18px; margin-bottom:11px; }
-    .cdx__card p{ margin:0; color:#555; font-size:14px; line-height:1.85; }
-    .cdx__chips{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
-    .cdx__chip{ font-size:12.5px; font-weight:600; color:var(--green);
-      background:rgba(20,52,43,.07); border-radius:999px; padding:5px 13px; }
-    .cdx__sign{ display:block; text-align:right; margin-top:14px;
+    /* 活动体系占满整行 → 文书/点评并排在下方一行 */
+    .cdx__grid2{ display:grid; grid-template-columns:1fr; gap:22px; margin-top:30px; }
+    .cdx__col-left{ padding:22px clamp(20px,2.6vw,28px); }
+    /* —— 横向并列：图标节点 + 连线（并列关系，非先后顺序）—— */
+    .cdx__timeline{ list-style:none; margin:16px 0 2px; padding:0;
+      display:flex; gap:0; }
+    .cdx__timeline li{ position:relative; flex:1 1 0; min-width:0;
+      text-align:center; padding:54px 8px 0; }
+    /* 连线：本节点中心 → 下一节点中心（末节点不画）；渐隐入圆，衔接更自然 */
+    .cdx__timeline li::before{ content:''; position:absolute; top:22px; left:50%;
+      width:100%; height:1.5px; z-index:0;
+      background:linear-gradient(90deg,
+        rgba(168,145,87,0) 0%, rgba(168,145,87,.35) 18%,
+        rgba(168,145,87,.35) 82%, rgba(168,145,87,0) 100%); }
+    .cdx__timeline li:last-child::before{ display:none; }
+    /* 图标节点圆：去掉白色描边光环，连线直接贴住金边，衔接干净 */
+    .cdx__timeline .tl-ico{ position:absolute; top:0; left:50%;
+      transform:translateX(-50%); width:44px; height:44px; border-radius:50%;
+      background:#fff; border:1.5px solid var(--gold); color:var(--green);
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 8px 18px -10px rgba(168,145,87,.45); z-index:1; }
+    .cdx__timeline .tl-ico svg{ width:21px; height:21px; }
+    .cdx__timeline h5{ margin:0 0 5px; font-family:'Noto Serif SC',serif; font-weight:600;
+      font-size:14px; color:var(--green); line-height:1.45; }
+    .cdx__timeline p{ margin:0; color:#7a7a72; font-size:12.5px; line-height:1.55; }
+    .cdx__close-note{ margin:14px 0 0; text-align:right; color:#8a857a;
+      font-size:13px; line-height:1.7; font-style:italic; }
+    /* 文书特色 / 顾问点评 卡片 —— 双色身份，告别单调 */
+    .cdx__rcol{ display:flex; flex-direction:row; gap:20px; align-items:stretch; }
+    .cdx__rcol .cdx__card{ flex:1 1 0; min-width:0;
+      transition:transform .32s ease, box-shadow .32s ease; }
+    .cdx__rcol .cdx__card:hover{ transform:translateY(-3px);
+      box-shadow:0 26px 44px -28px rgba(20,52,43,.42); }
+    .cdx__card{ position:relative; padding:22px clamp(20px,2.4vw,26px); overflow:hidden; }
+    .cdx__card .cdx__h{ font-size:17px; margin-bottom:10px; }
+    .cdx__card p{ margin:0; color:#555; font-size:14px; line-height:1.82; }
+    /* 文书特色（左）：赤陶橙身份 */
+    .cdx__rcol .cdx__card:first-child{ border-top:3px solid var(--terra); }
+    .cdx__rcol .cdx__card:first-child .cdx__h{ color:var(--terra-dk); }
+    /* 顾问点评（右）：深绿身份 + 暖底 */
+    .cdx__rcol .cdx__card:last-child{ border-top:3px solid var(--green);
+      background:linear-gradient(180deg,#fbfaf5,#fff 58%); }
+    .cdx__chips{ display:flex; flex-wrap:wrap; gap:7px; margin:0 0 12px; }
+    .cdx__chip{ font-size:12px; font-weight:600; color:var(--terra-dk);
+      background:rgba(181,84,42,.09); border:1px solid rgba(181,84,42,.20);
+      border-radius:999px; padding:4px 12px; }
+    .cdx__sign{ display:block; text-align:right; margin-top:14px; padding-top:12px;
+      border-top:1px solid var(--line);
       font-family:'Fraunces',serif; font-style:italic; color:var(--gold); font-size:14px; }
-    /* 关键词 */
-    .cdx__kw{ margin-top:34px; padding-top:26px; border-top:1px solid var(--line); }
-    .cdx__tags{ display:flex; flex-wrap:wrap; gap:9px; margin-top:6px; }
-    .cdx__tag{ font-size:13px; font-weight:600; color:var(--green);
+    /* 关键词 —— 紧凑横条：标签题在左，关键词流式排右 */
+    .cdx__kw{ margin-top:22px; padding:15px clamp(18px,2.4vw,24px);
+      display:flex; align-items:center; gap:10px 16px; flex-wrap:wrap; }
+    .cdx__kw .cdx__h{ margin:0; font-size:15px; flex:0 0 auto;
+      padding-right:16px; border-right:1px solid var(--line); }
+    .cdx__tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:0; flex:1 1 220px; }
+    .cdx__tag{ font-size:12.5px; font-weight:600; color:var(--green);
       background:rgba(168,145,87,.12); border:1px solid rgba(168,145,87,.28);
-      border-radius:8px; padding:6px 14px; }
+      border-radius:7px; padding:5px 12px; }
 
     @media (max-width:760px){
-      .cdx__hero{ flex-direction:column; gap:20px; text-align:center; }
-      .cdx__hero-logo{ width:clamp(70px,15vw,100px); }
+      .cdx__hero{ gap:16px; }
+      .cdx__hero-logo{ height:clamp(34px,9vw,46px); max-width:86%; }
       .cdx__cols{ grid-template-columns:1fr; }
-      .cdx__grid2{ grid-template-columns:1fr; }
+      /* 学生画像卡 → 堆叠：圆形原图居中置顶，核心问句+正文在下 */
+      .cdx__profile{ grid-template-columns:1fr; gap:22px; }
+      .cdx__avatar{ justify-self:center; width:clamp(170px,54vw,210px); }
+      /* 文书/点评 → 上下堆叠 */
+      .cdx__rcol{ flex-direction:column; }
+      /* 横向时间轴 → 可横向滑动，避免中文标签拥挤 */
+      .cdx__timeline{ overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px; }
+      .cdx__timeline li{ flex:0 0 clamp(128px,42vw,150px); }
     }
-    @media (max-width:480px){
-      .cdx__stats{ flex-direction:column; }
-      .cdx__stat{
-        flex:1 1 100%; border-right:0!important; border-top:1px solid rgba(20,52,43,.08)!important;
-      }
-      .cdx__stat:first-child{ border-top:0!important; }
+    @media (max-width:680px){
+      .cdx__stats{ grid-template-columns:repeat(2,1fr); }
+      .cdx__stat:nth-child(2n){ border-right:0; }
+      .cdx__stat:nth-child(n+3){ border-top:1px solid rgba(20,52,43,.08); }
+    }
+    @media (max-width:430px){
+      .cdx__stats{ grid-template-columns:1fr; }
+      .cdx__stat{ border-right:0!important; border-top:1px solid rgba(20,52,43,.08); }
+      .cdx__stat:first-child{ border-top:0; }
     }
   </style>
 </head>
@@ -732,18 +820,19 @@
   </section>
 
   <!-- ===== 3 · 微观吸引：精选名校案例（卡片 · 点击侧边抽屉展开） ===== -->
-  <section class="section stories stories--tight sec-bleed sec-white" id="stories">
+  <section class="section stories stories--tight sec-bleed sec-dark" id="stories">
     <div class="section__head reveal">
       <p class="eyebrow">HIGHLIGHTS</p>
       <div class="head-row">
         <h2>他们，已经抵达</h2>
         <span class="ph-badge">占位示例 · 待替换真实案例</span>
       </div>
-      <p class="lead">精选学员录取案例 —— 点击卡片，从右侧滑出完整背景与策略复盘。</p>
+      <p class="lead">精选学员录取案例 —— 点击卡片，展开完整背景与策略复盘。</p>
     </div>
     <div class="stories__grid">
       <button type="button" class="casecard reveal" data-case="case-w">
-        <span class="casecard__badge">哥伦比亚大学（RD）· 剑桥大学</span>
+        <span class="casecard__head"><img class="casecard__logo" src="assets/logo-columbia.svg" alt="哥伦比亚大学校徽" loading="lazy" /></span>
+        <span class="casecard__school">哥伦比亚大学（RD）· 剑桥大学</span>
         <h3 class="casecard__title">Y 同学：哲学如何成为她拿下哥大、剑桥的唯一主线？</h3>
         <div class="casecard__scores">
           <span class="casecard__score casecard__score--key">ACT 36<small>满分</small></span>
@@ -755,7 +844,8 @@
         <span class="casecard__more">查看完整策略复盘 →</span>
       </button>
       <button type="button" class="casecard reveal" data-case="case-l">
-        <span class="casecard__badge">康奈尔大学</span>
+        <span class="casecard__head"><img class="casecard__logo" src="assets/logo-cornell-t.png" alt="康奈尔大学校徽" loading="lazy" /></span>
+        <span class="casecard__school">康奈尔大学</span>
         <h3 class="casecard__title">Li 同学：从混沌理论到康复机械臂，理工科叙事如何打动顶尖名校？</h3>
         <div class="casecard__scores">
           <span class="casecard__score casecard__score--key">GPA 4.92<small>/4.0</small></span>
@@ -767,7 +857,8 @@
         <span class="casecard__more">查看完整策略复盘 →</span>
       </button>
       <button type="button" class="casecard reveal" data-case="case-c">
-        <span class="casecard__badge">芝加哥大学（University of Chicago）</span>
+        <span class="casecard__head"><img class="casecard__logo" src="assets/logo-chicago-t.png" alt="芝加哥大学校徽" loading="lazy" /></span>
+        <span class="casecard__school">芝加哥大学（University of Chicago）</span>
         <h3 class="casecard__title">Wang 同学：从行为经济学到公共议题，如何用一条主线打动芝大？</h3>
         <div class="casecard__scores">
           <span class="casecard__score casecard__score--key">GPA 4.98<small>/5.0</small></span>
@@ -833,9 +924,8 @@
     <div class="swall__grid">
       <!-- col1 顶：引言 -->
       <blockquote class="swall__card swall__quote reveal">
-        <span class="mark" aria-hidden="true">“</span>
         <span class="uni">香港大学</span>
-        <p>G7 测评把我自己都没意识到的优势挖了出来，后面整条申请线都顺了。</p>
+        <p>“G7 测评把我自己都没意识到的优势挖了出来，后面整条申请线都顺了。”</p>
         <footer class="by">D 同学 · 2025 入学</footer>
       </blockquote>
       <!-- col1 下：照片 -->
@@ -850,16 +940,14 @@
       </figure>
       <!-- col2 下：引言 -->
       <blockquote class="swall__card swall__quote reveal">
-        <span class="mark" aria-hidden="true">“</span>
         <span class="uni">新加坡国立大学</span>
-        <p>RP 全真模拟面试做了四轮，真到面试那天反而是最放松的一次。</p>
+        <p>“RP 全真模拟面试做了四轮，真到面试那天反而是最放松的一次。”</p>
         <footer class="by">Z 同学 · 2025 入学</footer>
       </blockquote>
       <!-- col3 顶：引言 -->
       <blockquote class="swall__card swall__quote reveal">
-        <span class="mark" aria-hidden="true">“</span>
         <span class="uni">伦敦大学学院</span>
-        <p>文书改到第十一稿的那天，我才真正想明白自己为什么要学这个专业。途策没有替我写，而是逼我想清楚。</p>
+        <p>“文书改到第十一稿的那天，我才真正想明白自己为什么要学这个专业。途策没有替我写，而是逼我想清楚。”</p>
         <footer class="by">C 同学 · 2024 入学</footer>
       </blockquote>
       <!-- col3 下：照片 -->
@@ -1133,22 +1221,13 @@
       <!-- 深绿头部：左侧 logo + 右侧标题 -->
       <header class="cdx__hero">
         <div class="cdx__hero-logo">
-          <img src="assets/logo-columbia.svg" alt="哥伦比亚大学" loading="lazy" />
+          <img src="assets/logo-columbia-white.png" alt="哥伦比亚大学" loading="lazy" />
         </div>
         <div class="cdx__hero-text">
           <h2 class="cdx__title">以哲学为刃，打破沉默的叙事</h2>
           <p class="cdx__subtitle">Yu 同学的哥伦比亚大学录取复盘</p>
         </div>
       </header>
-
-      <!-- 录取院校墙（官方校徽） -->
-      <div class="cdx__logos">
-        <span class="cdx__logo"><img src="assets/logo-columbia.svg" alt="哥伦比亚大学 Columbia University" loading="lazy" /></span>
-        <span class="cdx__logo"><img src="assets/logo-dartmouth.svg" alt="达特茅斯学院 Dartmouth College" loading="lazy" /></span>
-        <span class="cdx__logo"><img src="assets/logo-ucla.svg" alt="加州大学洛杉矶分校 UCLA" loading="lazy" /></span>
-        <span class="cdx__logo"><img src="assets/logo-wellesley.svg" alt="卫斯理学院 Wellesley College" loading="lazy" /></span>
-        <span class="cdx__logo"><img src="assets/logo-cambridge.png" alt="剑桥大学 University of Cambridge" loading="lazy" /></span>
-      </div>
 
       <!-- 成绩条 -->
       <div class="cdx__stats">
@@ -1172,9 +1251,12 @@
 
       <div class="cdx__body">
         <!-- 学生画像 -->
-        <section class="cdx__sec cdx__sec--first">
-          <h3 class="cdx__h"><span class="qm">“</span>学生画像</h3>
-          <p class="cdx__p">Yu 同学是一位典型的人文社科方向申请者。与传统竞赛型学生不同，她长期聚焦于哲学、伦理学与社会科学，通过课程学习、学术研究、播客创作和社会实践，逐步建立起清晰且有深度的学术画像。她不仅关心理论问题，也关心现实社会中的人与故事，并尝试通过研究与表达推动公共讨论。</p>
+        <section class="cdx__sec cdx__sec--first cdx__profile">
+          <div class="cdx__avatar"><img src="assets/avatar-yu.webp" alt="Yu 同学" loading="lazy" width="200" height="200" /></div>
+          <div class="cdx__profile-main">
+            <p class="cdx__question">沉默是如何被制造的，而个体又如何让声音被听见？</p>
+            <p class="cdx__p">Yu 同学是一位典型的<strong class="cdx__hl">人文社科方向</strong>申请者。与传统竞赛型学生不同，她长期聚焦于<strong class="cdx__hl">哲学、伦理学与社会科学</strong>，通过课程学习、学术研究、<strong class="cdx__hl">播客创作</strong>和社会实践，逐步建立起清晰且有深度的<strong class="cdx__hl">学术画像</strong>。她不仅关心理论问题，也关心现实社会中的人与故事，并尝试通过研究与表达推动<strong class="cdx__hl">公共讨论</strong>。</p>
+          </div>
         </section>
 
         <!-- 学术亮点 · 三栏 -->
@@ -1219,12 +1301,11 @@
         <div class="cdx__grid2">
           <section class="cdx__col-left">
             <h3 class="cdx__h">个性化活动体系</h3>
-            <p class="cdx__intro">Yu 同学的课外经历围绕同一主题持续展开——关注个体叙事，理解社会结构。她先后参与：</p>
             <ul class="cdx__timeline">
-              <li><h5>青年口述史项目</h5><p>记录并整理真实个体故事</p></li>
-              <li><h5>哲学主题播客创作</h5><p>推动公共讨论</p></li>
-              <li><h5>校园学术社团运营</h5><p>组织跨年级学术交流</p></li>
-              <li><h5>社会议题研究与分享</h5></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h4"/></svg></span><h5>青年口述史项目</h5><p>记录并整理真实个体故事</p></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg></span><h5>哲学主题播客创作</h5><p>推动公共讨论</p></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><path d="M16 6.2a3 3 0 0 1 0 5.6M17.6 14.2c1.9.6 3.4 2.3 3.4 4.8"/></svg></span><h5>校园学术社团运营</h5><p>组织跨年级学术交流</p></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="M20 20l-3.8-3.8"/></svg></span><h5>社会议题研究与分享</h5></li>
             </ul>
             <p class="cdx__close-note">这些活动共同构成了一份完整且一致的申请叙事。</p>
           </section>
@@ -1237,11 +1318,11 @@
                 <span class="cdx__chip">个体与社会</span>
                 <span class="cdx__chip">理念与行动</span>
               </div>
-              <p>Yu 同学的申请文书没有选择常见的成长经历或竞赛故事。她从一次校园活动经历出发，探讨表达与沉默、个体与社会、理念与行动之间的关系，最终展现出一个具有独立思考能力、公共责任感和人文关怀的青年学者形象。</p>
+              <p>Yu 同学的申请文书没有选择常见的成长经历或竞赛故事。她从一次校园活动经历出发，探讨<strong class="cdx__hl">表达与沉默、个体与社会、理念与行动</strong>之间的关系，最终展现出一个具有<strong class="cdx__hl">独立思考能力、公共责任感和人文关怀</strong>的青年学者形象。</p>
             </section>
             <section class="cdx__card">
               <h3 class="cdx__h">顾问点评</h3>
-              <p>Yu 同学的成功并非来自单一竞赛奖项，而是源于长期稳定的学术兴趣、高度统一的活动规划、深度思考能力与鲜明的人文社科定位。对于希望申请顶尖综合大学文科方向的学生而言，Yu 同学的案例说明：顶尖大学寻找的并不仅仅是"成绩优秀的学生"，而是对某一领域持续投入并形成个人观点的学习者。</p>
+              <p>Yu 同学的成功并非来自单一竞赛奖项，而是源于<strong class="cdx__hl">长期稳定的学术兴趣、高度统一的活动规划、深度思考能力与鲜明的人文社科定位</strong>。对于希望申请顶尖综合大学文科方向的学生而言，Yu 同学的案例说明：顶尖大学寻找的并不仅仅是"成绩优秀的学生"，而是对某一领域<strong class="cdx__hl">持续投入并形成个人观点</strong>的学习者。</p>
               <span class="cdx__sign">— 途策首席顾问</span>
             </section>
           </div>
@@ -1269,22 +1350,13 @@
       <!-- 深绿头部：左侧 logo + 右侧标题 -->
       <header class="cdx__hero">
         <div class="cdx__hero-logo">
-          <img src="assets/logo-cornell.png" alt="康奈尔大学" loading="lazy" />
+          <img src="assets/logo-cornell-white.png" alt="康奈尔大学" loading="lazy" />
         </div>
         <div class="cdx__hero-text">
           <h2 class="cdx__title">以混沌为序，让物理照进现实</h2>
           <p class="cdx__subtitle">Li 同学的理工科申请复盘</p>
         </div>
       </header>
-
-      <!-- 录取院校墙（康奈尔校徽 + 其余待补） -->
-      <div class="cdx__logos">
-        <span class="cdx__logo"><img src="assets/logo-cornell.png" alt="康奈尔大学 Cornell University" loading="lazy" /></span>
-        <span class="cdx__logo cdx__logo--text">录取院校<small>待补充</small></span>
-        <span class="cdx__logo cdx__logo--text">录取院校<small>待补充</small></span>
-        <span class="cdx__logo cdx__logo--text">录取院校<small>待补充</small></span>
-        <span class="cdx__logo cdx__logo--text">录取院校<small>待补充</small></span>
-      </div>
 
       <!-- 成绩条 -->
       <div class="cdx__stats">
@@ -1308,9 +1380,12 @@
 
       <div class="cdx__body">
         <!-- 学生画像 -->
-        <section class="cdx__sec cdx__sec--first">
-          <h3 class="cdx__h"><span class="qm">“</span>学生画像</h3>
-          <p class="cdx__p">Li 同学是一位典型的科研驱动型理工科申请者。从高中阶段开始，他便对物理学展现出浓厚兴趣，并逐渐将这种兴趣延伸至数学、工程设计与科学研究领域。与单纯依赖竞赛成绩的申请者不同，他始终坚持将学术探索与现实问题结合，通过科研项目、实验室实践和产品研发不断验证自己的想法，形成了兼具理论深度与实践能力的学术画像。</p>
+        <section class="cdx__sec cdx__sec--first cdx__profile">
+          <div class="cdx__avatar"><img src="assets/avatar-li.webp" alt="Li 同学" loading="lazy" width="200" height="200" /></div>
+          <div class="cdx__profile-main">
+            <p class="cdx__question">科学如何从理解世界，走向改善具体的人？</p>
+            <p class="cdx__p">Li 同学是一位典型的<strong class="cdx__hl">科研驱动型理工科</strong>申请者。从高中阶段开始，他便对<strong class="cdx__hl">物理学</strong>展现出浓厚兴趣，并逐渐将这种兴趣延伸至<strong class="cdx__hl">数学、工程设计与科学研究</strong>领域。与单纯依赖竞赛成绩的申请者不同，他始终坚持将学术探索与现实问题结合，通过<strong class="cdx__hl">科研项目、实验室实践和产品研发</strong>不断验证自己的想法，形成了兼具理论深度与实践能力的<strong class="cdx__hl">学术画像</strong>。</p>
+          </div>
         </section>
 
         <!-- 学术亮点 · 三栏 -->
@@ -1357,14 +1432,13 @@
         <div class="cdx__grid2">
           <section class="cdx__col-left">
             <h3 class="cdx__h">个性化活动体系</h3>
-            <p class="cdx__intro">Li 同学的活动规划围绕同一核心主题持续展开——利用物理学理解世界，并通过工程技术改善现实生活。围绕这一主线，他长期参与：</p>
             <ul class="cdx__timeline">
-              <li><h5>物理学研究项目</h5><p>从课题切入真实科学问题</p></li>
-              <li><h5>高校光学实验室科研</h5><p>积累真实科研环境实验经验</p></li>
-              <li><h5>物理社团创办与运营</h5><p>组织跨年级学术交流</p></li>
-              <li><h5>工程发明与产品设计</h5><p>把理论转化为可用产品</p></li>
-              <li><h5>数学与物理竞赛</h5></li>
-              <li><h5>学术科普写作</h5></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.7"/><ellipse cx="12" cy="12" rx="9" ry="3.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)"/></svg></span><h5>物理学研究项目</h5><p>从课题切入真实科学问题</p></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-4.6 8a1.5 1.5 0 0 0 1.3 2.3h10.6a1.5 1.5 0 0 0 1.3-2.3L14 9V3"/><path d="M7.5 15h9"/></svg></span><h5>高校光学实验室科研</h5><p>积累真实科研环境实验经验</p></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><path d="M16 6.2a3 3 0 0 1 0 5.6M17.6 14.2c1.9.6 3.4 2.3 3.4 4.8"/></svg></span><h5>物理社团创办与运营</h5><p>组织跨年级学术交流</p></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6.5a3.5 3.5 0 0 0-4.6 4.4l-6 6L7 19.6l6-6A3.5 3.5 0 0 0 17.4 9l-2.1 2.1-2.3-.6-.6-2.3z"/></svg></span><h5>工程发明与产品设计</h5><p>把理论转化为可用产品</p></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v3a5 5 0 0 1-10 0z"/><path d="M7 5H4v2a3 3 0 0 0 3 3M17 5h3v2a3 3 0 0 1-3 3M9.5 14h5M9 20h6M12 14v6"/></svg></span><h5>数学与物理竞赛</h5></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L18.5 9.5a2 2 0 0 0-2.8-2.8L5 17.2 4 20z"/><path d="M14.5 8l2.3 2.3"/></svg></span><h5>学术科普写作</h5></li>
             </ul>
             <p class="cdx__close-note">不同经历之间形成高度统一的学术叙事，而非简单堆砌活动成果。</p>
           </section>
@@ -1377,11 +1451,11 @@
                 <span class="cdx__chip">混沌理论</span>
                 <span class="cdx__chip">康复与陪伴</span>
               </div>
-              <p>Li 同学的主文书没有围绕竞赛奖项展开。一次家庭变故成为其学术成长的重要契机——在陪伴家人进行术后康复的过程中，他开始关注患者在康复训练中的现实困难，并尝试运用物理与工程知识寻找解决方案。文书以"双摆"与"混沌理论"作为核心隐喻，将个人成长、家庭经历与学术兴趣有机融合，最终指向康复辅助机械臂的发明过程，展现出一位青年科研探索者的人文关怀与社会责任感。</p>
+              <p>Li 同学的主文书没有围绕竞赛奖项展开。一次<strong class="cdx__hl">家庭变故</strong>成为其学术成长的重要契机——在陪伴家人进行术后康复的过程中，他开始关注患者在康复训练中的现实困难，并尝试运用<strong class="cdx__hl">物理与工程知识</strong>寻找解决方案。文书以"双摆"与"混沌理论"作为核心隐喻，将个人成长、家庭经历与学术兴趣有机融合，最终指向<strong class="cdx__hl">康复辅助机械臂</strong>的发明过程，展现出一位青年科研探索者的<strong class="cdx__hl">人文关怀与社会责任感</strong>。</p>
             </section>
             <section class="cdx__card">
               <h3 class="cdx__h">顾问点评</h3>
-              <p>Li 同学的成功不是依靠单一竞赛成绩，而是来自一条完整且具有说服力的学术成长路径：扎实的数理基础、持续深入的科研探索、优秀的工程实践能力、清晰统一的学术定位。尤为难得的是，他始终保持着将科学研究与社会价值结合的思考习惯——从光学实验室到自主研发康复设备，每一步都体现出一个问题解决者的思维方式。这种兼具理论深度与实践关怀的理工科形象，在顶尖大学申请中具有极强的辨识度。</p>
+              <p>Li 同学的成功不是依靠单一竞赛成绩，而是来自一条完整且具有说服力的学术成长路径：<strong class="cdx__hl">扎实的数理基础、持续深入的科研探索、优秀的工程实践能力、清晰统一的学术定位</strong>。尤为难得的是，他始终保持着将科学研究与社会价值结合的思考习惯——从光学实验室到自主研发康复设备，每一步都体现出一个<strong class="cdx__hl">问题解决者</strong>的思维方式。这种兼具理论深度与实践关怀的理工科形象，在顶尖大学申请中具有极强的辨识度。</p>
               <span class="cdx__sign">— 途策首席顾问</span>
             </section>
           </div>
@@ -1410,18 +1484,13 @@
       <!-- 深绿头部：左侧 logo + 右侧标题 -->
       <header class="cdx__hero">
         <div class="cdx__hero-logo">
-          <img src="assets/logo-chicago.png" alt="芝加哥大学" loading="lazy" />
+          <img src="assets/logo-chicago-white.png" alt="芝加哥大学" loading="lazy" />
         </div>
         <div class="cdx__hero-text">
           <h2 class="cdx__title">以经济学为镜，洞察人与社会的选择</h2>
           <p class="cdx__subtitle">Wang 同学的芝加哥大学录取复盘</p>
         </div>
       </header>
-
-      <!-- 录取院校墙（官方校徽） -->
-      <div class="cdx__logos">
-        <span class="cdx__logo"><img src="assets/logo-chicago.png" alt="芝加哥大学 University of Chicago" loading="lazy" /></span>
-      </div>
 
       <!-- 成绩条 -->
       <div class="cdx__stats">
@@ -1445,9 +1514,12 @@
 
       <div class="cdx__body">
         <!-- 学生画像 -->
-        <section class="cdx__sec cdx__sec--first">
-          <h3 class="cdx__h"><span class="qm">“</span>学生画像</h3>
-          <p class="cdx__p">Wang 同学是一位典型的经济学与公共政策方向申请者。与传统以竞赛和科研堆砌背景的申请者不同，她的申请建立在对社会现象、公共议题与人类行为的长期观察之上。从行为经济学到社会运动研究，从学生组织管理到跨文化教育实践，她始终关注一个核心问题：人们为什么会做出某种选择，而社会又如何影响这些选择。这种跨越经济学、社会科学与公共议题的思考，构成了她鲜明而独特的学术画像。</p>
+        <section class="cdx__sec cdx__sec--first cdx__profile">
+          <div class="cdx__avatar"><img src="assets/avatar-wang.webp" alt="Wang 同学" loading="lazy" width="200" height="200" /></div>
+          <div class="cdx__profile-main">
+            <p class="cdx__question">人们为什么会做出某种选择，而社会又如何影响这些选择？</p>
+            <p class="cdx__p">Wang 同学是一位典型的<strong class="cdx__hl">经济学与公共政策方向</strong>申请者。与传统以竞赛和科研堆砌背景的申请者不同，她的申请建立在对社会现象、公共议题与人类行为的长期观察之上。从<strong class="cdx__hl">行为经济学</strong>到<strong class="cdx__hl">社会运动研究</strong>，从学生组织管理到<strong class="cdx__hl">跨文化教育实践</strong>，她始终关注一个核心问题：人们为什么会做出某种选择，而社会又如何影响这些选择。这种跨越经济学、社会科学与公共议题的思考，构成了她鲜明而独特的<strong class="cdx__hl">学术画像</strong>。</p>
+          </div>
         </section>
 
         <!-- 学术亮点 · 三栏 -->
@@ -1495,14 +1567,13 @@
         <div class="cdx__grid2">
           <section class="cdx__col-left">
             <h3 class="cdx__h">个性化活动体系</h3>
-            <p class="cdx__intro">不同于活动类型分散的申请者，Wang 同学的课外经历始终围绕同一主题展开——理解人与社会，并尝试推动积极改变。她先后参与：</p>
             <ul class="cdx__timeline">
-              <li><h5>学生会副主席</h5></li>
-              <li><h5>全球公民教育项目创始人</h5></li>
-              <li><h5>辩论社核心成员与赛事评委</h5></li>
-              <li><h5>商务课程助教</h5></li>
-              <li><h5>跨文化交流活动组织者</h5></li>
-              <li><h5>公益教育志愿者</h5></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9 12 4l8.5 5"/><path d="M5 9.5v8M9 9.5v8M15 9.5v8M19 9.5v8"/><path d="M3.5 20.5h17"/></svg></span><h5>学生会副主席</h5></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 2.6 14.6 0 17M12 3.5c-2.6 2.4-2.6 14.6 0 17"/></svg></span><h5>全球公民教育项目创始人</h5></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16a1.5 1.5 0 0 1 1.5 1.5v7a1.5 1.5 0 0 1-1.5 1.5H9l-4 3.2V16H4a1.5 1.5 0 0 1-1.5-1.5V7A1.5 1.5 0 0 1 4 5.5Z"/><path d="M7 9.5h10M7 12.5h6"/></svg></span><h5>辩论社核心成员与赛事评委</h5></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M12 16v4M8.5 20h7"/><path d="M7 11.5l2.5-2.5 2 2 3-3.5"/></svg></span><h5>商务课程助教</h5></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.4"/><circle cx="17.5" cy="6" r="2.4"/><circle cx="17.5" cy="18" r="2.4"/><path d="M8.2 10.9 15.3 7.1M8.2 13.1l7.1 3.8"/></svg></span><h5>跨文化交流活动组织者</h5></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.3-7-9.3A3.7 3.7 0 0 1 12 7a3.7 3.7 0 0 1 7 3.7C19 15.7 12 20 12 20z"/></svg></span><h5>公益教育志愿者</h5></li>
             </ul>
             <p class="cdx__close-note">这些经历共同构成了她对公共参与、组织管理与社会责任感的长期实践。</p>
           </section>
@@ -1516,11 +1587,11 @@
                 <span class="cdx__chip">框架效应</span>
                 <span class="cdx__chip">跨学科叙事</span>
               </div>
-              <p>主文书灵感来源于行为经济学经典著作《Nudge》。她没有单纯讨论理论，而是结合担任学生会副主席的真实经历，分析激励机制、框架效应等概念如何影响现实中的组织管理与个人决策，最终展现出她对经济学的理解：经济学不仅存在于课堂与模型之中，更存在于人与人的互动与社会运行的每一个细节之中。在芝加哥大学补充文书中，她采用极具创造力的叙事方式，将经济学、数学、哲学、媒体与音乐构建成一个充满隐喻的思想世界，充分契合芝大重视的 Intellectual Curiosity 与 Intellectual Vitality。</p>
+              <p>主文书灵感来源于<strong class="cdx__hl">行为经济学</strong>经典著作《Nudge》。她没有单纯讨论理论，而是结合担任学生会副主席的真实经历，分析<strong class="cdx__hl">激励机制、框架效应</strong>等概念如何影响现实中的组织管理与个人决策，最终展现出她对经济学的理解：经济学不仅存在于课堂与模型之中，更存在于人与人的互动与社会运行的每一个细节之中。在芝加哥大学补充文书中，她采用极具创造力的叙事方式，将经济学、数学、哲学、媒体与音乐构建成一个充满隐喻的思想世界，充分契合芝大重视的 <strong class="cdx__hl">Intellectual Curiosity 与 Intellectual Vitality</strong>。</p>
             </section>
             <section class="cdx__card">
               <h3 class="cdx__h">顾问点评</h3>
-              <p>Wang 同学的成功并非来自单一顶级奖项或科研成果。真正打动招生官的，是她始终围绕经济学与公共议题展开的长期探索，以及由此形成的完整学术人格——扎实的经济学学术基础、明确且持续的人文社科兴趣、优秀的跨学科思考能力，以及极具辨识度的个人表达。对于芝加哥大学这样的学术型院校而言，成绩只是起点，真正重要的是申请者是否拥有持续探索世界的好奇心，以及形成独立观点的能力。</p>
+              <p>Wang 同学的成功并非来自单一顶级奖项或科研成果。真正打动招生官的，是她始终围绕经济学与公共议题展开的长期探索，以及由此形成的<strong class="cdx__hl">完整学术人格</strong>——扎实的经济学学术基础、明确且持续的人文社科兴趣、优秀的跨学科思考能力，以及极具辨识度的个人表达。对于芝加哥大学这样的学术型院校而言，成绩只是起点，真正重要的是申请者是否拥有<strong class="cdx__hl">持续探索世界的好奇心</strong>，以及<strong class="cdx__hl">形成独立观点的能力</strong>。</p>
               <span class="cdx__sign">— 途策首席顾问</span>
             </section>
           </div>
