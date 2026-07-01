@@ -20,12 +20,21 @@
   var prefersReduced = !!(window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
+  // 实测导航真实高度写入 --nav-h，锚点跳转偏移（scroll-margin-top）据此对齐；
+  // 导航滚动时会收窄、响应式下也会变，写死数值必然对不准，故实测。
+  var docEl = document.documentElement;
+  function setNavH() {
+    if (nav) docEl.style.setProperty('--nav-h', nav.offsetHeight + 'px');
+  }
+
+  var navScrolled = null;
   function onScroll() {
     var y = window.scrollY;
-    if (y > 24) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
+    var scrolled = y > 24;
+    if (scrolled !== navScrolled) {
+      navScrolled = scrolled;
+      nav.classList.toggle('scrolled', scrolled);
+      setNavH();               // 导航内边距变化 → 重新量高
     }
 
     var cta = $('#floatCta');
@@ -40,6 +49,9 @@
     }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', setNavH);
+  window.addEventListener('load', setNavH);   // 字体/布局稳定后再校准一次
+  setNavH();
   onScroll();
 
   /* ===================== 申请流程滑动卡片（板块3） ===================== */
@@ -100,6 +112,13 @@
     drawer.classList.toggle('open');
   });
   $$('#drawer a').forEach(function (a) { a.addEventListener('click', closeDrawer); });
+
+  // 抽屉内「服务」分组：点击展开/收起子菜单（不跳转）
+  $$('.drawer__toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.parentNode.classList.toggle('open');
+    });
+  });
 
   /* ===================== 滚动揭示 ===================== */
   var revealEls = $$('.reveal');

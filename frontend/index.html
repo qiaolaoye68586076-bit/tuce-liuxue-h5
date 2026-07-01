@@ -78,7 +78,50 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=71fc3e3c" />
+  <link rel="stylesheet" href="css/style.css?v=principles3" />
+  <style>
+    /* —— 精选案例卡 · 校徽抬头 + 策略引文（与 cases.html 同步：暖白卡 / 深绿底）—— */
+    .stories__grid{ align-items:stretch; }
+    .stories__grid .casecard{
+      position:relative; display:flex; flex-direction:column; width:100%; height:100%; text-align:left;
+      font:inherit; color:inherit; -webkit-appearance:none; appearance:none; cursor:pointer;
+      background:#FCFAF4; border:1px solid rgba(229,223,210,.65); border-radius:var(--radius-lg);
+      padding:26px 28px 24px; overflow:hidden;
+      box-shadow:0 22px 46px -32px rgba(0,0,0,.55);
+      transition:transform .45s var(--ease), border-color .45s, box-shadow .45s;
+    }
+    .stories__grid .casecard:hover{ transform:translateY(-6px); border-color:rgba(168,145,87,.55);
+      box-shadow:0 38px 64px -34px rgba(0,0,0,.6); }
+    /* 抬头：校徽 letterhead + 细线分隔 */
+    .casecard__head{ display:flex; align-items:center; min-height:36px;
+      padding-bottom:16px; border-bottom:1px solid var(--line); }
+    .casecard__logo{ height:30px; width:auto; max-width:82%; object-fit:contain;
+      object-position:left center; display:block; }
+    /* 芝加哥校徽字母更粗大，等高时视觉偏大，单独缩小以与哥大/康奈尔视觉权重一致 */
+    .casecard__logo[src*="chicago"]{ height:25px; }
+    .casecard__school{ margin:15px 0 0; font-stretch:84%; font-weight:750;
+      font-size:14px; letter-spacing:.005em; color:var(--green); line-height:1.45;
+      min-height:1.45em; }
+    /* 标题预留 3 行高度：三张卡的分数/分隔线/引文起点对齐 */
+    .casecard__title{ margin:9px 0 0; font-stretch:80%; font-weight:850;
+      font-size:21px; line-height:1.4; color:var(--ink, #1c2a23); min-height:4.2em; }
+    /* 分数强制单行：key 较大、副项略小，不换行 */
+    .casecard__scores{ display:flex; align-items:baseline; flex-wrap:nowrap; gap:10px;
+      margin-top:16px; font-stretch:82%; white-space:nowrap; }
+    .casecard__score{ font-size:16px; font-weight:800; color:#2c2c2c; white-space:nowrap; }
+    .casecard__score--key{ font-size:19px; color:var(--green); }
+    .casecard__score small{ font-size:11.5px; font-weight:600; color:var(--muted); margin-left:2px; }
+    .casecard__divider{ width:1px; align-self:stretch; min-height:16px; background:var(--line); }
+    .casecard__rule{ height:1px; background:var(--line); margin:16px 0; }
+    .casecard__quote{ flex:1 1 auto; font-style:italic; color:#6a6a6a;
+      font-size:14px; line-height:1.75; margin:0; }
+    .casecard__more{ display:inline-flex; align-items:center; align-self:flex-end; margin-top:22px;
+      font-stretch:84%; font-size:13px; font-weight:800; letter-spacing:.02em;
+      color:#fff; background:var(--green); padding:9px 18px; border-radius:999px;
+      transition:background .3s, color .3s, transform .35s var(--ease), box-shadow .35s; }
+    .stories__grid .casecard:hover .casecard__more{ background:var(--gold); color:var(--green);
+      transform:translateX(3px); box-shadow:0 12px 24px -12px rgba(168,145,87,.7); }
+  </style>
   <!-- ===== FAQ结构化数据（提高AI引用率） ===== -->
   <script type="application/ld+json">
   {
@@ -153,7 +196,18 @@
       </a>
       <nav class="nav__links">
         <a href="index.html" class="is-active">首页</a>
-        <a href="services.html">服务</a>
+        <div class="nav__drop">
+          <a href="services.html" class="nav__drop-toggle">服务</a>
+          <div class="nav__submenu">
+            <a href="services.html">服务总览</a>
+            <a href="meiben.html">美国本科</a>
+            <a href="graduate.html">研究生</a>
+            <a href="transfer.html">转学</a>
+            <a href="uk-eu.html">英欧加港本科</a>
+            <a href="single-service.html">单项服务</a>
+            <a href="writing-camp.html">名校文书训练营</a>
+          </div>
+        </div>
         <a href="teachers.html">师资</a>
         <a href="cases.html">案例</a>
         <a href="#faq">常见问题</a>
@@ -166,7 +220,18 @@
     </div>
     <div class="nav__drawer" id="drawer">
       <a href="index.html" class="is-active">首页</a>
-      <a href="services.html">服务</a>
+      <div class="drawer__group">
+        <button type="button" class="drawer__toggle">服务</button>
+        <div class="drawer__sub">
+          <a href="services.html">服务总览</a>
+          <a href="meiben.html">美国本科</a>
+          <a href="graduate.html">研究生</a>
+          <a href="transfer.html">转学</a>
+          <a href="uk-eu.html">英欧加港本科</a>
+          <a href="single-service.html">单项服务</a>
+          <a href="writing-camp.html">名校文书训练营</a>
+        </div>
+      </div>
       <a href="teachers.html">师资</a>
       <a href="cases.html">案例</a>
       <a href="#faq">常见问题</a>
@@ -215,7 +280,7 @@
       <p class="eyebrow">STRATEGY · 策略定制</p>
       <h2 class="strategy__word"><span class="problem__reject">拒绝</span><span class="problem__same">千人一面</span></h2>
       <p class="strategy__lead">
-        所以途策只做<strong>策略定制</strong>：以 <strong>G7 全方位潜能测评</strong>建立你的专属画像，由<strong>藤校背景 3 对 1 团队</strong>操盘，把模块化能力、真实科研与文书纵深，按你的目标重新组合。每一份申请，都从潜能测评开始重新设计——你的故事，应该只属于你。
+        所以途策只做<strong>策略定制</strong>：用 <strong>G7 潜能测评</strong>建立你的专属画像，由<strong>藤校背景 3 对 1 团队</strong>操盘，把能力模块、真实科研与文书按你的目标重新组合——你的故事，应该只属于你。
       </p>
     </div>
     <div class="strategy__grid">
@@ -232,7 +297,7 @@
       <article class="hl reveal">
         <span class="hl__idx">Ⅲ</span>
         <h3>真实纵深</h3>
-        <p>真实科研、公益与文书共创，配合 RP 现实预演，把你从问题发现者推向「变革架构师」。</p>
+        <p>真实科研、公益与文书共创，配合 RP 现实预演，把你从发现问题，推到亲手解决问题。</p>
       </article>
       <article class="hl reveal">
         <span class="hl__idx">Ⅳ</span>
@@ -261,32 +326,50 @@
       <p class="lead">2024–2026 三届学员，覆盖美英港新澳加。每一枚 offer，都有迹可循。</p>
     </div>
     <div class="stories__grid">
-      <a class="story reveal" href="cases.html#case-w">
-        <div class="story__media"><img src="assets/case-01.jpg" alt="学员录取案例" loading="lazy" /><span class="story__badge">Admitted</span></div>
-        <div class="story__body">
-          <span class="story__tag">Y 同学 · 广州</span>
-          <h3 class="story__school">哥伦比亚大学</h3>
-          <p>GPA 4.90 / ACT 36 / 托福 115，以哲学为核心打造「知识分子型」形象，同获达特茅斯、剑桥等 offer。</p>
-          <span class="story__more">查看完整案例 →</span>
+      <a class="casecard reveal" href="cases.html#case-w">
+        <span class="casecard__head"><img class="casecard__logo" src="assets/logo-columbia.svg" alt="哥伦比亚大学校徽" loading="lazy" /></span>
+        <span class="casecard__school">哥伦比亚大学（哲学）</span>
+        <h3 class="casecard__title">Yu 同学：从哲学思辨到公共表达，人文叙事如何打动哥大？</h3>
+        <div class="casecard__scores">
+          <span class="casecard__score casecard__score--key">GPA 4.90<small>/4.0</small></span>
+          <span class="casecard__divider" aria-hidden="true"></span>
+          <span class="casecard__score">ACT 36<small>满分</small></span>
+          <span class="casecard__divider" aria-hidden="true"></span>
+          <span class="casecard__score">托福 115</span>
         </div>
+        <div class="casecard__rule" aria-hidden="true"></div>
+        <p class="casecard__quote">“哲学不只在书本的思辨里，更在如何理解世界、他人与自己的每一次追问中。”</p>
+        <span class="casecard__more">查看完整策略复盘 →</span>
       </a>
-      <a class="story reveal" href="cases.html#case-l">
-        <div class="story__media"><img src="assets/case-02.jpg" alt="学员录取案例" loading="lazy" /><span class="story__badge">Admitted</span></div>
-        <div class="story__body">
-          <span class="story__tag">L 同学 · 北京</span>
-          <h3 class="story__school">芝加哥大学</h3>
-          <p>文书十余稿打磨，把一段公益经历写成独一无二的故事，戳中招生官。</p>
-          <span class="story__more">查看完整案例 →</span>
+      <a class="casecard reveal" href="cases.html#case-l">
+        <span class="casecard__head"><img class="casecard__logo" src="assets/logo-cornell-t.png" alt="康奈尔大学校徽" loading="lazy" /></span>
+        <span class="casecard__school">康奈尔大学（物理）</span>
+        <h3 class="casecard__title">Li 同学：从混沌理论到康复机械臂，理工科叙事如何打动顶尖名校？</h3>
+        <div class="casecard__scores">
+          <span class="casecard__score casecard__score--key">GPA 4.92<small>/4.0</small></span>
+          <span class="casecard__divider" aria-hidden="true"></span>
+          <span class="casecard__score">ACT 34</span>
+          <span class="casecard__divider" aria-hidden="true"></span>
+          <span class="casecard__score">托福 113</span>
         </div>
+        <div class="casecard__rule" aria-hidden="true"></div>
+        <p class="casecard__quote">“物理不只在公式与实验里，更在发现真实问题、并动手解决它的过程中。”</p>
+        <span class="casecard__more">查看完整策略复盘 →</span>
       </a>
-      <a class="story reveal" href="cases.html#case-c">
-        <div class="story__media"><img src="assets/case-03.jpg" alt="学员录取案例" loading="lazy" /><span class="story__badge">Admitted</span></div>
-        <div class="story__body">
-          <span class="story__tag">C 同学 · 深圳</span>
-          <h3 class="story__school">康奈尔大学</h3>
-          <p>理工方向背景提升 + RP 全真面试预演，稳稳拿下心仪工程学院。</p>
-          <span class="story__more">查看完整案例 →</span>
+      <a class="casecard reveal" href="cases.html#case-c">
+        <span class="casecard__head"><img class="casecard__logo" src="assets/logo-chicago-t.png" alt="芝加哥大学校徽" loading="lazy" /></span>
+        <span class="casecard__school">芝加哥大学（经济学）</span>
+        <h3 class="casecard__title">Wang 同学：从行为经济学到公共议题，如何用一条主线打动芝大？</h3>
+        <div class="casecard__scores">
+          <span class="casecard__score casecard__score--key">GPA 4.98<small>/5.0</small></span>
+          <span class="casecard__divider" aria-hidden="true"></span>
+          <span class="casecard__score">SAT 1520</span>
+          <span class="casecard__divider" aria-hidden="true"></span>
+          <span class="casecard__score">托福 114</span>
         </div>
+        <div class="casecard__rule" aria-hidden="true"></div>
+        <p class="casecard__quote">“经济学不只在课堂与模型里，更在人与人的互动、社会运行的每个细节中。”</p>
+        <span class="casecard__more">查看完整策略复盘 →</span>
       </a>
     </div>
     <div class="data-band__cta reveal">
@@ -589,7 +672,7 @@
     </div>
   </div>
 
-  <script src="js/main.js?v=5"></script>
+  <script src="js/main.js?v=6"></script>
 
   <!-- ===== 板块5 · 留学洞察预览（取最新 3 篇） ===== -->
   <script>

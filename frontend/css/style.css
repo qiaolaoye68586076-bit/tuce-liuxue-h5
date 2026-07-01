@@ -184,7 +184,7 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
   max-height:0; overflow:hidden; transition:max-height .5s var(--ease);
   background:var(--bg); border-bottom:1px solid var(--line);
 }
-.nav__drawer.open{ max-height:460px; }
+.nav__drawer.open{ max-height:900px; }
 .nav__drawer a{ padding:14px 26px; font-size:15px; font-weight:600; color:var(--green);
   border-top:1px solid var(--line); }
 .nav__drawer a:hover{ color:var(--green); }
@@ -195,6 +195,53 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
   .nav__cta{ display:inline-flex; }
   .nav__burger,.nav__drawer{ display:none; }
 }
+
+/* ---- 服务下拉菜单（桌面 hover 展开） ---- */
+.nav__drop{ position:relative; display:inline-flex; align-items:center; }
+.nav__submenu{
+  position:absolute; top:100%; left:50%;
+  transform:translateX(-50%) translateY(8px);
+  min-width:184px; padding:8px 0; background:#fff;
+  border:1px solid var(--line); border-radius:12px;
+  box-shadow:0 18px 40px -18px rgba(20,52,43,.35);
+  display:flex; flex-direction:column;
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .22s var(--ease), transform .22s var(--ease);
+  z-index:60;
+}
+.nav__drop:hover .nav__submenu,
+.nav__drop:focus-within .nav__submenu{
+  opacity:1; visibility:visible; pointer-events:auto;
+  transform:translateX(-50%) translateY(0);
+}
+.nav__submenu a{
+  display:block; padding:9px 20px; font-size:13.5px; font-weight:600;
+  color:var(--green); opacity:.82; white-space:nowrap;
+  transition:background .18s, opacity .18s, color .18s;
+}
+.nav__submenu a:hover{ opacity:1; background:var(--bg); color:var(--gold); }
+.nav__submenu a.is-active{ opacity:1; color:var(--gold); }
+
+/* ---- 服务下拉菜单（移动端抽屉内折叠展开） ---- */
+.drawer__group{ display:flex; flex-direction:column; }
+.drawer__toggle{
+  display:flex; align-items:center; width:100%;
+  padding:14px 26px; font-family:inherit; font-size:15px; font-weight:600;
+  color:var(--green); background:transparent; border:none;
+  border-top:1px solid var(--line); cursor:pointer; text-align:left;
+}
+.drawer__sub{
+  display:flex; flex-direction:column;
+  max-height:0; overflow:hidden;
+  background:rgba(20,52,43,.035);
+  transition:max-height .4s var(--ease);
+}
+.drawer__group.open .drawer__sub{ max-height:460px; }
+.drawer__sub a{
+  padding:12px 26px 12px 42px !important;
+  font-size:14px !important; font-weight:500; opacity:.85;
+}
+.drawer__sub a.is-active{ color:var(--gold); opacity:1; }
 
 /* =========================================================
    Hero · 纯文字宣言（美化版）
@@ -1448,10 +1495,14 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
 
 /* 3 · 快速链接 */
 .footer__col a{
-  display:block; color:rgba(255,255,255,.65); font-size:14px; padding:14px 0;   /* 点击高度 ≥44px（G7）*/
+  display:block; color:rgba(255,255,255,.65); font-size:14px; padding:14px 0;   /* 移动端点击高度 ≥44px（G7）*/
   transition:color .25s, transform .3s var(--ease);
 }
 .footer__col a:hover{ color:var(--gold-soft); transform:translateX(4px); }
+@media (min-width:760px){
+  /* 桌面端鼠标操作无需 44px 触控高度，收紧行距与「联系方式」列视觉一致 */
+  .footer__col a{ padding:6px 0; }
+}
 
 /* 2 · 联系方式 */
 .footer__contact{ display:grid; gap:14px; }
@@ -1460,7 +1511,7 @@ h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); 
   color:rgba(255,255,255,.65); font-size:14px; line-height:1.6;
 }
 .footer__contact .ic{ width:17px; height:17px; color:var(--gold-soft); flex:none; margin-top:2px; }
-.footer__contact a{ color:rgba(255,255,255,.65); transition:color .25s; }
+.footer__contact a{ display:inline; padding:0; color:rgba(255,255,255,.65); transition:color .25s; }
 .footer__contact a:hover{ color:var(--gold-soft); }
 
 /* 4 · 关注我们 / 二维码 */
@@ -1812,6 +1863,7 @@ html.has-gsap .reveal{ transition:none; }
 }
 .sec-dark::before{ background:var(--green); }
 .sec-soft::before{ background:#EFEAE0; }
+.sec-cream::before{ background:#ECE3D0; }   /* 更明显的暖米色带，用于相邻浅色板块拉开区分 */
 
 /* 深色板块内文字反白 */
 .sec-dark .eyebrow{ color:var(--gold-soft); }
@@ -1880,6 +1932,29 @@ a.card{ color:inherit; }
 .biz-callout__text p{ color:#555; font-size:14.5px; line-height:1.8; margin-top:8px; max-width:54ch; }
 @media (min-width:760px){
   .biz-callout{ flex-direction:row; align-items:center; justify-content:space-between; padding:48px 48px; gap:40px; }
+}
+
+/* —— 服务准则（三条价值主张 · 单卡容器 + 三点轴线）—— */
+.principles{ max-width:var(--maxw); margin:0 auto; padding:20px 22px 100px; }
+.principles__card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:46px 30px 40px; box-shadow:var(--shadow-md);
+}
+.principles__card .section__head{ margin-bottom:36px; }
+.principle-grid{
+  display:grid; grid-template-columns:1fr; gap:28px;
+}
+.principle-item{ padding-top:22px; border-top:2px solid var(--gold); }
+.principle-item__no{
+  font-family:'Fraunces','Noto Serif SC',serif;
+  display:block; font-size:32px; font-weight:600; line-height:1;
+  color:var(--gold); margin-bottom:12px;
+}
+.principle-item h3{ font-size:19px; color:var(--green); margin-bottom:10px; }
+.principle-item p{ color:#4a4a44; font-size:14px; line-height:1.8; }
+@media (min-width:760px){
+  .principles__card{ padding:52px 48px 46px; }
+  .principle-grid{ grid-template-columns:repeat(3,1fr); gap:40px; }
 }
 
 /* —— 四大核心亮点直接接在 page-hero 之后时，补一点顶部呼吸 —— */
@@ -2609,15 +2684,6 @@ a.card{ color:inherit; }
 .page-hero--meiben h1{ animation-delay:.26s; }
 .page-hero--meiben .page-hero__sub{ animation-delay:.4s; }
 
-/* 模块二 深绿焦点 → 叠加学术钟楼 duotone 作氛围纹理；
-   翻转布局下白字密集的 body 在左 → 左侧重压暗(.97)；导语在右 → 右侧(.72)透出建筑 */
-#module-2.sec-dark::before{
-  background:
-    linear-gradient(90deg, rgba(20,52,43,.97) 0%, rgba(20,52,43,.9) 46%, rgba(20,52,43,.72) 100%),
-    url("../assets/bg-meiben-module.webp") right center / cover no-repeat;
-  background-color:var(--green);
-}
-
 /* =========================================================
    ✦ 美本页重做（2026-06-22）· 三大模块 → 杂志编排
    #system   → 模块索引导航（全局地图，非重复内容）
@@ -2627,259 +2693,445 @@ a.card{ color:inherit; }
    writing-camp / blog 等共用页零影响
    ========================================================= */
 
-/* —— 模块索引：阶段时间轴 + 三大模块卡片（阶段强调色：金 / 绿 / 赤陶）—— */
+/* —— 模块索引：阶段时间轴 + 三大模块卡片（莫兰迪阶段色：金 #B69445 / 深绿 #143F38 / 暖橙 #C8642F）—— */
 .sys-track{
-  --c1:var(--gold); --c2:var(--green); --c3:var(--terra);
+  --c1:#B69445; --c2:#143F38; --c3:#C8642F;
   list-style:none; display:grid; grid-template-columns:repeat(3,1fr);
-  position:relative; margin:8px 0 30px; padding:0;
+  position:relative; margin:6px 0 32px; padding:0;
 }
-.sys-track::before{   /* 贯穿三节点的渐变细线 */
-  content:""; position:absolute; left:calc(100%/6); right:calc(100%/6); top:9px;
+.sys-track::before{   /* 贯穿三节点的 2px 渐变细线 金→绿→橙 */
+  content:""; position:absolute; left:calc(100%/6); right:calc(100%/6); top:10px;
   height:2px; border-radius:2px;
   background:linear-gradient(90deg, var(--c1), var(--c2) 50%, var(--c3));
-  opacity:.55;
+  opacity:.6;
 }
 .sys-track__node{
-  position:relative; display:flex; flex-direction:column; align-items:center; gap:12px;
+  position:relative; display:flex; flex-direction:column; align-items:center; gap:14px;
+  text-align:center;
 }
-.sys-track__dot{
-  position:relative; z-index:1; width:18px; height:18px; border-radius:50%;
+.sys-track__dot{   /* 双层圆环：外圈半透明 + 内芯实心 */
+  position:relative; z-index:1; width:20px; height:20px; border-radius:50%;
   background:var(--bg); border:2px solid var(--node, var(--gold));
   box-shadow:0 0 0 5px color-mix(in srgb, var(--node, var(--gold)) 12%, transparent);
 }
 .sys-track__dot::after{   /* 内芯实心点 */
-  content:""; position:absolute; inset:3px; border-radius:50%; background:var(--node, var(--gold));
+  content:""; position:absolute; inset:4px; border-radius:50%; background:var(--node, var(--gold));
 }
 .sys-track__node--1{ --node:var(--c1); }
 .sys-track__node--2{ --node:var(--c2); }
 .sys-track__node--3{ --node:var(--c3); }
-.sys-track__node--2 .sys-track__dot{ width:21px; height:21px; }   /* 主模块节点稍大 */
+.sys-track__node--2 .sys-track__dot{   /* 当前阶段节点：略大 + 发光 */
+  width:23px; height:23px;
+  box-shadow:0 0 0 6px color-mix(in srgb, var(--node) 14%, transparent),
+             0 0 18px 2px color-mix(in srgb, var(--node) 30%, transparent);
+}
 .sys-track__label{
-  font-stretch:80%; font-weight:800; font-size:14.5px; letter-spacing:.02em;
+  font-stretch:82%; font-weight:800; font-size:16px; letter-spacing:.01em;
   color:var(--green);
 }
+.sys-track__sub{   /* 阶段副标题 · 浅灰 */
+  font-weight:500; font-size:13px; letter-spacing:.01em; color:#9B968C; margin-top:-6px;
+}
 
-.sys-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; align-items:start; }
+/* —— 三大卡片：Apple 风漂浮卡 · 极轻阶梯错位 · 中性细描边 —— */
+.sys-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:32px; align-items:start; }
 .sys-card{
   --c:var(--gold);
-  position:relative; display:flex; flex-direction:column;
-  background:#F5EFE3; border:1px solid var(--line); border-radius:22px;
-  padding:34px 30px 28px; color:inherit; overflow:hidden;
-  box-shadow:0 1px 2px rgba(20,52,43,.04);
-  transition:transform .45s var(--ease), box-shadow .45s var(--ease), border-color .4s;
-}
-.sys-card::before{   /* 顶部强调描边 */
-  content:""; position:absolute; left:0; top:0; height:4px; width:100%;
-  background:linear-gradient(90deg, var(--c), transparent 80%);
-  transform:scaleX(0); transform-origin:left; transition:transform .55s var(--ease);
+  position:relative; display:flex; flex-direction:column; min-height:466px;
+  background-color:#FBF7EF;
+  background-repeat:no-repeat;
+  background-position:right -18px bottom -18px;   /* 右下角超大品牌水印（各卡 background-image 指定） */
+  background-size:210px 210px;
+  border:1px solid rgba(0,0,0,.05); border-radius:26px;
+  padding:32px 30px 30px; color:inherit; overflow:hidden;
+  box-shadow:0 22px 40px -26px rgba(28,38,32,.20);
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease), border-color .4s;
 }
 .sys-card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 26px 52px -28px rgba(20,52,43,.34);
-  border-color:color-mix(in srgb, var(--c) 45%, var(--line));
+  transform:translateY(-8px);
+  box-shadow:0 40px 66px -30px rgba(20,52,43,.30);
+  border-color:color-mix(in srgb, var(--c) 32%, transparent);
 }
-.sys-card:hover::before{ transform:scaleX(1); }
-.sys-card--1{ --c:var(--gold); }
-.sys-card--3{ --c:var(--terra); }
+/* 三卡：统一暖象牙底色，仅主题色（金·绿·橙）+ 右下角品牌水印（Compass / Cap / Sparkles）区分 */
+.sys-card--1{ --c:#B69445;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B69445' stroke-opacity='0.10' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='m15.6 8.4-2.1 5.1-5.1 2.1 2.1-5.1z'/%3E%3C/svg%3E"); }
+.sys-card--2{ --c:#143F38;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23143F38' stroke-opacity='0.09' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 9 12 5l9.5 4-9.5 4z'/%3E%3Cpath d='M6 11v4.2c0 1.3 2.7 2.4 6 2.4s6-1.1 6-2.4V11'/%3E%3Cpath d='M21.5 9v4.6'/%3E%3C/svg%3E"); }
+.sys-card--3{ --c:#C8642F;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C8642F' stroke-opacity='0.11' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3.5c.4 3 1.9 4.5 4.9 4.9-3 .4-4.5 1.9-4.9 4.9-.4-3-1.9-4.5-4.9-4.9 3-.4 4.5-1.9 4.9-4.9z'/%3E%3Cpath d='M18.6 14.4c.2 1.4.9 2.1 2.3 2.3-1.4.2-2.1.9-2.3 2.3-.2-1.4-.9-2.1-2.3-2.3 1.4-.2 2.1-.9 2.3-2.3z'/%3E%3C/svg%3E"); }
 
-/* 焦点卡：深绿满底 · 桌面端抬高 */
-.sys-card--2{
-  --c:var(--terra);
-  background:var(--green); border-color:var(--green-2);
-  box-shadow:0 24px 50px -26px rgba(20,52,43,.55);
-}
-@media (min-width:861px){ .sys-card--2{ margin-top:-22px; padding-bottom:46px; } }
-.sys-card--2:hover{ box-shadow:0 34px 64px -28px rgba(20,52,43,.6); border-color:var(--gold); }
-
-.sys-card__top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; min-height:30px; }
-.sys-card__no{
-  font-stretch:68%; font-weight:880; font-size:64px; line-height:.8; letter-spacing:-.02em;
-  color:transparent; -webkit-text-stroke:1.5px color-mix(in srgb, var(--c) 38%, transparent);
-  margin-top:-6px; pointer-events:none; user-select:none;
-}
-.sys-card--2 .sys-card__no{ -webkit-text-stroke-color:rgba(255,255,255,.16); }
-.sys-card__badge{
-  align-self:flex-start; font-size:11.5px; font-weight:800; letter-spacing:.04em;
-  color:#fff; background:var(--terra); border-radius:999px; padding:6px 14px;
-}
+.sys-card__top{ display:flex; align-items:center; justify-content:space-between; gap:14px; }
 .sys-card__eyebrow{
-  font-stretch:80%; font-weight:800; font-size:12px; letter-spacing:.14em;
-  color:var(--c); margin:14px 0 6px;
+  font-stretch:82%; font-weight:800; font-size:12px; letter-spacing:.12em;
+  color:var(--c); margin:0;
 }
-.sys-card--2 .sys-card__eyebrow{ color:var(--gold-soft); margin-top:18px; }
-.sys-card__title{
-  font-stretch:74%; font-weight:850; font-size:clamp(26px,3vw,30px); line-height:1.1;
-  color:var(--green); margin:0;
+.sys-card__no{   /* 圆角矩形编号 Badge · 主题色实心 · 白字 · 轻投影 */
+  flex:none; display:flex; align-items:center; justify-content:center;
+  width:56px; height:56px; border-radius:16px;
+  background:var(--c); color:#fff;
+  font-stretch:70%; font-weight:850; font-size:27px; line-height:1;
+  box-shadow:0 12px 22px -12px color-mix(in srgb, var(--c) 78%, transparent);
+  pointer-events:none; user-select:none;
 }
-.sys-card--2 .sys-card__title{ color:#fff; }
-.sys-card__hook{
-  font-weight:800; font-size:16px; line-height:1.55; color:var(--green); margin-top:16px;
+.sys-card__title{   /* 视觉焦点：大标题（nowrap 保证三卡均单行不折字）*/
+  font-stretch:76%; font-weight:850; font-size:clamp(27px,2.8vw,37px); line-height:1.14;
+  white-space:nowrap; color:var(--green); margin:22px 0 0;
+  display:flex; align-items:center; flex-wrap:wrap; gap:9px;
 }
-.sys-card--2 .sys-card__hook{ color:var(--sand); }
-.sys-card__desc{
-  color:#5a5750; font-size:14px; line-height:1.85; margin-top:12px;
+.sys-card__badge{   /* 「申请主模块」赤陶色标签 */
+  font-stretch:normal; font-weight:800; font-size:11.5px; letter-spacing:.02em; line-height:1;
+  color:#fff; background:var(--terra); border-radius:999px; padding:5px 11px;
+  transform:translateY(2px);
 }
-.sys-card--2 .sys-card__desc{ color:rgba(255,255,255,.74); }
+.sys-card__hook{   /* 描述：16px / 行高 1.8 / 中性灰，两三行 */
+  font-weight:500; font-size:16px; line-height:1.8; color:#6E6E6E;
+  margin-top:14px; min-height:3.4em;   /* 统一预留两行，三卡标签行对齐 */
+}
 .sys-card__tags{
-  list-style:none; display:flex; flex-wrap:wrap; gap:9px; margin:20px 0 0; padding:0;
+  list-style:none; display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 0; padding:0;
 }
-.sys-card__tags li{
-  font-size:12.5px; font-weight:700; color:var(--green);
-  background:rgba(20,52,43,.05); border:1px solid var(--line);
-  border-radius:999px; padding:7px 14px;
+.sys-card__tags li{   /* 胶囊 Pill · 仅描边 · 透明底 · 高约 40px */
+  font-size:13px; font-weight:700; color:var(--green);
+  background:transparent;
+  border:1px solid color-mix(in srgb, var(--c) 34%, var(--line));
+  border-radius:999px; padding:9px 16px; line-height:1.2;
 }
-.sys-card--2 .sys-card__tags li{
-  color:var(--sand); background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.14);
+.sys-card__link{   /* CTA：18px SemiBold + 下方极细渐变线 */
+  position:relative; display:inline-flex; align-items:center; gap:9px;
+  margin-top:auto; padding:24px 0 12px;
+  font-weight:700; font-size:16px; color:var(--green); align-self:flex-start;
 }
-.sys-card__for{
-  margin-top:auto; padding-top:24px;
-  font-size:12.5px; font-weight:600; line-height:1.65; color:var(--muted);
+.sys-card__link::after{   /* 底部极细渐变线 */
+  content:""; position:absolute; left:0; bottom:0; width:100%; height:1.5px;
+  background:linear-gradient(90deg, var(--c), color-mix(in srgb, var(--c) 15%, transparent));
+  opacity:.7;
 }
-.sys-card--2 .sys-card__for{ color:rgba(255,255,255,.5); }
-.sys-card__link{
-  display:inline-flex; align-items:center; gap:8px; margin-top:20px;
-  font-weight:800; font-size:14.5px; color:var(--green);
-}
-.sys-card--2 .sys-card__link{ color:#fff; }
-.sys-card__link .ic{ width:18px; height:18px; color:var(--c); transition:transform .3s var(--ease); }
-.sys-card--2 .sys-card__link .ic{ color:var(--gold-soft); }
+.sys-card__link .ic{ width:17px; height:17px; color:var(--c); transition:transform .3s var(--ease); }
 .sys-card:hover .sys-card__link .ic{ transform:translateX(6px); }
 
+@media (max-width:1024px){
+  .sys-cards{ gap:24px; }
+}
 @media (max-width:860px){
-  .sys-cards{ grid-template-columns:1fr; gap:18px; }
-  .sys-track{ margin-bottom:24px; }
-  .sys-track__label{ font-size:13px; }
+  .sys-cards{ grid-template-columns:1fr; gap:20px; }
+  .sys-card{ min-height:0; }
+  .sys-track{ margin-bottom:26px; }
+  .sys-track__label{ font-size:14px; }
+  .sys-track__sub{ font-size:12px; }
 }
 @media (max-width:600px){
   .sys-card{ padding:28px 24px 24px; }
 }
 
-/* —— 编辑式分栏：左侧大号导语（桌面 sticky）+ 右侧卡片化子模块 —— */
-/* 每个模块自带强调色，三大模块金 / 暖金 / 赤陶交替，杜绝「全都一个样」 */
-.mod{ --accent:var(--gold); --accent-soft:var(--gold-soft); }
-#module-3{ --accent:#B5694D; --accent-soft:#D08A6E; }
-.mod__inner{ display:grid; grid-template-columns:1fr; gap:36px; }
-.mod__no{
-  display:block; font-stretch:70%; font-weight:880; line-height:.9; margin-bottom:6px;
-  font-size:clamp(60px,12vw,124px);
-  color:transparent; -webkit-text-stroke:1.6px var(--accent-soft);
+/* —— 模块索引 #system 锚点偏移 + 暖白画布（极淡奶油渐变，衬托漂浮卡）—— */
+#system{
+  /* 偏移量 = 导航实测高度 --nav-h（main.js setNavH 写入），跳转后板块顶正好贴住导航底，
+     不会露出上一板块色带；--nav-h 未就绪时用 60px 兜底 */
+  scroll-margin-top:var(--nav-h,60px);
+  position:relative; z-index:0;
 }
-.mod__lead .eyebrow{ margin-bottom:12px; color:var(--accent); }
-.mod__lead h2{ line-height:1.04; }
-.mod__desc{ color:#555555; font-size:15px; line-height:1.85; margin-top:16px; max-width:46ch; }
-.mod__for{
-  display:inline-flex; align-items:center; gap:9px; margin-top:22px;
-  font-size:12.5px; font-weight:600; letter-spacing:.01em; line-height:1.6; color:var(--green);
-  background:rgba(20,52,43,.05); border:1px solid var(--line);
-  padding:9px 16px 9px 14px; border-radius:999px;
+#system::before{   /* 全宽暖米底色带，避免居中限宽显出「方块」；
+     色阶居中：比卡片 #FBF7EF 深、比下一板块 .sec-cream #ECE3D0 浅 */
+  content:""; position:absolute; top:0; bottom:0; left:50%;
+  width:100vw; transform:translateX(-50%); z-index:-1;
+  background:#F4EDE0;
 }
-.mod__for::before{
-  content:""; flex:none; width:7px; height:7px; border-radius:50%;
-  background:var(--accent); box-shadow:0 0 0 3px rgba(168,145,87,.18);
-}
-.mod__body{ display:grid; gap:20px; }
 
-/* —— 子模块卡片 —— */
-.mod__group{
-  position:relative; background:#FFFDF8; border:1px solid var(--line);
-  border-radius:18px; padding:28px 28px 24px;
+/* ============================================================
+   编辑式版式 —— 整幅高图占位 + 编号大卡（参考 slide「1 / 2 / 3」横排）
+   作用域：.gplan / .grow（三大模块共用）
+   主题色经两个变量驱动，三大模块各自换肤：
+     --g-line  图上点缀（编号 / 短线 / 胶囊点），需在深色图上够亮
+     --g-card  卡片点缀（顶线 / 英文标签 / 菱形 / hover 描边），落在米色卡片上
+   模块一(默认) 金 · 模块二 .gplan--green 绿 · 模块三 .gplan--orange 橙
+   翻转：.gplan--flip 图移至右侧（桌面）
+   ============================================================ */
+.gplan{
+  --g-line:var(--gold); --g-card:var(--gold);
+  scroll-margin-top:var(--nav-h,60px);   /* 对齐导航实测高度，见 #system 说明 */
+  max-width:min(1560px,95vw);
+  /* 紧凑：不再撑满整屏 → 上下内边距由 100px 收窄，左右也略收，让卡片更贴近板块边缘 */
+  padding-block:clamp(44px,5vw,56px);
+  padding-inline:clamp(16px,2.2vw,30px);
+}
+.gplan__inner{ display:grid; grid-template-columns:1fr; gap:18px; }
+
+/* —— 左侧：整幅图片占位，标题浮于其上 —— */
+.gplan__media{ display:flex; }
+.gplan__figure{
+  position:relative; margin:0; overflow:hidden; width:100%;
+  border-radius:22px; min-height:440px;
+  /* 牛津哥特学院群 金色 duotone 作氛围纹理：顶部薄露金色建筑与米纸高光，向底部加深暖棕保证白字标题可读 */
+  background:
+    linear-gradient(165deg, rgba(58,44,20,.06) 0%, rgba(52,39,18,.30) 50%, rgba(28,20,9,.82) 100%),
+    #241a0d url("../assets/bg-meiben-growth.webp") center / cover no-repeat;
+  border:1px solid var(--line);
+}
+.gplan__figure::after{   /* 暖色蒙版：保证浮于其上的文字可读 */
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, rgba(28,20,9,0) 28%, rgba(28,20,9,.45) 66%, rgba(18,12,4,.86) 100%);
+}
+/* 参考稿的叠加大圆，金色低透明，落在上半部不压标题 */
+.gplan__blob{ position:absolute; border-radius:50%; pointer-events:none; }
+.gplan__blob--1{ width:46%; aspect-ratio:1; left:10%; top:8%;  background:rgba(168,145,87,.20); }
+.gplan__blob--2{ width:38%; aspect-ratio:1; left:34%; top:20%; background:rgba(217,194,140,.12); }
+.gplan__blob--3{ width:30%; aspect-ratio:1; right:8%; top:4%;  background:rgba(168,145,87,.16); }
+.gplan__ph{
+  position:absolute; top:18px; left:18px; z-index:2;
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--sans); font-size:11px; font-weight:700; letter-spacing:.14em;
+  text-transform:uppercase; color:rgba(255,255,255,.78);
+  padding:8px 14px; border:1px dashed rgba(255,255,255,.4); border-radius:999px;
+}
+.gplan__ph .ic{ width:15px; height:15px; }
+.gplan__caption{
+  position:absolute; left:0; right:0; bottom:0; z-index:2;
+  padding:clamp(26px,3vw,44px) clamp(24px,2.8vw,40px);
+}
+.gplan__caption::before{   /* 标题上方主题色短线 */
+  content:""; display:block; width:40px; height:3px; margin-bottom:18px;
+  background:var(--g-line); border-radius:2px;
+}
+.gplan__caption .eyebrow{ margin-bottom:6px; }
+.gplan__no{
+  display:block; font-family:var(--serif); font-weight:800; line-height:.82;
+  font-size:clamp(52px,8vw,86px); color:var(--g-line); letter-spacing:-.02em;
+  margin-bottom:4px;
+}
+.gplan__caption h2{ color:#fff; line-height:1.02; font-size:clamp(32px,4.6vw,46px); }
+.gplan__lead{ color:rgba(255,255,255,.82); font-size:14.5px; line-height:1.85; margin-top:16px; max-width:42ch; }
+.gplan__for{
+  display:inline-flex; align-items:center; gap:9px; margin-top:20px;
+  font-size:12px; font-weight:600; line-height:1.6; color:var(--gold-soft);
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2);
+  padding:9px 15px; border-radius:999px; backdrop-filter:blur(4px);
+}
+.gplan__for::before{
+  content:""; flex:none; width:7px; height:7px; border-radius:50%;
+  background:var(--g-line); box-shadow:0 0 0 3px rgba(217,194,140,.18);
+}
+
+/* —— 右侧：编号大卡 —— */
+.gplan__rows{ display:grid; gap:16px; }
+.grow{
+  position:relative; display:grid; gap:16px;
+  background:#FBF8F1; border:1px solid var(--line); border-radius:20px;
+  padding:clamp(20px,2.4vw,28px) clamp(20px,2.6vw,32px);
   box-shadow:0 1px 2px rgba(20,52,43,.04);
   transition:transform .45s var(--ease), box-shadow .45s var(--ease), border-color .4s;
   overflow:hidden;
 }
-.mod__group::before{
+.grow::before{
   content:""; position:absolute; left:0; top:0; height:3px; width:100%;
-  background:linear-gradient(90deg, var(--accent), transparent 78%);
+  background:linear-gradient(90deg,var(--g-card), transparent 78%);
   transform:scaleX(0); transform-origin:left; transition:transform .55s var(--ease);
 }
-.mod__group:hover{
-  transform:translateY(-5px);
+.grow:hover{
+  transform:translateY(-4px);
   box-shadow:0 22px 46px -26px rgba(20,52,43,.32);
-  border-color:color-mix(in srgb, var(--accent) 42%, var(--line));
+  border-color:color-mix(in srgb, var(--g-card) 42%, var(--line));
 }
-.mod__group:hover::before{ transform:scaleX(1); }
-.mod__gh{
-  display:flex; align-items:center; justify-content:space-between; gap:14px;
-  margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--line);
+.grow:hover::before{ transform:scaleX(1); }
+.grow__title{   /* 小标题置于卡片左上角 */
+  font-stretch:78%; font-weight:850; font-size:clamp(20px,1.9vw,23px);
+  color:var(--green); line-height:1.28;
+  padding-bottom:14px; border-bottom:1px solid var(--line);
 }
-.mod__gh b{ font-stretch:78%; font-weight:850; font-size:18.5px; color:var(--green); line-height:1.3; }
-.mod__gh i{
-  flex:none; font-style:normal; font-size:9.5px; font-weight:800;
-  letter-spacing:.16em; text-transform:uppercase; color:var(--accent);
-  border:1px solid currentColor; border-radius:999px; padding:4px 11px; opacity:.9;
+.grow__title i{   /* 英文置于中文标题下方，独占一行 */
+  display:block; font-style:normal; margin-top:7px;
+  font-size:11px; font-weight:800; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--g-card);
 }
-.mod__points{ display:grid; grid-template-columns:1fr; gap:15px 28px; }
-.mod__points li{ position:relative; padding-left:18px; }
-.mod__points li::before{
+.grow__grid{ display:grid; grid-template-columns:1fr; gap:13px 26px; min-width:0; }
+.grow__grid li{ position:relative; padding-left:18px; }
+.grow__grid li::before{
   content:""; position:absolute; left:0; top:7px;
-  width:7px; height:7px; border-radius:2px; background:var(--accent);
+  width:7px; height:7px; border-radius:2px; background:var(--g-card);
   transform:rotate(45deg);
 }
-.mod__points b{ display:block; font-weight:800; font-size:15px; color:var(--green); line-height:1.5; }
-.mod__points span{ display:block; font-size:13.5px; color:#555555; line-height:1.75; margin-top:2px; }
+.grow__grid b{ display:block; font-weight:800; font-size:14.5px; color:var(--green); line-height:1.5; }
+.grow__grid span{ display:block; font-size:13px; color:#555555; line-height:1.72; margin-top:2px; }
+
 @media (min-width:860px){
-  .mod__inner{ grid-template-columns:.86fr 1.14fr; gap:58px; align-items:start; }
-  .mod__lead{ position:sticky; top:96px; }
-  .mod__points{ grid-template-columns:1fr 1fr; }
-  .mod--flip .mod__inner{ grid-template-columns:1.14fr .86fr; }
-  .mod--flip .mod__lead{ order:2; }
-  .mod--flip .mod__body{ order:1; }
-
-  /* 模块二 = 申请主模块「中心展品」：整幅大标题 + 三栏卡片，与一、三的侧栏式拉开层次 */
-  #module-2 .mod__inner{ grid-template-columns:1fr; gap:46px; }
-  #module-2 .mod__lead{ position:static; max-width:760px; order:0; }
-  #module-2 .mod__body{ grid-template-columns:repeat(3,1fr); gap:22px; order:1; }
-  #module-2 .mod__points{ grid-template-columns:1fr; }
+  /* 左图占画面约 1/3：图列 1fr ∶ 卡片列 2fr。不再撑满整屏 → 块高随卡片内容自适应（紧凑）。
+     min-height:656px = 三卡模块(02/03)宽屏下的自然高度，作为下限把只有两卡的模块一(01)托到同高；
+     内容更多时自然超过此值、不受影响（纯下限，绝不压缩卡片） */
+  .gplan__inner{ grid-template-columns:1fr 2fr; gap:clamp(18px,2vw,26px); align-items:stretch; min-height:656px; }
+  .gplan__figure{ min-height:0; height:100%; }
+  /* repeat(n,1fr)：容器高改由内容决定后，各卡等高对齐「最高那张」的自然高度——
+     卡片尺寸不被压缩，也不再被拉伸出上下大片空白 */
+  .gplan__rows{ grid-template-rows:repeat(3,1fr); }
+  .gplan__rows--2{ grid-template-rows:repeat(2,1fr); }
+  /* 卡片：标题独立一列 + 内容列；右栏较宽，内容用双列 */
+  .grow{ grid-template-columns:minmax(140px,176px) 1fr; align-items:start; align-content:center; column-gap:clamp(22px,2.4vw,40px); }
+  .grow__title{ padding-bottom:0; border-bottom:none; }
+  .grow__grid{ grid-template-columns:1fr 1fr; }
 }
 
-/* 深色模块（核心硬实力）· 深绿满幅，卡片半透明反白、暖金点缀 */
-.mod--dark{ --accent:var(--gold-soft); --accent-soft:var(--gold-soft); }
-.mod--dark .eyebrow{ color:var(--gold-soft); }
-.mod--dark h2{ color:#fff; }
-.mod--dark .mod__desc{ color:rgba(255,255,255,.78); }
-.mod--dark .mod__for{
-  color:var(--sand); background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.18);
+/* —— 翻转：图移至右侧（桌面）· 用于模块二 —— */
+@media (min-width:860px){
+  .gplan--flip .gplan__inner{ grid-template-columns:2fr 1fr; }
+  .gplan--flip .gplan__media{ order:2; }   /* 图 → 右 */
+  .gplan--flip .gplan__rows{  order:1; }   /* 卡片 → 左 */
 }
-.mod--dark .mod__for::before{ box-shadow:0 0 0 3px rgba(217,194,140,.16); }
-.mod--dark .mod__group{
-  background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.14); box-shadow:none;
-}
-.mod--dark .mod__group:hover{
-  background:rgba(255,255,255,.08); border-color:rgba(217,194,140,.45);
-  box-shadow:0 26px 54px -28px rgba(0,0,0,.6);
-}
-.mod--dark .mod__gh{ border-bottom-color:rgba(255,255,255,.16); }
-.mod--dark .mod__gh b{ color:#fff; }
-.mod--dark .mod__gh i{ opacity:1; }
-.mod--dark .mod__points b{ color:#fff; }
-.mod--dark .mod__points span{ color:rgba(255,255,255,.72); }
 
-/* —— 仅美本页：G7 途策方法两栏 → 与模块卡片同语言（不影响共用 .feat 其它页）—— */
-#meiben-edge .why__grid{ border-top:none; gap:22px; }
+/* —— 模块二 · 绿色主题（哥特玫瑰花窗，图本身即绿调 → 轻罩色留住彩窗，仅压暗底部放字）—— */
+.gplan--green{ --g-line:var(--gold-soft); --g-card:var(--green-2); }
+.gplan--green .gplan__figure{
+  border:none;   /* 02 板块去掉白色描边 */
+  background:
+    linear-gradient(165deg, rgba(16,40,32,.06) 0%, rgba(15,38,30,.14) 55%, rgba(9,26,20,.34) 100%),
+    #0f261e url("../assets/bg-meiben-rose.webp") center / cover no-repeat;
+}
+.gplan--green .gplan__figure::after{
+  background:linear-gradient(180deg, rgba(9,26,20,0) 34%, rgba(11,32,25,.42) 62%, rgba(6,18,13,.9) 100%);
+}
+
+/* —— 模块三 · 橙色主题（哥特拱门夕阳，图本身即暖橙 → 轻罩色留住暖光，仅压暗底部放字）—— */
+.gplan--orange{ --g-line:#F0B98A; --g-card:var(--terra); }
+.gplan--orange .gplan__figure{
+  background:
+    linear-gradient(165deg, rgba(120,52,20,.05) 0%, rgba(110,46,18,.12) 55%, rgba(70,26,10,.34) 100%),
+    #5a2410 url("../assets/bg-meiben-arch.webp") center / cover no-repeat;
+}
+.gplan--orange .gplan__figure::after{
+  background:linear-gradient(180deg, rgba(70,26,10,0) 34%, rgba(96,38,16,.42) 62%, rgba(48,16,6,.9) 100%);
+}
+
+/* —— 探索板块以上整屏对齐：#system / #meiben-edge 与 hero、三大模块同为 100vh ——
+   之前这两块按内容自然高（偏短），三大模块却撑满整屏 → 上下滚动长短不一。
+   断点取 860px（与 .gplan__inner min-height 同断点）：桌面全部整屏、节奏统一；
+   窄屏各板块按内容自然高度，与模块保持一致，不强撑空屏。
+   内容用 flex 纵向居中，留白均分上下，观感与 hero 一致 */
+@media (min-width:860px){
+  #system,
+  #meiben-edge{
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+}
+
+/* —— 仅美本页：G7 途策方法两栏 → 编辑式潜能卡（不影响共用 .feat 其它页）—— */
+#meiben-edge{ z-index:0; }
+/* 满幅暖米色背景带：奶油色渐变 + 顶部柔光，呼应设计稿 */
+#meiben-edge::before{
+  content:""; position:absolute; inset:0; left:50%; width:100vw;
+  transform:translateX(-50%); z-index:-2;
+  background:
+    radial-gradient(130% 90% at 84% -8%, rgba(255,253,246,.9) 0%, rgba(255,253,246,0) 52%),
+    linear-gradient(180deg,#F4ECDB 0%, #F0E8D6 54%, #ECE3D0 100%);
+}
+/* 极轻装饰层：右上圆弧细线 + 点阵 + 近乎不可察觉的噪点纹理（透明度均 <6%）*/
+#meiben-edge::after{
+  content:""; position:absolute; top:0; left:50%; width:100vw; height:100%;
+  transform:translateX(-50%); z-index:-1; pointer-events:none;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='560' viewBox='0 0 560 560' fill='none'%3E%3Cg stroke='%2314342B' stroke-width='1' opacity='0.05'%3E%3Ccircle cx='470' cy='96' r='150'/%3E%3Ccircle cx='470' cy='96' r='232'/%3E%3Ccircle cx='470' cy='96' r='314'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='120'%3E%3Cdefs%3E%3Cpattern id='d' width='20' height='20' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='2' cy='2' r='1.5' fill='%2314342B'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='150' height='120' fill='url(%23d)' opacity='0.05'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-repeat:no-repeat, no-repeat, repeat;
+  background-position:top -60px right -80px, top 150px right 46px, top left;
+  background-size:560px 560px, 150px 120px, 120px 120px;
+}
+
+/* 板块头部：主标题放大、与副标题拉开留白、副标题收窄 */
+#meiben-edge .section__head{ max-width:780px; margin-bottom:clamp(28px,3.2vw,42px); }
+#meiben-edge .section__head h2{
+  font-size:clamp(36px,5.4vw,62px); line-height:1.08; letter-spacing:-.02em;
+}
+#meiben-edge .section__head .lead{
+  margin-top:14px; max-width:42ch; font-size:16px; line-height:1.7; color:#6b6459;
+}
+
+#meiben-edge .why__grid{ border-top:none; gap:clamp(18px,2vw,24px); align-items:stretch; }
+
+/* 编辑式潜能卡 —— Apple 悬浮质感 */
 #meiben-edge .feat{
-  position:relative; padding:34px 32px 32px; border-bottom:none;
-  background:#FFFDF8; border:1px solid var(--line); border-radius:18px;
-  box-shadow:0 1px 2px rgba(20,52,43,.04);
-  transition:transform .45s var(--ease), box-shadow .45s var(--ease), border-color .4s;
+  position:relative; border-bottom:none;
+  display:flex; flex-direction:column;
+  padding:clamp(26px,2.6vw,38px);
+  background:linear-gradient(180deg,#FFFEFB,#FCFAF3);
+  border:1px solid rgba(0,0,0,.05); border-radius:24px;
+  /* 底部品牌 Accent 用 inset 阴影渲染 → 随卡片圆角收边，满幅贴底不断截 */
+  box-shadow:inset 0 -3px 0 var(--gold),
+             0 2px 4px rgba(20,52,43,.03),
+             0 26px 54px -32px rgba(20,52,43,.18);
+  transition:transform .55s var(--ease), box-shadow .55s var(--ease), border-color .4s;
   overflow:hidden;
 }
-#meiben-edge .feat::before{
-  content:""; position:absolute; left:0; top:0; height:3px; width:100%;
-  background:linear-gradient(90deg, var(--gold), transparent 78%);
-  transform:scaleX(0); transform-origin:left; transition:transform .55s var(--ease);
+#meiben-edge .feat--green{
+  box-shadow:inset 0 -3px 0 var(--green),
+             0 2px 4px rgba(20,52,43,.03),
+             0 26px 54px -32px rgba(20,52,43,.18);
 }
 #meiben-edge .feat:hover{
-  transform:translateY(-5px); box-shadow:0 22px 46px -26px rgba(20,52,43,.32);
-  border-color:rgba(168,145,87,.42);
+  transform:translateY(-6px); border-color:rgba(0,0,0,.07);
+  box-shadow:inset 0 -3px 0 var(--gold),
+             0 4px 8px rgba(20,52,43,.04),
+             0 44px 72px -34px rgba(20,52,43,.3);
 }
-#meiben-edge .feat:hover::before{ transform:scaleX(1); }
+#meiben-edge .feat--green:hover{
+  box-shadow:inset 0 -3px 0 var(--green),
+             0 4px 8px rgba(20,52,43,.04),
+             0 44px 72px -34px rgba(20,52,43,.3);
+}
+
+/* 卡头：品牌色圆形图标 + 小标题 */
+#meiben-edge .feat__top{ display:flex; align-items:center; gap:16px; margin-bottom:16px; }
+#meiben-edge .feat__icon{
+  width:54px; height:54px; border-radius:50%; flex:none; display:grid; place-items:center;
+  color:#fff; background:linear-gradient(155deg,#C4AC71,#A89157);
+  box-shadow:0 12px 24px -12px rgba(168,145,87,.75);
+}
+#meiben-edge .feat--green .feat__icon{
+  background:linear-gradient(155deg,#245C4A,#14342B);
+  box-shadow:0 12px 24px -12px rgba(20,52,43,.6);
+}
+#meiben-edge .feat__icon .ic{ width:25px; height:25px; stroke-width:1.7; }
 #meiben-edge .feat__idx{
-  margin-bottom:16px; padding:6px 13px; border-radius:999px;
-  background:rgba(168,145,87,.1); color:var(--gold);
-  font-size:11.5px; letter-spacing:.12em; text-transform:uppercase;
+  margin:0; color:var(--green); font-size:15px; font-weight:700; letter-spacing:.01em;
 }
-#meiben-edge .feat h3{ color:var(--green); }
-@media (min-width:760px){ #meiben-edge .feat p{ max-width:46ch; } }
+
+/* 标题：加大、加重、关键词描橙 */
+#meiben-edge .feat h3{
+  color:var(--green); font-weight:800; line-height:1.3; letter-spacing:.004em;
+  font-size:clamp(24px,3vw,34px); margin-bottom:12px; max-width:19ch;
+}
+#meiben-edge .feat h3 em{ font-style:normal; color:var(--terra); }   /* 关键词描橙 */
+
+/* 正文：加大字号、放宽行距、满宽排布 */
+#meiben-edge .feat p{ color:#4c4a46; font-size:clamp(15.5px,1.05vw,16.5px); line-height:1.8; max-width:none; }
+
+/* 卡底三项能力标签：Icon + 两行文字，Hover 品牌色高亮 */
+#meiben-edge .feat__tags{
+  list-style:none; margin:auto 0 0; padding:18px 0 4px;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+  border-top:1px solid rgba(20,52,43,.08);
+}
+#meiben-edge .feat__tags li{ display:flex; align-items:center; gap:12px; }
+#meiben-edge .tag__ic{
+  width:42px; height:42px; border-radius:50%; flex:none; display:grid; place-items:center;
+  border:1px solid rgba(20,52,43,.1); background:rgba(255,255,255,.55); color:#9d978a;
+  transition:color .3s var(--ease), border-color .3s, background .3s, box-shadow .3s;
+}
+#meiben-edge .tag__ic .ic{ width:20px; height:20px; }
+#meiben-edge .tag__tx{ display:flex; flex-direction:column; font-size:12.5px; color:#8a857b; line-height:1.35; }
+#meiben-edge .tag__tx b{ font-weight:700; font-size:13.5px; color:var(--green); }
+#meiben-edge .feat__tags li:hover .tag__ic{
+  color:#fff; border-color:transparent; background:var(--gold);
+  box-shadow:0 9px 20px -9px rgba(168,145,87,.65);
+}
+#meiben-edge .feat--green .feat__tags li:hover .tag__ic{
+  background:var(--green); box-shadow:0 9px 20px -9px rgba(20,52,43,.55);
+}
+
+/* 窄屏：能力标签降列 */
+@media (max-width:640px){
+  #meiben-edge .feat__tags{ grid-template-columns:1fr; gap:14px; }
+}
+
+/* 暖米色 G7 带 → 「探索更多」：补足顶部呼吸，标题不再贴着色块底边（同研究生页处理）*/
+#meiben-edge + .explore{ padding-top:104px; }
 
 /* —— services 引流卡：三模块紧凑栏（替代三段完整模块）—— */
 .featured__modules{
@@ -3026,3 +3278,5 @@ a.card{ color:inherit; }
 #grad-process{ padding-top:116px; }
 /* 米色「为什么」带 → 「探索更多」：补足顶部呼吸，标题不再贴着色块边缘 */
 #why-grad + .explore{ padding-top:104px; }
+/* 文书训练营同理：sec-soft 米色带 → 「探索更多」，补足顶部呼吸 */
+#camp-edge + .explore{ padding-top:104px; }

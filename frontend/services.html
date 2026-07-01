@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=71fc3e3c" />
+  <link rel="stylesheet" href="css/style.css?v=principles3" />
 </head>
 <body class="services-page">
 
@@ -65,7 +65,18 @@
       </a>
       <nav class="nav__links">
         <a href="index.html">首页</a>
-        <a href="services.html" class="is-active">服务</a>
+        <div class="nav__drop">
+          <a href="services.html" class="nav__drop-toggle is-active">服务</a>
+          <div class="nav__submenu">
+            <a href="services.html" class="is-active">服务总览</a>
+            <a href="meiben.html">美国本科</a>
+            <a href="graduate.html">研究生</a>
+            <a href="transfer.html">转学</a>
+            <a href="uk-eu.html">英欧加港本科</a>
+            <a href="single-service.html">单项服务</a>
+            <a href="writing-camp.html">名校文书训练营</a>
+          </div>
+        </div>
         <a href="teachers.html">师资</a>
         <a href="cases.html">案例</a>
         <a href="index.html#faq">常见问题</a>
@@ -78,7 +89,18 @@
     </div>
     <div class="nav__drawer" id="drawer">
       <a href="index.html">首页</a>
-      <a href="services.html" class="is-active">服务</a>
+      <div class="drawer__group">
+        <button type="button" class="drawer__toggle">服务</button>
+        <div class="drawer__sub">
+          <a href="services.html" class="is-active">服务总览</a>
+          <a href="meiben.html">美国本科</a>
+          <a href="graduate.html">研究生</a>
+          <a href="transfer.html">转学</a>
+          <a href="uk-eu.html">英欧加港本科</a>
+          <a href="single-service.html">单项服务</a>
+          <a href="writing-camp.html">名校文书训练营</a>
+        </div>
+      </div>
       <a href="teachers.html">师资</a>
       <a href="cases.html">案例</a>
       <a href="index.html#faq">常见问题</a>
@@ -100,7 +122,7 @@
       <div class="featured__top">
         <p class="eyebrow">FOCUS · 核心业务</p>
         <h2>美国本科</h2>
-        <p class="featured__lead">以美本为核心的全球混申，三大模块全程规划，从成长定位到名校录取一体推进——硬实力与软实力同步做厚，让每一份申请都真正立得住。</p>
+        <p class="featured__lead">以美本为核心的全球混申，三大模块全程规划，硬实力与软实力一起做厚。</p>
       </div>
       <div class="featured__modules">
         <div class="fmod">
@@ -252,6 +274,34 @@
     </div>
   </section>
 
+  <!-- ===== 服务准则（三条价值主张 · 单卡容器 + 三点轴线） ===== -->
+  <section class="principles" id="principles">
+    <div class="principles__card reveal">
+      <div class="section__head">
+        <p class="eyebrow">OUR PRINCIPLES · 服务准则</p>
+        <h2>我们坚持的三条准则</h2>
+        <p class="lead">规划不是做得越多越好，而是每一步都踩在真正影响录取的关键上。</p>
+      </div>
+      <div class="principle-grid">
+        <article class="principle-item">
+          <span class="principle-item__no">01</span>
+          <h3>少即是多</h3>
+          <p>所有规划活动均经过必要性验证，只保留真正影响录取结果的关键事项，避免无效投入。</p>
+        </article>
+        <article class="principle-item">
+          <span class="principle-item__no">02</span>
+          <h3>全程透明</h3>
+          <p>无隐形消费，无冗余任务，学生的时间与精力始终聚焦于最有价值的成长维度。</p>
+        </article>
+        <article class="principle-item">
+          <span class="principle-item__no">03</span>
+          <h3>长期陪伴</h3>
+          <p>从申请启动到录取后职业发展衔接，我们持续提供成长支持，确保每一步都踩在实处。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== 商务合作（横幅 callout） ===== -->
   <section class="biz-wrap" id="biz">
     <div class="biz-callout reveal">
@@ -349,6 +399,6 @@
   <!-- 移动端常驻 CTA -->
   <a href="index.html#consult" class="float-cta" id="floatCta">免费评估</a>
 
-  <script src="js/main.js?v=5"></script>
+  <script src="js/main.js?v=6"></script>
 </body>
 </html>

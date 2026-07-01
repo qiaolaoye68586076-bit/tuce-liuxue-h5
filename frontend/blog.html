@@ -54,7 +54,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=71fc3e3c" />
+  <link rel="stylesheet" href="css/style.css?v=principles3" />
 </head>
 <body>
 
@@ -78,7 +78,18 @@
       </a>
       <nav class="nav__links">
         <a href="index.html">首页</a>
-        <a href="services.html">服务</a>
+        <div class="nav__drop">
+          <a href="services.html" class="nav__drop-toggle">服务</a>
+          <div class="nav__submenu">
+            <a href="services.html">服务总览</a>
+            <a href="meiben.html">美国本科</a>
+            <a href="graduate.html">研究生</a>
+            <a href="transfer.html">转学</a>
+            <a href="uk-eu.html">英欧加港本科</a>
+            <a href="single-service.html">单项服务</a>
+            <a href="writing-camp.html">名校文书训练营</a>
+          </div>
+        </div>
         <a href="teachers.html">师资</a>
         <a href="cases.html">案例</a>
         <a href="index.html#faq">常见问题</a>
@@ -91,7 +102,18 @@
     </div>
     <div class="nav__drawer" id="drawer">
       <a href="index.html">首页</a>
-      <a href="services.html">服务</a>
+      <div class="drawer__group">
+        <button type="button" class="drawer__toggle">服务</button>
+        <div class="drawer__sub">
+          <a href="services.html">服务总览</a>
+          <a href="meiben.html">美国本科</a>
+          <a href="graduate.html">研究生</a>
+          <a href="transfer.html">转学</a>
+          <a href="uk-eu.html">英欧加港本科</a>
+          <a href="single-service.html">单项服务</a>
+          <a href="writing-camp.html">名校文书训练营</a>
+        </div>
+      </div>
       <a href="teachers.html">师资</a>
       <a href="cases.html">案例</a>
       <a href="index.html#faq">常见问题</a>
@@ -228,7 +250,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=5"></script>
+  <script src="js/main.js?v=6"></script>
 
   <!-- ===== 留学洞察 · 文章渲染逻辑 ===== -->
   <script>

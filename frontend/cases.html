@@ -30,7 +30,7 @@
     "url": "https://tuce.asia/cases.html",
     "numberOfItems": 3,
     "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Y同学（广州）→ 哥伦比亚大学（哲学）", "url": "https://tuce.asia/cases.html#case-w"},
+      {"@type": "ListItem", "position": 1, "name": "Yu同学（广州）→ 哥伦比亚大学（哲学）", "url": "https://tuce.asia/cases.html#case-w"},
       {"@type": "ListItem", "position": 2, "name": "Li同学 → 康奈尔大学（物理 · 混沌理论 · 工程创新）", "url": "https://tuce.asia/cases.html#case-l"},
       {"@type": "ListItem", "position": 3, "name": "Wang同学 → 芝加哥大学（经济学 · 公共政策 · 行为经济学）", "url": "https://tuce.asia/cases.html#case-c"}
     ]
@@ -47,7 +47,7 @@
     "review": [
       {
         "@type": "Review",
-        "author": { "@type": "Person", "name": "Y同学（化名）" },
+        "author": { "@type": "Person", "name": "Yu同学（化名）" },
         "datePublished": "2026-06-01",
         "reviewBody": "途策没有替我写文书，而是逼着我把『为什么是哲学』想透。当这条主线立住，所有经历突然都连成了一个人。最终录取哥伦比亚大学哲学方向。",
         "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
@@ -66,7 +66,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=71fc3e3c" />
+  <link rel="stylesheet" href="css/style.css?v=principles3" />
 
   <!-- ===== 案例详情卡（页内局部样式，沿用全站配色变量） ===== -->
   <style>
@@ -437,6 +437,8 @@
       padding-bottom:16px; border-bottom:1px solid var(--line); }
     .casecard__logo{ height:30px; width:auto; max-width:82%; object-fit:contain;
       object-position:left center; display:block; }
+    /* 芝加哥校徽字母更粗大，等高时视觉偏大，单独缩小以与哥大/康奈尔视觉权重一致 */
+    .casecard__logo[src*="chicago"]{ height:25px; }
     .casecard__school{ margin:15px 0 0; font-stretch:84%; font-weight:750;
       font-size:14px; letter-spacing:.005em; color:var(--green); line-height:1.45;
       min-height:1.45em; }
@@ -604,8 +606,8 @@
       font-family:'Fraunces','Noto Serif SC',serif; font-weight:600;
       font-size:clamp(19px,2.5vw,26px); line-height:1.46; color:var(--green); letter-spacing:.004em; }
     .cdx__profile .cdx__p{ font-size:14px; color:#5e5e5e; line-height:1.8; }
-    /* 正文关键词高亮：赤陶橙加粗，制造阅读重点 */
-    .cdx__hl{ font-weight:600; color:var(--terra); }
+    /* 正文关键词高亮：深绿加粗，制造阅读重点（与品牌主色一致，告别橙色） */
+    .cdx__hl{ font-weight:700; color:var(--green); }
     .cdx__h{
       display:flex; align-items:center; gap:9px; margin:0 0 13px;
       font-family:'Fraunces','Noto Serif SC',serif; font-weight:600;
@@ -741,7 +743,18 @@
       </a>
       <nav class="nav__links">
         <a href="index.html">首页</a>
-        <a href="services.html">服务</a>
+        <div class="nav__drop">
+          <a href="services.html" class="nav__drop-toggle">服务</a>
+          <div class="nav__submenu">
+            <a href="services.html">服务总览</a>
+            <a href="meiben.html">美国本科</a>
+            <a href="graduate.html">研究生</a>
+            <a href="transfer.html">转学</a>
+            <a href="uk-eu.html">英欧加港本科</a>
+            <a href="single-service.html">单项服务</a>
+            <a href="writing-camp.html">名校文书训练营</a>
+          </div>
+        </div>
         <a href="teachers.html">师资</a>
         <a href="cases.html" class="is-active">案例</a>
         <a href="index.html#faq">常见问题</a>
@@ -754,7 +767,18 @@
     </div>
     <div class="nav__drawer" id="drawer">
       <a href="index.html">首页</a>
-      <a href="services.html">服务</a>
+      <div class="drawer__group">
+        <button type="button" class="drawer__toggle">服务</button>
+        <div class="drawer__sub">
+          <a href="services.html">服务总览</a>
+          <a href="meiben.html">美国本科</a>
+          <a href="graduate.html">研究生</a>
+          <a href="transfer.html">转学</a>
+          <a href="uk-eu.html">英欧加港本科</a>
+          <a href="single-service.html">单项服务</a>
+          <a href="writing-camp.html">名校文书训练营</a>
+        </div>
+      </div>
       <a href="teachers.html">师资</a>
       <a href="cases.html" class="is-active">案例</a>
       <a href="index.html#faq">常见问题</a>
@@ -768,7 +792,7 @@
     <div class="page-hero__inner">
       <p class="eyebrow">SUCCESS STORIES</p>
       <h1>成功案例 · <em>录取去向</em></h1>
-      <p class="page-hero__sub">真实背景 · 真实策略 · 真实录取 —— 所有案例均经学员授权发布。从定位到录取，每一步都有迹可循。</p>
+      <p class="page-hero__sub">真实背景 · 真实策略 · 真实录取，全部经学员授权发布，每一步都有迹可循。</p>
     </div>
   </section>
 
@@ -825,45 +849,50 @@
       <p class="eyebrow">HIGHLIGHTS</p>
       <div class="head-row">
         <h2>他们，已经抵达</h2>
-        <span class="ph-badge">占位示例 · 待替换真实案例</span>
       </div>
       <p class="lead">精选学员录取案例 —— 点击卡片，展开完整背景与策略复盘。</p>
     </div>
     <div class="stories__grid">
       <button type="button" class="casecard reveal" data-case="case-w">
         <span class="casecard__head"><img class="casecard__logo" src="assets/logo-columbia.svg" alt="哥伦比亚大学校徽" loading="lazy" /></span>
-        <span class="casecard__school">哥伦比亚大学（RD）· 剑桥大学</span>
-        <h3 class="casecard__title">Y 同学：哲学如何成为她拿下哥大、剑桥的唯一主线？</h3>
+        <span class="casecard__school">哥伦比亚大学（哲学）</span>
+        <h3 class="casecard__title">Yu 同学：从哲学思辨到公共表达，人文叙事如何打动哥大？</h3>
         <div class="casecard__scores">
-          <span class="casecard__score casecard__score--key">ACT 36<small>满分</small></span>
+          <span class="casecard__score casecard__score--key">GPA 4.90<small>/4.0</small></span>
+          <span class="casecard__divider" aria-hidden="true"></span>
+          <span class="casecard__score">ACT 36<small>满分</small></span>
           <span class="casecard__divider" aria-hidden="true"></span>
           <span class="casecard__score">托福 115</span>
         </div>
         <div class="casecard__rule" aria-hidden="true"></div>
-        <p class="casecard__quote">“顶尖申请，比的不是‘有什么’，而是‘串成什么’。”</p>
+        <p class="casecard__quote">“哲学不只在书本的思辨里，更在如何理解世界、他人与自己的每一次追问中。”</p>
         <span class="casecard__more">查看完整策略复盘 →</span>
       </button>
       <button type="button" class="casecard reveal" data-case="case-l">
         <span class="casecard__head"><img class="casecard__logo" src="assets/logo-cornell-t.png" alt="康奈尔大学校徽" loading="lazy" /></span>
-        <span class="casecard__school">康奈尔大学</span>
+        <span class="casecard__school">康奈尔大学（物理）</span>
         <h3 class="casecard__title">Li 同学：从混沌理论到康复机械臂，理工科叙事如何打动顶尖名校？</h3>
         <div class="casecard__scores">
           <span class="casecard__score casecard__score--key">GPA 4.92<small>/4.0</small></span>
           <span class="casecard__divider" aria-hidden="true"></span>
-          <span class="casecard__score">ACT 34 · 托福 113</span>
+          <span class="casecard__score">ACT 34</span>
+          <span class="casecard__divider" aria-hidden="true"></span>
+          <span class="casecard__score">托福 113</span>
         </div>
         <div class="casecard__rule" aria-hidden="true"></div>
-        <p class="casecard__quote">“顶尖大学看的不是掌握了多少知识，而是能否发现、研究并解决问题。”</p>
+        <p class="casecard__quote">“物理不只在公式与实验里，更在发现真实问题、并动手解决它的过程中。”</p>
         <span class="casecard__more">查看完整策略复盘 →</span>
       </button>
       <button type="button" class="casecard reveal" data-case="case-c">
         <span class="casecard__head"><img class="casecard__logo" src="assets/logo-chicago-t.png" alt="芝加哥大学校徽" loading="lazy" /></span>
-        <span class="casecard__school">芝加哥大学（University of Chicago）</span>
+        <span class="casecard__school">芝加哥大学（经济学）</span>
         <h3 class="casecard__title">Wang 同学：从行为经济学到公共议题，如何用一条主线打动芝大？</h3>
         <div class="casecard__scores">
           <span class="casecard__score casecard__score--key">GPA 4.98<small>/5.0</small></span>
           <span class="casecard__divider" aria-hidden="true"></span>
-          <span class="casecard__score">SAT 1520 · 托福 114</span>
+          <span class="casecard__score">SAT 1520</span>
+          <span class="casecard__divider" aria-hidden="true"></span>
+          <span class="casecard__score">托福 114</span>
         </div>
         <div class="casecard__rule" aria-hidden="true"></div>
         <p class="casecard__quote">“经济学不只在课堂与模型里，更在人与人的互动、社会运行的每个细节中。”</p>
@@ -1064,7 +1093,7 @@
   <!-- 移动端常驻 CTA -->
   <a href="index.html#consult" class="float-cta" id="floatCta">免费评估</a>
 
-  <script src="js/main.js?v=5"></script>
+  <script src="js/main.js?v=6"></script>
 
   <!-- ===== 录取去向板块：数据渲染 + 3D 地球懒加载 ===== -->
   <script type="module">
@@ -1269,8 +1298,8 @@
                 <h4><i>Philosophy &amp; Ethics</i>哲学与伦理学研究</h4>
               </div>
               <ul class="cdx__list">
-                <li>完成大学教授指导下的哲学研究项目，独立撰写 40 余页学术论文，获得项目优秀评价</li>
-                <li>研究主题聚焦伦理学与当代社会议题</li>
+                <li>跟随<strong class="cdx__hl">大学教授</strong>做研究，独立写出 <strong class="cdx__hl">40 多页英文论文</strong>，获优秀评价</li>
+                <li>研究关注<strong class="cdx__hl">伦理与当下社会议题</strong></li>
               </ul>
             </div>
             <div class="cdx__col">
@@ -1279,8 +1308,8 @@
                 <h4><i>Humanistic Exploration</i>人文学术探索</h4>
               </div>
               <ul class="cdx__list">
-                <li>参加美国顶尖大学暑期课程，系统学习哲学与政治理论</li>
-                <li>长期阅读哲学、政治学及社会科学经典著作，持续参与学术讨论</li>
+                <li>入读<strong class="cdx__hl">美国顶尖大学暑期课程</strong>，主修哲学与政治理论</li>
+                <li>长期研读人文社科经典，持续参与<strong class="cdx__hl">学术讨论</strong></li>
               </ul>
             </div>
             <div class="cdx__col">
@@ -1289,9 +1318,9 @@
                 <h4><i>Competitions &amp; Honors</i>竞赛与荣誉</h4>
               </div>
               <ul class="cdx__list">
-                <li>国际哲学论文竞赛获奖</li>
-                <li>全国伦理辩论赛事获奖</li>
-                <li>多项人文社科类学术活动成果突出</li>
+                <li><strong class="cdx__hl">国际哲学论文竞赛</strong>获奖</li>
+                <li><strong class="cdx__hl">全国伦理辩论赛</strong>获奖</li>
+                <li>多项人文社科活动成果突出</li>
               </ul>
             </div>
           </div>
@@ -1305,7 +1334,7 @@
               <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h4"/></svg></span><h5>青年口述史项目</h5><p>记录并整理真实个体故事</p></li>
               <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg></span><h5>哲学主题播客创作</h5><p>推动公共讨论</p></li>
               <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><path d="M16 6.2a3 3 0 0 1 0 5.6M17.6 14.2c1.9.6 3.4 2.3 3.4 4.8"/></svg></span><h5>校园学术社团运营</h5><p>组织跨年级学术交流</p></li>
-              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="M20 20l-3.8-3.8"/></svg></span><h5>社会议题研究与分享</h5></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="M20 20l-3.8-3.8"/></svg></span><h5>社会议题研究与分享</h5><p>聚焦公共议题展开调研</p></li>
             </ul>
             <p class="cdx__close-note">这些活动共同构成了一份完整且一致的申请叙事。</p>
           </section>
@@ -1398,9 +1427,9 @@
                 <h4><i>Chaos Theory Research</i>混沌理论独立研究</h4>
               </div>
               <ul class="cdx__list">
-                <li>师从美国大学物理学教授，完成国际高阶独立研究项目</li>
-                <li>独立撰写 19 页英文学术论文，聚焦非线性动力学与混沌理论</li>
-                <li>获项目优秀评级并获学术期刊提名（Top 9%）</li>
+                <li>师从<strong class="cdx__hl">美国大学物理教授</strong>，完成高阶独立研究</li>
+                <li>独立写出 <strong class="cdx__hl">19 页英文论文</strong>，研究混沌理论（系统为何变得难以预测）</li>
+                <li>获优秀评级并获<strong class="cdx__hl">学术期刊提名（前 9%）</strong></li>
               </ul>
             </div>
             <div class="cdx__col">
@@ -1409,9 +1438,9 @@
                 <h4><i>Competitions &amp; Honors</i>国际物理与数学竞赛</h4>
               </div>
               <ul class="cdx__list">
-                <li>Physics Bowl 全球前列成绩</li>
-                <li>British Physics Olympiad 国际奖项获得者</li>
-                <li>AMC / AIME 优秀成绩，取得 USAJMO 参赛资格</li>
+                <li><strong class="cdx__hl">美国物理碗（Physics Bowl）</strong>全球前列</li>
+                <li><strong class="cdx__hl">英国物理奥赛（BPhO）</strong>国际奖</li>
+                <li>美国数学竞赛 AMC/AIME 优异，<strong class="cdx__hl">晋级全美数学奥赛邀请赛</strong></li>
               </ul>
             </div>
             <div class="cdx__col">
@@ -1420,9 +1449,9 @@
                 <h4><i>Lab &amp; Engineering</i>实验室科研与工程创新</h4>
               </div>
               <ul class="cdx__list">
-                <li>国内知名高校现代光学实验室研究助理，参与光纤传感、超声波与温度检测实验</li>
-                <li>自主设计康复辅助机械臂，完成 Arduino 编程与机械结构开发，实现手机端控制与动作记录</li>
-                <li>国际发明赛事国家级奖项获得者，入围全球总决赛</li>
+                <li>在<strong class="cdx__hl">高校光学实验室</strong>任研究助理，参与多项前沿实验</li>
+                <li>自主设计<strong class="cdx__hl">康复辅助机械臂</strong>，能用手机操控并记录动作</li>
+                <li><strong class="cdx__hl">国际发明赛国家级奖</strong>，入围全球总决赛</li>
               </ul>
             </div>
           </div>
@@ -1437,8 +1466,8 @@
               <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-4.6 8a1.5 1.5 0 0 0 1.3 2.3h10.6a1.5 1.5 0 0 0 1.3-2.3L14 9V3"/><path d="M7.5 15h9"/></svg></span><h5>高校光学实验室科研</h5><p>积累真实科研环境实验经验</p></li>
               <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><path d="M16 6.2a3 3 0 0 1 0 5.6M17.6 14.2c1.9.6 3.4 2.3 3.4 4.8"/></svg></span><h5>物理社团创办与运营</h5><p>组织跨年级学术交流</p></li>
               <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6.5a3.5 3.5 0 0 0-4.6 4.4l-6 6L7 19.6l6-6A3.5 3.5 0 0 0 17.4 9l-2.1 2.1-2.3-.6-.6-2.3z"/></svg></span><h5>工程发明与产品设计</h5><p>把理论转化为可用产品</p></li>
-              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v3a5 5 0 0 1-10 0z"/><path d="M7 5H4v2a3 3 0 0 0 3 3M17 5h3v2a3 3 0 0 1-3 3M9.5 14h5M9 20h6M12 14v6"/></svg></span><h5>数学与物理竞赛</h5></li>
-              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L18.5 9.5a2 2 0 0 0-2.8-2.8L5 17.2 4 20z"/><path d="M14.5 8l2.3 2.3"/></svg></span><h5>学术科普写作</h5></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v3a5 5 0 0 1-10 0z"/><path d="M7 5H4v2a3 3 0 0 0 3 3M17 5h3v2a3 3 0 0 1-3 3M9.5 14h5M9 20h6M12 14v6"/></svg></span><h5>数学与物理竞赛</h5><p>夯实数理学科硬实力</p></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L18.5 9.5a2 2 0 0 0-2.8-2.8L5 17.2 4 20z"/><path d="M14.5 8l2.3 2.3"/></svg></span><h5>学术科普写作</h5><p>向大众传播科学知识</p></li>
             </ul>
             <p class="cdx__close-note">不同经历之间形成高度统一的学术叙事，而非简单堆砌活动成果。</p>
           </section>
@@ -1532,10 +1561,9 @@
                 <h4><i>Economics</i>经济学方向学术能力</h4>
               </div>
               <ul class="cdx__list">
-                <li>国际经济学奥林匹克竞赛（IEO）金奖</li>
-                <li>National Economics Challenge 国际轮团队第一名</li>
-                <li>NEC 中国赛区个人 Distinction 奖项</li>
-                <li>长期保持经济学方向优秀学术表现</li>
+                <li><strong class="cdx__hl">国际经济学奥赛（IEO）金奖</strong></li>
+                <li>全美经济学挑战赛（NEC）<strong class="cdx__hl">国际轮团队第一</strong></li>
+                <li>NEC 中国赛区<strong class="cdx__hl">个人最高荣誉（Distinction）</strong></li>
               </ul>
             </div>
             <div class="cdx__col">
@@ -1544,9 +1572,9 @@
                 <h4><i>Behavioral Economics</i>行为经济学探索</h4>
               </div>
               <ul class="cdx__list">
-                <li>参加芝加哥大学经济学暑期课程，获课程 A 等级评价</li>
+                <li>入读<strong class="cdx__hl">芝加哥大学经济学暑期课程</strong>，获 A 等评价</li>
                 <li>系统学习宏观经济学与博弈论</li>
-                <li>深入探索行为经济学与现实决策之间的联系</li>
+                <li>探索<strong class="cdx__hl">行为经济学如何影响现实决策</strong></li>
               </ul>
             </div>
             <div class="cdx__col">
@@ -1555,9 +1583,9 @@
                 <h4><i>Interdisciplinary Research</i>跨学科研究经历</h4>
               </div>
               <ul class="cdx__list">
-                <li>参加 Pioneer Academics 学术研究项目，在大学教授指导下完成学术论文</li>
-                <li>研究主题聚焦《女性主义运动中的男性气质重构》</li>
-                <li>结合修辞学、社会运动理论与性别研究展开分析，展现较强的人文社科研究与学术写作能力</li>
+                <li>参加<strong class="cdx__hl">大学教授指导的科研项目（Pioneer）</strong>，完成学术论文</li>
+                <li>研究主题：<strong class="cdx__hl">女性主义运动中的男性气质重构</strong></li>
+                <li>融合修辞学、社会运动与性别研究，展现扎实的<strong class="cdx__hl">人文社科写作能力</strong></li>
               </ul>
             </div>
           </div>
@@ -1568,12 +1596,12 @@
           <section class="cdx__col-left">
             <h3 class="cdx__h">个性化活动体系</h3>
             <ul class="cdx__timeline">
-              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9 12 4l8.5 5"/><path d="M5 9.5v8M9 9.5v8M15 9.5v8M19 9.5v8"/><path d="M3.5 20.5h17"/></svg></span><h5>学生会副主席</h5></li>
-              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 2.6 14.6 0 17M12 3.5c-2.6 2.4-2.6 14.6 0 17"/></svg></span><h5>全球公民教育项目创始人</h5></li>
-              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16a1.5 1.5 0 0 1 1.5 1.5v7a1.5 1.5 0 0 1-1.5 1.5H9l-4 3.2V16H4a1.5 1.5 0 0 1-1.5-1.5V7A1.5 1.5 0 0 1 4 5.5Z"/><path d="M7 9.5h10M7 12.5h6"/></svg></span><h5>辩论社核心成员与赛事评委</h5></li>
-              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M12 16v4M8.5 20h7"/><path d="M7 11.5l2.5-2.5 2 2 3-3.5"/></svg></span><h5>商务课程助教</h5></li>
-              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.4"/><circle cx="17.5" cy="6" r="2.4"/><circle cx="17.5" cy="18" r="2.4"/><path d="M8.2 10.9 15.3 7.1M8.2 13.1l7.1 3.8"/></svg></span><h5>跨文化交流活动组织者</h5></li>
-              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.3-7-9.3A3.7 3.7 0 0 1 12 7a3.7 3.7 0 0 1 7 3.7C19 15.7 12 20 12 20z"/></svg></span><h5>公益教育志愿者</h5></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9 12 4l8.5 5"/><path d="M5 9.5v8M9 9.5v8M15 9.5v8M19 9.5v8"/><path d="M3.5 20.5h17"/></svg></span><h5>学生会副主席</h5><p>统筹校园事务与活动</p></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 2.6 14.6 0 17M12 3.5c-2.6 2.4-2.6 14.6 0 17"/></svg></span><h5>全球公民教育项目创始人</h5><p>搭建全球议题教育平台</p></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16a1.5 1.5 0 0 1 1.5 1.5v7a1.5 1.5 0 0 1-1.5 1.5H9l-4 3.2V16H4a1.5 1.5 0 0 1-1.5-1.5V7A1.5 1.5 0 0 1 4 5.5Z"/><path d="M7 9.5h10M7 12.5h6"/></svg></span><h5>辩论社核心成员与赛事评委</h5><p>锤炼思辨与表达能力</p></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M12 16v4M8.5 20h7"/><path d="M7 11.5l2.5-2.5 2 2 3-3.5"/></svg></span><h5>商务课程助教</h5><p>协助教学并辅导同学</p></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.4"/><circle cx="17.5" cy="6" r="2.4"/><circle cx="17.5" cy="18" r="2.4"/><path d="M8.2 10.9 15.3 7.1M8.2 13.1l7.1 3.8"/></svg></span><h5>跨文化交流活动组织者</h5><p>促进多元文化沟通</p></li>
+              <li><span class="tl-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.3-7-9.3A3.7 3.7 0 0 1 12 7a3.7 3.7 0 0 1 7 3.7C19 15.7 12 20 12 20z"/></svg></span><h5>公益教育志愿者</h5><p>投身教育公益服务</p></li>
             </ul>
             <p class="cdx__close-note">这些经历共同构成了她对公共参与、组织管理与社会责任感的长期实践。</p>
           </section>
@@ -1650,6 +1678,13 @@
       document.querySelectorAll('[data-case]').forEach(function(btn){
         btn.addEventListener('click', function(){ open(btn.dataset.case); });
       });
+      // 跨页直达：首页案例卡链接到 cases.html#case-w/-l/-c，落地时自动展开对应案例
+      function openFromHash(){
+        var id = location.hash.replace('#', '');
+        if(id && document.getElementById('tpl-' + id)) open(id);
+      }
+      openFromHash();
+      window.addEventListener('hashchange', openFromHash);
       overlay.addEventListener('click', close);
       // 居中模态：容器铺满全屏并盖在遮罩上，点击卡片外的背景区域也关闭
       drawer.addEventListener('click', function(e){ if(e.target === drawer) close(); });
