@@ -252,6 +252,8 @@ def fetch_tikhub(gh_username, api_key, max_n, item_show_type=0, timeout=35, max_
                 "digest": (a.get("digest") or "").strip(),
                 "thumb_url": (a.get("cover") or "").strip(),  # 复用封面下载逻辑
             }
+            # 发表时间优先 create_time（微信 appmsg 的「发表时间」戳，预约发表=计划发布时刻），
+            # 仅当缺失时才退到 update_time（最后编辑/上传时间）——避免把「上传时间」当「发表时间」。
             ts = a.get("create_time") or a.get("update_time") or 0
             flat.append((news_item, ts))
         log.info("TikHub 第 %d 页：+%d 篇（累计 %d）", page, len(arts), len(flat))
@@ -431,14 +433,27 @@ def build_articles(raw, web_root, download_covers, default_cat, overrides, max_n
         })
         seen.add(cu)
 
-    # 倒序（最新在前）并截断到上限
+    # 倒序（最新在前）并截断到上限。publish_time 为发表时间（见字段映射），
+    # 故排序后 articles[0] 就是「最新发表 / 预约发表已生效」的一篇。
     articles.sort(key=lambda a: a.get("publish_time", ""), reverse=True)
     articles = articles[:max_n]
 
-    # 没有任何置顶时，默认置顶最新一篇（避免 blog.html 顶部 featured 卡为空）
-    if articles and overrides.get("pin_latest_if_none", True) \
-            and not any(a.get("pinned") for a in articles):
-        articles[0]["pinned"] = True
+    # ---- 置顶（pinned）每轮全量重算，不沿用 articles.json 里的旧值 ----
+    # 增量同步会把上轮「自动置顶的最新文」连同 pinned=True 原样读回来；若沿用旧值，
+    # any(pinned) 恒为真 → 新发/预约发表的文章即使排到最前也不会置顶，featured 卡永远
+    # 卡在旧文上。所以这里按「overrides 人工置顶」+「时间最新」重新判定：
+    #   1) overrides 里显式 pinned 的文章存在于列表 → 人工置顶优先，且仅这些置顶；
+    #   2) 否则默认置顶最新一篇（pin_latest_if_none，默认开）——保证置顶始终是最新文章。
+    manual_pins = {u for u, ov in (by_url or {}).items() if ov.get("pinned")}
+    present_manual = any((a.get("url") or "") in manual_pins for a in articles)
+    if present_manual:
+        for a in articles:
+            a["pinned"] = (a.get("url") or "") in manual_pins
+    else:
+        for a in articles:
+            a["pinned"] = False
+        if articles and overrides.get("pin_latest_if_none", True):
+            articles[0]["pinned"] = True
 
     # 清理未引用的本地封面：仅全量模式做（增量下旧文封面不在本轮 raw 里，prune 会误删）
     if download_covers and existing is None:

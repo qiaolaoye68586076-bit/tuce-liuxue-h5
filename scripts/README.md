@@ -96,9 +96,9 @@ crontab -e
 | `title` / `url` | 公众号图文 | 原样 |
 | `digest` | 摘要，缺失时取正文前 60 字 | 可在 overrides 覆盖 |
 | `cover_url` | 封面下载到 `assets/insights/` | 失败则留空，前端用 SVG 占位 |
-| `publish_time` | 图文 update_time | `YYYY-MM-DD` |
+| `publish_time` | 图文**发表时间**（tikhub `create_time`，预约发表=计划发布时刻；缺失才退 `update_time`） | `YYYY-MM-DD` |
 | `category` | **标题关键词推断** | 命中不到归 `WX_DEFAULT_CATEGORY`；可在 overrides 覆盖 |
-| `pinned` | 默认全 false | overrides 置顶；都没置顶则自动顶最新一篇 |
+| `pinned` | 默认全 false | 每轮全量重算：overrides 显式置顶优先，否则自动顶**最新发表**一篇（增量同步也会随新文前移，不卡旧文） |
 
 分类/置顶/隐藏改 `scripts/article_overrides.json`（按文章 URL），下次同步自动生效。
 

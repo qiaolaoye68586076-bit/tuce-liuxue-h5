@@ -78,6 +78,9 @@ h2{
   font-size:clamp(32px,6.8vw,56px); line-height:1.06;
   letter-spacing:-.015em; color:var(--green);
 }
+/* 中文标题避免行尾孤字：均衡换行，把最后一行的单字并回上一行；
+   旧浏览器不识别则回退为默认换行（渐进增强，无副作用） */
+h1,h2{ text-wrap:balance; }
 h3{ font-weight:800; font-size:19px; letter-spacing:.005em; color:var(--green); }
 .lead{ color:var(--muted); margin-top:16px; font-size:15.5px; max-width:56ch; }
 .hide-sm{ display:none; }
@@ -1598,8 +1601,7 @@ html.has-gsap .reveal{ transition:none; }
   .page-hero--meiben .crumbs--hero,.page-hero--meiben .eyebrow,
   .page-hero--meiben h1,.page-hero--meiben .page-hero__sub,
   .page-hero--grad .crumbs--hero,.page-hero--grad .eyebrow,
-  .page-hero--grad h1,.page-hero--grad .page-hero__sub,
-  .page-hero--grad .ghero-stats,.page-hero--grad .ghost{ opacity:1 !important; transform:none !important; }
+  .page-hero--grad h1,.page-hero--grad .page-hero__sub{ opacity:1 !important; transform:none !important; }
 }
 
 /* =========================================================
@@ -2644,15 +2646,15 @@ a.card{ color:inherit; }
 /* 整屏 hero：穹顶满铺一屏，「美国本科申请」占满首屏，#system 在下一屏。
    面包屑钉在顶部压在图上；正文竖直居中；图满铺至导航栏。
    z-index:0 自建层叠上下文，避免 ::before 的 z-index:-1 被 body 背景遮挡 */
+/* 几何对齐研究生页 hero：顶对齐(去 flex 居中/min-height)、padding 150/74、面包屑内联、h1 同字号 */
 .page-hero--meiben{
   z-index:0;
-  display:flex; flex-direction:column; justify-content:center;
-  min-height:100vh; min-height:100svh;
-  padding-top:120px; padding-bottom:64px;
+  padding-top:150px; padding-bottom:74px;
 }
 .page-hero--meiben .crumbs--hero{
-  position:absolute; top:92px; left:22px; margin:0; padding:0; max-width:none;
+  position:static; max-width:none; margin:0 0 30px; padding:0;
 }
+.page-hero--meiben h1{ font-size:clamp(40px,8.4vw,80px); }
 .page-hero--meiben::before{
   content:""; position:absolute; top:0; bottom:0; left:50%;
   width:100vw; transform:translateX(-50%); z-index:-1;
@@ -2661,10 +2663,11 @@ a.card{ color:inherit; }
     linear-gradient(90deg, var(--bg) 0%, rgba(250,247,240,.9) 30%, rgba(250,247,240,.5) 56%, rgba(250,247,240,.08) 84%),
     url("../assets/bg-meiben-hero.webp") right top / cover no-repeat;
 }
-@media (min-width:760px){ .page-hero--meiben .page-hero__sub{ max-width:46ch; } }
+@media (min-width:760px){ .page-hero--meiben .page-hero__sub{ max-width:54ch; } }
+/* hero 与下一模块之间加大留白，多一些呼吸感（只影响美本页首个 section） */
+.page-hero--meiben + .section{ padding-top:156px; }
 @media (max-width:640px){
-  .page-hero--meiben{ padding-top:104px; padding-bottom:48px; }
-  .page-hero--meiben .crumbs--hero{ top:78px; }
+  .page-hero--meiben + .section{ padding-top:116px; }
   .page-hero--meiben::before{
     background:
       linear-gradient(180deg, rgba(250,247,240,.5) 0%, rgba(250,247,240,.78) 58%, var(--bg) 95%),
@@ -3052,27 +3055,14 @@ a.card{ color:inherit; }
   padding:clamp(26px,2.6vw,38px);
   background:linear-gradient(180deg,#FFFEFB,#FCFAF3);
   border:1px solid rgba(0,0,0,.05); border-radius:24px;
-  /* 底部品牌 Accent 用 inset 阴影渲染 → 随卡片圆角收边，满幅贴底不断截 */
-  box-shadow:inset 0 -3px 0 var(--gold),
-             0 2px 4px rgba(20,52,43,.03),
+  box-shadow:0 2px 4px rgba(20,52,43,.03),
              0 26px 54px -32px rgba(20,52,43,.18);
   transition:transform .55s var(--ease), box-shadow .55s var(--ease), border-color .4s;
   overflow:hidden;
 }
-#meiben-edge .feat--green{
-  box-shadow:inset 0 -3px 0 var(--green),
-             0 2px 4px rgba(20,52,43,.03),
-             0 26px 54px -32px rgba(20,52,43,.18);
-}
 #meiben-edge .feat:hover{
   transform:translateY(-6px); border-color:rgba(0,0,0,.07);
-  box-shadow:inset 0 -3px 0 var(--gold),
-             0 4px 8px rgba(20,52,43,.04),
-             0 44px 72px -34px rgba(20,52,43,.3);
-}
-#meiben-edge .feat--green:hover{
-  box-shadow:inset 0 -3px 0 var(--green),
-             0 4px 8px rgba(20,52,43,.04),
+  box-shadow:0 4px 8px rgba(20,52,43,.04),
              0 44px 72px -34px rgba(20,52,43,.3);
 }
 
@@ -3139,10 +3129,13 @@ a.card{ color:inherit; }
   border-top:1px solid rgba(255,255,255,.16);
 }
 .fmod{
-  display:grid; grid-template-columns:auto 1fr; align-items:baseline; gap:16px;
+  display:grid; grid-template-columns:auto 1fr; align-items:baseline; column-gap:16px;
   padding:18px 2px; border-bottom:1px solid rgba(255,255,255,.12);
 }
 .fmod__no{
+  /* 数字独占左列并跨越「标题 + 描述」两行，右列 1fr 才能拿到全部剩余宽度；
+     否则描述 <i> 会回流到左列把 auto 撑宽，反过来挤窄标题列 → 标题逐字换行 */
+  grid-row:1 / span 2; align-self:baseline;
   font-stretch:70%; font-weight:880; font-size:30px; line-height:1;
   color:transparent; -webkit-text-stroke:1.3px var(--gold-soft);
 }
@@ -3162,12 +3155,30 @@ a.card{ color:inherit; }
    ========================================================= */
 
 /* —— Hero：深绿满幅 · 装饰描边大词 · 暖金辉光 · 资历账目条 —— */
+/* 深绿为基准：拱廊内庭实拍垫底，压一层深绿渐变——左侧近实心保证白字，右侧半透露出建筑纵深 */
 .page-hero--grad{
   overflow:hidden;
+  /* 高度下限对齐美本页 Hero（美本副标题占 3 行 ≈511px，研究生副标题仅 2 行会矮 ~30px，
+     导致下一板块标题在首屏折线上方提前露出）——补足后两页 Hero 等高，
+     「服务流程」标题落到折线以下，刚打开只见 Hero 标题，下滑才揭示（配合下方 #grad-process 顶部留白）。 */
+  min-height:512px;
   padding-top:150px; padding-bottom:74px;
   background:
-    radial-gradient(125% 95% at 90% 6%, rgba(168,145,87,.18) 0%, rgba(168,145,87,0) 56%),
+    radial-gradient(125% 95% at 90% 6%, rgba(168,145,87,.20) 0%, rgba(168,145,87,0) 56%),
+    linear-gradient(180deg, rgba(20,52,43,0) 42%, rgba(20,52,43,.38) 100%),
+    linear-gradient(90deg, rgba(20,52,43,.96) 0%, rgba(20,52,43,.88) 32%, rgba(20,52,43,.62) 64%, rgba(20,52,43,.46) 100%),
+    url("../assets/bg-grad-hero.webp") center center / cover no-repeat,
     var(--green);
+}
+@media (max-width:640px){
+  /* 窄屏文案更密：改为整体压深的竖向渐变，图片弱化为氛围底纹，全部文字优先可读 */
+  .page-hero--grad{
+    background:
+      radial-gradient(140% 80% at 88% 4%, rgba(168,145,87,.18) 0%, rgba(168,145,87,0) 58%),
+      linear-gradient(180deg, rgba(20,52,43,.74) 0%, rgba(20,52,43,.86) 58%, rgba(20,52,43,.93) 100%),
+      url("../assets/bg-grad-hero.webp") center center / cover no-repeat,
+      var(--green);
+  }
 }
 /* 底部一道暖金渐隐细线，给深绿块一个明确的收口，避免下一段“漏一截”露出 */
 .page-hero--grad::after{
@@ -3175,12 +3186,6 @@ a.card{ color:inherit; }
   background:linear-gradient(90deg, rgba(217,194,140,0), rgba(217,194,140,.4) 30%, rgba(217,194,140,.4) 70%, rgba(217,194,140,0));
 }
 .page-hero--grad .page-hero__inner{ position:relative; }
-.page-hero--grad .ghost{
-  position:absolute; top:-66px; right:-8px; pointer-events:none; user-select:none;
-  font-stretch:70%; font-weight:880; line-height:1; white-space:nowrap; letter-spacing:-.02em;
-  font-size:clamp(78px,16vw,200px);
-  color:transparent; -webkit-text-stroke:1.5px rgba(217,194,140,.13);
-}
 .page-hero--grad .crumbs--hero{
   position:static; max-width:none; margin:0 0 30px; padding:0;
   color:rgba(255,255,255,.6);
@@ -3191,29 +3196,11 @@ a.card{ color:inherit; }
 .page-hero--grad h1{ position:relative; font-size:clamp(40px,8.4vw,80px); }
 .page-hero--grad .page-hero__sub{ position:relative; max-width:54ch; }
 
-.ghero-stats{
-  position:relative; display:grid; grid-template-columns:repeat(2,1fr);
-  gap:24px 30px; margin-top:50px; padding-top:36px;
-  border-top:1px solid rgba(255,255,255,.14);
-}
-.ghero-stats > div{ padding-left:16px; border-left:2px solid #C2622F; }
-.ghero-stats b{
-  display:block; font-stretch:74%; font-weight:850; line-height:1;
-  font-size:clamp(26px,4.4vw,38px); color:#fff;
-}
-.ghero-stats b em{ font-style:normal; font-size:.62em; color:#D7763F; margin-left:3px; }
-.ghero-stats span{
-  display:block; margin-top:10px; font-size:13px; letter-spacing:.01em;
-  color:rgba(255,255,255,.6);
-}
-@media (min-width:760px){ .ghero-stats{ grid-template-columns:repeat(4,1fr); } }
-
-/* —— Hero 文案逐行渐入上浮 + 描边大词柔和淡入（复用 hero-fade-up 缓动）—— */
+/* —— Hero 文案逐行渐入上浮（复用 hero-fade-up 缓动）—— */
 .page-hero--grad .crumbs--hero,
 .page-hero--grad .eyebrow,
 .page-hero--grad h1,
-.page-hero--grad .page-hero__sub,
-.page-hero--grad .ghero-stats{
+.page-hero--grad .page-hero__sub{
   opacity:0; transform:translateY(20px);
   animation:hero-fade-up .72s cubic-bezier(.16,1,.3,1) forwards;
 }
@@ -3221,34 +3208,8 @@ a.card{ color:inherit; }
 .page-hero--grad .eyebrow{ animation-delay:.16s; }
 .page-hero--grad h1{ animation-delay:.28s; }
 .page-hero--grad .page-hero__sub{ animation-delay:.42s; }
-.page-hero--grad .ghero-stats{ animation-delay:.56s; }
-.page-hero--grad .ghost{ opacity:0; animation:hero-fade-up 1.5s ease .3s forwards; }
 
-/* —— 申请流程 · 编辑式竖向时间轴（描边编号做节点 + 金色脊线）—— */
-.gflow{ position:relative; max-width:880px; margin-top:4px; }
-.gflow__step{
-  position:relative; display:grid; grid-template-columns:54px 1fr; gap:22px;
-  padding-bottom:46px;
-}
-.gflow__step:last-child{ padding-bottom:0; }
-.gflow__step::before{
-  content:""; position:absolute; left:26px; top:50px; bottom:0; width:2px;
-  background:linear-gradient(180deg, var(--terra) 0%, rgba(168,145,87,.7) 45%, rgba(168,145,87,.14) 100%);
-}
-.gflow__step:last-child::before{ display:none; }
-.gflow__no{
-  text-align:center; font-stretch:72%; font-weight:880; line-height:1;
-  font-size:clamp(30px,4.6vw,42px);
-  color:transparent; -webkit-text-stroke:1.5px var(--green);
-  transition:-webkit-text-stroke-color .3s var(--ease);
-}
-.gflow__step:hover .gflow__no{ -webkit-text-stroke-color:var(--terra); }
-.gflow__body h3{ font-size:clamp(18.5px,2.3vw,22px); color:var(--green); line-height:1.34; }
-.gflow__body p{ margin-top:9px; color:#555555; font-size:14.5px; line-height:1.85; max-width:60ch; }
-@media (min-width:760px){
-  .gflow__step{ grid-template-columns:64px 1fr; gap:34px; }
-  .gflow__step::before{ left:31px; }
-}
+/* （旧「.gflow 竖向时间轴」已由 2026-07-01「服务流程」板块取代，样式见文件末尾 .svc-* 区块） */
 
 /* —— 为什么选择我们 · 三大支柱卡 —— */
 .gpillars{ display:grid; grid-template-columns:1fr; gap:18px; }
@@ -3274,9 +3235,184 @@ a.card{ color:inherit; }
 @media (min-width:820px){ .gpillars{ grid-template-columns:repeat(3,1fr); gap:22px; } }
 
 /* —— 衔接节奏微调（仅研究生页）—— */
-/* 深绿 Hero → 流程：给浅色流程区更从容的顶部留白，绿→米过渡更利落 */
-#grad-process{ padding-top:116px; }
+/* 深绿 Hero → 流程：给浅色流程区更从容的顶部留白，绿→米过渡更利落。
+   顶部留白对齐美本页（156/116），把「服务流程」标题推到首屏折线以下——
+   刚打开只见 Hero 一个标题，往下滑才揭示下一板块标题（.section__head.reveal）。 */
+#grad-process{ padding-top:156px; }
+@media (max-width:640px){
+  #grad-process{ padding-top:116px; }
+}
 /* 米色「为什么」带 → 「探索更多」：补足顶部呼吸，标题不再贴着色块边缘 */
 #why-grad + .explore{ padding-top:104px; }
 /* 文书训练营同理：sec-soft 米色带 → 「探索更多」，补足顶部呼吸 */
 #camp-edge + .explore{ padding-top:104px; }
+
+/* =========================================================
+   ✦ 研究生页 · 服务流程重做（2026-07-01）
+   OUR PROCESS 横向时间轴 + 四步图文交替大卡（图注 + 图标胶囊清单 + 附赠盒）
+   命名空间 .svc-*，仅研究生页引用，零影响其他页面
+   ========================================================= */
+.svc-flow .section__head{ max-width:740px; }
+.svc-flow .section__head h2{ line-height:1.12; }
+
+/* —— 横向时间轴：四步索引（圆点在左 · 文字在右 · 四色圆点 · 连接线带中点）—— */
+.svc-rail{
+  margin-top:clamp(30px,4vw,44px);
+  display:grid; grid-template-columns:repeat(2,1fr); gap:26px 18px;
+}
+.svc-rail__node{ display:flex; align-items:center; gap:16px; min-width:0; }
+.svc-rail__dot{
+  flex:none; display:grid; place-items:center; width:60px; height:60px; border-radius:50%;
+  background:var(--gold); color:#fff;
+  font-family:"Fraunces",Georgia,serif; font-weight:600; font-size:24px; letter-spacing:.01em;
+  box-shadow:0 12px 24px -12px rgba(20,52,43,.5);
+}
+/* 四色圆点：取自各卡图片主色（与下方四张大卡逐一对应）暖金 / 松绿 / 古铜 / 桃花心木 */
+.svc-rail__node:nth-child(1) .svc-rail__dot{ background:#9E7A38; box-shadow:0 12px 24px -13px rgba(158,122,56,.7); }
+.svc-rail__node:nth-child(2) .svc-rail__dot{ background:#2E5344; box-shadow:0 12px 24px -13px rgba(46,83,68,.6); }
+.svc-rail__node:nth-child(3) .svc-rail__dot{ background:#6F5A3A; box-shadow:0 12px 24px -13px rgba(111,90,58,.6); }
+.svc-rail__node:nth-child(4) .svc-rail__dot{ background:#7C3E2A; box-shadow:0 12px 24px -13px rgba(124,62,42,.6); }
+.svc-rail__tx{ display:flex; flex-direction:column; line-height:1.34; }
+.svc-rail__tx b{ font-weight:800; font-size:16.5px; color:var(--green); }
+.svc-rail__tx i{ font-style:normal; font-weight:600; font-size:15px; color:#6b6459; margin-top:2px; }
+@media (min-width:760px){
+  .svc-rail{ display:flex; align-items:center; gap:0; }
+  /* 前三节点 grow → 连接线拉长撑满；末节点仅占内容宽被顶到右端 → 整行占满、无右侧留白 */
+  .svc-rail__node{ flex:1 1 0; }
+  .svc-rail__node:last-child{ flex:0 0 auto; }
+  /* 连接线：占满节点剩余宽度，细线居中 + 中点小圆点 */
+  .svc-rail__node:not(:last-child)::after{
+    content:""; flex:1 1 auto; height:9px; margin:0 clamp(16px,1.8vw,30px);
+    background-image:
+      radial-gradient(circle, var(--gold) 0 3.5px, transparent 4px),
+      linear-gradient(var(--line), var(--line));
+    background-repeat:no-repeat, no-repeat;
+    background-position:center, center;
+    background-size:8px 8px, 100% 1.5px;
+  }
+}
+
+/* —— 四步图文交替大卡 —— */
+.svc-steps{ display:grid; gap:clamp(16px,2vw,24px); margin-top:clamp(40px,5vw,60px); }
+.svc-step{
+  --acc:var(--gold);
+  position:relative; display:grid; grid-template-columns:1fr; gap:0;
+  background:#fff; border:none; border-radius:26px; overflow:hidden;
+  /* 多层柔和投影：贴地薄影 + 中景 + 远景，营造卡片浮于米底之上的立体感 */
+  box-shadow:
+    0 1px 2px rgba(20,52,43,.05),
+    0 10px 22px -12px rgba(20,52,43,.14),
+    0 26px 50px -28px rgba(20,52,43,.20);
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+/* 每张卡片一色，取自各卡图片主色，与上方轴线分点逐一对应 */
+.svc-steps > .svc-step:nth-child(1){ --acc:#9E7A38; } /* 卡1 台灯暖金 */
+.svc-steps > .svc-step:nth-child(2){ --acc:#2E5344; } /* 卡2 深绿墙面 */
+.svc-steps > .svc-step:nth-child(3){ --acc:#6F5A3A; } /* 卡3 旧墙皮革·古铜 */
+.svc-steps > .svc-step:nth-child(4){ --acc:#7C3E2A; } /* 卡4 酒红护照·桃花心木 */
+.svc-step:hover{
+  transform:translateY(-6px);
+  box-shadow:
+    0 2px 4px rgba(20,52,43,.06),
+    0 18px 34px -14px rgba(20,52,43,.18),
+    0 40px 72px -32px rgba(20,52,43,.28);
+}
+
+/* 媒体（插画面板）*/
+.svc-step__media{ display:flex; }
+/* 图片面板占满一侧、无独立描边圆角（外层卡片 overflow:hidden 负责裁外角）*/
+.svc-art{
+  position:relative; flex:1; overflow:hidden; min-height:190px;
+  background:radial-gradient(125% 125% at 24% 16%,
+    color-mix(in srgb, var(--acc) 6%, #FCF9F2) 0%,
+    color-mix(in srgb, var(--acc) 16%, #F1E7D3) 60%,
+    color-mix(in srgb, var(--acc) 28%, #E7DBC2) 100%);
+  display:grid; place-items:center;
+}
+.svc-art::before{   /* 装饰点阵（右下渐隐）*/
+  content:""; position:absolute; inset:0; opacity:.5; pointer-events:none;
+  background-image:radial-gradient(color-mix(in srgb, var(--acc) 34%, transparent) 1.4px, transparent 1.6px);
+  background-size:16px 16px;
+  -webkit-mask-image:radial-gradient(120% 120% at 82% 86%, #000 0%, transparent 56%);
+          mask-image:radial-gradient(120% 120% at 82% 86%, #000 0%, transparent 56%);
+}
+/* 真实图片素材：铺满面板、居中裁切 */
+.svc-art__img{
+  position:absolute; inset:0; z-index:1; display:block;
+  width:100%; height:100%; object-fit:cover;
+}
+.svc-art__icon{
+  position:relative; z-index:1; width:clamp(58px,6.4vw,84px); height:auto;
+  color:var(--acc); filter:drop-shadow(0 12px 20px rgba(20,52,43,.14));
+}
+.svc-art__mini{
+  position:absolute; z-index:1; right:14%; bottom:15%;
+  width:clamp(30px,3.2vw,40px); height:auto; color:var(--green-2);
+  background:#fff; border-radius:12px; padding:7px;
+  box-shadow:0 12px 26px -12px rgba(20,52,43,.42);
+}
+
+/* 正文 */
+.svc-step__body{ position:relative; padding:clamp(24px,3.4vw,44px); }
+/* 序号 · 统一置于大标题左侧（同款彩色，随卡片强调色）*/
+.svc-step__head{ display:flex; align-items:center; gap:clamp(12px,1.5vw,18px); margin-bottom:26px; }
+.svc-step__no{
+  flex:none; line-height:1; letter-spacing:.01em;
+  font-family:"Fraunces",Georgia,serif; font-weight:600;
+  font-size:clamp(34px,3.8vw,48px); color:var(--acc);
+}
+.svc-step__title{
+  font-stretch:80%; font-weight:850; font-size:clamp(23px,2.6vw,30px);
+  color:var(--green); line-height:1.18; letter-spacing:-.01em;
+  margin:0; max-width:none; white-space:nowrap;
+}
+.svc-list{ display:grid; gap:clamp(14px,1.6vw,18px); }
+/* 图标顶对齐 → 文字换行时锚定第一行（而非在两行间居中浮动）*/
+.svc-list > li{ display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:start; }
+/* 小 logo · 实心圆底 + 白色图标（随卡片强调色）*/
+.svc-ic{
+  flex:none; width:32px; height:32px; border-radius:50%;
+  display:grid; place-items:center; color:#fff;
+  background:var(--acc); border:none;
+  box-shadow:0 8px 16px -8px color-mix(in srgb, var(--acc) 65%, transparent);
+}
+/* 负外边距把图标光学对齐到首行中线（首行高 ≈ 24px，32px 圆需上提约 4px）*/
+.svc-list > li > .svc-ic{ margin-top:-4px; }
+.svc-ic .ic{ width:17px; height:17px; stroke-width:2; }
+/* 小标题 + 解释同行排布：标题加粗、冒号分隔，解释紧随其后 */
+.svc-list b{ display:inline; font-weight:800; font-size:14px; color:var(--green); line-height:1.7; }
+.svc-list b::after{ content:"："; }
+.svc-list p{ display:inline; font-size:14px; color:#555555; line-height:1.7; margin:0; max-width:none; }
+
+/* 附赠服务（卡三）· 无盒 · 描边药丸标签 + 次级小圆标记 */
+.svc-bonus{ margin-top:22px; padding-top:20px;
+  border-top:1px solid color-mix(in srgb, var(--terra) 16%, var(--line)); }
+.svc-bonus__tag{
+  display:inline-flex; align-items:center; margin-bottom:15px;
+  font-size:12px; font-weight:800; letter-spacing:.08em;
+  color:var(--terra);
+  border:1.5px solid color-mix(in srgb, var(--terra) 34%, transparent);
+  background:color-mix(in srgb, var(--terra) 6%, #fff);
+  padding:5px 15px; border-radius:999px;
+}
+.svc-bonus__tag::after{ content:"："; margin-left:-.12em; }
+.svc-bonus ul{ display:grid; gap:12px; }
+.svc-bonus li{ display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:center; }
+/* 次级标记：柔和赤陶色底 + 赤陶色描线图标，弱于上方主列表的实心大圆 */
+.svc-bonus .svc-ic{
+  width:22px; height:22px; border-radius:50%; box-shadow:none;
+  background:color-mix(in srgb, var(--terra) 13%, #fff);
+  color:var(--terra);
+}
+.svc-bonus .svc-ic .ic{ width:13px; height:13px; stroke-width:2.4; }
+.svc-bonus b{ font-weight:600; font-size:14px; color:var(--green); line-height:1.6; }
+
+@media (min-width:900px){
+  .svc-step{ grid-template-columns:0.5fr 1fr; align-items:stretch; gap:0; }
+  /* 翻转卡（图在右）：列宽随之镜像，正文仍占宽列、图片占窄列 */
+  .svc-step--flip{ grid-template-columns:1fr 0.5fr; }
+  .svc-step--flip .svc-step__media{ order:2; }
+  .svc-step--flip .svc-step__body{ order:1; }
+  .svc-art{ min-height:210px; height:100%; }
+  .svc-step__body{ align-self:center; padding:clamp(26px,2.6vw,40px); }
+}

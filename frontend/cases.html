@@ -66,7 +66,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=18139ddc" />
+  <link rel="stylesheet" href="css/style.css?v=e2291502" />
 
   <!-- ===== 案例详情卡（页内局部样式，沿用全站配色变量） ===== -->
   <style>
@@ -638,8 +638,12 @@
       width:5px; height:5px; border-radius:50%; background:var(--gold); }
     /* 双栏：活动体系 + 文书/点评 */
     /* 活动体系占满整行 → 文书/点评并排在下方一行 */
-    .cdx__grid2{ display:grid; grid-template-columns:1fr; gap:22px; margin-top:30px; }
-    .cdx__col-left{ padding:22px clamp(20px,2.6vw,28px); }
+    .cdx__grid2{ display:grid; grid-template-columns:minmax(0,1fr); gap:22px; margin-top:30px; }
+    /* 关键修复：网格子项默认 min-width:auto(=min-content)，会被内部 600px 横向时间轴
+       撑成 642px，冲破抽屉宽度导致「个性化活动体系/文书特色/顾问点评」整块右侧被裁。
+       归零后子项收缩到容器宽度，超宽的时间轴改由自身 overflow-x 横向滑动（即设计原意）。 */
+    .cdx__grid2 > *{ min-width:0; }
+    .cdx__col-left{ padding:22px clamp(20px,2.6vw,28px); min-width:0; }
     /* —— 横向并列：图标节点 + 连线（并列关系，非先后顺序）—— */
     .cdx__timeline{ list-style:none; margin:16px 0 2px; padding:0;
       display:flex; gap:0; }
@@ -705,6 +709,10 @@
       .cdx__avatar{ justify-self:center; width:clamp(170px,54vw,210px); }
       /* 文书/点评 → 上下堆叠 */
       .cdx__rcol{ flex-direction:column; }
+      /* 关键修复：桌面横排时卡片用 flex:1 1 0 均分宽度；一旦竖排，flex-basis:0 变成"高度基准 0"，
+         叠加 .cdx__card 的 overflow:hidden（使 min-height:auto 归零），卡片被压成标题高、正文全被裁。
+         竖排下改回内容高度即可完整显示文书特色 / 顾问点评正文。 */
+      .cdx__rcol .cdx__card{ flex:0 0 auto; }
       /* 横向时间轴 → 可横向滑动，避免中文标签拥挤 */
       .cdx__timeline{ overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px; }
       .cdx__timeline li{ flex:0 0 clamp(128px,42vw,150px); }
