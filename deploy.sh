@@ -16,6 +16,10 @@ set -euo pipefail
 : "${ECS_PORT:=22022}"
 : "${ECS_PATH:=/var/www/tuce}"
 : "${LOCAL_SRC:=frontend}"
+# 额外排除项（空格分隔的多个 rsync --exclude 模式）；默认空＝不额外排除。
+# 例：只部署除文书训练营外的页面 → EXTRA_EXCLUDES='/writing-camp.html' ./deploy.sh
+# 因未用 --delete-excluded，被排除的文件在远端会「原样保留」（既不上传新版也不删旧版）。
+: "${EXTRA_EXCLUDES:=}"
 
 # ---------------------------------------------------------------------------
 # ANSI 颜色（非 TTY 环境自动降级为无色）
@@ -58,9 +62,11 @@ usage() {
   ECS_PORT   SSH 端口      (默认 ${ECS_PORT})
   ECS_PATH   远端部署目录   (默认 ${ECS_PATH})
   LOCAL_SRC  本地部署源目录 (默认 ${LOCAL_SRC})
+  EXTRA_EXCLUDES  额外 rsync 排除模式，空格分隔（远端旧文件保留不删）
 
 示例：
   ./deploy.sh              # 正式部署
+  EXTRA_EXCLUDES='/writing-camp.html' ./deploy.sh   # 部署除文书训练营外的页面
   ./deploy.sh -n           # 演练
   ./deploy.sh --backup     # 部署前先备份远端
   ECS_HOST=1.2.3.4 ./deploy.sh
@@ -206,6 +212,13 @@ rsync_opts=(-avz --progress --partial --timeout=120 --delete --stats
             --exclude='/articles.json'
             --exclude='/assets/insights/'
             --exclude='/_*.html')
+# 追加来自 EXTRA_EXCLUDES 的临时排除项（空格分隔；故意不加引号以按空格拆分）
+if [[ -n "$EXTRA_EXCLUDES" ]]; then
+  for _pat in $EXTRA_EXCLUDES; do
+    rsync_opts+=(--exclude="$_pat")
+    log_warn "额外排除：$_pat（远端旧文件保留、不删除）"
+  done
+fi
 if [[ "$VERBOSE" == true ]]; then
   rsync_opts+=(--itemize-changes)
 fi

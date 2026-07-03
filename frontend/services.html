@@ -40,8 +40,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=e2291502" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
+  <link rel="stylesheet" href="css/style.css?v=e637b713" />
 </head>
 <body class="services-page">
 
@@ -74,7 +74,6 @@
             <a href="transfer.html">转学</a>
             <a href="uk-eu.html">英欧加港本科</a>
             <a href="single-service.html">单项服务</a>
-            <a href="writing-camp.html">名校文书训练营</a>
           </div>
         </div>
         <a href="teachers.html">师资</a>
@@ -98,7 +97,6 @@
           <a href="transfer.html">转学</a>
           <a href="uk-eu.html">英欧加港本科</a>
           <a href="single-service.html">单项服务</a>
-          <a href="writing-camp.html">名校文书训练营</a>
         </div>
       </div>
       <a href="teachers.html">师资</a>
@@ -109,100 +107,217 @@
     </div>
   </header>
 
-  <!-- ===== 顶部标题区 ===== -->
-  <section class="page-hero page-hero--bg">
-    <p class="eyebrow">SERVICES</p>
+  <!-- ===== 顶部标题区（编辑式 · 标题 + 服务目录索引） ===== -->
+  <section class="page-hero page-hero--bg page-hero--services">
+    <p class="eyebrow">SERVICES · 服务总览</p>
     <h1>覆盖全阶段的<em>留学方案</em></h1>
     <p class="page-hero__sub">从美本到研究生，从主申到单项，途策为每一种升学路径配备专属策略团队。</p>
+
+    <!-- 杂志目录式索引：五条路径一屏可达 -->
+    <nav class="svc-index" aria-label="服务目录">
+      <a class="svc-index__item" href="meiben.html">
+        <i>01</i><b>美国本科</b><span>核心业务 · 三大模块</span>
+        <svg class="ic" aria-hidden="true"><use href="#ic-arrow"/></svg>
+      </a>
+      <a class="svc-index__item" href="graduate.html">
+        <i>02</i><b>研究生</b><span>评估到签证 · 四步全程</span>
+        <svg class="ic" aria-hidden="true"><use href="#ic-arrow"/></svg>
+      </a>
+      <a class="svc-index__item" href="transfer.html">
+        <i>03</i><b>转学</b><span>重新锚定 · 学分衔接</span>
+        <svg class="ic" aria-hidden="true"><use href="#ic-arrow"/></svg>
+      </a>
+      <a class="svc-index__item" href="uk-eu.html">
+        <i>04</i><b>英欧加港本科</b><span>多国混申布局</span>
+        <svg class="ic" aria-hidden="true"><use href="#ic-arrow"/></svg>
+      </a>
+      <a class="svc-index__item" href="single-service.html">
+        <i>05</i><b>单项服务</b><span>模块化按需选购</span>
+        <svg class="ic" aria-hidden="true"><use href="#ic-arrow"/></svg>
+      </a>
+    </nav>
   </section>
 
-  <!-- ===== 核心业务 · 美国本科专题区（深绿大底色 · 三大模块 → meiben.html） ===== -->
-  <section class="section" id="undergrad">
-    <a class="featured reveal" href="meiben.html">
-      <div class="featured__top">
-        <p class="eyebrow">FOCUS · 核心业务</p>
-        <h2>美国本科</h2>
-        <p class="featured__lead">以美本为核心的全球混申，三大模块全程规划，硬实力与软实力一起做厚。</p>
+  <!-- ===== 服务地图（深绿编辑式版面：刊头 + 路径胶囊 + 描金三站卡 + 收尾 CTA；插图纯装饰） ===== -->
+  <section class="section" id="service-map">
+    <div class="svcmap reveal">
+      <!-- 装饰层：background-image 只在 ≥860px 媒体查询内加载 -->
+      <div class="svcmap__bg" aria-hidden="true"></div>
+
+      <div class="svcmap__head">
+        <p class="eyebrow">SERVICE MAP · 服务地图</p>
+        <h2>一套策略系统，<br/>覆盖不同申请阶段</h2>
+        <p class="svcmap__lead">把申请当成一张地图来推演：先定终点，再排路线——规划、学术、活动、文书、投递，串成一条清晰的路径。</p>
+        <nav class="svcmap__pills" aria-label="按申请路径直达">
+          <em class="svcmap__pills-k">路线入口 /</em>
+          <a class="svcmap__pill" href="meiben.html">美国本科</a>
+          <a class="svcmap__pill" href="graduate.html">研究生</a>
+          <a class="svcmap__pill" href="transfer.html">转学</a>
+          <a class="svcmap__pill" href="uk-eu.html">多国混申</a>
+          <a class="svcmap__pill" href="single-service.html">单项补强</a>
+        </nav>
       </div>
-      <div class="featured__modules">
-        <div class="fmod">
-          <span class="fmod__no">01</span>
-          <b>成长规划</b>
-          <i>确立以美本为核心的全球混申路径</i>
-        </div>
-        <div class="fmod">
-          <span class="fmod__no">02</span>
-          <b>学术硬实力</b>
-          <i>GPA · 标化 · 学术能力三大专项</i>
-        </div>
-        <div class="fmod">
-          <span class="fmod__no">03</span>
-          <b>软实力纵深</b>
-          <i>科研署名 · 作品集 · 社会公益</i>
-        </div>
+
+      <!-- 描金路径：圆点=站点、短线=站台、卡片=站牌 -->
+      <ol class="svcmap__route" role="list">
+        <li class="rt-stage">
+          <header class="rt-stage__top">
+            <span class="rt-stage__no">01</span>
+            <em class="rt-stage__phase">Orient · 启动期</em>
+          </header>
+          <h3>定位与路线</h3>
+          <p class="rt-stage__line">先看清自己，再决定去哪。</p>
+          <ul class="rt-stage__list" role="list">
+            <li><b>G7 潜能测评</b><span>立体化的学生画像</span></li>
+            <li><b>选校梯度</b><span>冲刺、匹配、保底三档</span></li>
+            <li><b>混申路径</b><span>多国方案比选</span></li>
+          </ul>
+          <p class="rt-stage__out"><i>产出 /</i> 定位报告 + 选校清单</p>
+        </li>
+        <li class="rt-stage">
+          <header class="rt-stage__top">
+            <span class="rt-stage__no">02</span>
+            <em class="rt-stage__phase">Build · 积累期</em>
+          </header>
+          <h3>能力与素材</h3>
+          <p class="rt-stage__line">把时间花在真正影响录取的事上。</p>
+          <ul class="rt-stage__list" role="list">
+            <li><b>GPA 管理</b><span>选课与学期节奏</span></li>
+            <li><b>标化规划</b><span>时点与目标分数</span></li>
+            <li><b>科研 · 作品集</b><span>深度绑定专业方向</span></li>
+            <li><b>公益与活动</b><span>长线主题式经营</span></li>
+          </ul>
+          <p class="rt-stage__out"><i>产出 /</i> 学期化素材养成计划</p>
+        </li>
+        <li class="rt-stage">
+          <header class="rt-stage__top">
+            <span class="rt-stage__no">03</span>
+            <em class="rt-stage__phase">Express · 冲刺期</em>
+          </header>
+          <h3>表达与投递</h3>
+          <p class="rt-stage__line">让招生官在十分钟里记住你。</p>
+          <ul class="rt-stage__list" role="list">
+            <li><b>文书训练</b><span>从头脑风暴到终稿</span></li>
+            <li><b>面试辅导</b><span>真题模拟与复盘</span></li>
+            <li><b>网申追踪</b><span>从提交到 offer 决策</span></li>
+          </ul>
+          <p class="rt-stage__out"><i>产出 /</i> 全套材料 + 投递日历</p>
+        </li>
+      </ol>
+
+      <div class="svcmap__foot">
+        <p>多数家庭从核心美本方案启程。</p>
+        <a class="svcmap__cta" href="meiben.html">从核心美本服务开始了解 <svg class="ic" aria-hidden="true"><use href="#ic-arrow"/></svg></a>
       </div>
-      <div class="featured__tags">
-        <span>三大模块体系</span>
-        <span>G7 潜能测评</span>
-        <span>藤校文书共创</span>
-      </div>
-      <span class="featured__link">深入了解美本申请 <svg class="ic"><use href="#ic-arrow"/></svg></span>
-    </a>
+    </div>
   </section>
 
-  <!-- ===== 真实场景卡片（团队 × 学员 · 信任加固 · 照片完整露出 + 文字沉底） ===== -->
-  <section class="scene-banner" id="scene">
-    <figure class="scene-banner__card reveal">
-      <img src="assets/team-onsite.webp" alt="途策导师与学员围坐在同一张工作台前协作" loading="lazy" />
-      <figcaption class="scene-banner__inner">
-        <p class="eyebrow">REAL COMPANIONSHIP</p>
-        <h2>真实的陪伴，而非流水线</h2>
-        <p>从第一次测评到拿到录取，途策的每一位导师都和学员坐在同一张桌子前 —— 一起改文书、一起做科研、一起走过申请季。</p>
-      </figcaption>
-    </figure>
+  <!-- ===== 策略定制方法论（左栏宣言 sticky + 右栏衬线序号清单） ===== -->
+  <section class="section strategy" id="methodology">
+    <div class="method">
+      <div class="strategy__head method__intro reveal">
+        <p class="eyebrow">STRATEGY · 策略定制方法论</p>
+        <h2 class="strategy__word"><span class="problem__reject">拒绝</span><span class="problem__same">千人一面<svg class="strike-svg" viewBox="0 0 200 24" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 L 197 12" pathLength="1"/></svg></span></h2>
+        <p class="strategy__lead">
+          途策用 <strong>G7 潜能测评</strong>建立学生画像，由<strong>藤校背景 3 对 1 团队</strong>操盘，把能力模块、真实科研与文书按目标院校重新组合。策略先行，服务才不会变成流水线。
+        </p>
+        <!-- 真实陪伴实拍（图说压图，编辑式 photo card） -->
+        <figure class="method__photo">
+          <img src="assets/team-onsite.webp" alt="途策导师与学员围坐在同一张工作台前协作" loading="lazy" />
+          <figcaption>
+            <p class="method__photo-eyebrow">Real Companionship</p>
+            <b>真实的陪伴，而非流水线</b>
+          </figcaption>
+        </figure>
+      </div>
+      <ul class="method__list">
+        <li class="mstep reveal">
+          <h3 class="mstep__title">模块化定制<i class="mstep__en">Modular</i></h3>
+          <div class="mstep__body">
+            <p>能力拆成独立模块，结合测评画像按需组合，避免套模板和无效堆料。</p>
+            <p class="mstep__proof">G7 画像报告 · 按目标院校重组的能力矩阵</p>
+          </div>
+        </li>
+        <li class="mstep reveal">
+          <h3 class="mstep__title">名校导师<i class="mstep__en">Ivy Mentors</i></h3>
+          <div class="mstep__body">
+            <p>规划、文书、学术导师共同判断材料价值，深知招生官标准与申请关键。</p>
+            <p class="mstep__proof">藤校背景 3 对 1 导师组 · 招生官视角审稿</p>
+          </div>
+        </li>
+        <li class="mstep reveal">
+          <h3 class="mstep__title">真实纵深<i class="mstep__en">Real Depth</i></h3>
+          <div class="mstep__body">
+            <p>真实科研、公益与文书共创，让申请从经历罗列走向有主线的个人叙事。</p>
+            <p class="mstep__proof">真实科研项目 · 贯穿全材料的个人叙事主线</p>
+          </div>
+        </li>
+        <li class="mstep reveal">
+          <h3 class="mstep__title">全程透明<i class="mstep__en">Full Visibility</i></h3>
+          <div class="mstep__body">
+            <p>申请进度、材料版本与反馈全程可视，家长与学员都知道下一步为什么做。</p>
+            <p class="mstep__proof">进度看板 · 材料版本与反馈全程留痕</p>
+          </div>
+        </li>
+      </ul>
+    </div>
   </section>
 
-  <!-- ===== 其他服务（白卡网格 · 整卡可点击 → 详情页） ===== -->
+  <!-- ===== 核心服务（目标先行决策卡：先说目标，再给路径） ===== -->
   <section class="section services" id="more-services">
     <div class="section__head reveal">
-      <h2>不止于美本</h2>
-      <p class="lead">研究生、转学、英联邦多国本科与模块化单项服务，覆盖每一种升学路径。</p>
+      <p class="eyebrow">CORE SERVICES · 核心服务</p>
+      <h2>按目标选择服务，<br/>而不是被套餐推着走</h2>
+      <p class="lead">先想清楚要去哪里，再决定用什么——五个目标，对号入座。</p>
     </div>
-    <div class="services__grid">
-      <a class="card card--grad reveal" href="graduate.html">
-        <h3>研究生</h3>
-        <p>综合评估到签证辅导四步流程，按专业锚定方向，文书与面试逐项打磨。</p>
-        <div class="card__tags"><span>专业锚定</span><span>文书面试</span><span>签证辅导</span></div>
-        <span class="card__link">了解详情 <svg class="ic"><use href="#ic-arrow"/></svg></span>
+    <div class="goal-grid">
+      <a class="gcard gcard--lead reveal" href="meiben.html">
+        <span class="gcard__badge">核心业务</span>
+        <p class="gcard__num"><i>Goal</i><b>01</b></p>
+        <h3 class="gcard__goal">冲刺美国 Top 30 本科</h3>
+        <p class="gcard__fact"><span>G7 潜能测评定制路线<i>·</i></span><span>文书训练营 3 天小班 + 2 天一对一<i>·</i></span><span>1v1 科研课题 6-12 个月</span></p>
+        <ol class="gcard__mods">
+          <li><i>01</i>成长规划</li>
+          <li><i>02</i>学术硬实力</li>
+          <li><i>03</i>个性化软实力</li>
+        </ol>
+        <span class="gcard__link"><b>美国本科 · 全程方案</b><span class="gcard__leader"></span><span class="gcard__arrow">→</span></span>
       </a>
-      <a class="card card--transfer reveal" href="transfer.html">
-        <h3>转学</h3>
-        <p>重新锚定目标与学分衔接，定制转学策略，进入更理想的院校梯队。</p>
-        <div class="card__tags"><span>学分衔接</span><span>梯队升级</span><span>定制策略</span></div>
-        <span class="card__link">了解详情 <svg class="ic"><use href="#ic-arrow"/></svg></span>
+      <a class="gcard gcard--warm reveal" href="graduate.html">
+        <p class="gcard__num"><i>Goal</i><b>02</b></p>
+        <h3 class="gcard__goal">申请海外硕士</h3>
+        <p class="gcard__steps">评估<i>·</i>定位<i>·</i>申请<i>·</i>签证</p>
+        <p class="gcard__fact"><span>一对一全真模拟面试<i>·</i></span><span>附赠奖学金申请指导</span></p>
+        <span class="gcard__link"><b>研究生申请</b><span class="gcard__leader"></span><span class="gcard__arrow">→</span></span>
       </a>
-      <a class="card card--ukeu reveal" href="uk-eu.html">
-        <h3>英欧加港本科</h3>
-        <p>多国混申布局，按地区定制选校与材料，冲刺多地录取。</p>
-        <div class="card__tags"><span>多国混申</span><span>地区定制</span><span>本科申请</span></div>
-        <span class="card__link">了解详情 <svg class="ic"><use href="#ic-arrow"/></svg></span>
+      <a class="gcard reveal" href="transfer.html">
+        <p class="gcard__num"><i>Goal</i><b>03</b></p>
+        <h3 class="gcard__goal">换一所更匹配的大学</h3>
+        <p class="gcard__shift">学分衔接<i></i>梯队升级</p>
+        <p class="gcard__fact"><span>重新锚定目标院校<i>·</i></span><span>定制专属转学策略</span></p>
+        <span class="gcard__link"><b>本科转学</b><span class="gcard__leader"></span><span class="gcard__arrow">→</span></span>
       </a>
-      <a class="card card--single card--wide reveal" href="single-service.html">
-        <div class="card__main">
-          <h3>单项服务</h3>
-          <p>模块化按需选购——按需补强申请链路上的任一单点，灵活组合、即买即用。</p>
-          <span class="card__link">了解详情 <svg class="ic"><use href="#ic-arrow"/></svg></span>
-        </div>
-        <div class="card__menu" aria-hidden="true">
+      <a class="gcard reveal" href="uk-eu.html">
+        <p class="gcard__num"><i>Goal</i><b>04</b></p>
+        <h3 class="gcard__goal">多国混申，多几个选择</h3>
+        <p class="gcard__regions">英国<i>·</i>欧洲<i>·</i>加拿大<i>·</i>香港</p>
+        <p class="gcard__fact"><span>按地区定制选校与材料<i>·</i></span><span>一套素材多线投递</span></p>
+        <span class="gcard__link"><b>英欧加港本科</b><span class="gcard__leader"></span><span class="gcard__arrow">→</span></span>
+      </a>
+      <a class="gcard gcard--menu reveal" href="single-service.html">
+        <p class="gcard__num"><i>Goal</i><b>05</b></p>
+        <h3 class="gcard__goal">只想补强某一个环节</h3>
+        <div class="gcard__chips">
           <span>GPA</span><span>标化</span><span>科研</span><span>文书</span><span>作品集</span>
         </div>
+        <p class="gcard__fact"><span>模块化按需单点选购<i>·</i></span><span>不必绑定全程服务</span></p>
+        <span class="gcard__link"><b>单项服务</b><span class="gcard__leader"></span><span class="gcard__arrow">→</span></span>
       </a>
-      <a class="card card--camp reveal" href="writing-camp.html">
-        <h3>名校文书训练营</h3>
-        <p>3 天小班授课 + 2 天一对一训练，藤校金牌顾问带你写出征服招生官的故事。</p>
-        <div class="card__tags"><span>小班授课</span><span>一对一训练</span><span>藤校顾问</span></div>
-        <span class="card__link">了解详情 <svg class="ic"><use href="#ic-arrow"/></svg></span>
-      </a>
+    </div>
+    <!-- 承接还没想清楚的用户：给一个免费出口，避免流失 -->
+    <div class="goal-foot reveal">
+      <p>还对不上号？评估是免费的，导师 24 小时内联系。</p>
+      <a class="btn btn--line" href="index.html#consult">预约免费评估 <svg class="ic"><use href="#ic-arrow"/></svg></a>
     </div>
   </section>
 
@@ -218,56 +333,69 @@
     </figure>
     <div class="features-main">
     <div class="section__head reveal">
+      <p class="eyebrow">SERVICE MODES · 四种模式</p>
       <h2>四种服务模式</h2>
       <p class="lead">对号入座，找到最适合自己的那一种。</p>
     </div>
     <div class="feature-grid">
       <article class="feature-card feature-card--1 reveal">
-        <span class="feature-card__icon">
-          <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2.5" y="2.5" width="4" height="4" rx="1"/><rect x="8" y="2.5" width="4" height="4" rx="1"/><rect x="13.5" y="2.5" width="4" height="4" rx="1"/>
-            <rect x="2.5" y="8" width="4" height="4" rx="1"/><rect x="8" y="8" width="4" height="4" rx="1"/><rect x="13.5" y="8" width="4" height="4" rx="1"/>
-            <rect x="2.5" y="13.5" width="4" height="4" rx="1"/><rect x="8" y="13.5" width="4" height="4" rx="1"/><rect x="13.5" y="13.5" width="4" height="4" rx="1"/>
-          </svg>
-        </span>
-        <div class="feature-card__body">
+        <div class="feature-card__head">
           <h3>整套定制化服务</h3>
-          <p>力争最优结果、追求个性化交付的家庭——提供中学模块整套定制化服务。</p>
+          <span class="feature-card__icon">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2.5" y="2.5" width="4" height="4" rx="1"/><rect x="8" y="2.5" width="4" height="4" rx="1"/><rect x="13.5" y="2.5" width="4" height="4" rx="1"/>
+              <rect x="2.5" y="8" width="4" height="4" rx="1"/><rect x="8" y="8" width="4" height="4" rx="1"/><rect x="13.5" y="8" width="4" height="4" rx="1"/>
+              <rect x="2.5" y="13.5" width="4" height="4" rx="1"/><rect x="8" y="13.5" width="4" height="4" rx="1"/><rect x="13.5" y="13.5" width="4" height="4" rx="1"/>
+            </svg>
+          </span>
+        </div>
+        <div class="feature-card__body">
+          <p>中学模块整套定制，从规划到交付全程个性化推进。</p>
+          <i class="feature-card__fit">适合：力争最优结果、追求个性化交付的家庭</i>
         </div>
       </article>
       <article class="feature-card feature-card--2 reveal">
-        <span class="feature-card__icon">
-          <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="10,2 17,6.5 17,13.5 10,18 3,13.5 3,6.5"/>
-            <polygon points="10,5.5 13.5,7.7 13.5,12 10,14.2 6.5,12 6.5,7.7"/>
-            <line x1="10" y1="2" x2="10" y2="14.2"/><line x1="3" y1="6.5" x2="13.5" y2="12"/><line x1="17" y1="6.5" x2="6.5" y2="12"/>
-          </svg>
-        </span>
-        <div class="feature-card__body">
+        <div class="feature-card__head">
           <h3>专业规划服务</h3>
-          <p>目标清晰明确、但不确定达成路径的学生——提供专业规划服务，铺好路线。</p>
+          <span class="feature-card__icon">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="10,2 17,6.5 17,13.5 10,18 3,13.5 3,6.5"/>
+              <polygon points="10,5.5 13.5,7.7 13.5,12 10,14.2 6.5,12 6.5,7.7"/>
+              <line x1="10" y1="2" x2="10" y2="14.2"/><line x1="3" y1="6.5" x2="13.5" y2="12"/><line x1="17" y1="6.5" x2="6.5" y2="12"/>
+            </svg>
+          </span>
+        </div>
+        <div class="feature-card__body">
+          <p>把清晰的目标翻译成可执行的路线图，铺好每一步。</p>
+          <i class="feature-card__fit">适合：目标明确、但不确定达成路径的学生</i>
         </div>
       </article>
       <article class="feature-card feature-card--3 reveal">
-        <span class="feature-card__icon">
-          <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M13.5 3.2l3.3 3.3-9 9-4 0.7 0.7-4z"/><line x1="12" y1="4.7" x2="15.3" y2="8"/><line x1="3" y1="17.5" x2="17" y2="17.5"/>
-          </svg>
-        </span>
-        <div class="feature-card__body">
+        <div class="feature-card__head">
           <h3>精英导师服务</h3>
-          <p>勤奋自律、学历能力强、但缺少指导和信息的学生——配备精英导师服务。</p>
+          <span class="feature-card__icon">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13.5 3.2l3.3 3.3-9 9-4 0.7 0.7-4z"/><line x1="12" y1="4.7" x2="15.3" y2="8"/><line x1="3" y1="17.5" x2="17" y2="17.5"/>
+            </svg>
+          </span>
+        </div>
+        <div class="feature-card__body">
+          <p>一对一精英导师，补齐信息差与方法论，指到关键处。</p>
+          <i class="feature-card__fit">适合：勤奋自律、缺少指导和信息的学生</i>
         </div>
       </article>
       <article class="feature-card feature-card--4 reveal">
-        <span class="feature-card__icon">
-          <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="8" cy="6.5" r="3"/><line x1="8" y1="9.5" x2="8" y2="13"/><path d="M5.5 13h5"/><path d="M6 13l-1 4.5h6L10 13"/><line x1="11.5" y1="4.5" x2="15" y2="4.5"/>
-          </svg>
-        </span>
-        <div class="feature-card__body">
+        <div class="feature-card__head">
           <h3>全程教练服务</h3>
-          <p>天资聪颖、需要督导、且父母无时间陪伴的学生——提供全程教练服务。</p>
+          <span class="feature-card__icon">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8" cy="6.5" r="3"/><line x1="8" y1="9.5" x2="8" y2="13"/><path d="M5.5 13h5"/><path d="M6 13l-1 4.5h6L10 13"/><line x1="11.5" y1="4.5" x2="15" y2="4.5"/>
+            </svg>
+          </span>
+        </div>
+        <div class="feature-card__body">
+          <p>节奏管理与全程督导，把自驱力落成日拱一卒的执行。</p>
+          <i class="feature-card__fit">适合：天资聪颖、需要督导、父母无暇陪伴的学生</i>
         </div>
       </article>
     </div>
@@ -284,17 +412,14 @@
       </div>
       <div class="principle-grid">
         <article class="principle-item">
-          <span class="principle-item__no">01</span>
           <h3>少即是多</h3>
           <p>所有规划活动均经过必要性验证，只保留真正影响录取结果的关键事项，避免无效投入。</p>
         </article>
         <article class="principle-item">
-          <span class="principle-item__no">02</span>
           <h3>全程透明</h3>
           <p>无隐形消费，无冗余任务，学生的时间与精力始终聚焦于最有价值的成长维度。</p>
         </article>
         <article class="principle-item">
-          <span class="principle-item__no">03</span>
           <h3>长期陪伴</h3>
           <p>从申请启动到录取后职业发展衔接，我们持续提供成长支持，确保每一步都踩在实处。</p>
         </article>
@@ -306,6 +431,7 @@
   <section class="biz-wrap" id="biz">
     <div class="biz-callout reveal">
       <div class="biz-callout__text">
+        <p class="eyebrow">PARTNERSHIP · 商务合作</p>
         <h3>商务合作</h3>
         <p>面向学校与机构的战略合作，共建高端留学服务生态。</p>
       </div>
@@ -399,6 +525,6 @@
   <!-- 移动端常驻 CTA -->
   <a href="index.html#consult" class="float-cta" id="floatCta">免费评估</a>
 
-  <script src="js/main.js?v=6"></script>
+  <script src="js/main.js?v=9"></script>
 </body>
 </html>

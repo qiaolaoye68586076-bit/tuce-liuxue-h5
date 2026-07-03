@@ -404,16 +404,16 @@
       setTimeout(tick, delay);
     }
 
-    // 等 hero-footnote 动画结束后启动（1.6s delay + 0.6s duration）
-    setTimeout(tick, 2400);
+    // 等 hero-footnote 动画结束后启动（1.35s delay + 0.6s duration）
+    setTimeout(tick, 2100);
   })();
 
-  // 滚动后隐藏向下提示
+  // 滚动后隐藏向下提示（bounce 关键帧含 opacity，内联样式压不过运行中的动画，须用 class 停掉动画）
   window.addEventListener('scroll', function () {
     var hint = document.querySelector('.hero-scroll-hint');
     if (hint) {
-      hint.style.opacity = '0';
       hint.style.transition = 'opacity 0.5s';
+      hint.classList.add('is-hidden');
     }
   }, { once: true, passive: true });
 })();
