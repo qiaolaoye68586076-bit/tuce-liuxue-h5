@@ -408,3 +408,29 @@
 
 ### 遗留 / 下次继续
 - 无
+
+## 2026-07-08 · 转学页+多国联申页全面改版 + 首页流程蛇形布局 + 洞察期刊目录式 + single-service 删除
+
+**范围：** 25 文件（2577 插入 / 805 删除）
+**commit:** `f025730`
+
+### 内容改版
+- **转学页** `transfer.html`：全新 tf-* 内容（数据带 + 对比表 + 六要素 + 权重公式 + 截止日 + 三条结论卡 + 关键材料卡），page-hero 深绿底图 + 动画入场
+- **多国联申页** `uk-eu.html`：四幕叙事结构重排（诊断→案例→方案→结果），mc-bridge/mc-to-result 幕间过渡，section-nav 底部导航
+- **美本训练营** `meiben.html#writing-camp`：camp-* 深绿主卡（3+2 课程表 + 成果条 + 理念对开 classroom 实拍）
+- **首页洞察** `index.html#insights`：期刊编辑式版面（特稿 7fr + 索引 5fr + 藏书票兜底），tsweep 下划线动画
+- **首页师资横条** `index.html#team`：team-band 纸白底（首尾引号 + 4 位导师头像叠排 + 锚点深链 teachers.html#mentor-xxx）
+- **首页流程** `index.html#process`：organic-snake 蛇形布局（SVG 曲线 + 锚点圆点 + 终点印章）
+
+### 导航重构
+- 全站 nav/drawer 统一：「英欧加港本科」→「多国联申」，删除「单项服务」
+- `single-service.html` 页面删除（6 处引用 → 咨询入口或服务总览）
+- services.html svc-index/svcmap/gcard 三项引用全部替换
+
+### CSS 修复
+- Brace 平衡修正（2089:2087 → 2087:2087），修复了 `@media` 嵌套畸形区块
+- 转学页 `.os-phase-bg` 标记为 legacy dead class
+- 全局 `.sec-cream` 保留结构不变
+- explore-card 升级（白卡 + box-shadow + 悬停位移）
+- explore 区域 `explore__grid` 探索卡片改为暖白小卡片，删除左色带编号水印
+
