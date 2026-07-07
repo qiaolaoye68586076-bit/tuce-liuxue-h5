@@ -122,6 +122,7 @@ reference/                 竞品参考（stoooges）
 | 2026-06-19 | **M4-b 压缩 logo**（commit b3de3d9，已部署上线）：Pillow 从 logo-dark.svg 提取内嵌 PNG（RGB 彩色图 + L 灰度遮罩 putalpha 合成）→ 96×96 → `logo.webp`（q90，3.7KB）；删 logo-dark.svg + 替换 13 处引用（11 img + 2 JSON-LD）；同步 DOMAIN-CUTOVER/DESIGN-BRIEF/design-assets-needed；体积 1.27MB→3.7KB（-99.7%）；线上 logo.webp 200 image/webp、旧 svg 404 |
 | 2026-06-19 | **M5 修复 logo**（commit 5e52995，已部署上线）：诊断出 M4-b 的「源图」`logo-dark.svg` 实为 2048×2048 三合一设计拼版（面板1 绿盾/面板2 Logo-Light/面板3 Favicon），整张缩放导致页面显示「3 个小盾」；从拼版裁面板1单盾（合成透明底→裁 `(293,110)-(1024,1024)`→alpha tight-crop 得 704×882），方案A 保比例缩 77×96 居中于 96×96 透明画布 → `logo.webp` 1832 字节；路径未变零 HTML/CSS 改动；线上 200 / Content-Length 1832（注：commit 仅本地未 push 远端 git）|
 | 2026-06-26 | SSH 密钥配置 + 推送 5 个提交：生成 RSA 4096 位 SSH 密钥对并添加到 GitHub；推送 5 个本地提交（M5 commit 5e52995 + 新增 4 个 feat/chore）到 origin/main；branch tracking 已建立 |
+| 2026-07-08 | **转学页+多国联申页全面改版 + 首页蛇形布局 + 师资横条 + 洞察期刊目录式**：转学页 tf-* 新内容（对比表/六要素/权重/截止日/结论卡）；多国联申四幕叙事重构（诊断→案例→方案→结果）；美本训练营深绿主卡（camp-* 课程表+成果条+理念对开）；首页流程 organic-snake SVG 蜿蜒布局取代滑动卡片；首页师资横条 team-band（4 位导师头像叠排+锚点深链）；首页洞察改版为特稿/索引期刊编辑式；导航全站统一「多国联申」+ 删除 single-service.html（6 处引用重定向）；CSS brace 修复 + 统一版本号 edd8afa3 |
 
 ---
 
