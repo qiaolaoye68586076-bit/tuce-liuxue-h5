@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=e637b713" />
+  <link rel="stylesheet" href="css/style.css?v=edd8afa3" />
 </head>
 <body>
 
@@ -53,8 +53,7 @@
             <a href="meiben.html">美国本科</a>
             <a href="graduate.html">研究生</a>
             <a href="transfer.html">转学</a>
-            <a href="uk-eu.html">英欧加港本科</a>
-            <a href="single-service.html">单项服务</a>
+            <a href="uk-eu.html">多国联申</a>
           </div>
         </div>
         <a href="teachers.html" class="is-active">师资</a>
@@ -76,8 +75,7 @@
           <a href="meiben.html">美国本科</a>
           <a href="graduate.html">研究生</a>
           <a href="transfer.html">转学</a>
-          <a href="uk-eu.html">英欧加港本科</a>
-          <a href="single-service.html">单项服务</a>
+          <a href="uk-eu.html">多国联申</a>
         </div>
       </div>
       <a href="teachers.html" class="is-active">师资</a>
@@ -102,7 +100,7 @@
        ⚠️ member__photo 为真实导师照片（mentor-0x.jpg） -->
   <section class="team-grid-wrap">
     <div class="team__grid">
-        <article class="member member--clickable reveal" data-mentor role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Kevin 的自述">
+        <article id="mentor-kevin" class="member member--clickable reveal" data-mentor role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Kevin 的自述">
           <div class="member__frame">
             <img class="member__photo" loading="lazy" src="assets/mentor-01.jpg" alt="创始人 Kevin" />
             <span class="member__veil"><span class="member__cue">点击查看自述 <svg class="ic"><use href="#ic-arrow"/></svg></span></span>
@@ -138,7 +136,7 @@
           </template>
         </article>
 
-        <article class="member member--clickable reveal" data-mentor role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Jennifer 的自述">
+        <article id="mentor-jennifer" class="member member--clickable reveal" data-mentor role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Jennifer 的自述">
           <div class="member__frame">
             <img class="member__photo" loading="lazy" src="assets/mentor-03.jpg" alt="导师 Jennifer" />
             <span class="member__veil"><span class="member__cue">点击查看自述 <svg class="ic"><use href="#ic-arrow"/></svg></span></span>
@@ -177,7 +175,7 @@
           </template>
         </article>
 
-        <article class="member member--clickable reveal" data-mentor role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 荣子依 的自述">
+        <article id="mentor-rong" class="member member--clickable reveal" data-mentor role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 荣子依 的自述">
           <div class="member__frame">
             <img class="member__photo" loading="lazy" src="assets/mentor-04.jpg" alt="导师 荣子依" />
             <span class="member__veil"><span class="member__cue">点击查看自述 <svg class="ic"><use href="#ic-arrow"/></svg></span></span>
@@ -216,7 +214,7 @@
           </template>
         </article>
 
-        <article class="member member--clickable reveal" data-mentor role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Tim 楚浩哲 的自述">
+        <article id="mentor-tim" class="member member--clickable reveal" data-mentor role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Tim 楚浩哲 的自述">
           <div class="member__frame">
             <img class="member__photo" loading="lazy" src="assets/mentor-02.jpg" alt="文书顾问 Tim 楚浩哲" />
             <span class="member__veil"><span class="member__cue">点击查看自述 <svg class="ic"><use href="#ic-arrow"/></svg></span></span>
@@ -391,6 +389,18 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') close();
     });
+
+    // 从首页师资横条深链进来（teachers.html#mentor-xxx）：滚动到该导师卡并展开其自述
+    function openFromHash() {
+      var id = (location.hash || '').replace(/^#/, '');
+      if (!id) return;
+      var card = document.getElementById(id);
+      if (!card || !card.classList.contains('member--clickable')) return;
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      open(card);
+    }
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
   })();
   </script>
 </body>
