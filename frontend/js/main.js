@@ -417,3 +417,19 @@
     }
   }, { once: true, passive: true });
 })();
+
+  /* ===================== Timeline Animations ===================== */
+  var animateEls = document.querySelectorAll('[data-animate]');
+  if ('IntersectionObserver' in window && animateEls.length) {
+    var aio = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          aio.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -50px 0px" });
+    Array.prototype.slice.call(animateEls).forEach(function(el) {
+      aio.observe(el);
+    });
+  }

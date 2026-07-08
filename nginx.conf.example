@@ -1,12 +1,21 @@
 # 途策留学 H5 官网 Nginx 配置示例
 # 远端实际文件：/etc/nginx/conf.d/tuce.conf
 # 本文件是版本控制副本，改远端配置时请同步更新此文件。
+# 2026-07-08 域名切换 + SSL 上线后同步：tuce.asia 已生效，Certbot 自动续期。
 
 server {
-    listen 80 default_server;
-    server_name _;
+    server_name tuce.asia www.tuce.asia;
     root /var/www/tuce;
     index index.html;
+
+    # 留资后端 Flask/标准库 服务反代（tuce-lead.service，监听 127.0.0.1:5000）
+    # proxy_pass 不带尾斜杠：保留 /api/ 前缀，后端路由为 /api/lead
+    location /api/ {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
 
     location / {
         try_files $uri $uri/ $uri.html =404;
@@ -21,16 +30,34 @@ server {
         add_header Cache-Control "public, immutable";
     }
 
-    # 留资后端反代（tuce-lead.service，标准库 http.server，监听 127.0.0.1:5000）
-    # proxy_pass 不带尾斜杠：保留 /api/ 前缀，后端路由为 /api/lead
-    location /api/ {
-        proxy_pass http://127.0.0.1:5000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-
     gzip on;
     gzip_types text/plain text/css application/json application/javascript image/svg+xml;
     gzip_min_length 1024;
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/tuce.asia/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/tuce.asia/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+
+}
+server {
+    if ($host = www.tuce.asia) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = tuce.asia) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80 default_server;
+    server_name tuce.asia www.tuce.asia;
+    return 404; # managed by Certbot
+
+
+
+
 }

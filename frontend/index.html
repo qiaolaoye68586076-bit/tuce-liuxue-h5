@@ -78,7 +78,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=edd8afa3" />
+  <link rel="stylesheet" href="css/style.css?v=cd57aaca" />
+  <link rel="stylesheet" href="css/timeline.css?v=tl7" />
   <style>
     /* —— 精选案例卡 · 校徽抬头 + 策略引文（与 cases.html 同步：暖白卡 / 深绿底）—— */
     .stories__grid{ align-items:stretch; }
@@ -407,164 +408,136 @@
     </div>
   </section>
 
-    <!-- ===== 板块 3 · 申请流程（动态直线蛇形布局） ===== -->
-  <section class="section flow" id="process">
-    <div class="section__head reveal">
-      <p class="eyebrow">PROCESS</p>
-      <h2>分阶段的全程申请路径</h2>
-      <p class="lead">从规划到入学，三大阶段、十个制胜步骤。每一步都有迹可循，张弛有度。</p>
-    </div>
-    
-    <div class="organic-snake">
+
+  
+
+
+  <!-- ===== 板块 3 · 申请流程（纯业务逻辑） ===== -->
+  <section class="section flow it-section" id="process">
+    <div class="it-container">
+      <div class="section__head reveal">
+        <p class="eyebrow">PROCESS</p>
+        <h2>分阶段的全程申请路径</h2>
+        <p class="lead">从规划到入学，三大阶段、十个制胜步骤。每一步都有迹可循，张弛有度。</p>
+      </div>
       
-      <!-- Row 1: Phase 1 (LTR) -->
-      <div class="os-row os-row--ltr phase-planning reveal">
-        <svg class="os-curve" preserveAspectRatio="none" viewBox="0 0 1000 200">
-          <path class="os-path" pathLength="100" d="M 100,60 L 900,60 C 936,60 955,96 955,200" />
-        </svg>
-        
-        <div class="os-cell os-phase-cell">
-          <span class="os-phase-tag os-phase-tag--gold">PLANNING</span>
-          <h3>规划期</h3>
-            <p>确立定位路线<br>硬软实力双修</p>
-          </div>
-        </div>
-        
-        <div class="os-cell">
-          <div class="os-item__no">01</div>
-          <div class="os-dot"></div>
-          <div class="os-item__text">
-            <h4>背景评估</h4>
-            <p>G7测评与诊断，锁定真实区间。</p>
-          </div>
-        </div>
-        
-        <div class="os-cell">
-          <div class="os-item__no">02</div>
-          <div class="os-dot"></div>
-          <div class="os-item__text">
-            <h4>策略规划</h4>
-            <p>专属选校梯度与冲刺时间线。</p>
-          </div>
-        </div>
-        
-        <div class="os-cell">
-          <div class="os-item__no">03</div>
-          <div class="os-dot"></div>
-          <div class="os-item__text">
-            <h4>学术支持</h4>
-            <p>课内答疑与GPA、标化提升规划。</p>
-          </div>
-        </div>
-        
-        <div class="os-cell">
-          <div class="os-item__no">04</div>
-          <div class="os-dot os-dot--strong"></div>
-          <div class="os-item__text os-item--strong">
-            <h4>背景提升</h4>
-            <p>真实科研与作品集，打造人设。</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Row 2: Phase 2 (RTL) -->
-      <div class="os-row os-row--rtl phase-application reveal">
-        <svg class="os-curve" preserveAspectRatio="none" viewBox="0 0 1000 200">
-          <path class="os-path" pathLength="100" d="M 955,0 C 955,95 936,140 900,140 L 100,140 C 64,140 45,100 45,0" />
+      <div class="tl-stage" data-animate>
+        <svg class="tl-path" viewBox="0 0 1200 860" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="tl-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#A89157"/>
+              <stop offset=".2" stop-color="#A89157"/>
+              <stop offset=".5" stop-color="#2D5A4C"/>
+              <stop offset=".62" stop-color="#2D5A4C"/>
+              <stop offset=".95" stop-color="#C36B42"/>
+            </linearGradient>
+          </defs>
+          <path d="M 210,160 H 1010 A 132.5,132.5 0 0 1 1010,425 H 190 A 132.5,132.5 0 0 0 190,690 H 1090" stroke="url(#tl-grad)" pathLength="100" vector-effect="non-scaling-stroke"/>
         </svg>
 
-        <div class="os-cell os-phase-cell">
-          <span class="os-phase-tag os-phase-tag--green">APPLICATION</span>
-          <h3>申请季</h3>
-          <p>差异化人设定位<br>从容稳健投递</p>
+        <!-- 阶段 · 规划期（路径起点） -->
+        <div class="tl-node tl-phase lockup-left" style="--x:17.50%;--y:18.60%;--pc:#A89157;--i:1">
+          <span class="tl-dot tl-dot--phase"></span>
+          <div class="tl-lockup"><span class="tl-eyebrow">Planning</span><span class="tl-phase-name">规划期</span></div>
         </div>
-        
-        <div class="os-cell">
-          <div class="os-item__no">05</div>
-          <div class="os-dot"></div>
-          <div class="os-item__text">
-            <h4>包装策略</h4>
-            <p>锚定院校口味，确立差异化主线。</p>
+        <div class="tl-node tl-step is-below" style="--x:32.92%;--y:18.60%;--pc:#A89157;--i:2">
+          <span class="tl-dot"></span>
+          <div class="tl-card">
+            <div class="tl-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+            <h3 class="tl-title">背景评估</h3>
+            <p class="tl-desc">G7测评，锁定真实区间。</p>
           </div>
         </div>
-        
-        <div class="os-cell">
-          <div class="os-item__no">06</div>
-          <div class="os-dot os-dot--strong"></div>
-          <div class="os-item__text os-item--strong">
-            <h4>文书打磨</h4>
-            <p>主副文书深度共创，讲好专属故事。</p>
+        <div class="tl-node tl-step is-above" style="--x:53.33%;--y:18.60%;--pc:#A89157;--i:3">
+          <span class="tl-dot"></span>
+          <div class="tl-card">
+            <div class="tl-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
+            <h3 class="tl-title">策略规划</h3>
+            <p class="tl-desc">选校梯度与冲刺时间线。</p>
           </div>
         </div>
-        
-        <div class="os-cell">
-          <div class="os-item__no">07</div>
-          <div class="os-dot"></div>
-          <div class="os-item__text">
-            <h4>网申投递</h4>
-            <p>选校终稿与材料严谨核验，稳健投递。</p>
+        <div class="tl-node tl-step is-below" style="--x:75.00%;--y:18.60%;--pc:#A89157;--i:4">
+          <span class="tl-dot"></span>
+          <div class="tl-card">
+            <div class="tl-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+            <h3 class="tl-title">学术支持</h3>
+            <p class="tl-desc">课内答疑与标化提升规划。</p>
           </div>
         </div>
-        
-        <div class="os-cell">
-          <div class="os-item__no">08</div>
-          <div class="os-dot"></div>
-          <div class="os-item__text">
-            <h4>面试辅导</h4>
-            <p>全真模拟与高频题库复盘，应对面试。</p>
+
+        <!-- 阶段 · 申请季（右转弯顶点） -->
+        <div class="tl-node tl-phase lockup-left" style="--x:95.21%;--y:34.01%;--pc:#2D5A4C;--i:6">
+          <span class="tl-dot tl-dot--phase"></span>
+          <div class="tl-lockup"><span class="tl-eyebrow">Application</span><span class="tl-phase-name">申请季</span></div>
+        </div>
+        <div class="tl-node tl-step is-below" style="--x:73.33%;--y:49.42%;--pc:#2D5A4C;--i:7">
+          <span class="tl-dot"></span>
+          <div class="tl-card">
+            <div class="tl-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></div>
+            <h3 class="tl-title">背景提升</h3>
+            <p class="tl-desc">科研与作品集，打造人设。</p>
           </div>
+        </div>
+        <div class="tl-node tl-step is-above" style="--x:54.58%;--y:49.42%;--pc:#2D5A4C;--i:8">
+          <span class="tl-dot"></span>
+          <div class="tl-card">
+            <div class="tl-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+            <h3 class="tl-title">包装策略</h3>
+            <p class="tl-desc">以差异化主线锚定院校。</p>
+          </div>
+        </div>
+        <div class="tl-node tl-step is-below" style="--x:35.83%;--y:49.42%;--pc:#2D5A4C;--i:9">
+          <span class="tl-dot"></span>
+          <div class="tl-card">
+            <div class="tl-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+            <h3 class="tl-title">文书打磨</h3>
+            <p class="tl-desc">主副文书，讲好专属故事。</p>
+          </div>
+        </div>
+        <div class="tl-node tl-step is-above" style="--x:15.42%;--y:49.42%;--pc:#2D5A4C;--i:10">
+          <span class="tl-dot"></span>
+          <div class="tl-card">
+            <div class="tl-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
+            <h3 class="tl-title">网申投递</h3>
+            <p class="tl-desc">材料严谨核验，稳健投递。</p>
+          </div>
+        </div>
+
+        <!-- 阶段 · 后申请季（左转弯顶点） -->
+        <div class="tl-node tl-phase lockup-right" style="--x:4.79%;--y:64.83%;--pc:#C36B42;--i:11">
+          <span class="tl-dot tl-dot--phase"></span>
+          <div class="tl-lockup"><span class="tl-eyebrow">Beyond</span><span class="tl-phase-name">后申请季</span></div>
+        </div>
+        <div class="tl-node tl-step is-below" style="--x:33.33%;--y:80.23%;--pc:#C36B42;--i:12">
+          <span class="tl-dot"></span>
+          <div class="tl-card">
+            <div class="tl-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <h3 class="tl-title">面试辅导</h3>
+            <p class="tl-desc">全真模拟复盘，从容应对。</p>
+          </div>
+        </div>
+        <div class="tl-node tl-step is-above" style="--x:55.00%;--y:80.23%;--pc:#C36B42;--i:13">
+          <span class="tl-dot"></span>
+          <div class="tl-card">
+            <div class="tl-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 11 17 15 11"/></svg></div>
+            <h3 class="tl-title">Offer决策</h3>
+            <p class="tl-desc">横向权衡比较，做最优解。</p>
+          </div>
+        </div>
+        <div class="tl-node tl-step is-below" style="--x:76.67%;--y:80.23%;--pc:#C36B42;--i:14">
+          <span class="tl-dot"></span>
+          <div class="tl-card">
+            <div class="tl-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.2-1.1.7l-1.4 3.5c-.3.7 0 1.5.7 1.8l5.8 2.3-2.5 2.5-3.7-1c-.5-.1-1 .2-1.2.7l-.8 1.8c-.2.5.1 1.1.6 1.4l5.3 2 2 5.3c.3.5.9.8 1.4.6l1.8-.8c.5-.2.8-.7.7-1.2l-1-3.7 2.5-2.5 2.3 5.8c.3.7 1.1 1 1.8.7l3.5-1.4c.5-.2.8-.6.7-1.1z"/></svg></div>
+            <h3 class="tl-title">签证入学</h3>
+            <p class="tl-desc">签证全流程与行前指导。</p>
+          </div>
+        </div>
+
+        <div class="tl-node tl-end" style="--x:90.83%;--y:80.23%;--pc:#C36B42;--i:17">
+          <span class="tl-dot tl-dot--phase"></span>
+          <span class="tl-end-label">Dream Begins</span>
         </div>
       </div>
-
-      <!-- Row 3: Phase 3 (LTR) -->
-      <div class="os-row os-row--ltr phase-beyond reveal">
-        <svg class="os-curve" preserveAspectRatio="none" viewBox="0 0 1000 200">
-          <path class="os-path" pathLength="100" d="M 45,0 C 45,95 64,140 100,140 L 900,140" />
-        </svg>
-
-        <div class="os-cell os-phase-cell">
-          <span class="os-phase-tag os-phase-tag--copper">BEYOND</span>
-          <h3>后申请季</h3>
-          <p>多Offer决策对比<br>行前顺利启程</p>
-        </div>
-        
-        <div class="os-cell">
-          <div class="os-item__no">09</div>
-          <div class="os-dot"></div>
-          <div class="os-item__text">
-            <h4>Offer决策</h4>
-            <p>结合长远发展横向比较，做最优解。</p>
-          </div>
-        </div>
-        
-        <div class="os-cell">
-          <div class="os-item__no">10</div>
-          <div class="os-dot"></div>
-          <div class="os-item__text">
-            <h4>签证入学</h4>
-            <p>签证全流程精细辅导与行前指导。</p>
-          </div>
-        </div>
-        
-        <!-- home stretch：抵达前的一段空白路轨 -->
-        <div class="os-cell os-cell--empty"></div>
-
-        <!-- 终点印章：路径的落点，抵达梦校 -->
-        <div class="os-cell os-seal-cell">
-          <div class="os-seal" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 3 22 8l-10 5L2 8l10-5Z" fill="currentColor"/>
-              <path d="M6 10.5V15c0 1.4 2.7 2.7 6 2.7s6-1.3 6-2.7v-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M22 8v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="os-item__text">
-            <h4>圆梦启程</h4>
-            <p>手握理想 Offer，奔赴热爱的世界。</p>
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -787,7 +760,7 @@
     </div>
     <div class="footer__bar">
       <span>© 2026 途策留学 TuCe Education. 保留所有权利。</span>
-      <span>沪ICP备 0000000 号</span>
+      <span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow" style="color:inherit;text-decoration:none;">沪ICP备2026025218号-2</a></span>
     </div>
   </footer>
 

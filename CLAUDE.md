@@ -7,7 +7,7 @@
 ## 项目概况
 
 **客户：** 途策留学（TUCE Education）/ 上海途策必达教育科技有限公司  
-**项目：** H5 官网（多页面架构，静态前端 + 轻后端规划中）；已部署上线 http://121.43.101.155，ICP 备案中  
+**项目：** H5 官网（多页面架构，静态前端 + 轻后端规划中）；已正式上线 **https://tuce.asia**（Let's Encrypt SSL / HTTP→HTTPS 强跳 / ICP 备案 `沪ICP备2026025218号-2`，2026-07-08）；ECS IP `121.43.101.155`  
 **设计风格：** Collegiate Editorial Luxury — 深森林绿 + 暖金 + 米纸，Fraunces / 思源宋体  
 **文件结构：**（2026-06-18 工程化重构，前后端分离预留）
 ```
@@ -90,14 +90,14 @@ reference/                 竞品参考（stoooges）
   - [x] `cases.html` 案例详情页（ItemList + Review Schema）
   - [x] 首页 title 加年份"2026"
 - 待做：
-  - [ ] SSL 证书（阿里云，上线前必须）⚠️
-  - [ ] ICP 备案号替换页脚占位符（备案审核中）
-  - [ ] 向百度站长平台提交 sitemap（上线后）
+  - [x] SSL 证书（**2026-07-08 上线**：Let's Encrypt certbot，非阿里云；有效期至 10/6 自动续）
+  - [x] ICP 备案号替换页脚占位符（**2026-07-08**：`沪ICP备2026025218号-2` + 工信部链接，10 页）
+  - [ ] 向百度站长平台提交 sitemap（**上线已就绪，待提交** `https://tuce.asia/sitemap.xml`）+ Bing + Google Search Console
   - [ ] 知乎机构号 + 第一篇 GEO 文章
   - [ ] 百度百家号开通
   - [ ] cases.html 填入真实案例内容
   - [ ] 9 个页面缺 og:image：services.html / meiben.html / writing-camp.html / graduate.html / transfer.html / uk-eu.html / single-service.html / teachers.html / cases.html —— 候选并入未来 GEO 批次
-  - [ ] 备案后清理 nginx conflicting server name "_" warning（详见 docs/DOMAIN-CUTOVER.md §4.11）
+  - [x] 备案后清理 nginx conflicting server name "_" warning（**2026-07-08**：`server_name` 已改 `tuce.asia www.tuce.asia`）
 
 ---
 
@@ -123,6 +123,7 @@ reference/                 竞品参考（stoooges）
 | 2026-06-19 | **M5 修复 logo**（commit 5e52995，已部署上线）：诊断出 M4-b 的「源图」`logo-dark.svg` 实为 2048×2048 三合一设计拼版（面板1 绿盾/面板2 Logo-Light/面板3 Favicon），整张缩放导致页面显示「3 个小盾」；从拼版裁面板1单盾（合成透明底→裁 `(293,110)-(1024,1024)`→alpha tight-crop 得 704×882），方案A 保比例缩 77×96 居中于 96×96 透明画布 → `logo.webp` 1832 字节；路径未变零 HTML/CSS 改动；线上 200 / Content-Length 1832（注：commit 仅本地未 push 远端 git）|
 | 2026-06-26 | SSH 密钥配置 + 推送 5 个提交：生成 RSA 4096 位 SSH 密钥对并添加到 GitHub；推送 5 个本地提交（M5 commit 5e52995 + 新增 4 个 feat/chore）到 origin/main；branch tracking 已建立 |
 | 2026-07-08 | **转学页+多国联申页全面改版 + 首页蛇形布局 + 师资横条 + 洞察期刊目录式**：转学页 tf-* 新内容（对比表/六要素/权重/截止日/结论卡）；多国联申四幕叙事重构（诊断→案例→方案→结果）；美本训练营深绿主卡（camp-* 课程表+成果条+理念对开）；首页流程 organic-snake SVG 蜿蜒布局取代滑动卡片；首页师资横条 team-band（4 位导师头像叠排+锚点深链）；首页洞察改版为特稿/索引期刊编辑式；导航全站统一「多国联申」+ 删除 single-service.html（6 处引用重定向）；CSS brace 修复 + 统一版本号 edd8afa3 |
+| 2026-07-08 | **🚀 备案通过正式上线（域名 + HTTPS + 备案号）**：ICP `沪ICP备2026025218号-2` 下证；阿里云 DNS 加 `tuce.asia`+`www` A 记录 + 安全组放行 443；服务器装 certbot 1.22.0 签 Let's Encrypt 证书（`--nginx --redirect`，有效期至 10/6 自动续），`server_name _`→`tuce.asia www.tuce.asia`，HTTP→HTTPS 301；10 页页脚占位备案号→真实号+工信部链接，`./deploy.sh` 上线；11 页 HTTPS 全 200，服务器端核验通过。踩坑：本地代理 fake-ip 污染 dig/curl（改 DoH+ssh 核验）；timeline 脚本临时文件触发 deploy 的 title 守卫中止 |
 
 ---
 

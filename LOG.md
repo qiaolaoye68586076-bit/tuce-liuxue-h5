@@ -29,7 +29,7 @@
 
 | # | 位置 | 现象 | 状态 |
 |---|---|---|---|
-| 1 | `footer` | ICP 备案号是占位 `沪ICP备 0000000 号` | ⏳ 待客户提供 |
+| 1 | `footer` | ~~ICP 备案号是占位 `沪ICP备 0000000 号`~~ | ✅ 已替换为 `沪ICP备2026025218号-2` + 工信部链接（2026-07-08 上线） |
 | 2 | `#stats` 卡片 | 4 张图是 "Image placeholder"，未接真图 | ⏳ 待素材 |
 | 3 | `#mentors` | 导师信息（哈佛/耶鲁等）为示例，未经授权 | ⏳ 待客户确认 |
 | 4 | `cases.html` `#case-w/l/c` | W/L/C 同学案例为虚构占位（已迁至案例页） | ⏳ 待真实授权案例 |
@@ -433,4 +433,36 @@
 - 全局 `.sec-cream` 保留结构不变
 - explore-card 升级（白卡 + box-shadow + 悬停位移）
 - explore 区域 `explore__grid` 探索卡片改为暖白小卡片，删除左色带编号水印
+
+---
+
+## 2026-07-08 · 🚀 备案通过正式上线：域名 + HTTPS + 备案号
+
+**里程碑：** ICP 备案（`沪ICP备2026025218号-2`）通过，站点从「IP 裸访问」升级为 `https://tuce.asia` 正式上线。
+
+### 完成（上线六步）
+1. **DNS 解析**：阿里云为 `tuce.asia` + `www` 加 A 记录 → `121.43.101.155`（TTL 600）
+2. **安全组**：入方向放行 `443`（此前仅 80/22022）
+3. **解析验证**：Google/阿里 DoH 双查均返回 `121.43.101.155`（绕开本地代理 fake-ip）
+4. **SSL 证书**：服务器装 certbot 1.22.0 → `certbot --nginx -d tuce.asia -d www.tuce.asia --redirect`，Let's Encrypt 签发（有效期至 2026-10-06，自动续期任务已装，`renew --dry-run` 通过）
+5. **nginx**：`server_name` 从占位 `_` 改为 `tuce.asia www.tuce.asia`（顺手消除文档 4.11 的 conflicting warning）；certbot 自动加 443 server 块 + HTTP→HTTPS 301
+6. **备案合规**：10 个页面页脚 `沪ICP备 0000000 号` → `沪ICP备2026025218号-2`，并加 `beian.miit.gov.cn` 链接；随 `./deploy.sh` 上线
+
+### 验收（服务器端 ground truth）
+- 11 页 HTTPS 全部 200；HTTP→HTTPS 301；www 正常；证书 issuer=Let's Encrypt
+- 服务器端 `grep`：10 页含真实备案号、0 页占位残留
+
+### Debug / 踩坑
+| 现象 | 原因 | 解决方式 |
+|---|---|---|
+| `ssh tuce` 报 `kex_exchange_identification: Connection closed` | 本地科学上网代理拦截了到固定 IP:22022 的 SSH 连接 | 关代理后 SSH 直通（**关代理**是前提） |
+| 本地 `dig tuce.asia` 返回 `198.18.0.x` 假 IP | 代理 fake-ip 模式劫持 DNS | 改用 DoH（dns.google / 223.5.5.5）查真实公网解析 |
+| 本地 `curl` 验证线上结果「时有时无」反复横跳 | 代理偶发拦截 curl，即使 `--resolve` 也可能被系统级代理绕过 | 一律以 `ssh` 到服务器 `grep /var/www/tuce/*.html` 为准 |
+| `./deploy.sh` 中止：`_tl_test.html 缺 <title>` 但该文件又不存在 | timeline 生成脚本往 `frontend/` 写了一闪而过的临时 html，触发 deploy 的 title 守卫 | 临时文件清掉后重跑；**教训：生成脚本别往 `frontend/` 写临时文件** |
+| 两次误报「已生效」 | 用 grep 过滤了 deploy 输出没看见中止；又信了被代理污染的 curl | 改为完整输出 + 服务器端核验 |
+
+### 遗留 / 下次继续
+- [ ] 提交 sitemap 给百度/Bing/Google（`https://tuce.asia/sitemap.xml`）
+- [ ] 同步线上 nginx 配置回仓库 `nginx.conf.example`（现多了 443/证书/server_name）并 commit
+- [ ] 清理仓库根目录临时实验文件（`fix_*.py` / `timeline*.html` / `generate_*.js` / `replace_*.py` 等）+ 提交 7/8 及本次改动
 
