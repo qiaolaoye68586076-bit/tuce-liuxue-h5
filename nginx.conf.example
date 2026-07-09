@@ -17,7 +17,16 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 
+    # 规范化：/index.html → /（避免首页出现两个可访问 URL）
+    location = /index.html {
+        return 301 /;
+    }
+
     location / {
+        # 规范化：/page.html → /page（隐藏 .html 后缀，301 防重复内容）
+        if ($request_uri ~ ^/(.+)\.html(\?.*)?$) {
+            return 301 /$1$2;
+        }
         try_files $uri $uri/ $uri.html =404;
     }
 

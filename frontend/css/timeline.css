@@ -13,6 +13,9 @@
   position:relative;
   overflow:hidden;
 }
+@media (max-width:600px){
+  .it-section{ padding:52px 0 60px; }
+}
 .it-container{
   max-width:1200px;
   margin:0 auto;
@@ -53,6 +56,11 @@
 .tl-end-label{
   font-family:'Fraunces',Georgia,serif;font-style:italic;
   color:#C36B42;letter-spacing:.08em;white-space:nowrap;
+}
+
+/* ---------- 桌面：隐藏移动滑动卡 ---------- */
+@media (min-width:901px){
+  .pflow{display:none;}
 }
 
 /* ---------- 桌面：信息图布局 ---------- */
@@ -132,31 +140,74 @@
   .tl-stage.visible .tl-end-label{opacity:.9;}
 }
 
-/* ---------- 移动：竖向单线列表 ---------- */
+/* ---------- 移动：三阶段滑动卡（取代过长的竖向单线，左右滑动切换） ---------- */
 @media (max-width:900px){
-  .tl-stage{padding:4px 0 0;}
-  .tl-path{display:none;}
-  .tl-stage::before{
-    content:"";position:absolute;left:20px;top:12px;bottom:20px;width:2px;border-radius:2px;
-    background:linear-gradient(to bottom,#A89157 0%,#A89157 24%,#2D5A4C 42%,#2D5A4C 64%,#C36B42 88%,#C36B42 100%);
-    opacity:.85;
+  .tl-stage{display:none;}                       /* 隐藏桌面信息图 */
+
+  .pflow{margin-top:22px;}
+  /* 视口做左右溢出出血，让卡片可以滑到贴近屏幕边缘，露出「下一张」的一角 */
+  .pflow__viewport{
+    margin:0 -20px;padding:2px 20px 4px;
+    overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
   }
-  .tl-node{position:relative;}
-  .tl-dot{position:absolute;left:20px;transform:translateX(-50%);width:9px;height:9px;}
+  .pflow__viewport::-webkit-scrollbar{display:none;}
+  .pflow__track{display:flex;gap:14px;width:max-content;}
 
-  .tl-phase{padding:12px 0 22px 46px;}
-  .tl-phase .tl-dot{top:22px;width:13px;height:13px;}
-  .tl-eyebrow{margin-bottom:4px;}
-  .tl-phase-name{font-size:20px;}
+  .pflow__card{
+    scroll-snap-align:center;
+    flex:0 0 82vw;max-width:360px;
+    box-sizing:border-box;
+    display:flex;flex-direction:column;
+    padding:22px 20px 24px;
+    background:#fff;border:1px solid #ece5d8;border-top:3px solid var(--pc);
+    border-radius:14px;
+    box-shadow:0 18px 40px -26px rgba(31,42,36,.5);
+  }
+  .pflow__top{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+  .pflow__no{
+    font-family:'Fraunces',Georgia,serif;font-size:34px;font-weight:600;line-height:1;
+    color:var(--pc);opacity:.9;
+  }
+  .pflow__phase{display:flex;flex-direction:column;gap:3px;}
+  .pflow__phase em{
+    font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:12px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--pc);opacity:.7;
+  }
+  .pflow__phase b{font-size:19px;font-weight:700;color:#1f2a24;letter-spacing:.03em;}
 
-  .tl-step{padding:0 4px 30px 46px;}
-  .tl-step .tl-dot{top:7px;}
-  .tl-card{text-align:left;}
-  .tl-icon{width:24px;height:24px;margin:0 0 8px;}
+  .pflow__steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;flex:1 1 auto;}
+  .pflow__steps li{display:flex;gap:13px;align-items:flex-start;}
+  .pflow__ic{
+    flex:0 0 auto;width:34px;height:34px;border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--pc);background:rgba(168,145,87,.1);        /* 旧 Safari 回退 */
+    background:color-mix(in srgb,var(--pc) 12%,#fff);
+  }
+  .pflow__ic svg{width:19px;height:19px;}
+  .pflow__steps li>div{flex:1 1 auto;min-width:0;padding-top:1px;}
+  .pflow__steps b{display:block;font-size:15px;font-weight:600;color:#1f2a24;margin-bottom:3px;letter-spacing:.02em;}
+  .pflow__steps p{margin:0;font-size:12.5px;line-height:1.6;color:#777;}
 
-  .tl-end{padding:2px 0 4px 46px;}
-  .tl-end .tl-dot{top:3px;width:13px;height:13px;}
-  .tl-end-label{font-size:12px;}
+  .pflow__end{
+    margin:18px 0 0;padding-top:14px;border-top:1px dashed #e4ddce;
+    font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:14px;
+    letter-spacing:.06em;color:var(--pc);text-align:center;
+  }
+  .pflow__end span{margin-right:5px;}
+
+  .pflow__dots{display:flex;justify-content:center;gap:9px;margin-top:20px;}
+  .pflow__dot{
+    width:8px;height:8px;padding:0;border:0;border-radius:50%;
+    background:#d3cbba;cursor:pointer;transition:width .28s ease,background .28s ease;
+  }
+  .pflow__dot.is-active{width:24px;border-radius:5px;background:#A89157;}
+
+  .pflow__hint{
+    margin:12px 0 0;text-align:center;font-size:11.5px;letter-spacing:.14em;
+    color:#a99f8b;
+  }
 }
 
 /* ---------- 无动效偏好 ---------- */
@@ -164,4 +215,6 @@
   .tl-path path,.tl-dot,.tl-card,.tl-lockup,.tl-end-label{
     transition:none !important;
   }
+  .pflow__viewport{scroll-behavior:auto;}
+  .pflow__dot{transition:none;}
 }

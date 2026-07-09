@@ -10,7 +10,7 @@
   <meta name="description" content="途策留学2026届学员真实录取案例：涵盖美国本科、研究生、英联邦等。每位同学都有完整申请策略复盘，供备考同学参考。2024–2026 三届学员，220+ 枚 Offer，覆盖美英港新澳加。" />
   <meta name="keywords" content="留学录取案例,美本录取案例,途策留学案例,录取去向,藤校录取,2026录取" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://tuce.asia/cases.html" />
+  <link rel="canonical" href="https://tuce.asia/cases" />
   <meta http-equiv="content-language" content="zh-CN" />
 
   <!-- Open Graph -->
@@ -18,7 +18,7 @@
   <meta property="og:site_name" content="途策留学" />
   <meta property="og:title" content="2026届录取案例 · 成功案例与录取去向 | 途策留学" />
   <meta property="og:description" content="途策留学2026届学员真实录取案例，含申请背景、策略复盘与学员感言。" />
-  <meta property="og:url" content="https://tuce.asia/cases.html" />
+  <meta property="og:url" content="https://tuce.asia/cases" />
 
   <!-- ===== 结构化数据：ItemList（案例列表） ===== -->
   <script type="application/ld+json">
@@ -27,12 +27,12 @@
     "@type": "ItemList",
     "name": "途策留学2026届录取案例",
     "description": "途策留学学员2026申请季真实录取案例，涵盖美国本科、研究生及英联邦院校。",
-    "url": "https://tuce.asia/cases.html",
+    "url": "https://tuce.asia/cases",
     "numberOfItems": 3,
     "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Yu同学（广州）→ 哥伦比亚大学（哲学）", "url": "https://tuce.asia/cases.html#case-w"},
-      {"@type": "ListItem", "position": 2, "name": "Li同学 → 康奈尔大学（物理 · 混沌理论 · 工程创新）", "url": "https://tuce.asia/cases.html#case-l"},
-      {"@type": "ListItem", "position": 3, "name": "Wang同学 → 芝加哥大学（经济学 · 公共政策 · 行为经济学）", "url": "https://tuce.asia/cases.html#case-c"}
+      {"@type": "ListItem", "position": 1, "name": "Yu同学（广州）→ 哥伦比亚大学（哲学）", "url": "https://tuce.asia/cases#case-w"},
+      {"@type": "ListItem", "position": 2, "name": "Li同学 → 康奈尔大学（物理 · 混沌理论 · 工程创新）", "url": "https://tuce.asia/cases#case-l"},
+      {"@type": "ListItem", "position": 3, "name": "Wang同学 → 芝加哥大学（经济学 · 公共政策 · 行为经济学）", "url": "https://tuce.asia/cases#case-c"}
     ]
   }
   </script>
@@ -66,7 +66,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=cd57aaca" />
+  <link rel="stylesheet" href="css/style.css?v=nr5b1" />
 
   <!-- ===== 案例详情卡（页内局部样式，沿用全站配色变量） ===== -->
   <style>
@@ -321,6 +321,9 @@
       border:1px solid rgba(0,168,107,.45); border-radius:6px; padding:13px 15px;
       transform:translate(16px,-50%); box-shadow:0 14px 40px rgba(0,0,0,.45); }
     .gcard.flip{ transform:translate(calc(-100% - 16px),-50%); }
+    /* 触屏无悬停：拖拽旋转时 pointermove 会把信息卡弹到触点、被取景框上缘裁成一角「小框」；
+       JS 已按 hover:hover 拦截，这里再加一道 CSS 保险 */
+    @media (hover:none){ .gcard{ display:none !important; } }
     .gcard h4{ font-stretch:75%; font-size:15px; font-weight:700; color:#f4efe6; line-height:1.4; margin:0; }
     .gcard .en{ font-size:11px; letter-spacing:.04em; color:rgba(244,239,230,.5); margin:0; }
     .gcard .prog{ margin:8px 0 0; font-size:13px; color:#7fdcb0; }
@@ -742,7 +745,7 @@
   <!-- ===== 顶部导航（全站共用） ===== -->
   <header class="nav" id="nav">
     <div class="nav__inner">
-      <a class="brand" href="index.html" aria-label="途策留学">
+      <a class="brand" href="./" aria-label="途策留学">
         <span class="brand__badge"><img id="brandLogo" src="assets/logo.webp" alt="途策留学" class="brand__logo" /></span>
         <span class="brand__text">
           <b>途策留学</b>
@@ -750,44 +753,44 @@
         </span>
       </a>
       <nav class="nav__links">
-        <a href="index.html">首页</a>
+        <a href="./">首页</a>
         <div class="nav__drop">
-          <a href="services.html" class="nav__drop-toggle">服务</a>
+          <a href="services" class="nav__drop-toggle">服务</a>
           <div class="nav__submenu">
-            <a href="services.html">服务总览</a>
-            <a href="meiben.html">美国本科</a>
-            <a href="graduate.html">研究生</a>
-            <a href="transfer.html">转学</a>
-            <a href="uk-eu.html">多国联申</a>
+            <a href="services">服务总览</a>
+            <a href="meiben">美国本科</a>
+            <a href="graduate">研究生</a>
+            <a href="transfer">转学</a>
+            <a href="uk-eu">多国联申</a>
           </div>
         </div>
-        <a href="teachers.html">师资</a>
-        <a href="cases.html" class="is-active">案例</a>
-        <a href="index.html#faq">常见问题</a>
-        <a href="blog.html">洞察</a>
+        <a href="teachers">师资</a>
+        <a href="cases" class="is-active">案例</a>
+        <a href="./#faq">常见问题</a>
+        <a href="blog">洞察</a>
       </nav>
-      <a href="index.html#consult" class="btn btn--cta nav__cta">免费评估</a>
+      <a href="./#consult" class="btn btn--cta nav__cta">免费评估</a>
       <button class="nav__burger" id="burger" aria-label="菜单">
         <span></span><span></span><span></span>
       </button>
     </div>
     <div class="nav__drawer" id="drawer">
-      <a href="index.html">首页</a>
+      <a href="./">首页</a>
       <div class="drawer__group">
         <button type="button" class="drawer__toggle">服务</button>
         <div class="drawer__sub">
-          <a href="services.html">服务总览</a>
-          <a href="meiben.html">美国本科</a>
-          <a href="graduate.html">研究生</a>
-          <a href="transfer.html">转学</a>
-          <a href="uk-eu.html">多国联申</a>
+          <a href="services">服务总览</a>
+          <a href="meiben">美国本科</a>
+          <a href="graduate">研究生</a>
+          <a href="transfer">转学</a>
+          <a href="uk-eu">多国联申</a>
         </div>
       </div>
-      <a href="teachers.html">师资</a>
-      <a href="cases.html" class="is-active">案例</a>
-      <a href="index.html#faq">常见问题</a>
-      <a href="blog.html">洞察</a>
-      <a href="index.html#consult" class="btn btn--cta">免费评估</a>
+      <a href="teachers">师资</a>
+      <a href="cases" class="is-active">案例</a>
+      <a href="./#faq">常见问题</a>
+      <a href="blog">洞察</a>
+      <a href="./#consult" class="btn btn--cta">免费评估</a>
     </div>
   </header>
 
@@ -1017,8 +1020,8 @@
       <h2>你的故事，从这里开始</h2>
       <p>免费评估你的申请背景，制定专属策略——下一个抵达的，可能就是你。</p>
       <div class="cta-band__actions">
-        <a class="btn btn--cta btn--lg" href="index.html#consult">预约免费评估 <svg class="ic"><use href="#ic-arrow"/></svg></a>
-        <a class="btn btn--line" href="services.html">查看服务方案 <svg class="ic"><use href="#ic-arrow"/></svg></a>
+        <a class="btn btn--cta btn--lg" href="./#consult">预约免费评估 <svg class="ic"><use href="#ic-arrow"/></svg></a>
+        <a class="btn btn--line" href="services">查看服务方案 <svg class="ic"><use href="#ic-arrow"/></svg></a>
       </div>
     </div>
   </section>
@@ -1061,11 +1064,11 @@
       <!-- 3 · 快速链接 -->
       <div class="footer__col">
         <h4>快速链接</h4>
-        <a href="services.html">服务方案</a>
-        <a href="teachers.html">师资团队</a>
-        <a href="cases.html">成功案例</a>
-        <a href="index.html#faq">常见问题</a>
-        <a href="blog.html">留学洞察</a>
+        <a href="services">服务方案</a>
+        <a href="teachers">师资团队</a>
+        <a href="cases">成功案例</a>
+        <a href="./#faq">常见问题</a>
+        <a href="blog">留学洞察</a>
       </div>
 
       <!-- 4 · 关注我们 -->
@@ -1095,7 +1098,7 @@
   </footer>
 
   <!-- 移动端常驻 CTA -->
-  <a href="index.html#consult" class="float-cta" id="floatCta">免费评估</a>
+  <a href="./#consult" class="float-cta" id="floatCta">免费评估</a>
 
   <script src="js/main.js?v=9"></script>
 
@@ -1214,7 +1217,12 @@
     const card = document.getElementById('gcard');
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const byId = Object.fromEntries(data.payload.map((c) => [c.id, c]));
+    // 触摸屏没有真正的「悬停」：拖拽时 pointermove 仍会触发 onHover，把毛玻璃信息卡
+    // 定位到触点处；若触点靠近取景框上缘，卡片被 overflow 裁切，只剩一角，看起来就是
+    // 「上缘一个显示不清的小框」。触屏一律不弹信息卡（提示文案已改为「拖拽旋转地球」）。
+    const canHoverCard = matchMedia('(hover: hover)').matches;
     function onHover(id, x, y) {
+      if (!canHoverCard) { card.hidden = true; return; }
       if (!id) { card.hidden = true; return; }
       const c = byId[id];
       card.innerHTML = `<h4>${esc(c.school_zh)}</h4><p class="en">${esc(c.school_en)}</p><p class="prog">${c.count} 枚 Offer · ${c.yearSpan}</p><p class="meta">${esc(c.programs)}</p>`;
@@ -1683,7 +1691,7 @@
       document.querySelectorAll('[data-case]').forEach(function(btn){
         btn.addEventListener('click', function(){ open(btn.dataset.case); });
       });
-      // 跨页直达：首页案例卡链接到 cases.html#case-w/-l/-c，落地时自动展开对应案例
+      // 跨页直达：首页案例卡链接到 cases#case-w/-l/-c，落地时自动展开对应案例
       function openFromHash(){
         var id = location.hash.replace('#', '');
         if(id && document.getElementById('tpl-' + id)) open(id);

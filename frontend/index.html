@@ -78,10 +78,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=cd57aaca" />
-  <link rel="stylesheet" href="css/timeline.css?v=tl7" />
+  <link rel="stylesheet" href="css/style.css?v=5" />
+  <link rel="stylesheet" href="css/timeline.css?v=tl9" />
   <style>
-    /* —— 精选案例卡 · 校徽抬头 + 策略引文（与 cases.html 同步：暖白卡 / 深绿底）—— */
+    /* —— 精选案例卡 · 校徽抬头 + 策略引文（与 cases 同步：暖白卡 / 深绿底）—— */
     .stories__grid{ align-items:stretch; }
     .stories__grid .casecard{
       position:relative; display:flex; flex-direction:column; width:100%; height:100%; text-align:left;
@@ -116,12 +116,45 @@
     .casecard__rule{ height:1px; background:var(--line); margin:16px 0; }
     .casecard__quote{ flex:1 1 auto; font-style:italic; color:#6a6a6a;
       font-size:14px; line-height:1.75; margin:0; }
-    .casecard__more{ display:inline-flex; align-items:center; align-self:flex-end; margin-top:22px;
-      font-stretch:84%; font-size:13px; font-weight:800; letter-spacing:.02em;
-      color:#fff; background:var(--green); padding:9px 18px; border-radius:999px;
-      transition:background .3s, color .3s, transform .35s var(--ease), box-shadow .35s; }
-    .stories__grid .casecard:hover .casecard__more{ background:var(--gold); color:var(--green);
-      transform:translateX(3px); box-shadow:0 12px 24px -12px rgba(168,145,87,.7); }
+    .casecard__more{ display:inline-flex; align-items:center; align-self:flex-start; margin-top:22px;
+      font-stretch:84%; font-size:14px; font-weight:800; letter-spacing:.02em;
+      color:var(--green); transition:color .3s, transform .35s var(--ease); }
+    .stories__grid .casecard:hover .casecard__more{ color:var(--gold); transform:translateX(4px); }
+    /* —— 移动端：三卡竖排 → 横滑轨道（左对齐吸附，右缘露下一张卡角示意可滑）—— */
+    @media (max-width:759.98px){
+      .stories__grid{
+        display:flex; align-items:stretch; gap:12px;
+        overflow-x:auto; overflow-y:hidden;
+        scroll-snap-type:x mandatory; scroll-padding-left:20px;
+        -webkit-overflow-scrolling:touch;
+        margin:0 -20px; padding:4px 20px 10px;
+        scrollbar-width:none;
+      }
+      .stories__grid::-webkit-scrollbar{ display:none; }
+      /* 卡片外尺寸与洞察卡一致（84vw / 346px），内部逐行锁定行高：
+         校名 1 行省略、标题固定 3 行、引文固定 2 行截断 → 三卡严格等大 */
+      .stories__grid .casecard{
+        flex:0 0 84vw; max-width:346px; scroll-snap-align:start;
+        padding:20px;
+      }
+      .casecard__school{
+        min-height:0; margin-top:12px;
+        white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+      }
+      .casecard__title{
+        font-size:18px; line-height:1.45; min-height:calc(3 * 1.45em);
+        display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+      }
+      .casecard__scores{ gap:8px; margin-top:13px; }
+      .casecard__score{ font-size:14px; }
+      .casecard__score--key{ font-size:16.5px; }
+      .casecard__rule{ margin:13px 0; }
+      .casecard__quote{
+        font-size:13px; line-height:1.7; min-height:calc(2 * 1.7em);
+        display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+      }
+      .casecard__more{ margin-top:16px; font-size:12.5px; padding:8px 16px; }
+    }
   </style>
   <!-- ===== FAQ结构化数据（提高AI引用率） ===== -->
   <script type="application/ld+json">
@@ -134,7 +167,7 @@
         "name": "途策留学和别的留学中介有什么不同？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "途策的核心差异是"策略先行"的定制化服务。我们不为每个学生走模板化流程，而是通过G7潜能测评建立个人画像，3对1专属团队制定个性化申请策略，拒绝千人一面。"
+          "text": "途策的核心差异是“策略先行”的定制化服务。我们不为每个学生走模板化流程，而是通过G7潜能测评建立个人画像，3对1专属团队制定个性化申请策略，拒绝千人一面。"
         }
       },
       {
@@ -198,21 +231,21 @@
         </span>
       </a>
       <nav class="nav__links">
-        <a href="index.html" class="is-active">首页</a>
+        <a href="./" class="is-active">首页</a>
         <div class="nav__drop">
-          <a href="services.html" class="nav__drop-toggle">服务</a>
+          <a href="services" class="nav__drop-toggle">服务</a>
           <div class="nav__submenu">
-            <a href="services.html">服务总览</a>
-            <a href="meiben.html">美国本科</a>
-            <a href="graduate.html">研究生</a>
-            <a href="transfer.html">转学</a>
-            <a href="uk-eu.html">多国联申</a>
+            <a href="services">服务总览</a>
+            <a href="meiben">美国本科</a>
+            <a href="graduate">研究生</a>
+            <a href="transfer">转学</a>
+            <a href="uk-eu">多国联申</a>
           </div>
         </div>
-        <a href="teachers.html">师资</a>
-        <a href="cases.html">案例</a>
+        <a href="teachers">师资</a>
+        <a href="cases">案例</a>
         <a href="#faq">常见问题</a>
-        <a href="blog.html">洞察</a>
+        <a href="blog">洞察</a>
       </nav>
       <a href="#consult" class="btn btn--cta nav__cta">免费评估</a>
       <button class="nav__burger" id="burger" aria-label="菜单">
@@ -220,21 +253,21 @@
       </button>
     </div>
     <div class="nav__drawer" id="drawer">
-      <a href="index.html" class="is-active">首页</a>
+      <a href="./" class="is-active">首页</a>
       <div class="drawer__group">
         <button type="button" class="drawer__toggle">服务</button>
         <div class="drawer__sub">
-          <a href="services.html">服务总览</a>
-          <a href="meiben.html">美国本科</a>
-          <a href="graduate.html">研究生</a>
-          <a href="transfer.html">转学</a>
-          <a href="uk-eu.html">多国联申</a>
+          <a href="services">服务总览</a>
+          <a href="meiben">美国本科</a>
+          <a href="graduate">研究生</a>
+          <a href="transfer">转学</a>
+          <a href="uk-eu">多国联申</a>
         </div>
       </div>
-      <a href="teachers.html">师资</a>
-      <a href="cases.html">案例</a>
+      <a href="teachers">师资</a>
+      <a href="cases">案例</a>
       <a href="#faq">常见问题</a>
-      <a href="blog.html">洞察</a>
+      <a href="blog">洞察</a>
       <a href="#consult" class="btn btn--cta">免费评估</a>
     </div>
   </header>
@@ -260,7 +293,7 @@
           免费定制方案
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M14 6.5 19.5 12 14 17.5"/></svg>
         </a>
-        <a href="services.html" class="hero-cta-secondary">了解服务</a>
+        <a href="services" class="hero-cta-secondary">了解服务</a>
       </div>
       <p class="hero-footnote" aria-live="polite">
         <span class="hero-footnote__cursor" aria-hidden="true"></span>
@@ -280,56 +313,57 @@
       <p class="lead">从美国本科到研究生，从多国混申到本科转学——首页只保留四个关键入口，完整的方法论在各服务页里讲清楚。</p>
     </div>
     <div class="svcgal">
-      <a class="svcgal-card svcgal-card--us reveal" href="meiben.html">
+      <a class="svcgal-card svcgal-card--us reveal" href="meiben">
         <span class="svcgal-card__no" aria-hidden="true">01</span>
         <span class="svcgal-card__chip" aria-hidden="true"><svg class="ic"><use href="#ic-arrow"/></svg></span>
-        <h3>美国本科<span class="svcgal-card__tag">·核心业务</span></h3>
-        <p class="svcgal-card__desc">成长规划、学术硬实力、申请表达与影响力三大模块，整合名校文书训练营。</p>
+        <h3>美国本科</h3>
+        <p class="svcgal-card__desc">成长规划、学术硬实力、申请表达与影响力三大模块，由全常春藤导师团队深度把控，整合名校文书训练营，发掘独一无二的智识好奇心，拒绝模板化申请。</p>
         <span class="svcgal-card__stage" aria-hidden="true">
           <i class="svcgal-card__arch"></i>
           <img src="assets/svc-liberty.webp" alt="" width="511" height="1400" loading="lazy" />
           <em class="svcgal-card__fig">Fig. 01 · Liberty, New York</em>
         </span>
       </a>
-      <a class="svcgal-card svcgal-card--sm svcgal-card--grad reveal" href="graduate.html">
+      <a class="svcgal-card svcgal-card--sm svcgal-card--grad reveal" href="graduate">
         <span class="svcgal-card__no" aria-hidden="true">02</span>
         <span class="svcgal-card__chip" aria-hidden="true"><svg class="ic"><use href="#ic-arrow"/></svg></span>
         <h3>研究生</h3>
-        <p class="svcgal-card__desc">专业定位、文书面试到签证入学，一路陪到落地。</p>
+        <p class="svcgal-card__desc">从专业精准定位、精细化文书打磨到全真模拟面试辅导，我们层层扫除申请盲区。不仅为您匹配顶尖学术资源，更为您的名校录取和长远职业发展铺设坚实基石，团队将一路陪伴直至您顺利落地入读。</p>
         <span class="svcgal-card__stage" aria-hidden="true">
           <i class="svcgal-card__arch"></i>
           <img src="assets/svc-dome.webp" alt="" width="536" height="1000" loading="lazy" />
           <em class="svcgal-card__fig">Fig. 02 · The Dome</em>
         </span>
       </a>
-      <a class="svcgal-card svcgal-card--sm svcgal-card--multi reveal" href="uk-eu.html">
+      <a class="svcgal-card svcgal-card--sm svcgal-card--multi reveal" href="uk-eu">
         <span class="svcgal-card__no" aria-hidden="true">03</span>
         <span class="svcgal-card__chip" aria-hidden="true"><svg class="ic"><use href="#ic-arrow"/></svg></span>
         <h3>多国联申</h3>
-        <p class="svcgal-card__desc">美英加港新组合投递，把录取概率科学重组。</p>
+        <p class="svcgal-card__desc">美英加港新等多赛道同时发力。利用同一份顶尖准备材料，结合各地区不同录取偏好，为您科学重组多国投递矩阵。通过设定冲刺、稳妥、保底三档极具策略性的组合，实现名校录取概率的最大化。</p>
         <span class="svcgal-card__stage" aria-hidden="true">
           <i class="svcgal-card__arch"></i>
           <img src="assets/svc-bigben.webp" alt="" width="252" height="1000" loading="lazy" />
           <em class="svcgal-card__fig">Fig. 03 · Westminster</em>
         </span>
       </a>
-      <a class="svcgal-card svcgal-card--sm svcgal-card--transfer reveal" href="transfer.html">
+      <a class="svcgal-card svcgal-card--sm svcgal-card--transfer reveal" href="transfer">
         <span class="svcgal-card__no" aria-hidden="true">04</span>
         <span class="svcgal-card__chip" aria-hidden="true"><svg class="ic"><use href="#ic-arrow"/></svg></span>
         <h3>转学</h3>
-        <p class="svcgal-card__desc">学分规划与转学申请，把 GPA 变成向上的跳板。</p>
+        <p class="svcgal-card__desc">通过精准的学分转换评估与高阶转学策略制定，我们为您提供严密的12个月接力规划。重新盘活并最大化您现有的学术资源，将当前的 GPA 与履历变成冲击更顶尖梦校的坚实跳板，完成华丽逆袭。</p>
         <span class="svcgal-card__stage" aria-hidden="true">
           <img src="assets/svc-books.webp" alt="" width="900" height="1005" loading="lazy" />
           <em class="svcgal-card__fig">Fig. 04 · Ascending Stacks</em>
         </span>
       </a>
     </div>
+    
   </section>
 
   <!-- ===== 板块 2 · 数据冲击 + 成功案例引导（深色底） ===== -->
   <section class="section data-band sec-bleed sec-dark" id="stats">
     <div class="stats__band reveal">
-      <div class="figure"><b><span class="stat-num" data-target="220" data-unit="枚" data-plus="true">0</span></b><span class="figure__desc">Offer · 2024–2026</span></div>
+      <div class="figure"><b><span class="stat-num" data-target="220" data-unit="枚" data-plus="true">0</span></b><span class="figure__desc">2024–2026</span></div>
       <div class="figure"><b><span class="stat-num" data-target="59" data-unit="所" data-plus="true">0</span></b><span class="figure__desc">全球院校</span></div>
       <div class="figure"><b><span class="stat-num" data-target="6" data-unit="大地区" data-plus="false">0</span></b><span class="figure__desc">美英港新澳加</span></div>
       <div class="figure"><b><span class="stat-num" data-target="3" data-unit="届" data-plus="true">0</span></b><span class="figure__desc">学员 持续更新</span></div>
@@ -341,7 +375,7 @@
       <p class="lead">2024–2026 三届学员，覆盖美英港新澳加。每一枚 offer，都有迹可循。</p>
     </div>
     <div class="stories__grid">
-      <a class="casecard reveal" href="cases.html#case-w">
+      <a class="casecard reveal" href="cases#case-w">
         <span class="casecard__head"><img class="casecard__logo" src="assets/logo-columbia.svg" alt="哥伦比亚大学校徽" loading="lazy" /></span>
         <span class="casecard__school">哥伦比亚大学（哲学）</span>
         <h3 class="casecard__title">Yu 同学：从哲学思辨到公共表达，人文叙事如何打动哥大？</h3>
@@ -354,9 +388,9 @@
         </div>
         <div class="casecard__rule" aria-hidden="true"></div>
         <p class="casecard__quote">“哲学不只在书本的思辨里，更在如何理解世界、他人与自己的每一次追问中。”</p>
-        <span class="casecard__more">查看完整策略复盘 →</span>
+        <span class="casecard__more">阅读完整复盘 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px"><path d="M4 12h15M14 6.5 19.5 12 14 17.5"/></svg></span>
       </a>
-      <a class="casecard reveal" href="cases.html#case-l">
+      <a class="casecard reveal" href="cases#case-l">
         <span class="casecard__head"><img class="casecard__logo" src="assets/logo-cornell-t.png" alt="康奈尔大学校徽" loading="lazy" /></span>
         <span class="casecard__school">康奈尔大学（物理）</span>
         <h3 class="casecard__title">Li 同学：从混沌理论到康复机械臂，理工科叙事如何打动顶尖名校？</h3>
@@ -369,9 +403,9 @@
         </div>
         <div class="casecard__rule" aria-hidden="true"></div>
         <p class="casecard__quote">“物理不只在公式与实验里，更在发现真实问题、并动手解决它的过程中。”</p>
-        <span class="casecard__more">查看完整策略复盘 →</span>
+        <span class="casecard__more">阅读完整复盘 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px"><path d="M4 12h15M14 6.5 19.5 12 14 17.5"/></svg></span>
       </a>
-      <a class="casecard reveal" href="cases.html#case-c">
+      <a class="casecard reveal" href="cases#case-c">
         <span class="casecard__head"><img class="casecard__logo" src="assets/logo-chicago-t.png" alt="芝加哥大学校徽" loading="lazy" /></span>
         <span class="casecard__school">芝加哥大学（经济学）</span>
         <h3 class="casecard__title">Wang 同学：从行为经济学到公共议题，如何用一条主线打动芝大？</h3>
@@ -384,11 +418,23 @@
         </div>
         <div class="casecard__rule" aria-hidden="true"></div>
         <p class="casecard__quote">“经济学不只在课堂与模型里，更在人与人的互动、社会运行的每个细节中。”</p>
-        <span class="casecard__more">查看完整策略复盘 →</span>
+        <span class="casecard__more">阅读完整复盘 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px"><path d="M4 12h15M14 6.5 19.5 12 14 17.5"/></svg></span>
       </a>
     </div>
+    <!-- 移动端控制条（与洞察板块同款，深底配色变体）：脚本填充圆点并解除 hidden -->
+    <div class="insights-ctrl insights-ctrl--dark" id="caseCtrl" hidden>
+      <div class="insights-ctrl__dots" aria-label="案例导航"></div>
+      <div class="insights-ctrl__nav">
+        <button type="button" class="insights-ctrl__btn" aria-label="上一个案例" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button type="button" class="insights-ctrl__btn" aria-label="下一个案例">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
     <div class="data-band__cta reveal">
-      <a class="btn btn--cta btn--lg" href="cases.html">查看更多成功案例 <svg class="ic"><use href="#ic-arrow"/></svg></a>
+      <a class="btn btn--cta btn--lg" href="cases">查看更多成功案例 <svg class="ic"><use href="#ic-arrow"/></svg></a>
     </div>
   </section>
 
@@ -398,13 +444,48 @@
       <p class="eyebrow">MENTORS · 师资团队</p>
       <p class="team-band__quote">不靠信息差，不堆形容词，<br/>帮一个真实的人<em>找到、并讲好自己</em>。</p>
       <div class="team-band__faces">
-        <a href="teachers.html#mentor-kevin" aria-label="查看 Kevin 的自述"><img src="assets/mentor-thumb-01.webp" alt="Kevin" width="192" height="192" loading="lazy" /></a>
-        <a href="teachers.html#mentor-jennifer" aria-label="查看 Jennifer 的自述"><img src="assets/mentor-thumb-03.webp" alt="Jennifer" width="192" height="192" loading="lazy" /></a>
-        <a href="teachers.html#mentor-rong" aria-label="查看 荣子依 的自述"><img src="assets/mentor-thumb-04.webp" alt="荣子依" width="192" height="192" loading="lazy" /></a>
-        <a href="teachers.html#mentor-tim" aria-label="查看 Tim 楚浩哲 的自述"><img src="assets/mentor-thumb-02.webp" alt="Tim 楚浩哲" width="192" height="192" loading="lazy" /></a>
+        <a href="teachers#mentor-kevin" aria-label="查看 Kevin 的自述"><img src="assets/mentor-thumb-01.webp" alt="Kevin" width="192" height="192" loading="lazy" /></a>
+        <a href="teachers#mentor-jennifer" aria-label="查看 Jennifer 的自述"><img src="assets/mentor-thumb-03.webp" alt="Jennifer" width="192" height="192" loading="lazy" /></a>
+        <a href="teachers#mentor-rong" aria-label="查看 荣子依 的自述"><img src="assets/mentor-thumb-04.webp" alt="荣子依" width="192" height="192" loading="lazy" /></a>
+        <a href="teachers#mentor-tim" aria-label="查看 Tim 楚浩哲 的自述"><img src="assets/mentor-thumb-02.webp" alt="Tim 楚浩哲" width="192" height="192" loading="lazy" /></a>
       </div>
       <p class="team-band__names">Kevin · Jennifer · 荣子依 · Tim&nbsp;&nbsp;<i>3 对 1 专属团队，导师全程亲带</i></p>
-      <a class="btn btn--line" href="teachers.html">认识我们的导师 <svg class="ic"><use href="#ic-arrow"/></svg></a>
+      <!-- 移动端专属：迷你导师档案（不点进师资页也能了解每位导师是谁、强在哪） -->
+      <div class="team-band__minis" role="list">
+        <a class="team-mini" role="listitem" href="teachers#mentor-kevin">
+          <img src="assets/mentor-thumb-01.webp" alt="" width="192" height="192" loading="lazy" />
+          <span class="team-mini__txt">
+            <b>Kevin <i>· 创始人</i></b>
+            <em>宾大英语教学硕士 · 前波士顿报社记者</em>
+            <span>把挖故事讲清楚的本事用到每个孩子身上</span>
+          </span>
+        </a>
+        <a class="team-mini" role="listitem" href="teachers#mentor-jennifer">
+          <img src="assets/mentor-thumb-03.webp" alt="" width="192" height="192" loading="lazy" />
+          <span class="team-mini__txt">
+            <b>Jennifer <i>· 导师</i></b>
+            <em>UCLA 心理学学士 · 哥大社会组织心理学硕士</em>
+            <span>200+ 学生测评，录取覆盖哈佛剑桥港大</span>
+          </span>
+        </a>
+        <a class="team-mini" role="listitem" href="teachers#mentor-rong">
+          <img src="assets/mentor-thumb-04.webp" alt="" width="192" height="192" loading="lazy" />
+          <span class="team-mini__txt">
+            <b>荣子依 <i>· 导师</i></b>
+            <em>布雷拉美术学院 · 中科院认证心理咨询师</em>
+            <span>家庭疗愈，帮孩子把学习动力从心里点起来</span>
+          </span>
+        </a>
+        <a class="team-mini" role="listitem" href="teachers#mentor-tim">
+          <img src="assets/mentor-thumb-02.webp" alt="" width="192" height="192" loading="lazy" />
+          <span class="team-mini__txt">
+            <b>Tim 楚浩哲 <i>· 导师</i></b>
+            <em>斯坦福校友 · 前 Google GTM Director</em>
+            <span>提炼辨识度个人叙事，助 30+ 名校录取</span>
+          </span>
+        </a>
+      </div>
+      <a class="btn btn--line" href="teachers">认识我们的导师 <svg class="ic"><use href="#ic-arrow"/></svg></a>
     </div>
   </section>
 
@@ -538,6 +619,58 @@
           <span class="tl-end-label">Dream Begins</span>
         </div>
       </div>
+
+      <!-- 移动端：三阶段滑动卡（左右滑动切换，取代过长的竖向单线列表；桌面隐藏） -->
+      <div class="pflow" id="pflow" aria-label="申请流程 · 三大阶段">
+        <div class="pflow__viewport">
+          <div class="pflow__track" id="pflowTrack">
+            <!-- 阶段一 · 规划期 -->
+            <article class="pflow__card" style="--pc:#A89157">
+              <header class="pflow__top">
+                <span class="pflow__no" aria-hidden="true">01</span>
+                <span class="pflow__phase"><em>Planning</em><b>规划期</b></span>
+              </header>
+              <ol class="pflow__steps">
+                <li><span class="pflow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><div><b>背景评估</b><p>G7 测评，锁定真实区间。</p></div></li>
+                <li><span class="pflow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span><div><b>策略规划</b><p>选校梯度与冲刺时间线。</p></div></li>
+                <li><span class="pflow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span><div><b>学术支持</b><p>课内答疑与标化提升规划。</p></div></li>
+              </ol>
+            </article>
+            <!-- 阶段二 · 申请季 -->
+            <article class="pflow__card" style="--pc:#2D5A4C">
+              <header class="pflow__top">
+                <span class="pflow__no" aria-hidden="true">02</span>
+                <span class="pflow__phase"><em>Application</em><b>申请季</b></span>
+              </header>
+              <ol class="pflow__steps">
+                <li><span class="pflow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16"/></svg></span><div><b>背景提升</b><p>科研与作品集，打造人设。</p></div></li>
+                <li><span class="pflow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span><div><b>包装策略</b><p>以差异化主线锚定院校。</p></div></li>
+                <li><span class="pflow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><div><b>文书打磨</b><p>主副文书，讲好专属故事。</p></div></li>
+                <li><span class="pflow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><div><b>网申投递</b><p>材料严谨核验，稳健投递。</p></div></li>
+              </ol>
+            </article>
+            <!-- 阶段三 · 后申请季 -->
+            <article class="pflow__card" style="--pc:#C36B42">
+              <header class="pflow__top">
+                <span class="pflow__no" aria-hidden="true">03</span>
+                <span class="pflow__phase"><em>Beyond</em><b>后申请季</b></span>
+              </header>
+              <ol class="pflow__steps">
+                <li><span class="pflow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div><b>面试辅导</b><p>全真模拟复盘，从容应对。</p></div></li>
+                <li><span class="pflow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 11 17 15 11"/></svg></span><div><b>Offer 决策</b><p>横向权衡比较，做最优解。</p></div></li>
+                <li><span class="pflow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></span><div><b>签证入学</b><p>签证全流程与行前指导。</p></div></li>
+              </ol>
+              <p class="pflow__end"><span aria-hidden="true">✦</span> Dream Begins</p>
+            </article>
+          </div>
+        </div>
+        <div class="pflow__dots" id="pflowDots" role="tablist" aria-label="切换阶段">
+          <button type="button" class="pflow__dot is-active" aria-label="规划期"></button>
+          <button type="button" class="pflow__dot" aria-label="申请季"></button>
+          <button type="button" class="pflow__dot" aria-label="后申请季"></button>
+        </div>
+        <p class="pflow__hint" aria-hidden="true">← 左右滑动查看三大阶段 →</p>
+      </div>
     </div>
   </section>
 
@@ -612,9 +745,22 @@
         <h2>留学洞察</h2>
         <p class="lead">来自途策一线的策略分享。</p>
       </div>
-      <a class="insights-band__more" href="blog.html">查看全部文章 <svg class="ic"><use href="#ic-arrow"/></svg></a>
+      <a class="insights-band__more" href="blog">查看全部文章 <svg class="ic"><use href="#ic-arrow"/></svg></a>
     </div>
     <div class="insights-editorial" id="homeInsights"></div>
+    <!-- 移动端控制条（Newsroom 式）：左下圆点 + 右下双箭头；文章渲染后由脚本填充并解除 hidden -->
+    <div class="insights-ctrl" id="insCtrl" hidden>
+      <div class="insights-ctrl__dots" id="insDots" aria-label="文章导航"></div>
+      <div class="insights-ctrl__nav">
+        <button type="button" class="insights-ctrl__btn" id="insPrev" aria-label="上一篇" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button type="button" class="insights-ctrl__btn" id="insNext" aria-label="下一篇">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+    <a class="insights-viewall" href="blog">查看全部文章 <svg class="ic"><use href="#ic-arrow"/></svg></a>
   </section>
 
   <!-- ===== 板块 6 · 联系我们 / 转化（深色底） ===== -->
@@ -731,11 +877,11 @@
       <!-- 3 · 快速链接 -->
       <div class="footer__col">
         <h4>快速链接</h4>
-        <a href="services.html">服务方案</a>
-        <a href="teachers.html">师资团队</a>
-        <a href="cases.html">成功案例</a>
-        <a href="index.html#faq">常见问题</a>
-        <a href="blog.html">留学洞察</a>
+        <a href="services">服务方案</a>
+        <a href="teachers">师资团队</a>
+        <a href="cases">成功案例</a>
+        <a href="./#faq">常见问题</a>
+        <a href="blog">留学洞察</a>
       </div>
 
       <!-- 4 · 关注我们 -->
@@ -781,6 +927,106 @@
   </div>
 
   <script src="js/main.js?v=9"></script>
+
+  <!-- ===== 移动滑动卡通用逻辑：滑动 ⇄ 圆点联动（申请流程 / 学员之声） ===== -->
+  <script>
+  (function(){
+    'use strict';
+    // 把「横向滚动容器 + 圆点」绑成一个联动的滑动卡组件
+    function bindCarousel(vp, dots){
+      if (!vp || !dots.length) return;
+      var track = vp.firstElementChild;
+      var cards = track ? Array.prototype.slice.call(track.children) : [];
+      if (!cards.length) return;
+
+      function activeIndex(){
+        var mid = vp.scrollLeft + vp.clientWidth / 2, best = 0, bestDist = Infinity;
+        cards.forEach(function(card, i){
+          var d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - mid);
+          if (d < bestDist) { bestDist = d; best = i; }
+        });
+        return best;
+      }
+      function paint(){
+        var i = activeIndex();
+        dots.forEach(function(d, di){ d.classList.toggle('is-active', di === i); });
+      }
+      var ticking = false;
+      vp.addEventListener('scroll', function(){
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function(){ paint(); ticking = false; });
+      }, { passive:true });
+      dots.forEach(function(dot, i){
+        dot.addEventListener('click', function(){
+          var card = cards[i];
+          vp.scrollTo({ left: card.offsetLeft - (vp.clientWidth - card.offsetWidth) / 2, behavior:'smooth' });
+        });
+      });
+      paint();
+    }
+    function dotsOf(id){ var w = document.getElementById(id); return w ? Array.prototype.slice.call(w.children) : []; }
+
+    bindCarousel(document.querySelector('#pflow .pflow__viewport'), dotsOf('pflowDots'));
+
+    // Newsroom 式控制条通用绑定：横滑轨道 + 圆点 + 前后箭头（洞察 / 案例共用；
+    // 桌面控制条由 CSS 隐藏，绑定本身无副作用）
+    window.bindRailCtrl = function(rail, ctrl, cardList){
+      if (!rail || !ctrl) return;
+      var cards = Array.prototype.slice.call(cardList || rail.children);
+      if (cards.length < 2) return;
+      var dotsBox = ctrl.querySelector('.insights-ctrl__dots');
+      var btns = ctrl.querySelectorAll('.insights-ctrl__btn');
+      var prev = btns[0], next = btns[1];
+      if (!dotsBox || !prev || !next) return;
+      var idx = 0, dots = [];
+      dotsBox.innerHTML = '';
+      cards.forEach(function(_, i){
+        var d = document.createElement('button');
+        d.type = 'button';
+        d.className = 'insights-ctrl__dot' + (i === 0 ? ' is-active' : '');
+        d.setAttribute('aria-label', '第 ' + (i + 1) + ' 项');
+        d.addEventListener('click', function(){ go(i); });
+        dotsBox.appendChild(d); dots.push(d);
+      });
+      ctrl.hidden = false;
+      function paint(){
+        dots.forEach(function(d, i){ d.classList.toggle('is-active', i === idx); });
+        prev.disabled = idx <= 0;
+        next.disabled = idx >= cards.length - 1;
+      }
+      function go(i){
+        i = Math.max(0, Math.min(cards.length - 1, i));
+        rail.scrollTo({ left: cards[i].offsetLeft - cards[0].offsetLeft, behavior:'smooth' });
+      }
+      prev.addEventListener('click', function(){ go(idx - 1); });
+      next.addEventListener('click', function(){ go(idx + 1); });
+      var ticking = false;
+      rail.addEventListener('scroll', function(){
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function(){
+          // 以卡片中心距视口中心最近者为当前页（末卡无法左对齐时也能正确点亮）
+          var mid = rail.getBoundingClientRect().left + rail.clientWidth / 2;
+          var best = 0, bd = Infinity;
+          cards.forEach(function(c, i){
+            var r = c.getBoundingClientRect();
+            var d = Math.abs(r.left + r.width / 2 - mid);
+            if (d < bd) { bd = d; best = i; }
+          });
+          idx = best; paint(); ticking = false;
+        });
+      }, { passive:true });
+      paint();
+    };
+
+    bindRailCtrl(
+      document.querySelector('#stats .stories__grid'),
+      document.getElementById('caseCtrl'),
+      document.querySelectorAll('#stats .casecard')
+    );
+  })();
+  </script>
 
   <!-- ===== 板块5 · 留学洞察预览（取最新 3 篇） ===== -->
   <script>
@@ -869,6 +1115,12 @@
     }
     function open(url){ if (url) window.open(url, '_blank', 'noopener'); }
 
+    // 移动端横滑控制条：复用上方通用 bindRailCtrl（圆点 + 前后箭头）
+    function bindRail(){
+      if (typeof window.bindRailCtrl !== 'function') return;
+      window.bindRailCtrl(grid, document.getElementById('insCtrl'), grid.querySelectorAll('.insight-link'));
+    }
+
     fetch('articles.json', { cache: 'no-cache' })
       .then(function(r){ return r.json(); })
       .then(function(data){
@@ -885,6 +1137,7 @@
               '</div>'
             : '');
         realignHash();
+        bindRail();
         Array.prototype.forEach.call(grid.querySelectorAll('.insight-link'), function(card){
           card.addEventListener('click', function(){ open(card.getAttribute('data-url')); });
           card.addEventListener('keydown', function(e){

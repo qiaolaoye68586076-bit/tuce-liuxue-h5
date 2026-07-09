@@ -11,7 +11,7 @@
 
   <!-- 服务方案（Hub 页） -->
   <url>
-    <loc>https://tuce.asia/services.html</loc>
+    <loc>https://tuce.asia/services</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -19,7 +19,7 @@
 
   <!-- 服务详情 · 美国本科（核心业务） -->
   <url>
-    <loc>https://tuce.asia/meiben.html</loc>
+    <loc>https://tuce.asia/meiben</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -27,7 +27,7 @@
 
   <!-- 服务详情 · 研究生 -->
   <url>
-    <loc>https://tuce.asia/graduate.html</loc>
+    <loc>https://tuce.asia/graduate</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -35,7 +35,7 @@
 
   <!-- 服务详情 · 转学 -->
   <url>
-    <loc>https://tuce.asia/transfer.html</loc>
+    <loc>https://tuce.asia/transfer</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -43,7 +43,7 @@
 
   <!-- 服务详情 · 多国联申 -->
   <url>
-    <loc>https://tuce.asia/uk-eu.html</loc>
+    <loc>https://tuce.asia/uk-eu</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -51,7 +51,7 @@
 
   <!-- 师资团队 -->
   <url>
-    <loc>https://tuce.asia/teachers.html</loc>
+    <loc>https://tuce.asia/teachers</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -59,7 +59,7 @@
 
   <!-- 成功案例 · 录取去向 -->
   <url>
-    <loc>https://tuce.asia/cases.html</loc>
+    <loc>https://tuce.asia/cases</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -67,7 +67,7 @@
 
   <!-- 洞察 · 博客 -->
   <url>
-    <loc>https://tuce.asia/blog.html</loc>
+    <loc>https://tuce.asia/blog</loc>
     <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

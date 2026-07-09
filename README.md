@@ -1,101 +1,108 @@
-# 途策留学 · H5 落地页
+# 途策留学 · H5 官网
 
-一个纯 HTML/CSS/JS 的移动端（H5）单页长滚动营销落地页，零构建、零依赖。
-设计参考三士渡（stoooges.com）的高端极简风格，配色为「深森林绿 + 暖金」。
+多页面静态官网，正式上线：**https://tuce.asia**
+（Let's Encrypt HTTPS / HTTP→HTTPS 强跳 / ICP 备案 `沪ICP备2026025218号-2`）
+
+前端零构建、零依赖（纯 HTML/CSS/JS）；后端是一个零第三方依赖的留资 API（Python 标准库）。
+设计风格：Collegiate Editorial Luxury — 深森林绿 + 暖金 + 米纸，Fraunces / 思源宋体。
 
 ## 目录结构
 
-> 2026-06-18 工程化重构：前后端分离，前端整体收入 `frontend/`。
-
 ```
 tuce-liuxue-h5/
-├── frontend/             # ★ 前端整体 = 部署 web 根目录
-│   ├── index.html        # 首页（+ services/teachers/cases/blog… 多页面）
-│   ├── css/style.css     # 全站样式（移动优先 + 响应式）
-│   ├── js/main.js        # 导航 / 滚动动画 / 数字滚动 / 表单
-│   ├── js/experience.js  # GSAP 动效（vendor/ 内为第三方库）
-│   ├── assets/ images/   # 图片 / logo / 二维码 / 封面
-│   ├── articles.json     # 博客数据（index/blog 通过 fetch 读取）
-│   └── robots.txt sitemap.xml   # SEO（须随 frontend/ 暴露在域名根）
-├── backend/              # Flask API 预留（app.py / leads.db）
-├── scripts/             # 独立 Python 脚本（scrape_reference.py / 后续 sync_articles.py）
-├── archive/             # 归档：legacy/ 旧版 + site/ Astro 探索项目
-├── reference/            # 竞品参考（stoooges）
-└── *.md                 # CLAUDE.md / LOG.md / GEO 文档等
+├── frontend/              # ★ 前端整体 = 部署 web 根目录
+│   ├── index.html         # 首页
+│   ├── services.html      # 美本专题 + 其他服务
+│   ├── teachers.html      # 师资团队
+│   ├── cases.html         # 成功案例（真实化名案例复盘）
+│   ├── transfer.html      # 转学专题
+│   ├── uk-eu.html         # 多国联申（英/欧/加/港）
+│   ├── meiben.html        # 美本训练营
+│   ├── writing-camp.html  # 文书训练营
+│   ├── graduate.html      # 研究生申请
+│   ├── blog.html          # 留学洞察列表
+│   ├── css/style.css      # 全站样式；css/timeline.css 申请流程时间轴
+│   ├── js/main.js         # 导航 / 滚动动画 / 表单（LEAD_ENDPOINT 见下）
+│   ├── js/experience.js + js/vendor/  # GSAP 动效（vendor/globe.js 是手工 esbuild 产物，无构建脚本，改源码需同步手改 bundle）
+│   ├── assets/ images/    # 图片、logo、二维码
+│   ├── articles.json      # 博客数据（index/blog 通过 fetch 读取；仓库里这份是占位种子，服务器上由同步脚本覆盖为真实数据）
+│   └── robots.txt sitemap.xml  # SEO（必须随 frontend/ 暴露在域名根）
+├── backend/                # 留资 API：Python 标准库 http.server + sqlite3（零第三方依赖）
+│   ├── app.py              # POST /api/lead · GET /api/leads（导出）· GET /api/health
+│   └── leads.db             # 运行时生成，已 gitignore
+├── scripts/                 # 公众号文章同步（TikHub API，见 scripts/README.md）
+├── docs/                    # DOMAIN-CUTOVER.md 等项目级文档
+├── archive/                  # 归档：legacy/ 旧版 + site/ Astro 探索项目
+├── reference/                 # 竞品参考（stoooges）
+├── deploy.sh                  # 部署脚本（rsync frontend/ → 服务器）
+├── nginx.conf.example          # 参考配置（含 /api/ 反代、.html 后缀隐藏 301）
+└── CLAUDE.md / LOG.md            # 项目记事本 / 开发日志（每次改动的详细记录）
 ```
+
+> ⚠️ 前端资源引用均为「无前导斜杠」相对路径，HTML 与 css/js/assets 保持同级。部署时必须让 `frontend/` 作为 web 根，否则 `robots.txt`/`sitemap.xml` 不在域名根，AI 爬虫读不到，直接影响 GEO。
 
 ## 本地预览
 
-进入 `frontend/` 起一个本地静态服务器（推荐，`fetch('articles.json')` 在 `file://` 下会被浏览器拦截）：
-
 ```bash
-cd tuce-liuxue-h5/frontend
+cd frontend
 python3 -m http.server 8080
 # 浏览器打开 http://localhost:8080
 ```
 
-手机预览：用手机访问电脑局域网 IP（如 `http://192.168.x.x:8080`），
-或在 Chrome 开发者工具中切换到移动设备视图。
+用本地静态服务器而非直接双击打开 HTML，否则 `fetch('articles.json')` 会被浏览器的 `file://` 限制拦截。
 
-## 页面分区
+## 留资表单（CTA）
 
-导航 → Hero → 核心数据 → 服务（6 项）→ 为什么选途策 → 申请流程 →
-师资 → Offer 墙 → 留资表单 → 页脚（二维码/联系方式）→ 移动端常驻 CTA。
+`frontend/js/main.js` 第 9 行：
 
-## 留资表单
+```js
+var LEAD_ENDPOINT = '/api/lead';   // 同域 nginx 反代到 backend/app.py（127.0.0.1:5000）
+```
 
-- 校验：姓名、咨询方向、电话（11 位手机号）为必填，需勾选协议。
-- 提交后**始终先写入浏览器 `localStorage`**（key：`tuce_leads`）做本地留底。
-- 对接后端：编辑 `frontend/js/main.js` 顶部的 `LEAD_ENDPOINT`，填入接收 POST JSON 的接口地址即可。
-  留空时为占位模式，模拟提交成功。
+- 提交前**始终先写入浏览器 `localStorage`**（key：`tuce_leads`）做本地留底，接口失败也不丢数据。
+- 后端（`backend/app.py`）零第三方依赖：`http.server` + `sqlite3`，因为生产服务器是 Python 3.6.8 装不了 Flask 3.x。字段：`uname / type / phone / wechat / city / school / more`，手机号服务端复校验。
+- 可选环境变量 `SERVERCHAN_KEY` / `PUSHPLUS_TOKEN` 配置后会把新留资推送到微信。
+- 详见 `backend/app.py` 顶部 docstring（`backend/README.md` 目前仍按旧版 Flask + gunicorn 方案写的，与当前实现不符，见 CLAUDE.md 待办）。
 
-  ```js
-  var LEAD_ENDPOINT = 'https://api.tuce.com/lead';  // 改成你的接口
-  ```
+## 公众号文章同步
 
-  提交的字段：`uname, type, phone, wechat, city, school, more, ts, source`。
-
-## 待替换的占位内容（TODO）
-
-- [ ] 真实数据：成立年限、Offer 数、导师数、满意度（`index.html` 的 `.stats`）
-- [ ] 联系电话 / 邮箱 / ICP 备案号（页脚）
-- [ ] 微信二维码图片（页脚 `.qr`，放入 `assets/` 后替换为 `<img>`）
-- [ ] 用户协议与隐私政策正式链接（`#policyLink`）
-- [ ] 师资真实头像与院校（`.mentors`）
-- [ ] 留资接口 `LEAD_ENDPOINT`
+`scripts/sync_articles.py` 定时把公众号已发布图文拉成 `frontend/articles.json`，供首页「留学洞察」与 `blog.html` 消费。官方公众号 API 抓不到这个号的文章，改走 TikHub API。服务器 `/opt/tuce/scripts` 下有独立一份，cron 增量同步。用法与排查见 `scripts/README.md`。
 
 ## 部署
 
-前端为纯静态站点，无需 Node 环境，可托管到对象存储（OSS/COS）、Nginx、Vercel/Netlify、
-GitHub Pages，或微信公众号菜单跳转的网页。后端（`backend/`）就绪后另起 Flask 提供 `/api/*`。
+纯静态前端可托管到任意静态服务；本项目实际用阿里云 ECS + Nginx。
 
-### ⚠️ 第一原则：web 根目录 = `frontend/`
-
-部署时**必须把 `frontend/` 设为网站根目录**，让 `frontend/robots.txt` 对外正好是 `https://域名/robots.txt`。
-若误把仓库根当 web root，爬虫在 `/robots.txt` 找不到文件 → 直接影响百度收录与 GEO（AI 可见度）。
+### 第一原则：web 根目录 = `frontend/`
 
 - **Nginx**：`root /var/www/tuce/frontend;`
-- **OSS/COS**：只上传 `frontend/` 内的文件到 bucket 根，不要带 `frontend/` 这层目录
-- **Vercel/Netlify**：把 *Output / Publish Directory* 设为 `frontend`
+- 若误把仓库根当 web root，`robots.txt`/`sitemap.xml` 找不到，直接影响百度收录与 GEO
 
-### 上线检查清单
-
-- [ ] **SSL 证书**（阿里云 HTTPS）——上线前必须，是百度收录/GEO 的前置条件
-- [ ] 访问 `https://域名/robots.txt` 与 `/sitemap.xml` 能直接打开（验证 web root 正确）
-- [ ] 页脚 **ICP 备案号**替换占位 `沪ICP备 0000000 号`
-- [ ] `LEAD_ENDPOINT` 已配置真实接口，表单能落库（否则只写本地 `localStorage`）
-- [ ] 页脚联系方式（电话/邮箱/地址）已替换占位
-- [ ] 上线后向**百度站长平台**提交 `sitemap.xml`
-
-### 前后端同源部署（后端就绪后）
-
-Flask 启动后用反向代理把动态接口和静态站拼到同一域名：
-
-```nginx
-server {
-    server_name tuce.example.com;
-    root /var/www/tuce/frontend;        # 静态站根 = frontend/
-    location /api/ { proxy_pass http://127.0.0.1:5000; }  # 表单等动态接口走 Flask
-    location /     { try_files $uri $uri/ =404; }
-}
+```bash
+./deploy.sh            # rsync frontend/ → 服务器，--exclude 保护 articles.json 与 assets/insights/（脚本生成内容不被覆盖）
+./deploy.sh --dry-run  # 预演，不实际同步
 ```
+
+`deploy.sh` 只同步 `frontend/`；`backend/` 与 `scripts/` 需要另外手动部署/更新（无自动化脚本，见 CLAUDE.md 待办）。
+
+### 线上状态（2026-07-08 起）
+
+- HTTPS：Let's Encrypt（`certbot --nginx`），有效期至 2026-10-06，自动续期已装
+- ICP 备案：`沪ICP备2026025218号-2`，10 页页脚已替换真实备案号 + 工信部链接
+- nginx `server_name`：`tuce.asia www.tuce.asia`
+
+## GEO / SEO
+
+- `robots.txt` 显式允许百度 / 360 / 搜狗 / 神马 / 字节 / DeepSeek / GPTBot / Claude 等 20+ 爬虫
+- `sitemap.xml` 覆盖全部页面；FAQ JSON-LD、EducationalOrganization schema、cases.html 的 ItemList/Review schema 均已接入
+- 待办：向百度/Bing/Google 站长平台正式提交 sitemap；知乎机构号等渠道内容
+
+## 项目文档索引
+
+| 文档 | 用途 |
+|---|---|
+| `CLAUDE.md` | 项目记事本：模块状态、待办事项、对话历史（每次对话结束前更新） |
+| `LOG.md` | 开发日志：每次改动的详细记录 + 踩坑表 |
+| `docs/DOMAIN-CUTOVER.md` | 域名切换 / 备案上线验收清单 |
+| `DESIGN-BRIEF.md` / `design-assets-needed.md` | 给设计师的素材与文案需求清单 |
+| `backend/README.md` | 后端接口说明（⚠️ 待更新，见上） |
+| `scripts/README.md` | 公众号文章同步脚本使用说明 |

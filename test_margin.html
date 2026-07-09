@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="frontend/css/style.css">
+</head>
+<body class="home">
+<header class="nav"></header>
+<section class="hero hero--light"></section>
+<script>
+  const hero = document.querySelector('.hero');
+  const style = window.getComputedStyle(hero);
+  console.log('margin-top:', style.marginTop);
+  console.log('top:', style.top);
+</script>
+</body>
+</html>

@@ -52,52 +52,39 @@ reference/                 竞品参考（stoooges）
 
 | 页面 | 承接内容 | 状态 |
 |---|---|---|
-| `services.html` | 美本专题（三大模块）+ 核心亮点轮播 + 其他服务网格 + 文书训练营 | ⚠️ 核心亮点 4 张图占位 |
-| `teachers.html` | 师资团队 THE TEAM（4 位导师） | ⚠️ 导师信息占位（哈佛/耶鲁/斯坦福/MIT）|
-| `cases.html` | 数据带 + 成功案例 + 完整策略复盘（ItemList/Review Schema）+ 录取去向 + 学员之声 | ⚠️ W/L/C 案例占位 |
+| `services.html` | 美本专题（三大模块）+ 核心亮点轮播 + 其他服务网格 + 文书训练营 | ✅ 内容已替换为真实素材 |
+| `teachers.html` | 师资团队 THE TEAM（4 位导师） | ✅ 真实导师姓名/学校/经历已上线 |
+| `cases.html` | 数据带 + 成功案例 + 完整策略复盘（ItemList/Review Schema）+ 录取去向 + 学员之声 | ✅ 真实化名案例（Yu/Li/Wang 同学）已上线 |
 
 ---
 
 ## 待办事项
 
-### 资源优化（M4/M5，已收尾）
-- [x] **M4-a 清理 logo 死代码**（commit fbd8eda，零体积/零视觉变化）：删 main.js 切换死代码 + 11 HTML 冗余属性 + 删 logo-light.svg
-- [x] **M4-b logo 压缩**（commit b3de3d9，已部署上线）：`logo-dark.svg`（内嵌 2048×2048 PNG）→ Pillow 合成 → 96×96 → `frontend/assets/logo.webp`（quality 90，3.7KB）；13 处引用替换；体积 1.27MB→3.7KB（-99.7%）；线上 logo.webp 200、旧 svg 404
-- [x] **M5 修复 logo**（commit 5e52995，已部署上线）：M4-b 误把三合一设计拼版整张当 icon→页面显示「3 个小盾」；改为从拼版裁面板1单盾，方案A 保比例（77×96 居中于 96×96 透明画布）重导 → `logo.webp` 1832 字节；路径未变零 HTML/CSS 改动；线上 200 / Content-Length 1832
+> 网站主体内容与上线流程已基本完成（域名/HTTPS/备案/真实案例师资内容均已就绪）。以下是当前仍需跟进的事项。
 
-### 内容替换（需客户提供）
-- [ ] 核心亮点卡片：替换 `services.html#features` 4 张"Image placeholder"为真实图片
-- [ ] 师资团队：`teachers.html` 替换为真实导师姓名、学校、照片
-- [ ] 成功案例：`cases.html` W/L/C 同学 → 真实授权案例（文案 + 照片 + 学校 + 策略复盘）
-- [ ] 录取院校墙：`cases.html#offers` 确认真实历届录取去向
-- [ ] 页脚 ICP 备案号
-- [ ] 页脚联系方式：替换占位 `400-XXX-XXXX` / `contact@tuce-edu.com` / `上海市 · 详细地址待补充`（4 页共用 footer，改一处需同步全站）
+### 待提交 / 待 commit（当前工作区）
+- [ ] 移动端 / Safari 响应式修复批次：`style.css`（Hero 窄屏居中构图、服务卡移动端信息增量、博客滑动提示等）+ `timeline.css` + 10 个页面的配套改动，目前在工作区未提交
+- [ ] `nginx.conf.example` 本地改动（新增 `/index.html` → `/` 与 `.html` 后缀隐藏的 301 规则）需要与线上 nginx 实际配置核对后一并提交，避免文档与服务器再次漂移
+- [x] 根目录临时实验脚本（`fix_*.py` / `timeline*.html` / `generate_*.js` / `replace_*.py` 等）已清理，无残留
+
+### 后端（留资表单）文档校正
+- [x] 后端已实现并接入：`backend/app.py`（Python 标准库 `http.server` + `sqlite3`，零第三方依赖，因生产环境是 Python 3.6.8 装不了 Flask 3.x）；前端 `LEAD_ENDPOINT` 已指向 `/api/lead`（`frontend/js/main.js` 第 9 行）；`nginx.conf.example` 已有 `/api/` 反代配置
+- [ ] `backend/README.md` 内容仍按旧版 "Flask + gunicorn" 方案写的，与 `app.py` 实际实现（零依赖标准库 + `python3 app.py` 直跑）不符，需要重写
+- [ ] 确认后端服务是否已在 ECS 上以 systemd 常驻运行：LOG.md 里没有找到部署这一步的记录，需要登录服务器核实 `/api/health` 与 systemd 状态，并把部署步骤（systemd unit）补进 `DEPLOY.md`
+- [ ] `deploy.sh` 目前只同步 `frontend/`，`backend/` 无自动化部署，需要时再评估是否值得写脚本
+
+### 内容 / 素材（仍缺的部分）
 - [ ] 协议弹层：替换为正式《用户协议》与《隐私政策》全文
-
-### 技术待接入
-- [ ] 留资表单后端（CTA）：Flask + SQLite + 微信推送（Server酱 或 pushplus）；前端已预留 `LEAD_ENDPOINT`（`frontend/js/main.js` 第 9 行），后端代码落地 `backend/app.py`（启用时注意 `LEAD_ENDPOINT` 注释示例域名修正，详见 docs/DOMAIN-CUTOVER.md §3.1）
-- [ ] 微信公众号二维码：`frontend/assets/qr-official.png`（目前缺图有兜底）
-- [ ] 公众号文章同步：Python cron job 调公众号 API → 生成 `frontend/articles.json`（脚本 `scripts/sync_articles.py` 待开发，blog.html 消费此文件）
-
-> ⚠️ 后端上线时需同步扩展：`deploy.sh`（增加后端部署逻辑或拆出 `deploy-backend.sh`）/ `nginx.conf.example`（加 `location /api/` 反代到 Flask）/ `docs/DOMAIN-CUTOVER.md`（补后端域名策略一节）
+- [ ] `cases.html#offers` 录取院校墙：核对是否为最新历届录取去向
+- [ ] 9 个页面缺 `og:image`：services.html / meiben.html / writing-camp.html / graduate.html / transfer.html / uk-eu.html / teachers.html / cases.html / blog 详情页 —— 候选并入未来 GEO 批次
 
 ### GEO / SEO（AI 可见度）
-- 诊断结论：途策留学**目前未被 AI 提及**（见 `途策留学_GEO诊断报告.md`）
-- 已做：
-  - [x] FAQ JSON-LD 结构化数据、EducationalOrganization schema（含 logo/address/knowsAbout）
-  - [x] `robots.txt`：允许百度/字节/DeepSeek/GPTBot/Claude 等 AI 爬虫
-  - [x] `sitemap.xml`：全部 11 个页面（首页 / services 及 6 详情页 / teachers / cases / blog，M2-b 补全 blog）
-  - [x] `cases.html` 案例详情页（ItemList + Review Schema）
-  - [x] 首页 title 加年份"2026"
+- 已做：FAQ JSON-LD、EducationalOrganization schema、robots.txt（20+ 爬虫）、sitemap.xml 全页面、cases.html ItemList/Review schema、SSL、ICP 备案号
 - 待做：
-  - [x] SSL 证书（**2026-07-08 上线**：Let's Encrypt certbot，非阿里云；有效期至 10/6 自动续）
-  - [x] ICP 备案号替换页脚占位符（**2026-07-08**：`沪ICP备2026025218号-2` + 工信部链接，10 页）
-  - [ ] 向百度站长平台提交 sitemap（**上线已就绪，待提交** `https://tuce.asia/sitemap.xml`）+ Bing + Google Search Console
+  - [ ] 站长验证：`frontend/` 下有两个哈希命名的验证文件（`8d888b2710be614049407f79e9395e79.txt` / `bdd3055ef7c866ad0b37748db446f15b.txt`），需要确认分别对应百度/Bing/360 中的哪家、验证是否已在对应站长平台完成
+  - [ ] 正式提交 `https://tuce.asia/sitemap.xml` 给百度站长平台 + Bing + Google Search Console
   - [ ] 知乎机构号 + 第一篇 GEO 文章
   - [ ] 百度百家号开通
-  - [ ] cases.html 填入真实案例内容
-  - [ ] 9 个页面缺 og:image：services.html / meiben.html / writing-camp.html / graduate.html / transfer.html / uk-eu.html / single-service.html / teachers.html / cases.html —— 候选并入未来 GEO 批次
-  - [x] 备案后清理 nginx conflicting server name "_" warning（**2026-07-08**：`server_name` 已改 `tuce.asia www.tuce.asia`）
 
 ---
 
