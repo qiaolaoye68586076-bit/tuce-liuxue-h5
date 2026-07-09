@@ -78,7 +78,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=5" />
+  <link rel="stylesheet" href="css/style.css?v=18" />
   <link rel="stylesheet" href="css/timeline.css?v=tl9" />
   <style>
     /* —— 精选案例卡 · 校徽抬头 + 策略引文（与 cases 同步：暖白卡 / 深绿底）—— */
@@ -134,7 +134,7 @@
       /* 卡片外尺寸与洞察卡一致（84vw / 346px），内部逐行锁定行高：
          校名 1 行省略、标题固定 3 行、引文固定 2 行截断 → 三卡严格等大 */
       .stories__grid .casecard{
-        flex:0 0 84vw; max-width:346px; scroll-snap-align:start;
+        flex:0 0 80vw; max-width:326px; scroll-snap-align:start;
         padding:20px;
       }
       .casecard__school{
@@ -316,19 +316,29 @@
       <a class="svcgal-card svcgal-card--us reveal" href="meiben">
         <span class="svcgal-card__no" aria-hidden="true">01</span>
         <span class="svcgal-card__chip" aria-hidden="true"><svg class="ic"><use href="#ic-arrow"/></svg></span>
-        <h3>美国本科</h3>
-        <p class="svcgal-card__desc">成长规划、学术硬实力、申请表达与影响力三大模块，由全常春藤导师团队深度把控，整合名校文书训练营，发掘独一无二的智识好奇心，拒绝模板化申请。</p>
+        <h3>美国本科<span class="svcgal-card__tag">·核心业务</span></h3>
+        <p class="svcgal-card__desc">全常春藤导师团队深度把控，整合名校文书训练营，拒绝模板化申请。</p>
+        <ul class="svcgal-card__feats" role="list"><!-- 移动端专属：重点加粗分点，卡面即概览 -->
+          <li><strong>全程规划</strong><span>选校、定位、长期提升</span></li>
+          <li><strong>学术实力</strong><span>科研、竞赛、活动都管</span></li>
+          <li><strong>申请文书</strong><span>把你的故事讲清楚</span></li>
+          <li><strong>文书训练营</strong><span>按名校标准改到位</span></li>
+        </ul>
         <span class="svcgal-card__stage" aria-hidden="true">
           <i class="svcgal-card__arch"></i>
           <img src="assets/svc-liberty.webp" alt="" width="511" height="1400" loading="lazy" />
-          <em class="svcgal-card__fig">Fig. 01 · Liberty, New York</em>
         </span>
       </a>
       <a class="svcgal-card svcgal-card--sm svcgal-card--grad reveal" href="graduate">
         <span class="svcgal-card__no" aria-hidden="true">02</span>
         <span class="svcgal-card__chip" aria-hidden="true"><svg class="ic"><use href="#ic-arrow"/></svg></span>
-        <h3>研究生</h3>
-        <p class="svcgal-card__desc">从专业精准定位、精细化文书打磨到全真模拟面试辅导，我们层层扫除申请盲区。不仅为您匹配顶尖学术资源，更为您的名校录取和长远职业发展铺设坚实基石，团队将一路陪伴直至您顺利落地入读。</p>
+        <h3>研究生<span class="svcgal-card__tag">·硕博深造</span></h3>
+        <p class="svcgal-card__desc">专业定位、文书面试到签证入学，一路陪到落地。</p>
+        <ul class="svcgal-card__feats" role="list">
+          <li><strong>选校选专业</strong><span>帮你定得准</span></li>
+          <li><strong>文书 + 面试</strong><span>精修加全真模拟</span></li>
+          <li><strong>陪到入学</strong><span>职业规划＋签证</span></li>
+        </ul>
         <span class="svcgal-card__stage" aria-hidden="true">
           <i class="svcgal-card__arch"></i>
           <img src="assets/svc-dome.webp" alt="" width="536" height="1000" loading="lazy" />
@@ -338,8 +348,13 @@
       <a class="svcgal-card svcgal-card--sm svcgal-card--multi reveal" href="uk-eu">
         <span class="svcgal-card__no" aria-hidden="true">03</span>
         <span class="svcgal-card__chip" aria-hidden="true"><svg class="ic"><use href="#ic-arrow"/></svg></span>
-        <h3>多国联申</h3>
-        <p class="svcgal-card__desc">美英加港新等多赛道同时发力。利用同一份顶尖准备材料，结合各地区不同录取偏好，为您科学重组多国投递矩阵。通过设定冲刺、稳妥、保底三档极具策略性的组合，实现名校录取概率的最大化。</p>
+        <h3>多国联申<span class="svcgal-card__tag">·全球布局</span></h3>
+        <p class="svcgal-card__desc">美英加港新组合投递，把录取概率科学重组。</p>
+        <ul class="svcgal-card__feats" role="list">
+          <li><strong>一份材料</strong><span>同时投好几个地区</span></li>
+          <li><strong>三档策略</strong><span>冲刺、稳妥、保底</span></li>
+          <li><strong>命中更高</strong><span>按各地喜好来投</span></li>
+        </ul>
         <span class="svcgal-card__stage" aria-hidden="true">
           <i class="svcgal-card__arch"></i>
           <img src="assets/svc-bigben.webp" alt="" width="252" height="1000" loading="lazy" />
@@ -349,21 +364,29 @@
       <a class="svcgal-card svcgal-card--sm svcgal-card--transfer reveal" href="transfer">
         <span class="svcgal-card__no" aria-hidden="true">04</span>
         <span class="svcgal-card__chip" aria-hidden="true"><svg class="ic"><use href="#ic-arrow"/></svg></span>
-        <h3>转学</h3>
-        <p class="svcgal-card__desc">通过精准的学分转换评估与高阶转学策略制定，我们为您提供严密的12个月接力规划。重新盘活并最大化您现有的学术资源，将当前的 GPA 与履历变成冲击更顶尖梦校的坚实跳板，完成华丽逆袭。</p>
+        <h3>转学<span class="svcgal-card__tag">·弯道超车</span></h3>
+        <p class="svcgal-card__desc">学分规划与转学申请，把 GPA 变成向上的跳板。</p>
+        <ul class="svcgal-card__feats" role="list">
+          <li><strong>学分转换</strong><span>一分都不浪费</span></li>
+          <li><strong>12 个月</strong><span>一步步往上冲</span></li>
+          <li><strong>GPA 变跳板</strong><span>现有履历再升值</span></li>
+        </ul>
         <span class="svcgal-card__stage" aria-hidden="true">
           <img src="assets/svc-books.webp" alt="" width="900" height="1005" loading="lazy" />
           <em class="svcgal-card__fig">Fig. 04 · Ascending Stacks</em>
         </span>
       </a>
     </div>
-    
+    <!-- 移动端专属：服务板块底部出口，跳转服务总览页 -->
+    <div class="svc-summary__cta reveal">
+      <a class="btn btn--cta" href="services">查看全部服务 <svg class="ic"><use href="#ic-arrow"/></svg></a>
+    </div>
   </section>
 
   <!-- ===== 板块 2 · 数据冲击 + 成功案例引导（深色底） ===== -->
   <section class="section data-band sec-bleed sec-dark" id="stats">
     <div class="stats__band reveal">
-      <div class="figure"><b><span class="stat-num" data-target="220" data-unit="枚" data-plus="true">0</span></b><span class="figure__desc">2024–2026</span></div>
+      <div class="figure"><b><span class="stat-num" data-target="220" data-unit="枚" data-plus="true">0</span></b><span class="figure__desc"><span class="figure__desc-pre">Offer · </span>2024–2026</span></div>
       <div class="figure"><b><span class="stat-num" data-target="59" data-unit="所" data-plus="true">0</span></b><span class="figure__desc">全球院校</span></div>
       <div class="figure"><b><span class="stat-num" data-target="6" data-unit="大地区" data-plus="false">0</span></b><span class="figure__desc">美英港新澳加</span></div>
       <div class="figure"><b><span class="stat-num" data-target="3" data-unit="届" data-plus="true">0</span></b><span class="figure__desc">学员 持续更新</span></div>
@@ -457,15 +480,17 @@
           <span class="team-mini__txt">
             <b>Kevin <i>· 创始人</i></b>
             <em>宾大英语教学硕士 · 前波士顿报社记者</em>
-            <span>把挖故事讲清楚的本事用到每个孩子身上</span>
+            <span>记者出身，擅长把每个孩子真实的故事挖出来、讲清楚，也在意家庭关系与心态。</span>
+            <span class="team-mini__tags"><i>文书挖掘</i><i>新闻叙事</i><i>家庭沟通</i></span>
           </span>
         </a>
         <a class="team-mini" role="listitem" href="teachers#mentor-jennifer">
           <img src="assets/mentor-thumb-03.webp" alt="" width="192" height="192" loading="lazy" />
           <span class="team-mini__txt">
             <b>Jennifer <i>· 导师</i></b>
-            <em>UCLA 心理学学士 · 哥大社会组织心理学硕士</em>
-            <span>200+ 学生测评，录取覆盖哈佛剑桥港大</span>
+            <em>UCLA 心理学学士 · <span class="nb">哥大心理学硕士</span></em>
+            <span>本硕 DIY 申请上岸，也是心理咨询师，做过 200+ 学生测评与 30+ 家庭调解。</span>
+            <span class="team-mini__tags"><i>性格测评</i><i>选校规划</i><i>家庭调解</i></span>
           </span>
         </a>
         <a class="team-mini" role="listitem" href="teachers#mentor-rong">
@@ -473,7 +498,8 @@
           <span class="team-mini__txt">
             <b>荣子依 <i>· 导师</i></b>
             <em>布雷拉美术学院 · 中科院认证心理咨询师</em>
-            <span>家庭疗愈，帮孩子把学习动力从心里点起来</span>
+            <span>做家庭教育与心理疗愈，用多种方法帮孩子把学习动力从心里点起来。</span>
+            <span class="team-mini__tags"><i>学习动力</i><i>心理疗愈</i><i>家庭教育</i></span>
           </span>
         </a>
         <a class="team-mini" role="listitem" href="teachers#mentor-tim">
@@ -481,7 +507,8 @@
           <span class="team-mini__txt">
             <b>Tim 楚浩哲 <i>· 导师</i></b>
             <em>斯坦福校友 · 前 Google GTM Director</em>
-            <span>提炼辨识度个人叙事，助 30+ 名校录取</span>
+            <span>深研名校文书评审，从真实经历里提炼有辨识度的个人叙事，已助 30+ 名校录取。</span>
+            <span class="team-mini__tags"><i>个人叙事</i><i>文书策略</i><i>名校审阅</i></span>
           </span>
         </a>
       </div>
