@@ -54,7 +54,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=ea263bf7" />
+  <link rel="stylesheet" href="css/style.css?v=c709cdcd" />
 </head>
 <body>
 
@@ -263,7 +263,9 @@
       '专业解读': { bg: 'rgba(30,74,60,0.08)',  color: '#1E4A3C' }
     };
     var DEFAULT_COLOR = { bg: 'rgba(20,52,43,0.06)', color: '#14342B' };
-    var PAGE_SIZE = 8;    // 4 列 × 2 行，满页 8 篇
+    // 窄屏双列瀑布流信息密度更高，每页可多放；宽屏保持 4 列 × 2 行 = 8 篇/页
+    var mqMobile = window.matchMedia('(max-width:559.98px)');
+    function PAGE_SIZE() { return mqMobile.matches ? 20 : 8; }
 
     var allArticles = [];   // 全部（含置顶）
     var listArticles = [];  // 普通文章（排除置顶，倒序）
@@ -368,7 +370,7 @@
         : listArticles.filter(function (a) { return a.category === activeCat; });
     }
     function totalPagesOf(filtered) {
-      return Math.max(1, Math.ceil((filtered || currentFiltered()).length / PAGE_SIZE));
+      return Math.max(1, Math.ceil((filtered || currentFiltered()).length / PAGE_SIZE()));
     }
 
     // 渲染当前页卡片（doReveal=false 用于翻页淡入，避免与容器淡入叠加）
@@ -376,15 +378,25 @@
       var totalPages = totalPagesOf(filtered);
       if (currentPage > totalPages) currentPage = totalPages;
       if (currentPage < 1) currentPage = 1;
-      var start = (currentPage - 1) * PAGE_SIZE;
-      var shown = filtered.slice(start, start + PAGE_SIZE);
-      gridEl.innerHTML = shown.map(cardHTML).join('');
+      var start = (currentPage - 1) * PAGE_SIZE();
+      var shown = filtered.slice(start, start + PAGE_SIZE());
+      if (mqMobile.matches) {
+        // 窄屏瀑布流：按奇偶下标手动分两个 flex 纵列，两栏数量最多相差 1 篇，
+        // 不用原生 CSS columns（那种会按列高度估算整列填充，末尾容易一侧堆满、另一侧留空）
+        var colA = [], colB = [];
+        shown.forEach(function (a, i) { (i % 2 === 0 ? colA : colB).push(a); });
+        gridEl.innerHTML =
+          '<div class="post-col">' + colA.map(cardHTML).join('') + '</div>' +
+          '<div class="post-col">' + colB.map(cardHTML).join('') + '</div>';
+      } else {
+        gridEl.innerHTML = shown.map(cardHTML).join('');
+      }
       Array.prototype.forEach.call(gridEl.querySelectorAll('.post-card'), function (card, idx) {
         card.addEventListener('click', function () { open(card.getAttribute('data-url')); });
         card.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card.getAttribute('data-url')); }
         });
-        if (doReveal) revealEl(card, idx % 4);   // 4 列网格，按列错峰揭示
+        if (doReveal) revealEl(card, idx % (mqMobile.matches ? 2 : 4));   // 按列错峰揭示
       });
     }
 
@@ -402,8 +414,11 @@
       renderControls(totalPagesOf(filtered));
     }
 
-    /* ====== 底部滑块翻页控件 ====== */
+    /* ====== 底部翻页控件：宽屏「拖拽滑块」/ 窄屏「圆点」（与首页横滑卡共用圆点样式，
+       和左右滑动手势提示协调一致，无需拖拽即可一眼看清当前位置）====== */
     var slRoot, slTrack, slFill, slThumb, slTip, slTotal = 0;
+    var pagerMode = null;   // 'slider' | 'dots'
+    var dotsEls = [];
 
     function fracOfPage(p) { return slTotal > 1 ? (p - 1) / (slTotal - 1) : 0; }
     function pageOfFrac(f) { return Math.min(slTotal, Math.max(1, Math.round(f * (slTotal - 1)) + 1)); }
@@ -487,13 +502,52 @@
       });
     }
 
+    // 窄屏圆点：复用首页横滑卡的 .insights-ctrl__dot 样式，点击可跳页，
+    // 当前页放大成金色药丸，不用拖拽也能一眼看清位置
+    function buildDots(totalPages) {
+      if (slTotal !== totalPages || !pagerEl.querySelector('.pager-dots')) {
+        pagerEl.innerHTML = '<div class="insights-ctrl__dots pager-dots" role="tablist" aria-label="文章分页"></div>';
+        var box = pagerEl.querySelector('.pager-dots');
+        dotsEls = [];
+        for (var i = 0; i < totalPages; i++) {
+          (function (i) {
+            var d = document.createElement('button');
+            d.type = 'button';
+            d.className = 'insights-ctrl__dot';
+            d.setAttribute('role', 'tab');
+            d.setAttribute('aria-label', '第 ' + (i + 1) + ' 页');
+            d.addEventListener('click', function () { goToPage(i + 1); });
+            box.appendChild(d);
+            dotsEls.push(d);
+          })(i);
+        }
+        slTotal = totalPages;
+      }
+      paintDots();
+    }
+    function paintDots() {
+      dotsEls.forEach(function (d, i) {
+        var active = i === currentPage - 1;
+        d.classList.toggle('is-active', active);
+        d.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+    }
+
     function renderControls(totalPages) {
       var single = totalPages <= 1;
       deckEl.classList.toggle('is-single', single);
       navPrev.disabled = currentPage <= 1;
       navNext.disabled = currentPage >= totalPages;
-      if (single) { pagerEl.innerHTML = ''; slTrack = null; slTotal = 0; return; }
-      buildSlider(totalPages);
+      if (single) {
+        pagerEl.innerHTML = ''; pagerEl.classList.remove('pager--dots');
+        slTrack = null; slTotal = 0; dotsEls = []; pagerMode = null;
+        return;
+      }
+      var wantMode = mqMobile.matches ? 'dots' : 'slider';
+      if (wantMode !== pagerMode) { slTotal = 0; pagerMode = wantMode; }   // 跨模式强制重建
+      pagerEl.classList.toggle('pager--dots', wantMode === 'dots');
+      if (wantMode === 'dots') { slTrack = null; buildDots(totalPages); }
+      else { dotsEls = []; buildSlider(totalPages); }
     }
 
     // 跳页：渐隐 → 换内容 → 渐显，并同步滑块/箭头
@@ -532,6 +586,12 @@
     // 两侧大箭头：单步翻页
     navPrev.addEventListener('click', function () { if (!navPrev.disabled) goToPage(currentPage - 1); });
     navNext.addEventListener('click', function () { if (!navNext.disabled) goToPage(currentPage + 1); });
+
+    // 横竖屏切换跨越断点时，每页篇数与翻页控件形态都会变，重新分页
+    mqMobile.addEventListener('change', function () {
+      currentPage = 1;
+      renderList();
+    });
 
     // 移动端触屏：卡片区左右「跟手」滑动翻页。拖动时内容实时跟随手指，
     // 松手若越过阈值则顺势滑出 + 反向滑入换页，否则回弹归位；到边界带橡皮筋阻尼。

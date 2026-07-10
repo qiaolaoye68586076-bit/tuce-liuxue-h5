@@ -3063,15 +3063,19 @@ a.card{ color:inherit; }
 }
 .blog-list .post-card__date{ margin-top:14px; padding-top:0; color:var(--muted); font-size:13px; }
 
-/* —— 窄屏：单列大卡 → 小红书式双列瀑布流（信息密度 ×2）—— */
+/* —— 窄屏：单列大卡 → 小红书式双列瀑布流（信息密度 ×2）——
+   注意：不用 CSS columns 做多栏（原生多栏按「列高度估算」整列顺序填充，
+   末尾文章数量/高度稍有偏差就会全部堆到左栏、右栏留白）；
+   改为 JS 按奇偶下标分两个 flex 纵列（见 blog.html renderCards），
+   保证两栏数量最多相差 1 篇，不会出现单侧留空 */
 @media (max-width:559.98px){
   .blog-list .post-grid{
-    display:block; columns:2; column-gap:10px;
+    display:flex; align-items:flex-start; gap:10px;
   }
+  .post-col{ flex:1 1 0; min-width:0; display:flex; flex-direction:column; gap:10px; }
   .blog-list .post-card{
     display:flex;                      /* 保持纵排结构 */
-    break-inside:avoid; -webkit-column-break-inside:avoid; page-break-inside:avoid;
-    width:100%; margin:0 0 10px; border-radius:12px;
+    width:100%; margin:0; border-radius:12px;
   }
   .blog-list .post-card__thumb{ aspect-ratio:16 / 10; }
   .blog-list .post-card__main{ padding:10px 12px 12px; }
@@ -3183,6 +3187,9 @@ a.card{ color:inherit; }
     display:block; text-align:center; margin:22px 0 -14px;
     font-size:11.5px; letter-spacing:.14em; color:#a99f8b;
   }
+  /* 窄屏翻页控件改「圆点」：一眼看清当前页，与上方滑动提示协调，不用拖拽 */
+  .pager.pager--dots{ margin-top:26px; }
+  .pager-dots{ flex-wrap:wrap; justify-content:center; gap:9px; }
 }
 
 @media (min-width:760px){
@@ -3467,10 +3474,13 @@ a.card{ color:inherit; }
   }
   .insight-row, .insight-row:first-child, .insight-row + .insight-row{ border-top:1px solid rgba(20,52,43,.08); padding:0; }
 
-  /* 封面统一 3:2 顶置，去桌面装裱框 */
+  /* 封面顶置，去桌面装裱框；框比例改用真实封面图源比例 2.35:1
+     （微信文章封面固定裁切比例，参见 .blog-list .post-card__thumb 同款注释），
+     框贴合图片形状，不再是与图片比例不符的 3:2 硬框导致大片留白 */
   .insight-feature__media, .insight-row__media{
-    aspect-ratio:3 / 2; border-radius:0; box-shadow:none;
+    aspect-ratio:2.35 / 1; border-radius:0; box-shadow:none;
   }
+  .insight-feature__media img, .insight-row__media img{ object-fit:cover; }
   .insight-feature:hover .insight-feature__media{ box-shadow:none; }
   .insight-feature__media::after, .insight-row__media::after{ display:none; }
 
@@ -5780,6 +5790,7 @@ a.card{ color:inherit; }
 .svcgal-card--us h3{
   font-size:clamp(26px,2.4vw,32px); color:#F4EFE4; line-height:1.15; margin:14px 0 12px;
 }
+.svcgal-card__tag{ display:none; }   /* 定位缀语仅移动端出现，桌面竖柜保持原样极简 */
 .svcgal-card--us .svcgal-card__tag{   /* 「·核心业务」缀语：细鎏金字随标题基线，无框 */
   margin-left:10px; font-size:13.5px; font-weight:500; letter-spacing:.2em;
   color:var(--gold-soft); white-space:nowrap;
@@ -5918,6 +5929,7 @@ a.card{ color:inherit; }
    手机用户大多不点二级页，卡面即概览；桌面竖柜保持极简，隐藏。
    移动端隐藏标题下的整句 desc（与分点信息重复），只留分点 —— */
 @media (max-width:900px){
+  .svcgal-card__tag{ display:inline; }   /* 缀语只在移动端出现 */
   .svcgal-card--us .svcgal-card__desc,
   .svcgal-card--sm .svcgal-card__desc{ display:none; }
 }
