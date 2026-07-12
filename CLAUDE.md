@@ -22,10 +22,9 @@ frontend/                  前端整体（部署时以此为 web 根目录）
 ├── robots.txt sitemap.xml SEO（须随 frontend/ 部署在域名根）
 backend/                   预留 Flask（app.py / leads.db）
 scripts/                   独立 Python 脚本（scrape_reference.py；sync_articles.py 待开发：cron 调公众号 API → articles.json）
-docs/                      项目级文档（DOMAIN-CUTOVER.md 域名切换/备案验收清单；未来 handoff 文档归属地）
+docs/                      项目文档（DOMAIN-CUTOVER / DESIGN-BRIEF / GEO 笔记 / mentor-prompts 等）
 archive/                   归档：legacy/ 旧版 + site/ Astro 探索项目
 reference/                 竞品参考（stoooges）
-途策留学_GEO诊断报告.md / 途策官网_GEO搭建需求清单.md / GEO完整学习笔记.md
 ```
 > ⚠️ 资源引用均为「无前导斜杠」相对路径，HTML 与 css/js/assets 保持同级，整体平移不破坏路径。部署务必让 `frontend/` 作为 web 根，否则 robots.txt/sitemap.xml 不在域名根，AI 爬虫读不到。
 
