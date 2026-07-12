@@ -49,6 +49,14 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- 服务详情 · 美国移民 -->
+  <url>
+    <loc>https://tuce.asia/immigration</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- 师资团队 -->
   <url>
     <loc>https://tuce.asia/teachers</loc>
