@@ -109,6 +109,10 @@ log_info "本地校验：检查 ${LOCAL_SRC}/*.html 的 <title> 标签"
 missing_titles=()
 shopt -s nullglob
 for html in "$LOCAL_SRC"/*.html; do
+  # 跳过第三方平台验证文件（Google/Baidu/Bing等）
+  if [[ "$(basename "$html")" =~ ^(google|baidu_verify|BingSite|verify) ]]; then
+    continue
+  fi
   if ! grep -qi '<title>' "$html"; then
     missing_titles+=("$html")
   fi
@@ -177,6 +181,36 @@ bump_css_version() {
 }
 
 bump_css_version
+
+# ---------------------------------------------------------------------------
+# 1.6 sitemap.xml lastmod 动态更新
+#    每次部署时把 lastmod 全部替换为当前日期，让搜索引擎知道页面仍在维护。
+# ---------------------------------------------------------------------------
+bump_sitemap_lastmod() {
+  local sm="$LOCAL_SRC/sitemap.xml"
+  if [[ ! -f "$sm" ]]; then
+    log_warn "未找到 $sm，跳过 sitemap 日期更新"
+    return 0
+  fi
+  local today
+  today=$(date +%Y-%m-%d)
+  local old
+  old=$(grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' "$sm" | head -n1 || true)
+
+  if [[ "$old" == "$today" ]]; then
+    log_ok "sitemap lastmod 已是今日 ${today}，无需更新"
+    return 0
+  fi
+
+  if [[ "$DRY_RUN" == true ]]; then
+    log_warn "演练模式：sitemap.xml lastmod 将更新为 ${today}（本次不改写）"
+    return 0
+  fi
+
+  sed -i.bak -E "s/[0-9]{4}-[0-9]{2}-[0-9]{2}/${today}/g" "$sm" && rm -f "$sm.bak"
+  log_ok "sitemap.xml lastmod 已更新为 ${today}"
+}
+bump_sitemap_lastmod
 
 # ---------------------------------------------------------------------------
 # 计时开始

@@ -25,7 +25,7 @@
   <meta property="og:url" content="https://tuce.asia/" />
   <meta property="og:title" content="途策留学 · 高端留学申请机构 | 策略定制·拒绝模板" />
   <meta property="og:description" content="3对1专属团队，从选校策略到文书创作全程陪伴，帮你用最优路径抵达理想院校。美本/美研/英联邦，免费评估。" />
-  <meta property="og:image" content="https://tuce.asia/assets/og-cover.jpg" />
+  <meta property="og:image" content="https://tuce.asia/assets/og-cover-2026.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="途策留学 · 高端留学申请机构" />
@@ -34,7 +34,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="途策留学 · 高端留学申请机构 | 策略定制·拒绝模板" />
   <meta name="twitter:description" content="3对1专属团队，从选校策略到文书创作全程陪伴，帮你用最优路径抵达理想院校。" />
-  <meta name="twitter:image" content="https://tuce.asia/assets/og-cover.jpg" />
+  <meta name="twitter:image" content="https://tuce.asia/assets/og-cover-2026.jpg" />
   <!-- ===== GEO结构化数据：让AI认识途策 ===== -->
   <script type="application/ld+json">
   {
@@ -45,7 +45,7 @@
     "description": "一家以策略驱动的留学申请机构，专注帮助学生用最优路径实现海外名校梦想。提供美国本科、研究生、转学及英联邦国家高端留学申请服务。3对1专属团队，拒绝模板，策略先行。",
     "url": "https://tuce.asia/",
     "logo": "https://tuce.asia/assets/logo.webp",
-    "image": "https://tuce.asia/assets/og-cover.jpg",
+    "image": "https://tuce.asia/assets/og-cover-2026.jpg",
     "areaServed": ["上海", "全国"],
     "foundingDate": "2023",
     "address": {
@@ -77,8 +77,9 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="images/page-hero.webp" fetchpriority="high" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=c2a7dbde" />
+  <link rel="stylesheet" href="css/style.css?v=3d3621bf" />
   <link rel="stylesheet" href="css/timeline.css?v=tl9" />
   <style>
     /* —— 精选案例卡 · 校徽抬头 + 策略引文（与 cases 同步：暖白卡 / 深绿底）—— */
@@ -202,6 +203,17 @@
           "text": "途策的收费根据申请目标、服务范围和模块组合不同而有所差异。我们提供免费的初步评估，评估后会给出清晰的收费方案，无任何隐性收费。"
         }
       }
+    ]
+  }
+  </script>
+
+  <!-- ===== 结构化数据：BreadcrumbList ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://tuce.asia/" }
     ]
   }
   </script>
@@ -379,9 +391,9 @@
         </span>
       </a>
     </div>
-    <!-- 移动端专属：服务板块底部出口，跳转服务总览页 -->
+    <!-- 服务板块底部出口：桌面端与移动端均跳转服务总览页 -->
     <div class="svc-summary__cta reveal">
-      <a class="btn btn--cta" href="services">查看全部服务 <svg class="ic"><use href="#ic-arrow"/></svg></a>
+      <a class="btn btn--line" href="services">更多服务 <svg class="ic"><use href="#ic-arrow"/></svg></a>
     </div>
   </section>
 
@@ -1105,7 +1117,7 @@
     }
     // 左栏特稿：N°01 顶行 + 大衬线标题 + 摘要 + 阅读出口
     function featureHTML(a){
-      return '<article class="insight-feature insight-link" role="link" tabindex="0" data-url="'+esc(a.url)+'" style="--i:0">'+
+      return '<article class="insight-feature insight-link" role="link" tabindex="0" data-url="'+localUrl(a)+'" style="--i:0">'+
           '<div class="insight-feature__media">'+featureMedia(a)+'</div>'+
           '<div class="insight-feature__body">'+
             '<div class="insight-topline">'+
@@ -1131,7 +1143,7 @@
     }
     // 右栏索引行：封面通栏在上 + 大编号/标题/元数据在下
     function rowHTML(a, i){
-      return '<article class="insight-row insight-link" role="link" tabindex="0" data-url="'+esc(a.url)+'" style="--i:'+(i + 1)+'">'+
+      return '<article class="insight-row insight-link" role="link" tabindex="0" data-url="'+localUrl(a)+'" style="--i:'+(i + 1)+'">'+
           rowMedia(a)+
           '<div class="insight-row__body">'+
             '<span class="insight-row__no" aria-hidden="true">'+('0' + (i + 2)).slice(-2)+'</span>'+
@@ -1142,7 +1154,8 @@
           '</div>'+
         '</article>';
     }
-    function open(url){ if (url) window.open(url, '_blank', 'noopener'); }
+    function localUrl(a)   { return a && a.id ? 'articles/' + a.id + '.html' : ''; }
+    function navigate(url) { if (url) location.href = url; }
 
     // 移动端横滑控制条：复用上方通用 bindRailCtrl（圆点 + 前后箭头）
     function bindRail(){
@@ -1168,9 +1181,9 @@
         realignHash();
         bindRail();
         Array.prototype.forEach.call(grid.querySelectorAll('.insight-link'), function(card){
-          card.addEventListener('click', function(){ open(card.getAttribute('data-url')); });
+          card.addEventListener('click', function(){ navigate(card.getAttribute('data-url')); });
           card.addEventListener('keydown', function(e){
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card.getAttribute('data-url')); }
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(card.getAttribute('data-url')); }
           });
         });
       })

@@ -23,13 +23,13 @@
   <meta property="og:url" content="https://tuce.asia/blog" />
   <meta property="og:title" content="留学洞察 | 途策留学 - 申请策略·选校指南·文书方法论" />
   <meta property="og:description" content="来自途策留学一线顾问的深度分享。覆盖美英港新澳加申请策略、选校逻辑、文书方法论与专业解读。" />
-  <meta property="og:image" content="https://tuce.asia/assets/og-cover.jpg" />
+  <meta property="og:image" content="https://tuce.asia/assets/og-cover-2026.jpg" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="留学洞察 | 途策留学" />
   <meta name="twitter:description" content="来自途策一线顾问的深度分享：申请策略、选校逻辑、文书方法论。" />
-  <meta name="twitter:image" content="https://tuce.asia/assets/og-cover.jpg" />
+  <meta name="twitter:image" content="https://tuce.asia/assets/og-cover-2026.jpg" />
 
   <!-- ===== GEO结构化数据（Blog） ===== -->
   <script type="application/ld+json">
@@ -47,14 +47,33 @@
       "logo": "https://tuce.asia/assets/logo.webp",
       "url": "https://tuce.asia"
     },
-    "about": ["美本申请", "英国留学", "香港新加坡留学", "澳洲加拿大留学", "选校策略", "文书方法论", "专业解读"]
+    "about": ["美本申请", "英国留学", "香港新加坡留学", "澳洲加拿大留学", "选校策略", "文书方法论", "专业解读"],
+    "blogPost": [
+      {"@type": "BlogPosting", "headline": "2026 Fall 美本申请复盘：哪些「常识」正在过时？", "url": "https://tuce.asia/articles/001.html", "datePublished": "2026-06-15T00:00:00+08:00", "about": "美国地区"},
+      {"@type": "BlogPosting", "headline": "Common App 主文书的三种致命开头", "url": "https://tuce.asia/articles/002.html", "datePublished": "2026-06-10T00:00:00+08:00", "about": "美国地区"},
+      {"@type": "BlogPosting", "headline": "UCL 还是 KCL？伦敦双校的真实对比", "url": "https://tuce.asia/articles/003.html", "datePublished": "2026-06-05T00:00:00+08:00", "about": "英国地区"},
+      {"@type": "BlogPosting", "headline": "港三新二还能冲吗？2027 申请季前瞻", "url": "https://tuce.asia/articles/004.html", "datePublished": "2026-05-28T00:00:00+08:00", "about": "香港·新加坡"},
+      {"@type": "BlogPosting", "headline": "计算机 vs 数据科学：哪个更适合你？", "url": "https://tuce.asia/articles/005.html", "datePublished": "2026-05-20T00:00:00+08:00", "about": "专业解读"},
+      {"@type": "BlogPosting", "headline": "墨尔本大学 vs 悉尼大学：澳洲双子星怎么选", "url": "https://tuce.asia/articles/006.html", "datePublished": "2026-05-15T00:00:00+08:00", "about": "澳洲·加拿大"}
+    ]
   }
   </script>
 
+  <!-- ===== 结构化数据：BreadcrumbList ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://tuce.asia/" },
+      { "@type": "ListItem", "position": 2, "name": "留学洞察" }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css?v=c2a7dbde" />
+  <link rel="stylesheet" href="css/style.css?v=3d3621bf" />
 </head>
 <body>
 
@@ -314,9 +333,8 @@
     function catColor(cat) { return (CAT_COLORS[cat] || DEFAULT_COLOR).color; }
     function catBg(cat) { return (CAT_COLORS[cat] || DEFAULT_COLOR).bg; }
 
-    function open(url) {
-      if (url) window.open(url, '_blank', 'noopener');
-    }
+    function localUrl(a)   { return a && a.id ? 'articles/' + a.id + '.html' : ''; }
+    function navigate(url) { if (url) location.href = url; }
 
     // 置顶大卡片
     function renderFeatured(a) {
@@ -343,9 +361,9 @@
           '</div>' +
         '</article>';
       var card = featuredEl.firstChild;
-      card.addEventListener('click', function () { open(a.url); });
+      card.addEventListener('click', function () { navigate(localUrl(a)); });
       card.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(a.url); }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(localUrl(a)); }
       });
       revealEl(card, 0);
     }
@@ -355,7 +373,7 @@
       var thumb = a.cover_url
         ? '<img src="' + esc(a.cover_url) + '" alt="' + esc(a.title) + '" loading="lazy" />'
         : '<span class="post-card__ph"><svg class="ic"><use href="#ic-doc"/></svg></span>';
-      return '<article class="blog-card post-card" role="link" tabindex="0" data-url="' + esc(a.url) + '">' +
+      return '<article class="blog-card post-card" role="link" tabindex="0" data-url="' + localUrl(a) + '">' +
           '<div class="post-card__thumb">' + thumb + '</div>' +
           '<div class="post-card__main">' +
             '<span class="cat-tag" style="' + catStyle(a.category) + '">' + esc(a.category) + '</span>' +
@@ -394,9 +412,9 @@
         gridEl.innerHTML = shown.map(cardHTML).join('');
       }
       Array.prototype.forEach.call(gridEl.querySelectorAll('.post-card'), function (card, idx) {
-        card.addEventListener('click', function () { open(card.getAttribute('data-url')); });
+        card.addEventListener('click', function () { navigate(card.getAttribute('data-url')); });
         card.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card.getAttribute('data-url')); }
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(card.getAttribute('data-url')); }
         });
         if (doReveal) revealEl(card, idx % (mqMobile.matches ? 2 : 4));   // 按列错峰揭示
       });

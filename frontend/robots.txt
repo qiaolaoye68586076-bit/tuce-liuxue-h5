@@ -68,6 +68,12 @@ User-agent: Googlebot-Image
 Allow: /
 User-agent: Google-Extended
 Allow: /
+User-agent: GoogleOther
+Allow: /
+User-agent: GoogleOther-Image
+Allow: /
+User-agent: GoogleOther-Video
+Allow: /
 
 # Bing / Microsoft Copilot
 User-agent: Bingbot
@@ -92,17 +98,29 @@ User-agent: GPTBot
 Allow: /
 User-agent: ChatGPT-User
 Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+
+# Common Crawl（为 AI 训练与搜索提供网页语料）
+User-agent: CCBot
+Allow: /
 
 # Anthropic / Claude
 User-agent: anthropic-ai
 Allow: /
 User-agent: ClaudeBot
 Allow: /
-User-agent: Claude-Web
-Allow: /
 
 # Perplexity
 User-agent: PerplexityBot
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
 Allow: /
 
 # xAI（Grok）

@@ -3583,13 +3583,16 @@ a.card{ color:inherit; }
 }
 
 /* =========================================================
-   首页各板块「出口按钮」移动端尺寸统一（仅 index.html 用到的类）
-   基准取现有最小的洞察「查看全部文章」（≈42px 高 / 13.5px 字）；
-   服务板块新增底部出口按钮，仅移动端出现，桌面维持原状不变。
+   首页各板块「出口按钮」响应式尺寸统一（仅 index.html 用到的类）
+   服务出口全端可见；桌面保持舒展，移动端收为 42px 高的紧凑胶囊。
    ========================================================= */
-.svc-summary__cta{ display:none; }   /* 桌面隐藏：服务出口仅移动端出现 */
+.svc-summary__cta{
+  display:flex; justify-content:center;
+  margin-top:clamp(28px,3.5vw,42px);
+}
 @media (max-width:759.98px){
-  .svc-summary__cta{ display:flex; justify-content:center; margin-top:26px; }
+  .svc-summary__cta{ margin-top:26px; }
+  .svc-summary__cta .btn{ width:min(100%,320px); }
   /* 三个带飞掠圆钮的胶囊：统一高度/字号/内距，并缩小圆钮 */
   .data-band__cta .btn--lg,
   .team-band .btn--line,

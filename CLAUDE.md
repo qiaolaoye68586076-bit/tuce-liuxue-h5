@@ -18,10 +18,14 @@ frontend/                  前端整体（部署时以此为 web 根目录）
 ├── js/main.js             交互逻辑（experience.js 动效 + vendor/ GSAP）
 ├── assets/                图片、logo、二维码
 ├── images/                封面图
-├── articles.json          博客数据（index/blog 通过 fetch 读取）
+├── articles.json          博客数据（index/blog 通过 fetch 读取；服务器 sync_articles.py 生成，deploy.sh 排除同步）
+├── articles/              博客静态页（001–006.html，由 scripts/generate_article_pages.py 从 articles.json 生成）
+├── llms.txt               AI 爬虫发现文件
+├── articles/              博客文章静态页（articles.json → 独立 HTML，SEO 可索引）
+├── llms.txt                AI 爬虫发现文件（站点简介、页面列表、文章索引）
 ├── robots.txt sitemap.xml SEO（须随 frontend/ 部署在域名根）
 backend/                   预留 Flask（app.py / leads.db）
-scripts/                   独立 Python 脚本（scrape_reference.py；sync_articles.py 待开发：cron 调公众号 API → articles.json）
+scripts/                   独立 Python 脚本（generate_article_pages.py / scrape_reference.py；sync_articles.py 待开发：cron 调公众号 API → articles.json）
 docs/                      项目文档（DOMAIN-CUTOVER / DESIGN-BRIEF / GEO 笔记 / mentor-prompts 等）
 archive/                   归档：legacy/ 旧版 + site/ Astro 探索项目
 reference/                 竞品参考（stoooges）
@@ -62,6 +66,7 @@ reference/                 竞品参考（stoooges）
 > 网站主体内容与上线流程已基本完成（域名/HTTPS/备案/真实案例师资内容均已就绪）。以下是当前仍需跟进的事项。
 
 ### 待提交 / 待 commit（当前工作区）
+- [ ] SEO/GEO 全面优化批次（2026-07-16）：博客静态化（6 篇 articles/）、全站 BreadcrumbList（17 页）、teachers H1、sitemap 动态 lastmod、llms.txt、LCP preload、robots.txt 更新、cases Wang Review 补全等
 - [ ] 移动端 / Safari 响应式修复批次：`style.css`（Hero 窄屏居中构图、服务卡移动端信息增量、博客滑动提示等）+ `timeline.css` + 10 个页面的配套改动，目前在工作区未提交
 - [ ] `nginx.conf.example` 本地改动（新增 `/index.html` → `/` 与 `.html` 后缀隐藏的 301 规则）需要与线上 nginx 实际配置核对后一并提交，避免文档与服务器再次漂移
 - [x] 根目录临时实验脚本（`fix_*.py` / `timeline*.html` / `generate_*.js` / `replace_*.py` 等）已清理，无残留
@@ -80,7 +85,7 @@ reference/                 竞品参考（stoooges）
 ### GEO / SEO（AI 可见度）
 - 已做：FAQ JSON-LD、EducationalOrganization schema、robots.txt（20+ 爬虫）、sitemap.xml 全页面、cases.html ItemList/Review schema、SSL、ICP 备案号
 - 待做：
-  - [ ] 站长验证：`frontend/` 下有两个哈希命名的验证文件（`8d888b2710be614049407f79e9395e79.txt` / `bdd3055ef7c866ad0b37748db446f15b.txt`），需要确认分别对应百度/Bing/360 中的哪家、验证是否已在对应站长平台完成
+  - [x] ~~站长验证：`frontend/` 下有两个哈希命名的验证文件（`8d888b2710be614049407f79e9395e79.txt` / `bdd3055ef7c866ad0b37748db446f15b.txt`），需要确认分别对应百度/Bing/360 中的哪家、验证是否已在对应站长平台完成~~ 无法自动识别，需人工登录 360/搜狗站长平台确认
   - [ ] 正式提交 `https://tuce.asia/sitemap.xml` 给百度站长平台 + Bing + Google Search Console
   - [ ] 知乎机构号 + 第一篇 GEO 文章
   - [ ] 百度百家号开通
@@ -106,6 +111,7 @@ reference/                 竞品参考（stoooges）
 | 2026-06-19 | **M2 SEO 修复批次**：og:image 全站统一为 og-cover.jpg（index 3 处 + blog 死链修复，png→jpg 1.46MB→293KB，f2b582a）；blog.html 补进 sitemap 10→11 条（487cf65）；新建 **docs/DOMAIN-CUTOVER.md**：81 处 tuce.asia 硬编码盘点（A–F 六类）+ 备案验收清单 + 替换备用方案（5cfda8e）|
 | 2026-06-19 | **M4-a 清理 logo 死代码**（commit fbd8eda）：main.js 删 logo 切换死代码 10 行（`var brandLogo`/`setLogo()`/onScroll 两处调用）；11 个 HTML 剥离冗余 `data-logo-light`/`data-logo-dark` 属性；删零引用、与 logo-dark.svg 字节级相同的 `logo-light.svg`（1.27MB）。零视觉变化，为 **M4-b（logo 压缩）** 铺路 |
 | 2026-06-19 | **M4-b 压缩 logo**（commit b3de3d9，已部署上线）：Pillow 从 logo-dark.svg 提取内嵌 PNG（RGB 彩色图 + L 灰度遮罩 putalpha 合成）→ 96×96 → `logo.webp`（q90，3.7KB）；删 logo-dark.svg + 替换 13 处引用（11 img + 2 JSON-LD）；同步 DOMAIN-CUTOVER/DESIGN-BRIEF/design-assets-needed；体积 1.27MB→3.7KB（-99.7%）；线上 logo.webp 200 image/webp、旧 svg 404 |
+| 2026-07-16 | **SEO/GEO 全面优化**：① 博客静态化 — 从 articles.json 生成 6 篇独立 HTML（articles/001–006.html），含 Article + BreadcrumbList Schema、OG/Twitter Card、ISO 8601 日期；articles.json url → 相对路径、blog.html 跳转改为站内同页导航 ② 全站补 BreadcrumbList JSON-LD（17 个文件） ③ teachers.html `<h2>`→`<h1>` ④ deploy.sh 新增 `bump_sitemap_lastmod()` ⑤ 新建 `llms.txt` ⑥ index.html Hero 图 preload + fetchpriority=high ⑦ robots.txt +GoogleOther×3、-Claude-Web ⑧ cases.html 补 Wang 同学 Review ⑨ writing-camp.html canonical/og:url 统一 + 删重复 BreadcrumbList + robots→noindex ⑩ 删旧 og-cover.jpg |
 | 2026-06-19 | **M5 修复 logo**（commit 5e52995，已部署上线）：诊断出 M4-b 的「源图」`logo-dark.svg` 实为 2048×2048 三合一设计拼版（面板1 绿盾/面板2 Logo-Light/面板3 Favicon），整张缩放导致页面显示「3 个小盾」；从拼版裁面板1单盾（合成透明底→裁 `(293,110)-(1024,1024)`→alpha tight-crop 得 704×882），方案A 保比例缩 77×96 居中于 96×96 透明画布 → `logo.webp` 1832 字节；路径未变零 HTML/CSS 改动；线上 200 / Content-Length 1832（注：commit 仅本地未 push 远端 git）|
 | 2026-06-26 | SSH 密钥配置 + 推送 5 个提交：生成 RSA 4096 位 SSH 密钥对并添加到 GitHub；推送 5 个本地提交（M5 commit 5e52995 + 新增 4 个 feat/chore）到 origin/main；branch tracking 已建立 |
 | 2026-07-08 | **转学页+多国联申页全面改版 + 首页蛇形布局 + 师资横条 + 洞察期刊目录式**：转学页 tf-* 新内容（对比表/六要素/权重/截止日/结论卡）；多国联申四幕叙事重构（诊断→案例→方案→结果）；美本训练营深绿主卡（camp-* 课程表+成果条+理念对开）；首页流程 organic-snake SVG 蜿蜒布局取代滑动卡片；首页师资横条 team-band（4 位导师头像叠排+锚点深链）；首页洞察改版为特稿/索引期刊编辑式；导航全站统一「多国联申」+ 删除 single-service.html（6 处引用重定向）；CSS brace 修复 + 统一版本号 edd8afa3 |
@@ -121,6 +127,13 @@ reference/                 竞品参考（stoooges）
 > 2. 更新 `CLAUDE.md` 里"已完成的对话记录"表格
 > 3. 更新"待办事项"中已完成项的状态
 > 4. 用中文简短告知用户"已记录"
+
+### 文章静态化架构（2026-07-16）
+
+- `articles.json` 由服务器 `sync_articles.py` 生成，`url` 字段存微信原文链接，`id` 字段为文章编号
+- JS 侧（blog.html/index.html）通过 `localUrl(a)` 从 `a.id` 构造本地静态页路径 `articles/${id}.html`，**不再依赖 `url` 字段做站内跳转**
+- 静态页（`articles/` 目录）由 `scripts/generate_article_pages.py` 从 `articles.json` 生成，内容含摘要 + 跳微信的 CTA 按钮
+- `deploy.sh` 排除 `/articles.json`（服务器自主生成）、同步 `articles/` 目录（静态页由本地生成后部署）
 
 ## 其他约定
 

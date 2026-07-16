@@ -39,8 +39,13 @@ server {
         add_header Cache-Control "public, immutable";
     }
 
+    # 覆盖 Nginx 默认 text/xml → application/xml（SEO 工具更友好）
+    types {
+        application/xml xml;
+    }
+
     gzip on;
-    gzip_types text/plain text/css application/json application/javascript image/svg+xml;
+    gzip_types text/plain text/css application/json application/javascript application/xml image/svg+xml;
     gzip_min_length 1024;
 
     listen 443 ssl; # managed by Certbot

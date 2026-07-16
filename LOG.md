@@ -466,3 +466,65 @@
 - [ ] 同步线上 nginx 配置回仓库 `nginx.conf.example`（现多了 443/证书/server_name）并 commit
 - [ ] 清理仓库根目录临时实验文件（`fix_*.py` / `timeline*.html` / `generate_*.js` / `replace_*.py` 等）+ 提交 7/8 及本次改动
 
+---
+
+## [2026-07-16] 第 N+1 次对话 · SEO/GEO 全面优化
+
+### 完成
+
+**高优先级**
+- **teachers.html 补 H1**：`<h2 class="team__title">` → `<h1 class="team__title">`（CSS class 选择器不受影响）
+- **博客静态化**：新建 `frontend/articles/001–006.html`，含完整 SEO（Article + BreadcrumbList Schema、OG type=article + article:published_time ISO 8601、Twitter Card），CTA 按钮跳微信原文，sitemap 新增 6 篇文章条目
+- **全站 BreadcrumbList**：17 个文件均补 JSON-LD 面包屑（首页→分类→页面名）
+
+**中优先级**
+- **deploy.sh sitemap 动态化**：新增 `bump_sitemap_lastmod()` 函数，每次部署 `sed` 替换为当天日期
+- **llms.txt**：新建 `frontend/llms.txt`（AI 爬虫发现标准），含站点简介、核心页面列表、联系方式、6 篇文章索引
+- **cases.html Wang Review**：补第三条 5 星 Review Schema
+- **LCP 预加载**：index.html `<head>` 新增 `<link rel="preload" as="image" href="images/page-hero.webp" fetchpriority="high">`
+- **旧 og-cover.jpg**：已删除（全站已切 og-cover-2026.jpg，零引用）
+
+**低优先级**
+- **robots.txt**：+GoogleOther / GoogleOther-Image / GoogleOther-Video（3 个 UA），-Claude-Web（无效 UA）
+- **writing-camp 软重定向页**：robots→noindex，og:url 与 canonical 统一为 meiben，删重复 BreadcrumbList
+- **5 服务详情页**：删旧版 "面包屑" BreadcrumbList（与批量添加的新版重复）
+
+**架构修正**
+- **articles.json url 字段回写**：服务器的 sync_articles.py 会覆盖 `url` 字段，本轮恢复为微信占位链接
+- **JS 跳转改为 id 驱动**：blog.html + index.html 卡片点击改为 `localUrl(article)` 从 `a.id` 构造 `articles/${id}.html`，不再依赖 `url` 字段做站内导航
+- **新建生成脚本**：`scripts/generate_article_pages.py` — 从 articles.json 生成/重新生成所有文章静态页，含 ISO 8601 日期处理
+
+**项目记事本**
+- CLAUDE.md 更新：文件结构、待提交、GEO 待办、对话记录、文章静态化架构说明
+
+### 文件变更
+```
+新增: frontend/articles/001–006.html  (6 篇静态文章)
+      frontend/llms.txt
+      scripts/generate_article_pages.py
+
+修改: frontend/*.html ×11             (BreadcrumbList / H1 / preload / noindex / 跳转)
+      frontend/articles.json           (updated_at)
+      frontend/sitemap.xml             (+6 篇, 17 条总)
+      frontend/robots.txt              (+3 UA, -1 UA)
+      frontend/blog.html               (BlogPosting Schema + localUrl 跳转)
+      deploy.sh                        (bump_sitemap_lastmod)
+      CLAUDE.md
+
+删除: frontend/assets/og-cover.jpg
+```
+
+### Debug / 踩坑
+| 现象 | 原因 | 解决方式 |
+|---|---|---|
+| 批量 BreadcrumbList 脚本给 writing-camp.html 多加了第二个 BreadcrumbList | 旧手动版和批量版共存 | 手动删旧版 4 行，保留新版 |
+| 5 个服务详情页都有双重 BreadcrumbList | 此前已有手动版 "面包屑" + 本轮批量 "BreadcrumbList" | Python regex 批量清理旧 "面包屑" 块 |
+| articles.json 的 `url` 被改为相对路径，但服务器 sync_articles.py 会覆盖 | 该文件由 cron 在服务器端生成 | url 恢复为微信占位链接，JS 改用 `id` 字段构造静态页路径 |
+| `og:url` 含 `#writing-camp` 片段与 canonical 不一致 | og:url 不应带 hash fragment | 去掉 hash，统一 https://tuce.asia/meiben |
+
+### 遗留 / 下次继续
+- [ ] 提交所有改动 + 部署到服务器
+- [ ] 提交 sitemap 给百度/Bing/Google Search Console
+- [ ] 确认 `8d888b...txt` 和 `bdd3055...txt` 归属（360/搜狗站长平台）
+- [ ] 同步线上 nginx 配置回 `nginx.conf.example`
+
