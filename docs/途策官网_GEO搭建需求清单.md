@@ -79,7 +79,7 @@
 平和 → 哈佛大学语言学 | 途策留学学员故事
 ```
 
-**技术要点：** 每个案例页加上 `ItemList` 和 `Review` Schema标记。
+**技术要点：** 案例列表使用 `ItemList` Schema；只有页面存在真实、可见且可验证的学员评价时，才考虑使用 `Review`，不虚构 `AggregateRating`。
 
 ### P1：服务页面
 

@@ -1,276 +1,117 @@
 #!/usr/bin/env python3
-"""从 articles.json 生成静态文章页面到 frontend/articles/"""
+"""从 articles.json 生成静态文章页、sitemap.xml 和 llms.txt。"""
 
+import html
 import json
 import os
+import re
+import time
+
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
-ARTICLES_JSON = os.path.join(PROJECT_DIR, "frontend", "articles.json")
-OUT_DIR = os.path.join(PROJECT_DIR, "frontend", "articles")
 
-TEMPLATE = r"""<!DOCTYPE html>
+CORE_SITEMAP = [
+    ("https://tuce.asia/", "weekly", "1.0", "index.html"),
+    ("https://tuce.asia/services", "monthly", "0.9", "services.html"),
+    ("https://tuce.asia/meiben", "monthly", "0.9", "meiben.html"),
+    ("https://tuce.asia/graduate", "monthly", "0.7", "graduate.html"),
+    ("https://tuce.asia/transfer", "monthly", "0.7", "transfer.html"),
+    ("https://tuce.asia/uk-eu", "monthly", "0.7", "uk-eu.html"),
+    ("https://tuce.asia/immigration", "monthly", "0.7", "immigration.html"),
+    ("https://tuce.asia/teachers", "monthly", "0.8", "teachers.html"),
+    ("https://tuce.asia/cases", "monthly", "0.9", "cases.html"),
+    ("https://tuce.asia/blog", "weekly", "0.8", "blog.html"),
+]
+
+
+TEMPLATE = r'''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#FAF7F0" />
-
-  <!-- ===== 基础 SEO ===== -->
-  <title>{title} | 途策留学 · 留学洞察</title>
-  <meta name="description" content="{digest}" />
-  <meta name="keywords" content="{keywords}" />
+  <link rel="icon" type="image/webp" href="../assets/logo.webp" />
+  <title>__TITLE_HTML__ | 途策留学 · 留学洞察</title>
+  <meta name="description" content="__DIGEST_HTML__" />
+  <meta name="keywords" content="__KEYWORDS__" />
   <meta name="author" content="途策留学 TUCE Education" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://tuce.asia/articles/{article_id}.html" />
+  <link rel="canonical" href="https://tuce.asia/articles/__ID__.html" />
   <meta http-equiv="content-language" content="zh-CN" />
-
-  <!-- Open Graph -->
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="途策留学" />
   <meta property="og:locale" content="zh_CN" />
-  <meta property="og:url" content="https://tuce.asia/articles/{article_id}.html" />
-  <meta property="og:title" content="{title} | 途策留学 · 留学洞察" />
-  <meta property="og:description" content="{digest}" />
+  <meta property="og:url" content="https://tuce.asia/articles/__ID__.html" />
+  <meta property="og:title" content="__TITLE_HTML__ | 途策留学 · 留学洞察" />
+  <meta property="og:description" content="__DIGEST_HTML__" />
   <meta property="og:image" content="https://tuce.asia/assets/og-cover-2026.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="途策留学 · 留学洞察" />
-  <meta property="article:published_time" content="{iso_date}" />
-  <meta property="article:section" content="{category}" />
-
-  <!-- Twitter / X -->
+  <meta property="article:published_time" content="__ISO_DATE__" />
+  <meta property="article:section" content="__CATEGORY_HTML__" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{title} | 途策留学" />
-  <meta name="twitter:description" content="{digest}" />
+  <meta name="twitter:title" content="__TITLE_HTML__ | 途策留学" />
+  <meta name="twitter:description" content="__DIGEST_HTML__" />
   <meta name="twitter:image" content="https://tuce.asia/assets/og-cover-2026.jpg" />
-  <meta name="twitter:image:alt" content="途策留学 · 留学洞察" />
-
-  <!-- ===== 结构化数据：Article + BreadcrumbList ===== -->
-  <script type="application/ld+json">
-  {{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "{title_json}",
-    "description": "{digest_json}",
-    "author": {{
-      "@type": "Organization",
-      "name": "途策留学",
-      "url": "https://tuce.asia"
-    }},
-    "publisher": {{
-      "@type": "EducationalOrganization",
-      "name": "途策留学",
-      "alternateName": ["TUCE Education", "途策必达教育科技"],
-      "logo": "https://tuce.asia/assets/logo.webp",
-      "url": "https://tuce.asia"
-    }},
-    "datePublished": "{iso_date}",
-    "url": "https://tuce.asia/articles/{article_id}.html",
-    "inLanguage": "zh-CN",
-    "about": "{category}"
-  }}
-  </script>
-  <script type="application/ld+json">
-  {{
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {{ "@type": "ListItem", "position": 1, "name": "首页", "item": "https://tuce.asia/" }},
-      {{ "@type": "ListItem", "position": 2, "name": "留学洞察", "item": "https://tuce.asia/blog" }},
-      {{ "@type": "ListItem", "position": 3, "name": "{title_json}" }}
-    ]
-  }}
-  </script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
+  <script type="application/ld+json">__ARTICLE_JSON__</script>
+  <script type="application/ld+json">__BREADCRUMB_JSON__</script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:wght@400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" />
   <link rel="stylesheet" href="../css/style.css?v=3d3621bf" />
   <style>
-    .article-page {{ max-width: 760px; margin: 0 auto; padding: 120px 20px 60px; }}
-    .article-page__back {{ display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--muted, #888); text-decoration: none; margin-bottom: 32px; transition: color .25s; }}
-    .article-page__back:hover {{ color: var(--green); }}
-    .article-page__category {{ display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--gold, #A89157); margin-bottom: 16px; }}
-    .article-page h1 {{ font-family: var(--serif, 'Noto Serif SC', serif); font-size: clamp(26px, 4.5vw, 38px); font-weight: 700; line-height: 1.35; color: var(--ink, #1c2a23); margin: 0 0 24px; letter-spacing: -.01em; }}
-    .article-page__meta {{ display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--muted, #888); margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid var(--line, #e5dfd2); }}
-    .article-page__digest {{ font-size: 18px; line-height: 1.85; color: var(--body, #555); margin-bottom: 32px; padding: 24px 28px; background: #FCFAF4; border-left: 3px solid var(--gold, #A89157); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }}
-    .article-page__cta {{ display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--green); color: #fff; font-size: 15px; font-weight: 700; border-radius: var(--radius-sm); text-decoration: none; transition: background .25s, transform .25s; }}
-    .article-page__cta:hover {{ background: #1a3d2f; transform: translateY(-1px); }}
-    .article-page__cta svg {{ width: 16px; height: 16px; }}
-    .article-page__notice {{ margin-top: 48px; padding: 16px 20px; background: rgba(168,145,87,.08); border-radius: var(--radius-sm); font-size: 13.5px; color: var(--muted); line-height: 1.7; }}
-    @media (max-width: 759.98px) {{
-      .article-page {{ padding: 100px 16px 48px; }}
-      .article-page__digest {{ font-size: 16px; padding: 18px 20px; }}
-    }}
+    .article-page { max-width:760px; margin:0 auto; padding:120px 20px 60px; }
+    .article-page h1 { font-family:var(--serif,'Noto Serif SC',serif); font-size:clamp(26px,4.5vw,38px); line-height:1.35; margin:0 0 24px; }
+    .article-page__digest { font-size:18px; line-height:1.85; margin-bottom:32px; padding:24px 28px; background:#FCFAF4; border-left:3px solid var(--gold,#A89157); }
+    .article-page__notice { margin-top:48px; padding:16px 20px; font-size:13.5px; line-height:1.7; background:rgba(168,145,87,.08); }
+    @media (max-width:759.98px){ .article-page{padding:100px 16px 48px}.article-page__digest{font-size:16px;padding:18px 20px} }
   </style>
 </head>
 <body>
-
-  <!-- ===== 复用图标 ===== -->
-  <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" focusable="false">
-    <defs>
-      <symbol id="ic-arrow" viewBox="0 0 24 24"><path d="M4 12h15M14 6.5 19.5 12 14 17.5"/></symbol>
-      <symbol id="ic-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M10 17.5 4.5 12 10 6.5"/></symbol>
-      <symbol id="ic-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></symbol>
-    </defs>
-  </svg>
-
-  <!-- ===== 顶部导航 ===== -->
-  <header class="nav" id="nav">
-    <div class="nav__inner">
-      <a class="brand" href="../" aria-label="途策留学">
-        <span class="brand__badge"><img id="brandLogo" src="../assets/logo.webp" alt="途策留学" class="brand__logo" /></span>
-        <span class="brand__text">
-          <b>途策留学</b>
-          <i>TUCE&nbsp;EDUCATION</i>
-        </span>
-      </a>
-      <nav class="nav__links">
-        <a href="../">首页</a>
-        <div class="nav__drop">
-          <a href="../services" class="nav__drop-toggle">服务</a>
-          <div class="nav__submenu">
-            <a href="../services">服务总览</a>
-            <a href="../meiben">美国本科</a>
-            <a href="../graduate">研究生</a>
-            <a href="../transfer">转学</a>
-            <a href="../uk-eu">多国联申</a>
-            <a href="../immigration">美国移民</a>
-          </div>
-        </div>
-        <a href="../teachers">师资</a>
-        <a href="../cases">案例</a>
-        <a href="../#faq">常见问题</a>
-        <a href="../blog" class="is-active">洞察</a>
-      </nav>
-      <a href="../#consult" class="btn btn--cta nav__cta">免费评估</a>
-      <button class="nav__burger" id="burger" aria-label="菜单">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="nav__drawer" id="drawer">
-      <a href="../">首页</a>
-      <div class="drawer__group">
-        <button type="button" class="drawer__toggle">服务</button>
-        <div class="drawer__sub">
-          <a href="../services">服务总览</a>
-          <a href="../meiben">美国本科</a>
-          <a href="../graduate">研究生</a>
-          <a href="../transfer">转学</a>
-          <a href="../uk-eu">多国联申</a>
-          <a href="../immigration">美国移民</a>
-        </div>
-      </div>
-      <a href="../teachers">师资</a>
-      <a href="../cases">案例</a>
-      <a href="../#faq">常见问题</a>
-      <a href="../blog" class="is-active">洞察</a>
-      <a href="../#consult" class="btn btn--cta">免费评估</a>
-    </div>
-  </header>
-
-  <!-- ===== 文章正文 ===== -->
+  <header class="nav" id="nav"><div class="nav__inner">
+    <a class="brand" href="../" aria-label="途策留学"><span class="brand__badge"><img src="../assets/logo.webp" alt="途策留学" class="brand__logo" /></span><span class="brand__text"><b>途策留学</b><i>TUCE&nbsp;EDUCATION</i></span></a>
+    <nav class="nav__links"><a href="../">首页</a><a href="../services">服务</a><a href="../teachers">师资</a><a href="../cases">案例</a><a href="../#faq">常见问题</a><a href="../blog" class="is-active">洞察</a></nav>
+    <a href="../#consult" class="btn btn--cta nav__cta">免费评估</a>
+    <button class="nav__burger" id="burger" aria-label="菜单"><span></span><span></span><span></span></button>
+  </div><div class="nav__drawer" id="drawer"><a href="../">首页</a><a href="../services">服务</a><a href="../teachers">师资</a><a href="../cases">案例</a><a href="../#faq">常见问题</a><a href="../blog">洞察</a><a href="../#consult" class="btn btn--cta">免费评估</a></div></header>
   <main class="article-page">
-    <a class="article-page__back" href="../blog">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M10 17.5 4.5 12 10 6.5"/></svg>
-      返回洞察列表
-    </a>
-
-    <span class="article-page__category">{category}</span>
-    <h1>{title}</h1>
-    <div class="article-page__meta">
-      <span>{publish_time}</span>
-      <span aria-hidden="true">·</span>
-      <span>途策留学</span>
-    </div>
-
-    <div class="article-page__digest">
-      {digest}
-    </div>
-
-    <a class="article-page__cta" href="{wechat_url}" target="_blank" rel="noopener">
-      在微信阅读全文
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-    </a>
-
-    <p class="article-page__notice">本文首发于途策留学微信公众号。点击上方按钮跳转微信阅读完整内容。关注途策留学公众号，获取更多申请策略、选校逻辑与文书方法论。</p>
+    <a class="article-page__back" href="../blog">← 返回洞察列表</a>
+    <span class="article-page__category">__CATEGORY_HTML__</span>
+    <h1>__TITLE_HTML__</h1>
+    <div class="article-page__meta"><span>__PUBLISH_DATE__</span><span aria-hidden="true">·</span><span>途策留学</span></div>
+    <div class="article-page__digest">__DIGEST_HTML__</div>
+    __WECHAT_CTA__
+    <p class="article-page__notice">__NOTICE__</p>
   </main>
-
-  <!-- ===== 页脚 ===== -->
-  <footer class="footer">
-    <div class="footer__inner">
-      <div class="footer__brand">
-        <div class="brand brand--footer">
-          <span class="brand__text"><b>途策留学</b><i>TUCE&nbsp;EDUCATION</i></span>
-        </div>
-        <p class="footer__desc">用专业策略，陪你抵达理想院校。</p>
-      </div>
-      <div class="footer__col">
-        <h4>联系方式</h4>
-        <ul class="footer__contact">
-          <li>
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A15 15 0 0 1 4 5a1 1 0 0 1 1-1z"/></svg>
-            <a href="tel:+8613665152000">+86 13665152000</a>
-          </li>
-          <li>
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-            <a href="mailto:kevinqiao@tucededu.com">kevinqiao@tucededu.com</a>
-          </li>
-          <li>
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>
-            <span>上海办公室 · 长宁区</span>
-          </li>
-          <li>
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>
-            <span>无锡办公室 · 锡山区</span>
-          </li>
-        </ul>
-      </div>
-      <div class="footer__col">
-        <h4>快速链接</h4>
-        <a href="../services">服务方案</a>
-        <a href="../teachers">师资团队</a>
-        <a href="../cases">成功案例</a>
-        <a href="../#faq">常见问题</a>
-        <a href="../blog">留学洞察</a>
-      </div>
-      <div class="footer__col">
-        <h4>关注我们</h4>
-        <div class="footer__qr footer__qr--dual">
-          <div class="qr-item">
-            <div class="qr qr--sm" aria-label="顾问微信二维码">
-              <img src="../assets/qr-code.jpg" alt="顾问微信二维码" loading="lazy" />
-            </div>
-            <p>顾问微信</p>
-          </div>
-          <div class="qr-item">
-            <div class="qr qr--sm" aria-label="微信公众号二维码">
-              <img src="../assets/qr-official.jpg" alt="微信公众号二维码" onerror="this.style.display='none';this.parentNode.classList.add('qr--empty');this.parentNode.dataset.ph='公众号二维码'" />
-            </div>
-            <p>微信公众号</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer__bar">
-      <span>&copy; 2026 途策留学 TuCe Education. 保留所有权利。</span>
-      <span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow" style="color:inherit;text-decoration:none;">沪ICP备2026025218号-2</a></span>
-    </div>
-  </footer>
-
+  <footer class="footer"><div class="footer__inner">
+    <div class="footer__brand"><div class="brand brand--footer"><span class="brand__text"><b>途策留学</b><i>TUCE&nbsp;EDUCATION</i></span></div><p class="footer__desc">用专业策略，陪你抵达理想院校。</p></div>
+    <div class="footer__col"><h4>联系方式</h4><ul class="footer__contact"><li><a href="tel:+8613665152000">+86 13665152000</a></li><li><a href="mailto:kevinqiao@tucededu.com">kevinqiao@tucededu.com</a></li><li><span>上海办公室 · 长宁区</span></li><li><span>无锡办公室 · 锡山区</span></li></ul></div>
+    <div class="footer__col"><h4>快速链接</h4><a href="../services">服务方案</a><a href="../teachers">师资团队</a><a href="../cases">成功案例</a><a href="../#faq">常见问题</a><a href="../blog">留学洞察</a></div>
+    <div class="footer__col"><h4>关注我们</h4><div class="footer__qr"><div class="qr qr--sm"><img src="../assets/qr-official.jpg" alt="微信公众号二维码" /></div><p>微信公众号</p></div></div>
+  </div><div class="footer__bar"><span>&copy; 2026 途策留学 TUCE Education. 保留所有权利。</span><span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow">沪ICP备2026025218号-2</a></span></div></footer>
   <script src="../js/main.js?v=9"></script>
 </body>
-</html>"""
+</html>'''
 
 
-def json_escape(s):
-    """Escape a string for safe inclusion in JSON."""
-    return s.replace("\\", "\\\\").replace('"', '\\"').replace("\n", " ")
+def default_web_root():
+    return os.environ.get("TUCE_WEB_ROOT", "").strip() or os.path.join(PROJECT_DIR, "frontend")
+
+
+def html_escape(value):
+    return html.escape(str(value or ""), quote=True)
+
+
+def json_string(value):
+    return json.dumps(str(value or ""), ensure_ascii=False)
+
+
+def valid_external_url(url):
+    value = (url or "").strip()
+    return value.startswith(("http://", "https://")) and "placeholder" not in value.lower()
 
 
 def generate_keywords(title, category):
-    """Generate basic keywords from title and category."""
     base = "途策留学,留学洞察,留学申请"
     if "美国" in category or "美本" in title:
         base += ",美本申请,美国留学"
@@ -287,42 +128,153 @@ def generate_keywords(title, category):
     return base
 
 
-def main():
-    with open(ARTICLES_JSON, "r", encoding="utf-8") as f:
-        data = json.load(f)
+def write_text_atomic(path, content):
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(content)
+    os.replace(tmp, path)
 
-    articles = data.get("articles", [])
-    os.makedirs(OUT_DIR, exist_ok=True)
+
+def load_existing_lastmods(path):
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            raw = f.read()
+    except OSError:
+        return {}
+    result = {}
+    for block in re.findall(r"<url>([\s\S]*?)</url>", raw):
+        loc = re.search(r"<loc>([^<]+)</loc>", block)
+        lastmod = re.search(r"<lastmod>([^<]+)</lastmod>", block)
+        if loc and lastmod:
+            result[loc.group(1).strip()] = lastmod.group(1).strip()
+    return result
+
+
+def file_date(path):
+    return time.strftime("%Y-%m-%d", time.localtime(os.path.getmtime(path)))
+
+
+def generate_sitemap(web_root, articles):
+    path = os.path.join(web_root, "sitemap.xml")
+    old_lastmods = load_existing_lastmods(path)
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">', ""]
+    for loc, changefreq, priority, filename in CORE_SITEMAP:
+        lastmod = old_lastmods.get(loc, "")
+        if not lastmod and os.path.exists(os.path.join(web_root, filename)):
+            lastmod = file_date(os.path.join(web_root, filename))
+        lines += ["  <url>", "    <loc>%s</loc>" % loc]
+        if lastmod:
+            lines.append("    <lastmod>%s</lastmod>" % html_escape(lastmod))
+        lines += ["    <changefreq>%s</changefreq>" % changefreq, "    <priority>%s</priority>" % priority, "  </url>", ""]
+    lines.append("  <!-- ===== 洞察文章（由 articles.json 生成） ===== -->")
+    for article in articles:
+        article_id = re.sub(r"[^A-Za-z0-9_-]", "", str(article.get("id") or ""))
+        if not article_id:
+            continue
+        lines += ["  <url>", "    <loc>https://tuce.asia/articles/%s.html</loc>" % article_id]
+        publish_time = str(article.get("publish_time") or "")
+        if re.match(r"^\d{4}-\d{2}-\d{2}$", publish_time):
+            lines.append("    <lastmod>%s</lastmod>" % publish_time)
+        lines += ["    <changefreq>monthly</changefreq>", "    <priority>0.7</priority>", "  </url>"]
+    lines += ["", "</urlset>", ""]
+    write_text_atomic(path, "\n".join(lines))
+
+
+def generate_llms(web_root, articles):
+    lines = [
+        "# 途策留学 TUCE Education", "",
+        "- 品牌实体：途策留学 = TUCE Education = https://tuce.asia/",
+        "- 业务类别：留学申请、留学咨询、国际教育服务", "",
+        "> 高端留学申请机构，专注美国本科、研究生及英联邦国家策略定制。3对1专属团队，从选校到文书全程陪伴。", "",
+        "## 关于我们", "途策留学是一家以策略驱动的留学申请机构，不做模板化申请。先用 G7 潜能测评了解学生，再定制方案。2024–2026 三届学员取得 220+ 枚 Offer，覆盖美英港新澳加 59 所院校。", "",
+        "## 核心页面", "",
+        "- [首页](https://tuce.asia/)", "- [服务总览](https://tuce.asia/services)", "- [美国本科](https://tuce.asia/meiben)", "- [研究生](https://tuce.asia/graduate)", "- [转学](https://tuce.asia/transfer)", "- [多国联申](https://tuce.asia/uk-eu)", "- [美国移民](https://tuce.asia/immigration)", "- [师资团队](https://tuce.asia/teachers)", "- [成功案例](https://tuce.asia/cases)", "- [留学洞察](https://tuce.asia/blog)", "- [免费评估](https://tuce.asia/#consult)", "",
+        "## 联系方式", "", "- 电话：+86 13665152000", "- 邮箱：kevinqiao@tucededu.com", "- 地址：上海长宁区 / 无锡锡山区", "",
+        "## 文章列表", "",
+    ]
+    for article in articles:
+        article_id = re.sub(r"[^A-Za-z0-9_-]", "", str(article.get("id") or ""))
+        title = str(article.get("title") or "").replace("[", "\\[").replace("]", "\\]")
+        if article_id and title:
+            lines.append("- [%s](https://tuce.asia/articles/%s.html) — %s" % (title, article_id, article.get("publish_time", "")))
+    lines.append("")
+    write_text_atomic(os.path.join(web_root, "llms.txt"), "\n".join(lines))
+
+
+def generate_pages(web_root=None, articles_json=None, out_dir=None):
+    web_root = web_root or default_web_root()
+    articles_json = articles_json or os.path.join(web_root, "articles.json")
+    out_dir = out_dir or os.path.join(web_root, "articles")
+    with open(articles_json, "r", encoding="utf-8") as f:
+        articles = json.load(f).get("articles", [])
+    os.makedirs(out_dir, exist_ok=True)
+
+    # 文章目录完全由 articles.json 管理，清掉旧 ID，避免博客链接指向过期页面。
+    for filename in os.listdir(out_dir):
+        if filename.endswith(".html"):
+            os.remove(os.path.join(out_dir, filename))
 
     for article in articles:
-        article_id = article["id"]
-        title = article["title"]
-        digest = article["digest"]
-        wechat_url = article["url"]
-        publish_time = article["publish_time"]
-        category = article.get("category", "途策洞察")
-        keywords = generate_keywords(title, category)
-        # ISO 8601 for machine-readable dates
-        iso_date = f"{publish_time}T00:00:00+08:00"
+        article_id = re.sub(r"[^A-Za-z0-9_-]", "", str(article.get("id") or ""))
+        if not article_id:
+            continue
+        title = str(article.get("title") or "")
+        digest = str(article.get("digest") or "")
+        category = str(article.get("category") or "途策洞察")
+        publish_time = str(article.get("publish_time") or "")
+        article_url = "https://tuce.asia/articles/%s.html" % article_id
+        article_json = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "@id": article_url + "#article",
+            "headline": title,
+            "description": digest,
+            "author": {"@id": "https://tuce.asia/#organization"},
+            "publisher": {"@id": "https://tuce.asia/#organization"},
+            "datePublished": (publish_time + "T00:00:00+08:00") if publish_time else "",
+            "url": article_url,
+            "mainEntityOfPage": {"@id": article_url},
+            "inLanguage": "zh-CN",
+            "about": category,
+        }
+        breadcrumb_json = {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://tuce.asia/"},
+                {"@type": "ListItem", "position": 2, "name": "留学洞察", "item": "https://tuce.asia/blog"},
+                {"@type": "ListItem", "position": 3, "name": title, "item": article_url},
+            ],
+        }
+        if valid_external_url(article.get("url")):
+            wechat_cta = '<a class="article-page__cta" href="%s" target="_blank" rel="noopener">在微信阅读全文 →</a>' % html_escape(article["url"])
+            notice = "本文首发于途策留学微信公众号。点击上方按钮跳转微信阅读完整内容。"
+        else:
+            wechat_cta = ""
+            notice = "本文摘要正在整理中，完整内容请返回途策留学留学洞察栏目查看最新文章。"
+        values = {
+            "__TITLE_HTML__": html_escape(title),
+            "__DIGEST_HTML__": html_escape(digest),
+            "__KEYWORDS__": html_escape(generate_keywords(title, category)),
+            "__ID__": article_id,
+            "__ISO_DATE__": html_escape((publish_time + "T00:00:00+08:00") if publish_time else ""),
+            "__CATEGORY_HTML__": html_escape(category),
+            "__ARTICLE_JSON__": json.dumps(article_json, ensure_ascii=False, indent=2),
+            "__BREADCRUMB_JSON__": json.dumps(breadcrumb_json, ensure_ascii=False, indent=2),
+            "__PUBLISH_DATE__": html_escape(publish_time),
+            "__WECHAT_CTA__": wechat_cta,
+            "__NOTICE__": html_escape(notice),
+        }
+        rendered = TEMPLATE
+        for key, value in values.items():
+            rendered = rendered.replace(key, value)
+        with open(os.path.join(out_dir, article_id + ".html"), "w", encoding="utf-8") as f:
+            f.write(rendered)
 
-        html = TEMPLATE.format(
-            title=title,
-            title_json=json_escape(title),
-            digest=digest,
-            digest_json=json_escape(digest),
-            article_id=article_id,
-            publish_time=publish_time,
-            iso_date=iso_date,
-            category=category,
-            keywords=keywords,
-            wechat_url=wechat_url,
-        )
-
-        out_path = os.path.join(OUT_DIR, f"{article_id}.html")
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(html)
-        print(f"Generated: {out_path}")
+    generate_sitemap(web_root, articles)
+    generate_llms(web_root, articles)
+    return len(articles)
 
 
 if __name__ == "__main__":
-    main()
+    print("Generated %d article pages and SEO files" % generate_pages())

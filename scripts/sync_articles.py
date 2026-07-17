@@ -51,6 +51,8 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
+from generate_article_pages import generate_pages
+
 API = "https://api.weixin.qq.com"
 TIKHUB_API = "https://api.tikhub.io/api/v1/wechat_mp/v2/fetch_account_articles"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -545,6 +547,12 @@ def main():
     write_json_atomic(out_path, payload)
     log.info("✓ 已写入 %s（%d 篇，置顶 %d 篇）", out_path, len(articles),
              sum(1 for a in articles if a["pinned"]))
+    try:
+        generated = generate_pages(web_root=web_root, articles_json=out_path)
+    except Exception as e:
+        log.error("文章页与 SEO 文件生成失败：%s", e)
+        return 1
+    log.info("✓ 已生成 %d 个文章页，并同步更新 sitemap.xml / llms.txt", generated)
     return 0
 
 

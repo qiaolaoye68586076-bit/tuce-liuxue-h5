@@ -4,9 +4,15 @@
 # 2026-07-08 域名切换 + SSL 上线后同步：tuce.asia 已生效，Certbot 自动续期。
 
 server {
+    # HTTPS 统一到裸域，避免 www / non-www 形成两个站点实体。
     server_name tuce.asia www.tuce.asia;
     root /var/www/tuce;
     index index.html;
+    include /etc/nginx/sites-available/atlas-cache.conf;
+
+    if ($host = www.tuce.asia) {
+        return 301 https://tuce.asia$request_uri;
+    }
 
     # 留资后端 Flask/标准库 服务反代（tuce-lead.service，监听 127.0.0.1:5000）
     # proxy_pass 不带尾斜杠：保留 /api/ 前缀，后端路由为 /api/lead
@@ -19,7 +25,35 @@ server {
 
     # 规范化：/index.html → /（避免首页出现两个可访问 URL）
     location = /index.html {
-        return 301 /;
+        # Nginx 从 / 通过 index 指令内部跳转到这里时，保留首页正常返回 200；
+        # 只有用户直接请求 /index.html 才执行规范化 301。
+        if ($request_uri = /index.html) {
+            return 301 /;
+        }
+        try_files $uri =404;
+    }
+
+    # 浏览器默认会请求 /favicon.ico；统一复用品牌图标，避免无意义的 404。
+    location = /favicon.ico {
+        return 301 /assets/logo.webp;
+    }
+
+    # 文书训练营已并入美国本科服务，旧 URL 直接合并到主页面，避免保留 noindex 重复入口。
+    location = /writing-camp {
+        return 301 /meiben;
+    }
+    location = /writing-camp.html {
+        return 301 /meiben;
+    }
+
+    # 文章页的规范 URL 保留 .html；主站页面则由下方规则隐藏 .html。
+    location ^~ /articles/ {
+        try_files $uri =404;
+    }
+
+    # 规范化主站页面的 trailing slash，统一到 sitemap/canonical 使用的无斜杠 URL。
+    location ~ ^/(services|meiben|graduate|transfer|uk-eu|immigration|teachers|cases|blog)/$ {
+        return 301 /$1$is_args$args;
     }
 
     location / {
@@ -39,11 +73,6 @@ server {
         add_header Cache-Control "public, immutable";
     }
 
-    # 覆盖 Nginx 默认 text/xml → application/xml（SEO 工具更友好）
-    types {
-        application/xml xml;
-    }
-
     gzip on;
     gzip_types text/plain text/css application/json application/javascript application/xml image/svg+xml;
     gzip_min_length 1024;
@@ -57,21 +86,7 @@ server {
 
 }
 server {
-    if ($host = www.tuce.asia) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
-    if ($host = tuce.asia) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
     listen 80 default_server;
     server_name tuce.asia www.tuce.asia;
-    return 404; # managed by Certbot
-
-
-
-
+    return 301 https://tuce.asia$request_uri;
 }

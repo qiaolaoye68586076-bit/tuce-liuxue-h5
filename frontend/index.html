@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#FAF7F0" />
+  <link rel="icon" type="image/webp" href="assets/logo.webp" />
 
   <!-- ===== 基础 SEO ===== -->
   <title>途策留学 · 高端留学申请机构 2026 | 美本/美研/英联邦 策略定制</title>
@@ -39,23 +40,29 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": ["EducationalOrganization", "LocalBusiness"],
-    "name": "途策必达教育科技",
-    "alternateName": ["途策留学", "TUCE Education"],
+    "@type": "EducationalOrganization",
+    "@id": "https://tuce.asia/#organization",
+    "name": "途策留学",
+    "alternateName": ["TUCE Education"],
     "description": "一家以策略驱动的留学申请机构，专注帮助学生用最优路径实现海外名校梦想。提供美国本科、研究生、转学及英联邦国家高端留学申请服务。3对1专属团队，拒绝模板，策略先行。",
     "url": "https://tuce.asia/",
-    "logo": "https://tuce.asia/assets/logo.webp",
+    "logo": {
+      "@type": "ImageObject",
+      "@id": "https://tuce.asia/#logo",
+      "url": "https://tuce.asia/assets/logo.webp"
+    },
     "image": "https://tuce.asia/assets/og-cover-2026.jpg",
     "areaServed": ["上海", "全国"],
-    "foundingDate": "2023",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "上海",
-      "addressRegion": "上海市",
-      "addressCountry": "CN"
-    },
     "serviceType": ["美国本科申请", "美国研究生申请", "英国留学申请", "留学规划", "文书指导", "面试辅导"],
     "knowsAbout": ["美本申请", "美研申请", "英本申请", "英研申请", "留学规划", "文书指导", "选校策略", "面试辅导", "背景提升", "转学申请", "TOEFL备考", "SAT备考"],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "telephone": "+86-136-6515-2000",
+      "email": "kevinqiao@tucededu.com",
+      "areaServed": "CN",
+      "availableLanguage": "zh-CN"
+    },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": "留学申请服务",
@@ -67,12 +74,21 @@
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "留学文书指导"}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "选校策略规划"}}
       ]
-    },
-    "parentOrganization": {
-      "@type": "Organization",
-      "name": "上海途策必达教育科技有限公司"
-    },
-    "sameAs": []
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://tuce.asia/#website",
+    "name": "途策留学",
+    "alternateName": "TUCE Education",
+    "url": "https://tuce.asia/",
+    "description": "途策留学官方网站，提供留学申请、留学咨询与国际教育服务。",
+    "inLanguage": "zh-CN",
+    "publisher": {"@id": "https://tuce.asia/#organization"},
+    "about": {"@id": "https://tuce.asia/#organization"}
   }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -298,8 +314,8 @@
       </h1>
       <div class="hero-brand-row">
         <p class="hero-body">
-          我们先花时间弄懂你是谁、擅长什么，<br/>
-          再由藤校导师量身定制申请方案——不套模板，让你的故事<strong>只属于你</strong>。
+          途策留学（TUCE Education）是一家专注策略驱动的留学申请机构，<br/>
+          由藤校导师量身定制申请方案——不套模板，让你的故事<strong>只属于你</strong>。
         </p>
       </div>
       <div class="hero-cta-group">
@@ -946,7 +962,7 @@
 
     </div>
     <div class="footer__bar">
-      <span>© 2026 途策留学 TuCe Education. 保留所有权利。</span>
+      <span>© 2026 途策留学 TUCE Education. 保留所有权利。</span>
       <span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow" style="color:inherit;text-decoration:none;">沪ICP备2026025218号-2</a></span>
     </div>
   </footer>
@@ -1175,7 +1191,7 @@
           (arts.length > 1
             ? '<div class="insights-index">'+
                 arts.slice(1).map(rowHTML).join('')+
-                '<div class="insights-colophon" aria-hidden="true">Tuce Journal &mdash; Insights</div>'+
+                '<div class="insights-colophon" aria-hidden="true">TUCE Journal &mdash; Insights</div>'+
               '</div>'
             : '');
         realignHash();

@@ -183,34 +183,9 @@ bump_css_version() {
 bump_css_version
 
 # ---------------------------------------------------------------------------
-# 1.6 sitemap.xml lastmod 动态更新
-#    每次部署时把 lastmod 全部替换为当前日期，让搜索引擎知道页面仍在维护。
+# 1.6 sitemap.xml 日期保持由版本库和文章同步脚本管理
+#     不在每次前端部署时把所有 URL 的 lastmod 改成同一天，避免制造虚假的更新信号。
 # ---------------------------------------------------------------------------
-bump_sitemap_lastmod() {
-  local sm="$LOCAL_SRC/sitemap.xml"
-  if [[ ! -f "$sm" ]]; then
-    log_warn "未找到 $sm，跳过 sitemap 日期更新"
-    return 0
-  fi
-  local today
-  today=$(date +%Y-%m-%d)
-  local old
-  old=$(grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' "$sm" | head -n1 || true)
-
-  if [[ "$old" == "$today" ]]; then
-    log_ok "sitemap lastmod 已是今日 ${today}，无需更新"
-    return 0
-  fi
-
-  if [[ "$DRY_RUN" == true ]]; then
-    log_warn "演练模式：sitemap.xml lastmod 将更新为 ${today}（本次不改写）"
-    return 0
-  fi
-
-  sed -i.bak -E "s/[0-9]{4}-[0-9]{2}-[0-9]{2}/${today}/g" "$sm" && rm -f "$sm.bak"
-  log_ok "sitemap.xml lastmod 已更新为 ${today}"
-}
-bump_sitemap_lastmod
 
 # ---------------------------------------------------------------------------
 # 计时开始
@@ -239,12 +214,18 @@ fi
 # --exclude 保护「服务器自己生成」的内容不被 --delete 清掉 / 被本地占位覆盖：
 #   /articles.json     由 scripts/sync_articles.py 在服务器上生成（仓库那份只是占位种子）
 #   /assets/insights/   同步脚本下载的公众号封面图
+#   /articles/         由服务器同步脚本按线上 articles.json 生成，不能被前端部署清掉
+#   /sitemap.xml       由文章同步脚本按线上文章数据生成
+#   /llms.txt          由文章同步脚本按线上文章数据生成
 #   /_*.html           下划线前缀的预览/草稿页（如 _preview-*.html），仅本地预览，不上生产
 # 详见 scripts/README.md「与 deploy.sh 的关系」。
 rsync_opts=(-avz --progress --partial --timeout=120 --delete --stats
             --exclude='.DS_Store'
             --exclude='/articles.json'
+            --exclude='/articles/'
             --exclude='/assets/insights/'
+            --exclude='/sitemap.xml'
+            --exclude='/llms.txt'
             --exclude='/_*.html')
 # 追加来自 EXTRA_EXCLUDES 的临时排除项（空格分隔；故意不加引号以按空格拆分）
 if [[ -n "$EXTRA_EXCLUDES" ]]; then
@@ -332,4 +313,23 @@ printf '  %snginx -t:%s %s通过%s\n' "$C_DIM" "$C_RESET" "$C_OK" "$C_RESET"
 if [[ "$DRY_RUN" == true && "$transferred" -gt 10 ]]; then
   echo
   log_warn "变更量较大（${transferred} 个文件），建议先 ./deploy.sh -n -v 看详细清单，确认没有误带不该传的东西"
+fi
+
+# ---------------------------------------------------------------------------
+# 6. IndexNow 通知搜索引擎（仅正式部署；失败不阻塞已成功的部署）
+# ---------------------------------------------------------------------------
+if [[ "$DRY_RUN" == true ]]; then
+  log_warn "演练模式：跳过 IndexNow 提交"
+else
+  echo
+  log_info "IndexNow：通知搜索引擎页面已更新"
+  set +e
+  bash "$(dirname "$0")/scripts/submit-indexnow.sh"
+  idx_rc=$?
+  set -e
+  if [[ $idx_rc -eq 0 ]]; then
+    log_ok "IndexNow 已提交"
+  else
+    log_warn "IndexNow 提交失败（退出码 $idx_rc），已部署的网站不受影响"
+  fi
 fi

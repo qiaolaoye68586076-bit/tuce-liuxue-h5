@@ -18,7 +18,7 @@
 | Nginx 站点配置 | 远端 `/etc/nginx/conf.d/tuce.conf`（版本控制副本见 `nginx.conf.example`）|
 | 备份目录（远端）| `/var/www/backups/` |
 
-> 访问地址：http://121.43.101.155 （域名解析、SSL 待配置）
+> 生产访问地址：https://tuce.asia/。直接访问 IP 仅用于服务器排查，SSL 证书按域名签发。
 
 ---
 
@@ -88,7 +88,7 @@ ECS_HOST=1.2.3.4 ECS_PORT=22 ./deploy.sh
 
 4. **首次同步**：本地执行 `./deploy.sh`（或先 `./deploy.sh -n` 演练）。
 
-5. **验证**：浏览器访问 http://121.43.101.155 ，或 `curl -I http://121.43.101.155`。
+5. **验证**：浏览器访问 https://tuce.asia/，或 `curl -I https://tuce.asia/`。
 
 ---
 
@@ -114,4 +114,4 @@ ECS_HOST=1.2.3.4 ECS_PORT=22 ./deploy.sh
 - [ ] 配置 SSH 密钥登录（`ssh-copy-id` 或手动写入 `~/.ssh/authorized_keys`）
 - [ ] 禁用密码登录（`/etc/ssh/sshd_config` 设 `PasswordAuthentication no` 后 `systemctl restart sshd`）
 - [ ] 考虑新建非 root 部署用户，最小权限
-- [ ] 配置 SSL 证书（阿里云），上线前必须（见 `CLAUDE.md` GEO 待办）
+- [x] SSL 证书已配置为 Let's Encrypt，并由 Certbot 自动续期

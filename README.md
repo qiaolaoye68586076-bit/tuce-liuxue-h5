@@ -93,7 +93,7 @@ var LEAD_ENDPOINT = '/api/lead';   // 同域 nginx 反代到 backend/app.py（12
 ## GEO / SEO
 
 - `robots.txt` 显式允许百度 / 360 / 搜狗 / 神马 / 字节 / DeepSeek / GPTBot / Claude 等 20+ 爬虫
-- `sitemap.xml` 覆盖全部页面；FAQ JSON-LD、EducationalOrganization schema、cases.html 的 ItemList/Review schema 均已接入
+- `sitemap.xml` 覆盖全部页面；FAQ JSON-LD、EducationalOrganization schema、cases.html 的 ItemList schema 均已接入。Review/AggregateRating 仅在有真实、可见、可验证评价时再考虑
 - 待办：向百度/Bing/Google 站长平台正式提交 sitemap；知乎机构号等渠道内容
 
 ## 项目文档索引

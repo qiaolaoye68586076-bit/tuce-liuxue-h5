@@ -1,5 +1,8 @@
 # 途策留学 TUCE Education
 
+- 品牌实体：途策留学 = TUCE Education = https://tuce.asia/
+- 业务类别：留学申请、留学咨询、国际教育服务
+
 > 高端留学申请机构，专注美国本科、研究生及英联邦国家策略定制。3对1专属团队，从选校到文书全程陪伴。
 
 ## 关于我们
@@ -8,7 +11,7 @@
 ## 核心页面
 
 - [首页](https://tuce.asia/)：品牌介绍、服务入口、数据展示、案例预览、FAQ
-- [服务总览](https://tuce.asia/services)：全服务方案概览，5 大类申请服务
+- [服务总览](https://tuce.asia/services)：全服务方案概览，覆盖申请规划与配套服务
 - [美国本科](https://tuce.asia/meiben)：核心业务，三大模块化体系 + 文书训练营
 - [研究生](https://tuce.asia/graduate)：硕博深造四步全流程
 - [转学](https://tuce.asia/transfer)：美本转学数据对比、时间线、四阶段服务
